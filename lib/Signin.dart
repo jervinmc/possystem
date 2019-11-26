@@ -85,7 +85,7 @@ class _SignInState extends State<SignIn> {
                           color: Colors.black45,
                           fontWeight: FontWeight.bold
                         ))),
-                        SizedBox(height: 5),
+                        /*SizedBox(height: 5),
                         FadeAnimation(6.5, CustomTextfield(
                           label: "Username",
                         )),
@@ -93,7 +93,7 @@ class _SignInState extends State<SignIn> {
                          FadeAnimation(7.5,CustomTextfield(
                           label: "Password",
                           isPassword: true,
-                        )),
+                        )),*/
                         SizedBox(height: 8),
                         FadeAnimation(8.5,ButtonSigninAnimation(
                           label: "SIGN IN",

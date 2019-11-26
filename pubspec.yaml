@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   awesome_dialog: ^0.0.2
   flutter_screenutil: ^0.5.3
-
+  sunmi_aidl_print: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
