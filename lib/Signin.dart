@@ -79,7 +79,7 @@ class _SignInState extends State<SignIn> {
                           letterSpacing: .5,
                           fontWeight: FontWeight.bold
                         ))),
-                        FadeAnimation(5.5,Text("Sign in to continue", style: TextStyle(
+                        FadeAnimation(5.5,Text("Sign in to continues", style: TextStyle(
                           fontSize: 35,
                           letterSpacing: .5,
                           color: Colors.black45,
