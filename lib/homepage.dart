@@ -38,7 +38,6 @@ class _HomepageState extends State<Homepage> {
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("Jervin Macalawa"),
-              accountEmail: Text("jervinmac@yahoo.com"),
                                             ),
              ),
               new Container(    
@@ -49,6 +48,22 @@ class _HomepageState extends State<Homepage> {
                new ListTile(
                 title: new Text('Profile'),
                 trailing: new Icon(Icons.account_circle),
+                onTap: () {
+                  Navigator.of(context).pop();
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
+               new Divider(),
+                new ListTile(
+                title: new Text('Transaction'),
+                trailing: new Icon(Icons.business),
+                onTap: () {
+                  Navigator.of(context).pop();
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
+               new Divider(),
+                new ListTile(
+                title: new Text('Products'),
+                trailing: new Icon(Icons.shopping_basket),
                 onTap: () {
                   Navigator.of(context).pop();
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
