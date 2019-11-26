@@ -460,7 +460,7 @@ class _MemberInfoState extends State<MemberInfo> {
             physics: NeverScrollableScrollPhysics(),
             itemCount: 2,
             itemBuilder:(BuildContext,int index){
-              return index%2==0?accountItems("Kojic", "2", "50", "100"):
+              return index%2==0?accountItems("Kojic", "2", "50", "100s"):
               accountItems("Nike", "1", "50", "50",oddColour: Colors.white.withOpacity(0.1));
             },
         
