@@ -9,7 +9,7 @@ class POS extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'POS12',
+      title: 'POS12s',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
