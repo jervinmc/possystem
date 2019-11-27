@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:possystem/homepage.dart';
 import 'fadeAnimation.dart';
 import 'transition.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -36,9 +37,9 @@ class _SignInState extends State<SignIn> {
                         color: Colors.transparent,
                       ),),
                       Expanded(
-                        child: FadeAnimation(2.5,Text("SIGN IN", style: TextStyle(
+                        child: FadeAnimation(2.5,Text("SIGN IN",style: TextStyle(
                           color: Colors.white,
-                          fontSize: 50,
+                          fontSize: 60,
                         ),
                         textAlign: TextAlign.center,
                         ),

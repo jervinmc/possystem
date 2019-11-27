@@ -17,15 +17,15 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Image.asset("assets/1.png", fit: BoxFit.fitWidth),
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width/2,
+            height: MediaQuery.of(context).size.height/2,
             color: Color(0xFFF001117).withOpacity(0.1),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 500),
             margin: EdgeInsets.only(top: 50, bottom: 50),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                     FadeAnimation(2, Text("Welcome",
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                      ),
                     )),
                     SizedBox(height: 15),
-                    FadeAnimation(1.3, Text("We provide Point of Sales System",
+                    FadeAnimation(1.3, Text("We provide POSHUB...",
                     style: TextStyle(color: Colors.white.withOpacity(.65),
                     fontSize: 33,
                     letterSpacing: 1,
