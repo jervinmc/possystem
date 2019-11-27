@@ -23,8 +23,20 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   TextEditingController searchCtrlr=new TextEditingController();
+    @override
+  initState(){
+    SunmiAidlPrint.bindPrinter();
+super.initState();
+
+  }
+    void dispose() {
+    SunmiAidlPrint.bindPrinter();
+    //textYouWantToPrint.clear();
+    super.dispose();
+  }
   //////// Variables///////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -91,8 +103,13 @@ class _HomepageState extends State<Homepage> {
       
       PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: AppBar(title: Text("TRANSACTION PAGE",style: TextStyle(fontSize: 50),),
-      backgroundColor: Colors.black87,
+        child: AppBar(title: Row(
+          children: <Widget>[
+            Text("POS",style: TextStyle(fontSize: 50,),),
+            Text("HUB",style: TextStyle(fontSize: 50,color: Colors.orange),)
+          ],
+        ),
+      backgroundColor: Colors.black,
       ),
       ),
    
@@ -254,10 +271,10 @@ class _HomepageState extends State<Homepage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Card(
-                  elevation: 5,
+                  elevation: 0,
                   child: Container(
                     height: MediaQuery.of(context).size.height/1.1,
-                    width: MediaQuery.of(context).size.width/1.55,
+                    width: MediaQuery.of(context).size.width/1.509,
                     child: Column(
                       children: <Widget>[
                         Card(
@@ -310,9 +327,11 @@ class _HomepageState extends State<Homepage> {
                    height: MediaQuery.of(context).size.height/1.1,
                     width: MediaQuery.of(context).size.width/3.05,
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(8),
                       child: Container(
-                        child: ListView(
+                        child:Stack(
+                          children: <Widget>[
+                             ListView(
                          // shrinkWrap: true,
 
                        // physics: NeverScrollableScrollPhysics(),
@@ -321,6 +340,87 @@ class _HomepageState extends State<Homepage> {
                           MemberInfo(),
                         ],
                       ),
+                      Positioned(
+                        bottom: 5,
+                        child:   SizedBox(
+          width: MediaQuery.of(context).size.width/3.14,
+          height: 80,
+  child:  new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.orange, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Color(0xff30336b),
+  child: new textCustom("Check out", 50,Colors.orange.withOpacity(0.8), "s"),
+  onPressed: (){
+ AwesomeDialog(context: context,
+            dialogType: DialogType.INFO,
+            animType: AnimType.BOTTOMSLIDE,
+            tittle: "Rate Our Service!",
+            desc: "Let us know we're doing. Please rate your experience using My Communty",
+            btnCancelText: "Not now",
+            btnCancelOnPress: () {},
+            btnOkText: "Rate",
+            
+          
+            btnOkOnPress: () {
+                SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+               SunmiAidlPrint.setFontSize(fontSize:30);
+               SunmiAidlPrint.printText(text: "Trudi POS");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Product: kojic normal1x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 50.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                SunmiAidlPrint.printText(text: "Product: kojic blue2x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 100.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                SunmiAidlPrint.printText(text: "Product: kojic white1x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 50.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+               SunmiAidlPrint.printText(text: "Product: kojic green1x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 50.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "Subtotal: 150.00\n");
+              SunmiAidlPrint.printText(text: "Money: 150.00\n");
+              SunmiAidlPrint.printText(text: "Change: 150.00\n");
+                SunmiAidlPrint.printBitmap(bitmap:ByteData(10).buffer.asUint8List(10));
+               SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               SunmiAidlPrint.unbindPrinter(); 
+              // Navigator.pop(context, false);
+      /* Navigator.push(context, SlideRightRoute1(
+                            widget: viewreviews("...",userid,"")
+                            ));
+                              Navigator.push(context, SlideRightRoute1(
+                            widget: viewreviews("...",userid,"")
+                            ));*/
+
+            }).show();
+       
+  
+
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0))
+)
+),
+                      )
+                          ],
+                        )
                       )
                       /////////////////////////////////////////MEMBERINFO CONTENT//////////////////////////
                     )
@@ -361,39 +461,68 @@ class tableResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-   Container(
-     color: Colors.orange.withAlpha(70),
-     child:      Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-           textCustom("Name", 50, Colors.black, ""),
-           textCustom("QTY", 50, Colors.black, ""),
-           textCustom("Price", 50, Colors.black, ""),
-          ],
+        
+      Container(
+        color: Colors.orange,
+        child:   Table(
+          border: TableBorder.lerp(TableBorder.all(width: 1), TableBorder.all(width: 0), 1),
+          
+          children: [TableRow(
+            children:[
+         Container(padding: EdgeInsets.all(10),
+                child: textCustom("NAME", 35, Colors.black, ""),),
+          Container(padding: EdgeInsets.all(10),
+                child: textCustom("QTY", 35, Colors.black, ""),),
+           Container(padding: EdgeInsets.all(10),
+                child: textCustom("PRICE", 35, Colors.black, ""),),
+                
+            ]
+          )],
+      
         ),
-   ),
-     Container(
-     color: Colors.white.withAlpha(50),
-     child:      Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-           textCustom("Kojic", 35, Colors.black, ""),
-           textCustom("2", 35, Colors.black, ""),
-           textCustom("50", 35, Colors.black, ""),
-          ],
+      ),
+
+       ListView.builder(
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int index){
+          return  index%2==1? Container(
+            color: Colors.grey.withAlpha(40),
+            child: Table(
+            border: TableBorder.all(width: 1,color: Colors.black87),
+          children: [TableRow(
+            children:[
+                Container(padding: EdgeInsets.all(10),
+                child: textCustom("Kojic", 35, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("2", 35, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("50", 35, Colors.black, ""),),
+            ]
+          )],
+      
         ),
-   ),
-   Container(
-     color: Colors.grey.withAlpha(50),
-     child:      Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-           textCustom("Nike ", 35, Colors.black, ""),
-           textCustom("1", 35, Colors.black, ""),
-           textCustom("50", 35, Colors.black, ""),
-          ],
+          ): Container(
+            color: Colors.white.withAlpha(50),
+            child: Table(
+            border: TableBorder.all(width: 1,color: Colors.black87),
+          children: [TableRow(
+            children:[
+                Container(padding: EdgeInsets.all(10),
+                child: textCustom("Kojica", 35, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("2", 35, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("50", 35, Colors.black, ""),),
+                
+            ]
+          )],
+      
         ),
-   )
+          );
+        },
+      ),
+  
     
   
       ],
@@ -433,16 +562,18 @@ class _MemberInfoState extends State<MemberInfo> {
       );
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: <Widget>[
-        textCustom1("Member Information", 50, Colors.white, "style",FontWeight.bold),
+         Column(
+      children: <Widget>[
+        textCustom1("Member Information", 40, Colors.white, "style",FontWeight.bold),
         Text(""),
         Text(""),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 30, Colors.white, "style",FontWeight.normal),
-             textCustom1("Prokopyo Tunying", 30, Colors.white, "style",FontWeight.normal),
+             textCustom1("Member :", 20, Colors.white, "style",FontWeight.normal),
+             textCustom1("Prokopyo Tunying", 20, Colors.white, "style",FontWeight.normal),
           ],
         ),
          Text(""),
@@ -450,35 +581,74 @@ class _MemberInfoState extends State<MemberInfo> {
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-
-             textCustom1("Points :", 30, Colors.white, "style",FontWeight.normal),
-              textCustom1("5.0", 30, Colors.white, "style",FontWeight.normal),
+             textCustom1("Points :", 20, Colors.white, "style",FontWeight.normal),
+              textCustom1("5.0", 20, Colors.white, "style",FontWeight.normal),
           ],
         ),
         Divider(),
-       Container(
-         padding: EdgeInsets.all(5),
-         color: Colors.black87,
-         child:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            textCustom("Items", 36, Colors.white, "style"),
-              textCustom("QTY", 36, Colors.white, "style"),
-            textCustom("Price", 36, Colors.white, "style"),
-            textCustom("Total", 36, Colors.white, "style"),
-
-        ],),
-       ),
+     Container(
+            color: Colors.white,
+            child: Table(
+            border: TableBorder.all(width: 1,color: Colors.black87),
+          children: [TableRow(
+            children:[
+                Container(padding: EdgeInsets.all(10),
+                child: textCustom("NAME", 20, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("QUANTITY", 20, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("PRICE", 20, Colors.black, ""),),
+                 Container(padding: EdgeInsets.all(10),
+                child: textCustom("TOTAL", 20, Colors.black, ""),),
+            ]
+          )],
       
+        ),
+          ),
           ListView.builder(
-            shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: 2,
-            itemBuilder:(BuildContext,int index){
-              return index%2==0?accountItems("Kojic", "2", "50", "100s"):
-              accountItems("Nike", "1", "50", "50",oddColour: Colors.white.withOpacity(0.1));
-            },
-        
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int index){
+          return  index%2==1? Container(
+            color: Colors.grey.withAlpha(40),
+            child: Table(
+            border: TableBorder.all(width: 1,color: Colors.black87),
+          children: [TableRow(
+            children:[
+                Container(padding: EdgeInsets.all(10),
+                child: textCustom("Kojic", 20, Colors.white, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("2", 20, Colors.white, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("50", 20, Colors.white, ""),),
+                 Container(padding: EdgeInsets.all(10),
+                child: textCustom("100", 20, Colors.white, ""),),
+            ]
+          )],
+      
+        ),
+          ): Container(
+            color: Colors.transparent.withAlpha(50),
+            child: Table(
+            border: TableBorder.all(width: 1,color: Colors.black87),
+          children: [TableRow(
+            children:[
+                Container(padding: EdgeInsets.all(10),
+                child: textCustom("Kojica", 20, Colors.white, ""),),
+            Container(padding: EdgeInsets.all(10),
+                child: textCustom("2", 20, Colors.white, ""),),
+            Container(padding: EdgeInsets.all(10),
+                 child: textCustom("100", 20, Colors.white, ""),),
+                     Container(padding: EdgeInsets.all(10),
+                 child: textCustom("100", 20, Colors.white, ""),)
+                
+            ]
+          )],
+      
+        ),
+          );
+        },
       ),
       Text(""),
        Text(""),
@@ -486,24 +656,24 @@ class _MemberInfoState extends State<MemberInfo> {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: <Widget>[
-           textCustom1("Subtotal", 25, Colors.white, "style",FontWeight.normal),
-             textCustom1("Php 100.00", 25, Colors.white, "style",FontWeight.normal),
+           textCustom1("Subtotal", 15, Colors.white, "style",FontWeight.normal),
+             textCustom1("Php 100.00", 15, Colors.white, "style",FontWeight.normal),
        ],
       ),
       Text(""),
         Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: <Widget>[
-           textCustom1("VAT", 25, Colors.white, "style",FontWeight.normal),
-             textCustom1("0", 25, Colors.white, "style",FontWeight.normal),
+           textCustom1("VAT", 15, Colors.white, "style",FontWeight.normal),
+             textCustom1("0", 15, Colors.white, "style",FontWeight.normal),
        ],
       ),
       Divider(),
        Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: <Widget>[
-           textCustom1("Total Amount", 25, Colors.white, "style",FontWeight.normal),
-             textCustom1("Php 100.00", 25, Colors.white, "style",FontWeight.bold),
+           textCustom1("Total Amount", 15, Colors.white, "style",FontWeight.normal),
+             textCustom1("Php 100.00", 15, Colors.white, "style",FontWeight.bold),
        ],
       ),
       Text(""),
@@ -527,9 +697,14 @@ class _MemberInfoState extends State<MemberInfo> {
          
        Text(""),
         Text(""),
+          
+       Text(""),
+        Text(""),
+          
+    
         
-    rButtonView((){
-       SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+   /* rButtonView((){
+       /*SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                SunmiAidlPrint.setFontSize(fontSize:30);
                SunmiAidlPrint.printText(text: "Trudi POS");
                SunmiAidlPrint.printText(text: "\n");
@@ -565,54 +740,32 @@ class _MemberInfoState extends State<MemberInfo> {
               SunmiAidlPrint.printText(text: "Change: 150.00\n");
                 SunmiAidlPrint.printBitmap(bitmap:ByteData(10).buffer.asUint8List(10));
                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-               SunmiAidlPrint.unbindPrinter(); 
-    }, "Check Out", 600),
-    /*new SizedBox(
-          width: 5000,
-          height: 150,
-  child:  new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.green, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 4, //width of the border
-          ),
-    color:Color(0xff30336b),
-  child: new textCustom("Check out", 80,Colors.green, "s"),
-  onPressed: (){
- AwesomeDialog(context: context,
-            dialogType: DialogType.INFO,
-            animType: AnimType.BOTTOMSLIDE,
-            tittle: "Rate Our Service!",
-            desc: "Let us know we're doing. Please rate your experience using My Communty",
-            btnCancelText: "Not now",
-            btnCancelOnPress: () {},
-            btnOkText: "Rate",
-            
-          
-            btnOkOnPress: () {
-               Navigator.pop(context, false);
-      /* Navigator.push(context, SlideRightRoute1(
-                            widget: viewreviews("...",userid,"")
-                            ));
-                              Navigator.push(context, SlideRightRoute1(
-                            widget: viewreviews("...",userid,"")
-                            ));*/
+               SunmiAidlPrint.unbindPrinter(); */
+                  AwesomeDialog(
+            context: context,
+            animType: AnimType.SCALE,
+            dialogType: DialogType.ERROR,
+            body: Center(child:  Text("Sorry! your email and password is not matched ",style: TextStyle(fontSize: 18,color: Colors.red), ),),
+            tittle: 'This is Ignored',
+            desc:   'This is also Ignored',
+            btnOkColor: Colors.red,
+            btnOkOnPress: (){
 
-            }).show();
-       
-  
+            }
+                 ).show();
+    }, "Check Out", 600),*/
+ 
 
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0))
-)
-),*/
-Text(""),
 
 
       ],
     
       
-    );
+    )
+
+      ],
+    )
+   ;
   }
 }
 
