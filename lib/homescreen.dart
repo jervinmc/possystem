@@ -1,7 +1,7 @@
+import 'package:possystem/homepage.dart';
+import 'package:possystem/signin.dart';
+import 'transition.dart';
 import 'fadeAnimation.dart';
-import 'customButton.dart';
-import 'customButtonAnimation.dart';
-import 'SignIn.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,53 +15,64 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset("assets/t2.jpg", fit: BoxFit.fitWidth),
+          Image.asset("assets/1.png", fit: BoxFit.fitWidth),
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: Color(0xFFF001117).withOpacity(0.5),
+            color: Color(0xFFF001117).withOpacity(0.1),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 500),
-            margin: EdgeInsets.only(top: 100, bottom: 100),
+            margin: EdgeInsets.only(top: 50, bottom: 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                  FadeAnimation(4.4,Text("", style: TextStyle(
-                  color: Colors.orange[300],
-                  fontWeight: FontWeight.w800,
-                  fontSize: 30,
-                  letterSpacing: 1
-                ))),
-                  FadeAnimation(3.2,Text("", style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold
-                ))),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 300),
-                ),
-                    SizedBox(height: 20),
-                      FadeAnimation(3.2,CustomButtonAnimation1(
-                      label: "SIGN IN",
-                      background: Colors.transparent,
-                      borderColor: Colors.transparent,
-                      fontColor: Colors.black87,
-                      child: SignIn(),
-                      onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => SignIn()));
-                      }
+                    FadeAnimation(2, Text("Welcome",
+                    style: TextStyle(color: Colors.orange.withOpacity(.8),
+                     fontStyle: FontStyle.italic,
+                     fontSize: 50,
+                     letterSpacing: 2,
+                     ),
                     )),
-                    SizedBox(height: 35),
-                  ],
-                )
-          )],
+                    SizedBox(height: 15),
+                    FadeAnimation(1.3, Text("We provide Point of Sales System",
+                    style: TextStyle(color: Colors.white.withOpacity(.65),
+                    fontSize: 33,
+                    letterSpacing: 1,
+                    fontStyle: FontStyle.italic,
+                     height: 1.4),)),
+                    SizedBox(height: 170),
+                     Center(
+                        child: Container(
+                          width: 100,
+                          height: 90,
+                          padding: EdgeInsets.all(11),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60),
+                            color: Colors.orange.withOpacity(.6)
+                          ),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, SlideRightRoute(widget: SignIn()));
+                              },
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.orange
+                                ),
+                                child: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+              ],
             ),
+                )
+        ]
+      )
           );
   }
 }
