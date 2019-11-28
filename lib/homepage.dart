@@ -170,16 +170,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
               new Container(    
                 child: 
               new Column(
-                children: <Widget>[ 
-            
-               new ListTile(
-                title: new Text('Profile'),
-                trailing: new Icon(Icons.account_circle),
-                onTap: () {
-                  Navigator.of(context).pop();
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
-                }),
-               new Divider(),
+                children: <Widget>[
                 new ListTile(
                 title: new Text('Transaction'),
                 trailing: new Icon(Icons.business),
