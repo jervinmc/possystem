@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
+import 'package:possystem/profile/transaction.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 
 import 'homescreen.dart';
@@ -181,24 +182,31 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction'),
-                trailing: new Icon(Icons.business),
+                title: new Text('Transaction', style: TextStyle(fontSize: 35),),
+                trailing: new Icon(Icons.business, size: 30,),
+                onTap: () {
+                  Navigator.push(context, SlideRightRoute(widget: Transaction()));
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
+                Divider(),
+                new ListTile(
+                title: new Text('Products', style: TextStyle(fontSize: 35),),
+                trailing: new Icon(Icons.shopping_basket, size: 30,),
                 onTap: () {
                   Navigator.of(context).pop();
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new Divider(),
                 new ListTile(
-                title: new Text('Products'),
-                trailing: new Icon(Icons.shopping_basket),
+                title: new Text('Void', style: TextStyle(fontSize: 35),),
+                trailing: new Icon(Icons.remove_shopping_cart, size: 30,),
                 onTap: () {
                   Navigator.of(context).pop();
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
-               new Divider(),
                new ListTile(
-                  title: new Text('Logout'),
-                  trailing: new Icon(Icons.arrow_drop_down_circle),             
+                  title: new Text('Logout', style: TextStyle(fontSize: 35),),
+                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: ()async{ 
                      Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                     // SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -426,9 +434,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           padding: EdgeInsets.only(left: 10),
           height: 50,
           width: 70,
-          child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/upload+icon+upload+line+icon+icon-1320073121636456908.png"),fit: BoxFit.cover,),
+          child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/upload+icon+upload+line+icon+icon-1320073121636456908.png"),fit: BoxFit.cover),
+
         ),
-      
         hintText: 'ENTER BARCODE',
         hintStyle: TextStyle(fontSize: 40),
         border: OutlineInputBorder(

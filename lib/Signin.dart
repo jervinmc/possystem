@@ -24,7 +24,7 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 155,top: 0),
+                padding: EdgeInsets.only(left: 80,top: 0),
                 child: FadeAnimation(2.5,Image.asset("assets/AUTHPOS.png"),
               )),
               Padding(
@@ -55,13 +55,17 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
                 Container(
+
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.45, vertical: 5.0),
+
+     
                   child: FadeAnimation(2.6,Material(
                     elevation: 5,
                     borderRadius: BorderRadius.circular (30),
                    // child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                        textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
                           hintText: "",
                           hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
@@ -72,15 +76,18 @@ class _SignInState extends State<SignIn> {
                     //),
                   ),
                 )),
-                Divider(),
+                Text(""),
                  Container(
+
                   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.45, vertical: 5.0),
+
                   child: FadeAnimation (2.7,Material(
                     elevation: 5,
                      borderRadius: BorderRadius.circular (30),
                   //  child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
                           hintText: "",
                           hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
@@ -94,7 +101,7 @@ class _SignInState extends State<SignIn> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
                   child: FadeAnimation(2.8,Material(
-                    color: Colors.orange,
+                    color: Colors.orange[400],
                     borderRadius: BorderRadius.circular(60.0),
                     shadowColor: Colors.white,
                   child: MaterialButton(
@@ -103,7 +110,7 @@ class _SignInState extends State<SignIn> {
                     onPressed: (){
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
-                    child: Text("SIGN IN",
+                    child: Text("CONFIRM",
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.white
