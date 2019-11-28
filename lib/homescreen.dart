@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.all(11),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(60),
-                            color: Colors.black.withOpacity(.6)
+                            color: Colors.grey.withOpacity(.6)
                           ),
                             child: InkWell(
                               onTap: (){
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   shape: BoxShape.circle,
                                   color: Colors.orange
                                 ),
-                                child: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                                child: Icon(Icons.arrow_forward_ios, color: Colors.black),
                               ),
                             ),
                           ),
