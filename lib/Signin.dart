@@ -17,7 +17,7 @@ class _SignInState extends State<SignIn> {
       backgroundColor: Colors.black87,
       resizeToAvoidBottomInset: false,
       body: Stack(
-        fit: StackFit.expand,
+        fit: StackFit.expand, 
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,7 +57,7 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.symmetric(horizontal: 720.0, vertical: 5.0),
                   child: FadeAnimation(2.6,Material(
                     elevation: 5,
-                    shape: StadiumBorder(),
+                    borderRadius: BorderRadius.circular (30),
                     child: Padding(
                       padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
@@ -76,7 +76,7 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.symmetric(horizontal: 720.0, vertical: 5.0),
                   child: FadeAnimation (2.7,Material(
                     elevation: 5,
-                    shape: StadiumBorder(),
+                     borderRadius: BorderRadius.circular (30),
                     child: Padding(
                       padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
