@@ -26,12 +26,12 @@ class RadialAnimation extends StatelessWidget {
 
     ),),
       translation=Tween<double>(
-    begin: 1.5,
-    end: 0.0,
+    begin: 0.0,
+    end: 70.0,
   ).animate(
     CurvedAnimation(
       parent: controller,
-      curve: Curves.fastOutSlowIn
+      curve: Curves.elasticInOut
 
     
   ),
@@ -50,24 +50,26 @@ class RadialAnimation extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: <Widget>[
-           //_buildButton(45,color: Colors.red,icon: FontAwesomeIcons.adversal),
-       
+        
+        _buildButton(-193,color: Colors.transparent,icon: FontAwesomeIcons.userCircle),
+         _buildButton(-164,color: Colors.transparent,icon: FontAwesomeIcons.signOutAlt),
+         // _buildButton(-205,color: Colors.transparent,icon: FontAwesomeIcons.cross),
             Transform.scale(
               scale: scale.value-1.5,
               child:  FloatingActionButton(
                 heroTag: "btn1",
-              child: Icon(FontAwesomeIcons.stream),
+              child: Icon(FontAwesomeIcons.stream,color: Colors.orange,),
             onPressed: _close,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.transparent,
             ),
             ),
             Transform.scale(
               scale: scale.value,
               child:  FloatingActionButton(
                  heroTag: "btn2",
-              child: Icon(FontAwesomeIcons.cartArrowDown),
+              child: Icon(Icons.person_pin),
             onPressed: _open,
-           backgroundColor: Colors.transparent,
+           backgroundColor: Colors.black,
             )
             )
            
@@ -89,7 +91,7 @@ class RadialAnimation extends StatelessWidget {
             ),
             child: FloatingActionButton(
                 heroTag: "heroTag",
-              child: Icon(icon),backgroundColor: color,onPressed: _close(),
+              child: Icon(icon),backgroundColor: color,onPressed: _close,
             ),
       );
     }
@@ -140,6 +142,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
         title: Text('Not in stock'),
         content: const Text('This item is no longer available'),
         actions: <Widget>[
+          
           
           FlatButton(
             child: Text('Ok'),
@@ -217,7 +220,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
       appBar: 
       
       PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
+        preferredSize: Size.fromHeight(75.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
             Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange),),
@@ -227,17 +230,13 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
         ),
       backgroundColor: Colors.black,
       actions: <Widget>[
-         Container(
-           padding: EdgeInsets.all(10),
+              Container(
+           padding: EdgeInsets.all(0),
            child:  RadialAnimation(controller: controller,),
          ),
+        
       
-     Container(
-       padding: EdgeInsets.only(right: 10),
-       child: SizedBox(  
-       height: 200,
-       child:      Icon(Icons.person_outline,size: 50, )),
-     )
+    
       ], 
       ),
       )),
@@ -246,10 +245,11 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
       
       body:ListView(
         children: <Widget>[
-           
+          
           
         Column(
           children: <Widget>[
+        
             /*Container(
               alignment: Alignment.topLeft,
               padding: EdgeInsets.all(10),
@@ -689,6 +689,7 @@ class _MemberInfoState extends State<MemberInfo> {
       children: <Widget>[
          Column(
       children: <Widget>[
+        
         textCustom1("Member Information", 40, Colors.white, "style",FontWeight.bold),
         Text(""),
         Text(""),
