@@ -13,6 +13,7 @@ import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
+import 'transition.dart';
 class RadialAnimation extends StatelessWidget {
   
   RadialAnimation({Key key,this.controller}):
@@ -191,7 +192,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                   title: new Text('Logout'),
                   trailing: new Icon(Icons.arrow_drop_down_circle),             
                    onTap: ()async{ 
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                     Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                     // SharedPreferences prefs=await SharedPreferences.getInstance();
                                   //       prefs.setString("loginFB", "0");
                       //runApp(MyApp1());
@@ -225,9 +226,11 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
       
      Container(
        padding: EdgeInsets.only(right: 10),
-       child: SizedBox(  
+       child: SizedBox( 
        height: 200,
-       child:      Icon(Icons.person_outline,size: 50, )),
+       child: 
+        Icon(Icons.person_outline,size: 50),
+       ),
      )
       ], 
       ),
@@ -876,7 +879,7 @@ class _MemberInfoState extends State<MemberInfo> {
     
       
     )
-
+        
       ],
     )
    ;
