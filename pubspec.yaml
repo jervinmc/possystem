@@ -26,6 +26,8 @@ dependencies:
   awesome_dialog: ^0.0.2
   flutter_screenutil: ^0.5.3
   sunmi_aidl_print: ^0.0.1
+  vector_math: ^2.0.8
+  font_awesome_flutter: ^8.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
