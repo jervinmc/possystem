@@ -49,7 +49,7 @@ class RadialAnimation extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: <Widget>[
-          //== _buildButton(45,color: Colors.red,icon: FontAwesomeIcons.adversal),
+           //_buildButton(45,color: Colors.red,icon: FontAwesomeIcons.adversal),
        
             Transform.scale(
               scale: scale.value-1.5,
@@ -219,8 +219,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(title: Row(
           children: <Widget>[
-            Text("AUTH",style: TextStyle(fontSize: 50,),),
-            Text("POS",style: TextStyle(fontSize: 50,color: Colors.orange),),
+            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange),),
+            Text("POS",style: TextStyle(fontSize: 50,),),
           
           ],
         ),

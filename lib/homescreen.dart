@@ -28,12 +28,24 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                    FadeAnimation(2, Text("AUTHPOS",
+                    FadeAnimation(2, Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("AUTH",
                     style: TextStyle(color: Colors.orange.withOpacity(.8),
                      fontStyle: FontStyle.italic,
                      fontSize: 50,
                      letterSpacing: 2,
                      ),
+                    ),
+                    Text("POS",
+                    style: TextStyle(color: Colors.white.withOpacity(.8),
+                     fontStyle: FontStyle.italic,
+                     fontSize: 50,
+                     letterSpacing: 2,
+                     ),
+                    )
+                      ],
                     )),
                     SizedBox(height: 15),
                     FadeAnimation(1.3, Text("Infinite Possibilities",
