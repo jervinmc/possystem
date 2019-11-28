@@ -30,31 +30,34 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                     FadeAnimation(2, Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("AUTH",
                     style: TextStyle(color: Colors.orange.withOpacity(.8),
                      fontStyle: FontStyle.italic,
-                     fontSize: 50,
+                     fontWeight: FontWeight.bold,
+                     fontSize: 70,
                      letterSpacing: 2,
                      ),
                     ),
                     Text("POS",
                     style: TextStyle(color: Colors.white.withOpacity(.8),
                      fontStyle: FontStyle.italic,
-                     fontSize: 50,
+                     fontSize: 30,
                      letterSpacing: 2,
                      ),
                     )
                       ],
                     )),
-                    SizedBox(height: 15),
+                    SizedBox(height: 45),
                     FadeAnimation(1.3, Text("Infinite Possibilities",
                     style: TextStyle(color: Colors.white.withOpacity(.65),
                     fontSize: 33,
+                    fontWeight: FontWeight.bold,
                     letterSpacing: 1,
                     fontStyle: FontStyle.italic,
-                     height: 1.4),)),
-                    SizedBox(height: 170),
+                     height: 1.5),)),
+                    SizedBox(height: 180),
                      Center(
                         child: Container(
                           width: 100,
@@ -62,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.all(11),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(60),
-                            color: Colors.orange.withOpacity(.6)
+                            color: Colors.grey.withOpacity(.6)
                           ),
                             child: InkWell(
                               onTap: (){
@@ -75,16 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   shape: BoxShape.circle,
                                   color: Colors.orange
                                 ),
-                                child: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                                child: Icon(Icons.arrow_forward_ios, color: Colors.black),
                               ),
                             ),
                           ),
                         ),
               ],
             ),
-                )
-        ]
-      )
+                ),
+        ],
+      ),
           );
   }
 }
