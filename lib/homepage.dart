@@ -228,18 +228,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
          ),
         
       
-<<<<<<< HEAD
-    
-=======
-     Container(
-       padding: EdgeInsets.only(right: 10),
-       child: SizedBox( 
-       height: 200,
-       child: 
-        Icon(Icons.person_outline,size: 50),
-       ),
-     )
->>>>>>> 0914f34d38d0f93e76f62dc2b283654cd36b696d
+
+ 
+
       ], 
       ),
       )),
