@@ -11,6 +11,7 @@ import './utils.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
@@ -86,6 +87,7 @@ class RadialAnimation extends StatelessWidget {
   _buildButton(double angle, {Color color, IconData icon}){
       final double rad=prefix0.radians(angle);
       return Transform(
+            
             transform: Matrix4.identity()..translate(
               (translation.value) * cos(rad),
               (translation.value) * sin(rad),
@@ -424,7 +426,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           padding: EdgeInsets.only(left: 10),
           height: 50,
           width: 70,
-          child: Image(image: AssetImage("assets/barcode.jpg"),fit: BoxFit.cover,),
+          child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/upload+icon+upload+line+icon+icon-1320073121636456908.png"),fit: BoxFit.cover,),
         ),
       
         hintText: 'ENTER BARCODE',

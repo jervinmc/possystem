@@ -3,7 +3,7 @@ import 'package:possystem/homepage.dart';
 import 'fadeAnimation.dart';
 import 'transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- 
+
 
 class SignIn extends StatefulWidget {
   @override
@@ -55,7 +55,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 420.0, vertical: 5.0),
+                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.45, vertical: 5.0),
                   child: FadeAnimation(2.6,Material(
                     elevation: 5,
                     borderRadius: BorderRadius.circular (30),
@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
                 )),
                 Divider(),
                  Container(
-                  padding: EdgeInsets.symmetric(horizontal: 420.0, vertical: 5.0),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.45, vertical: 5.0),
                   child: FadeAnimation (2.7,Material(
                     elevation: 5,
                      borderRadius: BorderRadius.circular (30),
