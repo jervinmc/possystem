@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 80,top: 0),
-                child: FadeAnimation(2.5,Image.asset("assets/POS.png"),
+                child: FadeAnimation(2.5,Image.asset("assets/AUTHPOS.png"),
               )),
               Padding(
                 padding: EdgeInsets.only(bottom: 3.0),
@@ -62,6 +62,7 @@ class _SignInState extends State<SignIn> {
                    // child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                        textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
                           hintText: "",
                           hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
@@ -81,6 +82,7 @@ class _SignInState extends State<SignIn> {
                   //  child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
                           hintText: "",
                           hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
