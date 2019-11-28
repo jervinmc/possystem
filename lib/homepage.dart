@@ -1,12 +1,104 @@
+import 'dart:math';
+
+import 'package:vector_math/vector_math.dart' as prefix0;
+
 import 'homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import './utils.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
+import 'package:vector_math/vector_math.dart' show radians;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
+class RadialAnimation extends StatelessWidget {
+  
+  RadialAnimation({Key key,this.controller}):
+  scale=Tween<double>(
+    begin: 1.5,
+    end: 0.0,
+  ).animate(
+    CurvedAnimation(
+      parent: controller,
+      curve: Curves.fastOutSlowIn
 
+    ),),
+      translation=Tween<double>(
+    begin: 1.5,
+    end: 0.0,
+  ).animate(
+    CurvedAnimation(
+      parent: controller,
+      curve: Curves.fastOutSlowIn
+
+    
+  ),
+
+  ),super(key:key);
+   final AnimationController controller;
+    final Animation<double>translation;
+  final Animation<double>scale;
+  @override
+
+ 
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context,builder){
+        return Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+          //== _buildButton(45,color: Colors.red,icon: FontAwesomeIcons.adversal),
+       
+            Transform.scale(
+              scale: scale.value-1.5,
+              child:  FloatingActionButton(
+                heroTag: "btn1",
+              child: Icon(FontAwesomeIcons.stream),
+            onPressed: _close,
+            backgroundColor: Colors.red,
+            ),
+            ),
+            Transform.scale(
+              scale: scale.value,
+              child:  FloatingActionButton(
+                 heroTag: "btn2",
+              child: Icon(FontAwesomeIcons.cartArrowDown),
+            onPressed: _open,
+           backgroundColor: Colors.transparent,
+            )
+            )
+           
+          ],
+        );
+//buildbutton............. 7:00 mns
+  
+      },
+      
+      
+    );
+  }
+  _buildButton(double angle, {Color color, IconData icon}){
+      final double rad=prefix0.radians(angle);
+      return Transform(
+            transform: Matrix4.identity()..translate(
+              (translation.value) * cos(rad),
+              (translation.value) * sin(rad),
+            ),
+            child: FloatingActionButton(
+                heroTag: "heroTag",
+              child: Icon(icon),backgroundColor: color,onPressed: _close(),
+            ),
+      );
+    }
+  _open(){
+    controller.forward();
+  }
+  _close(){
+    controller.reverse();
+  }
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,14 +114,16 @@ class Homepage extends StatefulWidget {
   _HomepageState createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
 
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
+  AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
     @override
   initState(){
     SunmiAidlPrint.bindPrinter();
 super.initState();
+controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
 
   }
     void dispose() {
@@ -37,6 +131,26 @@ super.initState();
     //textYouWantToPrint.clear();
     super.dispose();
   }
+  Future<void> _ackAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Not in stock'),
+        content: const Text('This item is no longer available'),
+        actions: <Widget>[
+          
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
   //////// Variables///////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -105,11 +219,25 @@ super.initState();
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(title: Row(
           children: <Widget>[
-            Text("POS",style: TextStyle(fontSize: 50,),),
-            Text("HUB",style: TextStyle(fontSize: 50,color: Colors.orange),)
+            Text("AUTH",style: TextStyle(fontSize: 50,),),
+            Text("POS",style: TextStyle(fontSize: 50,color: Colors.orange),),
+          
           ],
         ),
       backgroundColor: Colors.black,
+      actions: <Widget>[
+         Container(
+           padding: EdgeInsets.all(10),
+           child:  RadialAnimation(controller: controller,),
+         ),
+      
+     Container(
+       padding: EdgeInsets.only(right: 10),
+       child: SizedBox(  
+       height: 200,
+       child:      Icon(Icons.person_outline,size: 50, )),
+     )
+      ], 
       ),
       ),
    
@@ -117,6 +245,7 @@ super.initState();
       
       body:ListView(
         children: <Widget>[
+           
           
         Column(
           children: <Widget>[
@@ -271,7 +400,7 @@ super.initState();
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Card(
-                  elevation: 0,
+                  elevation: 5  ,
                   child: Container(
                     height: MediaQuery.of(context).size.height/1.1,
                     width: MediaQuery.of(context).size.width/1.509,
@@ -293,8 +422,13 @@ super.initState();
     },
     keyboardType: TextInputType.text,
     decoration: InputDecoration(
-        icon: Icon(Icons.search),
-        
+        icon: Container(
+          padding: EdgeInsets.only(left: 10),
+          height: 50,
+          width: 70,
+          child: Image(image: AssetImage("https://www.incimages.com/uploaded_files/image/970x450/*Barcode_32896.jpg"),fit: BoxFit.cover,),
+        ),
+      
         hintText: 'ENTER BARCODE',
         hintStyle: TextStyle(fontSize: 40),
         border: OutlineInputBorder(
@@ -311,6 +445,7 @@ super.initState();
 ),
     ),
     Container(
+      
       padding: EdgeInsets.all(10),
       child:  tableResult(),
     )
@@ -341,20 +476,10 @@ super.initState();
                         ],
                       ),
                       Positioned(
-                        bottom: 5,
-                        child:   SizedBox(
-          width: MediaQuery.of(context).size.width/3.14,
-          height: 80,
-  child:  new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.orange, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Color(0xff30336b),
-  child: new textCustom("Check out", 50,Colors.orange.withOpacity(0.8), "s"),
-  onPressed: (){
- AwesomeDialog(context: context,
+                        bottom: 0,
+                        child:  rButtonView((){
+                          _ackAlert(context);
+                           AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
             animType: AnimType.BOTTOMSLIDE,
             tittle: "Rate Our Service!",
@@ -410,14 +535,8 @@ super.initState();
                             widget: viewreviews("...",userid,"")
                             ));*/
 
-            }).show();
-       
-  
-
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0))
-)
-),
+            }).show();  
+                        }, "Check out", MediaQuery.of(context).size.width/3.14),
                       )
                           ],
                         )
@@ -463,18 +582,18 @@ class tableResult extends StatelessWidget {
       children: <Widget>[
         
       Container(
-        color: Colors.orange,
+        color: Colors.orange.withAlpha(50),
         child:   Table(
-          border: TableBorder.lerp(TableBorder.all(width: 1), TableBorder.all(width: 0), 1),
+          border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
           
           children: [TableRow(
             children:[
          Container(padding: EdgeInsets.all(10),
-                child: textCustom("NAME", 35, Colors.black, ""),),
+                child: textCustom("NAME", 25, Colors.black, ""),),
           Container(padding: EdgeInsets.all(10),
-                child: textCustom("QTY", 35, Colors.black, ""),),
+                child: textCustom("QTY", 25, Colors.black, ""),),
            Container(padding: EdgeInsets.all(10),
-                child: textCustom("PRICE", 35, Colors.black, ""),),
+                child: textCustom("PRICE", 25, Colors.black, ""),),
                 
             ]
           )],
@@ -482,22 +601,24 @@ class tableResult extends StatelessWidget {
         ),
       ),
 
-       ListView.builder(
+      Container(
+        height: MediaQuery.of(context).size.height/1.45,
+        child:  ListView.builder(
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: 18,
         itemBuilder: (BuildContext context, int index){
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
             child: Table(
-            border: TableBorder.all(width: 1,color: Colors.black87),
+            border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("Kojic", 35, Colors.black, ""),),
+                child: textCustom("${index+1}. Kojic", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("2", 35, Colors.black, ""),),
+                child: textCustom("2", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("50", 35, Colors.black, ""),),
+                child: textCustom("Php 50.00", 20, Colors.black, ""),),
             ]
           )],
       
@@ -505,15 +626,15 @@ class tableResult extends StatelessWidget {
           ): Container(
             color: Colors.white.withAlpha(50),
             child: Table(
-            border: TableBorder.all(width: 1,color: Colors.black87),
+            border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("Kojica", 35, Colors.black, ""),),
+                child: textCustom("${index+1}. Kojica", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("2", 35, Colors.black, ""),),
+                child: textCustom("2", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("50", 35, Colors.black, ""),),
+                child: textCustom("Php 150.00", 20, Colors.black, ""),),
                 
             ]
           )],
@@ -522,6 +643,7 @@ class tableResult extends StatelessWidget {
           );
         },
       ),
+      )
   
     
   
@@ -587,19 +709,19 @@ class _MemberInfoState extends State<MemberInfo> {
         ),
         Divider(),
      Container(
-            color: Colors.white,
+            color: Colors.grey,
             child: Table(
             border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(10),
-                child: textCustom("NAME", 20, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(10),
-                child: textCustom("QUANTITY", 20, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(10),
-                child: textCustom("PRICE", 20, Colors.black, ""),),
-                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("TOTAL", 20, Colors.black, ""),),
+                Container(padding: EdgeInsets.all(5),
+                child: textCustom("NAME", 28, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(5),
+                child: textCustom("QTY", 28, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(5),
+                child: textCustom("PRICE", 28, Colors.black, ""),),
+                 Container(padding: EdgeInsets.all(5),
+                child: textCustom("TOTAL", 28, Colors.black, ""),),
             ]
           )],
       
