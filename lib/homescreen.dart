@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     FadeAnimation(1.3, Text("Infinite Possibilities",
                     style: TextStyle(color: Colors.white.withOpacity(.65),
                     fontSize: 33,
+                    fontWeight: FontWeight.bold,
                     letterSpacing: 1,
                     fontStyle: FontStyle.italic,
                      height: 1.5),)),
@@ -84,9 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
               ],
             ),
-                )
-        ]
-      )
+                ),
+        ],
+      ),
           );
   }
 }
