@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                    FadeAnimation(2, Text("Welcome",
+                    FadeAnimation(2, Text("AUTHPOS",
                     style: TextStyle(color: Colors.orange.withOpacity(.8),
                      fontStyle: FontStyle.italic,
                      fontSize: 50,
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                      ),
                     )),
                     SizedBox(height: 15),
-                    FadeAnimation(1.3, Text("We provide POSHUB...",
+                    FadeAnimation(1.3, Text("Infinite Possibilities",
                     style: TextStyle(color: Colors.white.withOpacity(.65),
                     fontSize: 33,
                     letterSpacing: 1,

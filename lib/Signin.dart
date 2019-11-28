@@ -24,8 +24,8 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 100),
-                child: FadeAnimation(2.5,Image.asset("assets/POSHUB.png"),
+                padding: EdgeInsets.only(left: 155,top: 40),
+                child: FadeAnimation(2.5,Image.asset("assets/AUTHPOS.png"),
               )),
               Padding(
                 padding: EdgeInsets.only(bottom: 3.0),
@@ -71,6 +71,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 )),
+                Divider(),
                  Container(
                   padding: EdgeInsets.symmetric(horizontal: 720.0, vertical: 5.0),
                   child: FadeAnimation (2.7,Material(
@@ -82,7 +83,7 @@ class _SignInState extends State<SignIn> {
                         decoration: InputDecoration(
                           hintText: "Password",
                           hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
-                          icon: Icon(Icons.vpn_key, size: 30),
+                          icon: Icon(Icons.lock_outline, size: 30),
                           labelText: "Password", labelStyle: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -92,16 +93,16 @@ class _SignInState extends State<SignIn> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
                   child: FadeAnimation(2.8,Material(
-                    color: Colors.orange.withOpacity(.8),
+                    color: Colors.orange,
                     borderRadius: BorderRadius.circular(50.0),
-                    shadowColor: Colors.black,
+                    shadowColor: Colors.white,
                   child: MaterialButton(
-                    minWidth: 200.0,
+                    minWidth: 250.0,
                     height: 30.0,
                     onPressed: (){
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
-                    child: Text("Sign In",
+                    child: Text("SIGN IN",
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.white
