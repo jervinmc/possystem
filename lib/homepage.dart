@@ -90,8 +90,11 @@ class RadialAnimation extends StatelessWidget {
               (translation.value) * cos(rad),
               (translation.value) * sin(rad),
             ),
-            child: FloatingActionButton(
-                heroTag: "heroTag",
+            child: angle==-193 ? FloatingActionButton(
+              heroTag: "heroTag",
+              child: Icon(icon),backgroundColor: color,onPressed: _close,
+            ) : FloatingActionButton(
+              heroTag: "heroTag1",
               child: Icon(icon),backgroundColor: color,onPressed: _close,
             ),
       );
@@ -488,7 +491,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                 SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                SunmiAidlPrint.setFontSize(fontSize:30);
                SunmiAidlPrint.printText(text: "Trudi POS");
-               SunmiAidlPrint.printText(text: "\n");
+              /* SunmiAidlPrint.printText(text: "\n");
                SunmiAidlPrint.printText(text: "\n");
                SunmiAidlPrint.printText(text: "\n");
                SunmiAidlPrint.printText(text: "\n");
@@ -528,7 +531,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                             ));
                               Navigator.push(context, SlideRightRoute1(
                             widget: viewreviews("...",userid,"")
-                            ));*/
+                            ));*/*/
 
             }).show();  
                         }, "Check out", MediaQuery.of(context).size.width/3.14),
