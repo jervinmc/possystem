@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:possystem/fadeAnimation.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 
 import 'homescreen.dart';
@@ -217,7 +218,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
       
       PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: AppBar(title: Row(
+        child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
             Text("AUTH",style: TextStyle(fontSize: 50,),),
             Text("POS",style: TextStyle(fontSize: 50,color: Colors.orange),),
@@ -239,7 +240,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
      )
       ], 
       ),
-      ),
+      )),
    
    
       
@@ -426,7 +427,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           padding: EdgeInsets.only(left: 10),
           height: 50,
           width: 70,
-          child: Image(image: AssetImage("https://www.incimages.com/uploaded_files/image/970x450/*Barcode_32896.jpg"),fit: BoxFit.cover,),
+          child: Image(image: AssetImage("assets/barcode.jpg"),fit: BoxFit.cover,),
         ),
       
         hintText: 'ENTER BARCODE',
