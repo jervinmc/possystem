@@ -182,7 +182,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 35),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.business, size: 30,),
                 onTap: () {
                   Navigator.push(context, SlideRightRoute(widget: Transaction()));
@@ -190,7 +190,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                 }),
                 Divider(),
                 new ListTile(
-                title: new Text('Products', style: TextStyle(fontSize: 35),),
+                title: new Text('Products', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.shopping_basket, size: 30,),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -198,14 +198,14 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                 }),
                new Divider(),
                 new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 35),),
+                title: new Text('Void', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.remove_shopping_cart, size: 30,),
                 onTap: () {
                   Navigator.of(context).pop();
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 35),),
+                  title: new Text('Logout', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: () async{ 
                      Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
@@ -224,11 +224,11 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
       appBar: 
       
       PreferredSize(
-        preferredSize: Size.fromHeight(75.0),
+        preferredSize: Size.fromHeight(60.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
             Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange),),
-            Text("POS",style: TextStyle(fontSize: 50,),),
+            Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),
           
           ],
         ),
@@ -482,14 +482,56 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                           MemberInfo(),
                         ],
                       ),
+                    
                       Positioned(
                         bottom: 0,
-                        child:  rButtonView((){
+                        child: Container(
+                     width: MediaQuery.of(context).size.width/3.13,
+                          color: Colors.black,
+                          child: Column(
+                        
+                            children: <Widget>[
+                           Container(
+                             padding: EdgeInsets.only(left: 10,top: 10,bottom: 20,right: 15),
+                             child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                               children: <Widget>[
+                                 Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("SUBTOTAL : ", 23, Colors.white, "style"),
+                               textCustom1("Php 100.00", 23, Colors.white, "style",FontWeight.bold),
+                             ],),
+                           Text(""),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("VAT : ", 23, Colors.white, "style"),
+                               textCustom1("0", 23, Colors.white, "style",FontWeight.bold),
+                             ],),
+                         
+                            Divider(
+                              color: Colors.greenAccent,
+                            ),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
+                               textCustom1("Php 100.00", 30, Colors.greenAccent, "style",FontWeight.bold),
+                             ],)
+                               ],
+                             ),
+                           ),
+
+                               rButtonView((){
                           _ackAlert(context);
                            AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
             animType: AnimType.BOTTOMSLIDE,
-            tittle: "Rate Our Service!",
+            tittle: "",
             desc: "Let us know we're doing. Please rate your experience using My Communty",
             btnCancelText: "Not now",
             btnCancelOnPress: () {},
@@ -544,6 +586,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
 
             }).show();  
                         }, "Check out", MediaQuery.of(context).size.width/3.14),
+                            ],
+                          ),
+                        )
                       )
                           ],
                         )
@@ -695,8 +740,9 @@ class _MemberInfoState extends State<MemberInfo> {
       children: <Widget>[
          Column(
       children: <Widget>[
-        
-        textCustom1("Member Information", 40, Colors.white, "style",FontWeight.bold),
+         Text(""),
+     
+        textCustom1("Member Information", 40, Colors.greenAccent, "style",FontWeight.bold),
         Text(""),
         Text(""),
         Row(
@@ -783,7 +829,7 @@ class _MemberInfoState extends State<MemberInfo> {
       Text(""),
        Text(""),
         Text(""),
-      Row(
+     /* Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
        children: <Widget>[
            textCustom1("Subtotal", 15, Colors.white, "style",FontWeight.normal),
@@ -805,7 +851,7 @@ class _MemberInfoState extends State<MemberInfo> {
            textCustom1("Total Amount", 15, Colors.white, "style",FontWeight.normal),
              textCustom1("Php 100.00", 15, Colors.white, "style",FontWeight.bold),
        ],
-      ),
+      ),*/
       Text(""),
       Text(""),
      
