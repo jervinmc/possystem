@@ -12,6 +12,7 @@ import './utils.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:stepper_touch/stepper_touch.dart';
 
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
@@ -141,27 +142,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     //textYouWantToPrint.clear();
     super.dispose();
   }
-  Future<void> _ackAlert(BuildContext context) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Not in stock'),
-        content: const Text('This item is no longer available'),
-        actions: <Widget>[
-          
-          
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
+  
+  
+ 
   //////// Variables///////////////////////////////////////////
  @override
   Widget build(BuildContext context) {
@@ -228,7 +211,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
             Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange),),
-            Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),
+            FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),),
+            
+           
           
           ],
         ),
@@ -454,7 +439,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     Container(
       
       padding: EdgeInsets.all(10),
-      child:  tableResult(),
+      child:  tableres(),
     )
   
     ///////////////////////////////COLUMNNNNNNNNNNNNNNNN FOR TABLE CONTENTS///////////////////////////////
@@ -525,7 +510,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                            ),
 
                                rButtonView((){
-                          _ackAlert(context);
+                         
                            AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
             animType: AnimType.BOTTOMSLIDE,
@@ -623,9 +608,66 @@ class MyClipper extends CustomClipper<Path>{
   }
 }
 
-//////////////////////////
-///Table//////
-class tableResult extends StatelessWidget {
+class tableres extends StatefulWidget {
+  @override
+  _tableresState createState() => _tableresState();
+}
+
+class _tableresState extends State<tableres> {
+  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
+  List quantity=[1,1,1];
+  int itemCounter=5;
+  TextEditingController qtyCtrlr=new TextEditingController();
+  Future<void> _ackAlert(BuildContext context,int x) {
+  return showDialog<void>(
+    
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+      
+        child: AlertDialog(
+        title:Center( 
+          child: textCustom("Enter Quantity", 25, Colors.black, "style"),),
+        content:TextFormField(
+          controller: qtyCtrlr,
+          maxLength: 5,
+          textAlign: TextAlign.center,
+          keyboardType:TextInputType.number,
+        autofocus: true,
+        ),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 260,
+               child:  new OutlineButton(
+      borderSide: BorderSide(
+        
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Color(0xff30336b),
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+  setState(() {
+    quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -633,17 +675,20 @@ class tableResult extends StatelessWidget {
         
       Container(
         color: Colors.orange.withAlpha(50),
-        child:   Table(
+        child:  Table(
           border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
           
           children: [TableRow(
             children:[
          Container(padding: EdgeInsets.all(10),
-                child: textCustom("NAME", 25, Colors.black, ""),),
+                child:Center(child:  textCustom("NAME", 25, Colors.black, ""),)),
           Container(padding: EdgeInsets.all(10),
-                child: textCustom("QTY", 25, Colors.black, ""),),
+                child:
+                   Center(child:  textCustom("QUANTITY", 25, Colors.black, ""),)
+                  
+                ),
            Container(padding: EdgeInsets.all(10),
-                child: textCustom("PRICE", 25, Colors.black, ""),),
+                child: Center(child:  textCustom("PRICE", 25, Colors.black, ""),)),
                 
             ]
           )],
@@ -655,7 +700,7 @@ class tableResult extends StatelessWidget {
         height: MediaQuery.of(context).size.height/1.45,
         child:  ListView.builder(
         shrinkWrap: true,
-        itemCount: 18,
+        itemCount: productName.length,
         itemBuilder: (BuildContext context, int index){
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
@@ -664,9 +709,54 @@ class tableResult extends StatelessWidget {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${index+1}. Kojic", 20, Colors.black, ""),),
+                child: textCustom("${index+1}. ${productName[index]}", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("2", 20, Colors.black, ""),),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                   /* SizedBox(
+                      height: 50,
+                      child: StepperTouch(
+                        initialValue: 1,
+                        
+                      ),
+                    ),*/
+                    IconButton(
+                    icon:  Icon(Icons.remove,color: Colors.red,), 
+                    onPressed: (){
+                   setState(() {
+                     if(quantity[index]==1){
+                          productName.removeAt(index);
+                     }
+                     else{
+                         quantity[index]=quantity[index]-1;
+                     }
+                     
+                   });
+                    },
+                    ),
+                    
+                     InkWell(
+                        onTap: (){
+                       _ackAlert(context,index);
+                        },
+                        child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
+                      ),
+                     IconButton(
+                    icon:  Icon(Icons.add,color: Colors.green,), 
+                    onPressed: (){
+                      setState(() {
+                          quantity[index]=quantity[index]+1;
+                      });
+                      
+                    },
+                    ),
+                    
+                    
+                     
+
+                  ],
+                )),
             Container(padding: EdgeInsets.all(10),
                 child: textCustom("Php 50.00", 20, Colors.black, ""),),
             ]
@@ -680,9 +770,47 @@ class tableResult extends StatelessWidget {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${index+1}. Kojica", 20, Colors.black, ""),),
+                child: textCustom("${index+1}. ${productName[index]}", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("2", 20, Colors.black, ""),),
+             
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                    icon:  Icon(Icons.remove,color: Colors.red,), 
+                    onPressed: (){
+                      setState(() {
+                        if(quantity[index]==1){
+                            productName.removeAt(index);
+                        }
+                        else{
+                            quantity[index]=quantity[index]-1;
+                        }
+                            
+                      });
+                
+                    },
+                    ),
+                    
+                      InkWell(
+                        onTap: (){
+                        _ackAlert(context,index);
+                        },
+                        child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
+                      ),
+                     IconButton(
+                    icon:  Icon(Icons.add,color: Colors.green,), 
+                    onPressed: (){
+                      setState(() {
+                          quantity[index]=quantity[index]+1;
+                      });
+                    },
+                    ),
+                    
+                     
+
+                  ],
+                )),
             Container(padding: EdgeInsets.all(10),
                 child: textCustom("Php 150.00", 20, Colors.black, ""),),
                 
@@ -701,6 +829,9 @@ class tableResult extends StatelessWidget {
     );
   }
 }
+//////////////////////////
+///Table//////
+
 //////////////////////MemberInformation///////////
 ///
 class MemberInfo extends StatefulWidget {
@@ -747,7 +878,7 @@ class _MemberInfoState extends State<MemberInfo> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Member :", 20, Colors.white, "style",FontWeight.normal),
-             textCustom1("Prokopyo Tunying", 20, Colors.white, "style",FontWeight.normal),
+             textCustom1("Prokopyo Tunying", 25, Colors.white, "style",FontWeight.bold),
           ],
         ),
          Text(""),
