@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     )),
                     SizedBox(height: 45),
-                    FadeAnimation(1.3, Text("Infinite Possibilities",
+                    FadeAnimation(1.3, Text("Welcome to AUTHentic Point 0f Sales.",
                     style: TextStyle(color: Colors.white.withOpacity(.65),
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
