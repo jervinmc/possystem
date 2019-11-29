@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 200),
                      Center(
                         child: Container(
-                          width: 100,
+                          width: 120,
                           height: 100,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(

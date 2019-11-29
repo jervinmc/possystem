@@ -110,10 +110,11 @@ class _SignInState extends State<SignIn> {
                     onPressed: (){
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
-                    child: Text("CONFIRM",
+                    child: Text("SIGN IN",
                     style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white
+                      fontSize: 28,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
                     ),),
                   ),
                 )
