@@ -9,12 +9,13 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      resizeToAvoidBottomPadding: true,
+
       appBar: AppBar(
-        title: Text("Transaction", style: TextStyle(fontSize: 30)),
+        title: Text("Transaction", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.black87,
+        iconTheme: IconThemeData(color: Colors.white, size: 25),
       ),
+      
     );
   }
 }
