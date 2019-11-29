@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 80,top: 0),
-                child: FadeAnimation(2.5,Image.asset("assets/AUTHPOS.png"),
+                child: FadeAnimation(2.1,Image.asset("assets/AUTHPOS.png"),
               )),
               Padding(
                 padding: EdgeInsets.only(bottom: 3.0),
@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
                         color: Colors.transparent,
                       ),),
                       Expanded(
-                        child: FadeAnimation(2.5,Text("SIGN IN",style: TextStyle(
+                        child: FadeAnimation(2.2,Text("SIGN IN",style: TextStyle(
                           color: Colors.white,
                           fontSize: 60,
                           fontWeight: FontWeight.bold,
@@ -59,7 +59,7 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.45, vertical: 5.0),
 
      
-                  child: FadeAnimation(2.6,Material(
+                  child: FadeAnimation(2.3,Material(
                     elevation: 5,
                     borderRadius: BorderRadius.circular (30),
                    // child: Padding(
@@ -81,7 +81,7 @@ class _SignInState extends State<SignIn> {
 
                   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.45, vertical: 5.0),
 
-                  child: FadeAnimation (2.7,Material(
+                  child: FadeAnimation (2.4,Material(
                     elevation: 5,
                      borderRadius: BorderRadius.circular (30),
                   //  child: Padding(
@@ -100,7 +100,7 @@ class _SignInState extends State<SignIn> {
                 )),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
-                  child: FadeAnimation(2.8,Material(
+                  child: FadeAnimation(2.5,Material(
                     color: Colors.orange[400],
                     borderRadius: BorderRadius.circular(60.0),
                     shadowColor: Colors.white,
@@ -110,10 +110,11 @@ class _SignInState extends State<SignIn> {
                     onPressed: (){
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
-                    child: Text("CONFIRM",
+                    child: Text("SIGN IN",
                     style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white
+                      fontSize: 28,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),),
                   ),
                 )
