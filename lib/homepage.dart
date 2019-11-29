@@ -492,7 +492,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                         
                             children: <Widget>[
                            Container(
-                             padding: EdgeInsets.only(left: 10,top: 10,bottom: 20),
+                             padding: EdgeInsets.only(left: 10,top: 10,bottom: 20,right: 15),
                              child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                children: <Widget>[
@@ -531,7 +531,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                            AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
             animType: AnimType.BOTTOMSLIDE,
-            tittle: "Rate Our Service!",
+            tittle: "",
             desc: "Let us know we're doing. Please rate your experience using My Communty",
             btnCancelText: "Not now",
             btnCancelOnPress: () {},
