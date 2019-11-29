@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
-import 'package:possystem/profile/transaction.dart';
-import 'package:vector_math/vector_math.dart' as prefix0;
 
+import 'package:vector_math/vector_math.dart' as prefix0;
+import 'transaction.dart';
 import 'homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -163,7 +163,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   );
 }
   //////// Variables///////////////////////////////////////////
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
      drawer: Theme(
@@ -207,7 +207,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
-                   onTap: ()async{ 
+                   onTap: () async{ 
                      Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                     // SharedPreferences prefs=await SharedPreferences.getInstance();
                                   //       prefs.setString("loginFB", "0");
@@ -217,7 +217,6 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
             //new Divider(),
                 ],
               ),),
-
           ],
         ),
       ) ,

@@ -37,14 +37,14 @@ class _HomeScreenState extends State<HomeScreen> {
                      fontStyle: FontStyle.italic,
                      fontWeight: FontWeight.bold,
                      fontSize: 70,
-                     letterSpacing: 2,
+                     letterSpacing: 2.5,
                      ),
                     ),
-                    Text("POS",
+                    Text("P.O.S",
                     style: TextStyle(color: Colors.white.withOpacity(.8),
                      fontStyle: FontStyle.italic,
                      fontSize: 30,
-                     letterSpacing: 2,
+                     letterSpacing: 2.5,
                      ),
                     )
                       ],
@@ -54,18 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white.withOpacity(.65),
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
+                    letterSpacing: 1.5,
                     fontStyle: FontStyle.italic,
                      height: 1.5),)),
-                    SizedBox(height: 180),
+                    SizedBox(height: 200),
                      Center(
                         child: Container(
                           width: 100,
-                          height: 90,
+                          height: 100,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(60),
-                            color: Colors.grey.withOpacity(.6)
+                            color: Colors.grey.withOpacity(.3)
                           ),
                             child: InkWell(
                               onTap: (){
