@@ -475,14 +475,12 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                           children: <Widget>[
                              ListView(
                          // shrinkWrap: true,
-
                        // physics: NeverScrollableScrollPhysics(),
                         //shrinkWrap: true,
                         children: <Widget>[
                           MemberInfo(),
                         ],
                       ),
-                    
                       Positioned(
                         bottom: 0,
                         child: Container(
