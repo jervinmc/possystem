@@ -136,6 +136,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
   List quantity=[1,1,1];
+  List price=[150,50,100];
+
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
@@ -229,7 +231,7 @@ new OutlineButton(
 
     List b=[];
     for(int x=0;x<productName.length;x++){
-      b.add("${productName[x]} ,${quantity[x]}");
+      b.add("${productName[x]} ,${quantity[x]} ,${price[x]}");
       
     }
     return b;  
@@ -624,7 +626,7 @@ new OutlineButton(
                 )),
             Container(padding: EdgeInsets.all(10),
                 child: Center(
-                  child: textCustom("Php 50.00", 20, Colors.black, ""),
+                  child: textCustom("Php ${price[index]}.00", 20, Colors.black, ""),
                 )),
             ]
           )],
@@ -680,7 +682,7 @@ new OutlineButton(
                 )),
             Container(padding: EdgeInsets.all(10),
                 child: Center(
-                  child: textCustom("Php 150.00", 20, Colors.black, ""),
+                  child: textCustom("Php ${price[index]}.00", 20, Colors.black, ""),
                 )),                
             ]
           )],
@@ -790,9 +792,9 @@ new OutlineButton(
             Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[1]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("50", 20, Colors.white, ""),),
+                child: textCustom("${a[2]}", 20, Colors.white, ""),),
                  Container(padding: EdgeInsets.all(10),
-                child: textCustom("100", 20, Colors.white, ""),),
+                child: textCustom("${int.parse(a[1])*int.parse(a[2])}", 20, Colors.white, ""),),
             ]
           )],
       
@@ -806,11 +808,11 @@ new OutlineButton(
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[0]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}s", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
-                 child: textCustom("100", 20, Colors.white, ""),),
+                 child: textCustom("${a[2]}", 20, Colors.white, ""),),
                      Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${int.parse(a[1])*100}", 20, Colors.white, ""),)
+                 child: textCustom("${int.parse(a[1])*int.parse(a[2])}", 20, Colors.white, ""),)
                 
             ]
           )],
@@ -1118,6 +1120,7 @@ class tableres extends StatefulWidget {
   
   List productName;
   List quantity;
+  List price;
   tableres(this.productName,this.quantity);
   @override
   _tableresState createState() => _tableresState(productName,quantity);
