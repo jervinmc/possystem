@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'transach.dart';
 
 class Transaction extends StatefulWidget {
   @override
@@ -6,6 +7,49 @@ class Transaction extends StatefulWidget {
 }
 
 class _TransactionState extends State<Transaction> {
+  List<Transach> transachs;
+
+  @override
+  void initState(){
+    transachs = Transach.getTransachs();
+    super.initState();
+  }
+
+ DataTable dataBody(){
+   return DataTable(
+     columns: [
+       DataColumn(
+         label: Text("ID", style: TextStyle(fontSize: 40),),
+         numeric: false,
+         tooltip: "This is the ID"
+       ),
+       DataColumn(
+         label: Text("Productname",style: TextStyle(fontSize: 40),),
+         numeric: false,
+         tooltip: "This is the productname",
+       ),
+       DataColumn(
+         label: Text("Date",style: TextStyle(fontSize: 40),),
+         numeric: true,
+         tooltip: "This is the date"
+       )
+     ], rows: transachs.map((transachs) => DataRow(
+       cells: [
+         DataCell(
+           Text(transachs.id)
+         ),
+         DataCell(
+           Text(transachs.productname)
+         ),
+         DataCell(
+           Text(transachs.date)
+         ),
+       ]
+     ),
+     )
+     .toList(),
+   );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,30 +61,15 @@ class _TransactionState extends State<Transaction> {
       ),
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text("Transaction History", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black87),
-            ),
-            SizedBox(height: 15.0),
-            Container(
-               padding: EdgeInsets.all(10),
-            ),
-            Card(
-              elevation: 20,
-                  child: Container(
-                    color: Colors.white70,
-                   height: MediaQuery.of(context).size.height/1.0,
-                    width: MediaQuery.of(context).size.width/1.0,
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-            ),
-            ),
-            )
-            ],
-        ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        verticalDirection: VerticalDirection.down,
+        children: <Widget>[
+          Center(
+            child: dataBody(),
+          ),
+        ],
       ),
     );
   }

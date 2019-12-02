@@ -274,13 +274,6 @@ new OutlineButton(
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new Divider(),
-                new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 24),),
-                trailing: new Icon(Icons.remove_shopping_cart, size: 30,),
-                onTap: () {
-                  Navigator.of(context).pop();
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
-                }),
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
@@ -509,10 +502,11 @@ new OutlineButton(
     keyboardType: TextInputType.text,
     decoration: InputDecoration(
         icon: Container(
-          padding: EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: 15),
           height: 50,
           width: 70,
-          child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/upload+icon+upload+line+icon+icon-1320073121636456908.png"),fit: BoxFit.cover),
+          child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+
 
         ),
         hintText: 'ENTER BARCODE',
