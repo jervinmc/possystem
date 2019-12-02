@@ -558,7 +558,7 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${index+1}. ${productName[index]}", 20, Colors.black, ""),),
+                child: textCustom("${productName[index]}", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -610,10 +610,14 @@ new OutlineButton(
 
                   ],
                 )),
-            Container(padding: EdgeInsets.all(10),
-                child: Center(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                 Container(padding: EdgeInsets.all(10),
                   child: textCustom("Php 50.00", 20, Colors.black, ""),
-                )),
+                ),
+              ],
+            ),
             ]
           )],
       
@@ -625,7 +629,7 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${index+1}. ${productName[index]}", 20, Colors.black, ""),),
+                child: textCustom("${productName[index]}", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
              
                 child: Row(
@@ -666,10 +670,14 @@ new OutlineButton(
 
                   ],
                 )),
-            Container(padding: EdgeInsets.all(10),
-                child: Center(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                   child: textCustom("Php 150.00", 20, Colors.black, ""),
-                )),                
+                ),  
+              ],
+            ),              
             ]
           )],
       
@@ -772,12 +780,27 @@ new OutlineButton(
             children:[
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${snapshot.data[index]}", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                 child: textCustom("50", 20, Colors.white, ""),),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
                  Container(padding: EdgeInsets.all(10),
                 child: textCustom("100", 20, Colors.white, ""),),
+              ],
+            ),    
             ]
           )],
       
@@ -790,12 +813,27 @@ new OutlineButton(
             children:[
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${snapshot.data[index]}", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                  child: textCustom("100", 20, Colors.white, ""),),
-                     Container(padding: EdgeInsets.all(10),
-                 child: textCustom("100", 20, Colors.white, ""),)
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
+                 child: textCustom("100", 20, Colors.white, ""),),
+              ],
+            ),         
                 
             ]
           )],
