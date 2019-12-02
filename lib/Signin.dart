@@ -37,15 +37,6 @@ class _SignInState extends State<SignIn> {
                         color: Colors.transparent,
                       ),),
                       Expanded(
-                        child: FadeAnimation(2.2,Text("SIGN IN",style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                        ),
-                      )),
-                      Expanded(
                         child: Divider(
                           height: 5.0,
                           color: Colors.transparent,
@@ -55,10 +46,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
                 Container(
-
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.45, vertical: 5.0),
-
-     
                   child: FadeAnimation(2.3,Material(
                     elevation: 5,
                     borderRadius: BorderRadius.circular (30),

@@ -62,7 +62,7 @@ class RadialAnimation extends StatelessWidget {
               scale: scale.value-1.5,
               child:  FloatingActionButton(
                 heroTag: "btn1",
-              child: Icon(FontAwesomeIcons.stream,color: Colors.orange,),
+              child: Icon(FontAwesomeIcons.stream,color: Colors.orange),
             onPressed: _close,
             backgroundColor: Colors.transparent,
             ),
@@ -415,7 +415,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     keyboardType: TextInputType.text,
     decoration: InputDecoration(
         icon: Container(
-          padding: EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: 13),
           height: 50,
           width: 70,
          child: Image.asset("assets/q3.png", fit: BoxFit.cover),
@@ -437,7 +437,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     ),
     Container(
       
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       child:  tableres(),
     )
   
@@ -489,7 +489,6 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
-                               
                                textCustom("VAT : ", 23, Colors.white, "style"),
                                textCustom1("0", 23, Colors.white, "style",FontWeight.bold),
                              ],),
@@ -519,7 +518,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
             btnCancelOnPress: () {},
             btnOkText: "Rate",
             
-          
+
             btnOkOnPress: () {
                 SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                SunmiAidlPrint.setFontSize(fontSize:30);
@@ -612,7 +611,7 @@ class tableres extends StatefulWidget {
 }
 
 class _tableresState extends State<tableres> {
-  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
+  List productName=["Head and Shoulder","Kojic white","Safeguard Family"];
   List quantity=[1,1,1];
   int itemCounter=5;
   TextEditingController qtyCtrlr=new TextEditingController();
@@ -683,11 +682,9 @@ class _tableresState extends State<tableres> {
           Container(padding: EdgeInsets.all(10),
                 child:
                    Center(child:  textCustom("QUANTITY", 25, Colors.black, ""),)
-                  
                 ),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom("PRICE", 25, Colors.black, ""),)),
-                
             ]
           )],
       
@@ -741,7 +738,7 @@ class _tableresState extends State<tableres> {
                         child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Colors.green,), 
+                    icon:  Icon(Icons.add,color: Colors.green), 
                     onPressed: (){
                       setState(() {
                           quantity[index]=quantity[index]+1;
@@ -755,10 +752,14 @@ class _tableresState extends State<tableres> {
 
                   ],
                 )),
-            Center(
-              child: Container(padding: EdgeInsets.all(10),
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: <Widget>[
+                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("Php 50.00", 20, Colors.black, ""),),
-            ),
+               ],
+             ),
+            
             ]
           )],
       
@@ -811,11 +812,13 @@ class _tableresState extends State<tableres> {
 
                   ],
                 )),
-            Center(
-              child: Container(padding: EdgeInsets.all(10),
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: <Widget>[
+                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("Php 150.00", 20, Colors.black, ""),),
-            ),
-                
+               ],
+             ),
             ]
           )],
       
@@ -933,20 +936,31 @@ class _MemberInfoState extends State<MemberInfo> {
             border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(10),
+              
+             Container(padding: EdgeInsets.all(10),
                 child: textCustom("Kojic", 20, Colors.white, "",),),
-            Center(
-              child: Container(padding: EdgeInsets.all(10),
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: <Widget>[
+                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
-            ),
-           Center(
-             child:  Container(padding: EdgeInsets.all(10),
+               ],
+             ), 
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: <Widget>[
+                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("50", 20, Colors.white, ""),),
-           ),
-           Center(
-             child: Container(padding: EdgeInsets.all(10),
+               ],
+             ),
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: <Widget>[
+                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("100", 20, Colors.white, ""),),
-           ),      
+               ],
+             ),
+                
             ]
           )],
       
@@ -957,20 +971,30 @@ class _MemberInfoState extends State<MemberInfo> {
             border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(10),
+            Container(padding: EdgeInsets.all(10),
                 child: textCustom("Kojica", 20, Colors.white, ""),),
-            Center(
-              child: Container(padding: EdgeInsets.all(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
+              ],
             ),
-            Center(
-              child: Container(padding: EdgeInsets.all(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                  child: textCustom("100", 20, Colors.white, ""),),
+              ],
             ),
-            Center(
-              child:       Container(padding: EdgeInsets.all(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
                  child: textCustom("100", 20, Colors.white, ""),),
-            ),   
+              ],
+            ),
+              
                 
             ]
           )],
