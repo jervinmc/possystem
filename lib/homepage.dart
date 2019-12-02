@@ -120,13 +120,15 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class Homepage extends StatefulWidget {
   @override
   _HomepageState createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
-
+ List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
+  List quantity=[1,1,1];
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
@@ -141,6 +143,84 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     SunmiAidlPrint.bindPrinter();
     //textYouWantToPrint.clear();
     super.dispose();
+    
+  }
+    int itemCounter=5;
+  TextEditingController qtyCtrlr=new TextEditingController();
+  Future<void> _ackAlert(BuildContext context,int x) {
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+        title:Center( 
+          child: textCustom("Enter Quantity", 25, Colors.black, "style"),),
+        content:TextFormField(
+          controller: qtyCtrlr,
+          maxLength: 5,
+          textAlign: TextAlign.center,
+          keyboardType:TextInputType.number,
+        autofocus: true,
+        ),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 260,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+ 
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+new OutlineButton(
+      borderSide: BorderSide(
+        
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Color(0xff30336b),
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+  setState(() {
+    quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+  Future a()async{
+
+
+    return productName;
   }
   
   
@@ -439,240 +519,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     Container(
       
       padding: EdgeInsets.all(10),
-      child:  tableres(),
-    )
-  
-    ///////////////////////////////COLUMNNNNNNNNNNNNNNNN FOR TABLE CONTENTS///////////////////////////////
-                      ],
-                    )
-                  ),
-                ),
-                Card(
-                  elevation: 5,
-                  child: Container(
-                    color: Colors.black87,
-                   height: MediaQuery.of(context).size.height/1.1,
-                    width: MediaQuery.of(context).size.width/3.05,
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      child: Container(
-                        child:Stack(
-                          children: <Widget>[
-                             ListView(
-                         // shrinkWrap: true,
-
-                       // physics: NeverScrollableScrollPhysics(),
-                        //shrinkWrap: true,
-                        children: <Widget>[
-                          MemberInfo(),
-                        ],
-                      ),
-                    
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                     width: MediaQuery.of(context).size.width/3.13,
-                          color: Colors.black,
-                          child: Column(
-                        
-                            children: <Widget>[
-                           Container(
-                             padding: EdgeInsets.only(left: 10,top: 10,bottom: 20,right: 15),
-                             child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                               children: <Widget>[
-                                 Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                               children: <Widget>[
-                               
-                               textCustom("SUBTOTAL : ", 23, Colors.white, "style"),
-                               textCustom1("Php 100.00", 23, Colors.white, "style",FontWeight.bold),
-                             ],),
-                           Text(""),
-                             Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                               children: <Widget>[
-                               
-                               textCustom("VAT : ", 23, Colors.white, "style"),
-                               textCustom1("0", 23, Colors.white, "style",FontWeight.bold),
-                             ],),
-                         
-                            Divider(
-                              color: Colors.greenAccent,
-                            ),
-                             Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                               children: <Widget>[
-                               
-                               textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
-                               textCustom1("Php 100.00", 30, Colors.greenAccent, "style",FontWeight.bold),
-                             ],)
-                               ],
-                             ),
-                           ),
-
-                               rButtonView((){
-                         
-                           AwesomeDialog(context: context,
-            dialogType: DialogType.INFO,
-            animType: AnimType.BOTTOMSLIDE,
-            tittle: "",
-            desc: "Let us know we're doing. Please rate your experience using My Communty",
-            btnCancelText: "Not now",
-            btnCancelOnPress: () {},
-            btnOkText: "Rate",
-            
-          
-            btnOkOnPress: () {
-                SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-               SunmiAidlPrint.setFontSize(fontSize:30);
-               SunmiAidlPrint.printText(text: "Trudi POS");
-              /* SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Product: kojic normal1x");
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
-               SunmiAidlPrint.printText(text: "Php 50.00\n");
-               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-                SunmiAidlPrint.printText(text: "Product: kojic blue2x");
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
-               SunmiAidlPrint.printText(text: "Php 100.00\n");
-               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-                SunmiAidlPrint.printText(text: "Product: kojic white1x");
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
-               SunmiAidlPrint.printText(text: "Php 50.00\n");
-               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-               SunmiAidlPrint.printText(text: "Product: kojic green1x");
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
-               SunmiAidlPrint.printText(text: "Php 50.00\n");
-               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "Subtotal: 150.00\n");
-              SunmiAidlPrint.printText(text: "Money: 150.00\n");
-              SunmiAidlPrint.printText(text: "Change: 150.00\n");
-                SunmiAidlPrint.printBitmap(bitmap:ByteData(10).buffer.asUint8List(10));
-               SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-               SunmiAidlPrint.unbindPrinter(); 
-              // Navigator.pop(context, false);
-      /* Navigator.push(context, SlideRightRoute1(
-                            widget: viewreviews("...",userid,"")
-                            ));
-                              Navigator.push(context, SlideRightRoute1(
-                            widget: viewreviews("...",userid,"")
-                            ));*/*/
-
-            }).show();  
-                        }, "Check out", MediaQuery.of(context).size.width/3.14),
-                            ],
-                          ),
-                        )
-                      )
-                          ],
-                        )
-                      )
-                      /////////////////////////////////////////MEMBERINFO CONTENT//////////////////////////
-                    )
-                  ),
-                )
-              ],
-            )
-          ],
-        )
-
-        ],
-      )
-    );
-  }
-}
-class MyClipper extends CustomClipper<Path>{
-  @override
-  Path getClip(Size size){
-    var path=Path();
-    path.lineTo(0, size.height);
-    path.quadraticBezierTo(size.width/2, size.height-100, size.width, size.height);
-    path.quadraticBezierTo(size.width*2, size.height-100, size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-
-  }
-  @override
-  bool shouldReclip(CustomClipper<Path>oldClipper){
-    return true;
-  }
-}
-
-class tableres extends StatefulWidget {
-  @override
-  _tableresState createState() => _tableresState();
-}
-
-class _tableresState extends State<tableres> {
-  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
-  List quantity=[1,1,1];
-  int itemCounter=5;
-  TextEditingController qtyCtrlr=new TextEditingController();
-  Future<void> _ackAlert(BuildContext context,int x) {
-  return showDialog<void>(
-    
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
-        ),
-      
-        child: AlertDialog(
-        title:Center( 
-          child: textCustom("Enter Quantity", 25, Colors.black, "style"),),
-        content:TextFormField(
-          controller: qtyCtrlr,
-          maxLength: 5,
-          textAlign: TextAlign.center,
-          keyboardType:TextInputType.number,
-        autofocus: true,
-        ),
-        actions: <Widget>[
-           Center(
-             child:Container(
-               width: 260,
-               child:  new OutlineButton(
-      borderSide: BorderSide(
-        
-            color: Colors.green, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Color(0xff30336b),
-  child: new textCustom("Submit",25,Colors.green,""),
-  onPressed: (){
-  setState(() {
-    quantity[x]=int.parse(qtyCtrlr.text) ;
-    qtyCtrlr.text="";
-  });
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-             )
-           )
-        ],
-      ),
-      );
-    },
-  );
-}
-  @override
-  Widget build(BuildContext context) {
-    return Column(
+      child: Column(
       children: <Widget>[
         
       Container(
@@ -728,7 +575,11 @@ class _tableresState extends State<tableres> {
                     onPressed: (){
                    setState(() {
                      if(quantity[index]==1){
-                          productName.removeAt(index);
+                        
+                          setState(()  {
+                               productName.removeAt(index);
+                          });
+                         
                      }
                      else{
                          quantity[index]=quantity[index]-1;
@@ -760,7 +611,9 @@ class _tableresState extends State<tableres> {
                   ],
                 )),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("Php 50.00", 20, Colors.black, ""),),
+                child: Center(
+                  child: textCustom("Php 50.00", 20, Colors.black, ""),
+                )),
             ]
           )],
       
@@ -814,8 +667,9 @@ class _tableresState extends State<tableres> {
                   ],
                 )),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("Php 150.00", 20, Colors.black, ""),),
-                
+                child: Center(
+                  child: textCustom("Php 150.00", 20, Colors.black, ""),
+                )),                
             ]
           )],
       
@@ -828,46 +682,32 @@ class _tableresState extends State<tableres> {
     
   
       ],
-    );
-  }
-}
-//////////////////////////
-///Table//////
+    ),
+    )
+  
+    ///////////////////////////////COLUMNNNNNNNNNNNNNNNN FOR TABLE CONTENTS///////////////////////////////
+                      ],
+                    )
+                  ),
+                ),
+                Card(
+                  elevation: 5,
+                  child: Container(
+                    color: Colors.black87,
+                   height: MediaQuery.of(context).size.height/1.1,
+                    width: MediaQuery.of(context).size.width/3.05,
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Container(
+                        child:Stack(
+                          children: <Widget>[
+                             ListView(
+                         // shrinkWrap: true,
 
-//////////////////////MemberInformation///////////
-///
-class MemberInfo extends StatefulWidget {
-  @override
-  _MemberInfoState createState() => _MemberInfoState();
-}
-
-class _MemberInfoState extends State<MemberInfo> {
-  Container accountItems(
-          String item, String charge, String price, String type,
-          {Color oddColour = Colors.transparent}) =>
-      Container(
-        decoration: BoxDecoration(color: oddColour),
-        padding:
-            EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(item, style: TextStyle(fontSize: 20.0,color: Colors.white)),
-                Text(charge, style: TextStyle(fontSize: 20.0,color: Colors.white)),
-                Text(price, style: TextStyle(fontSize: 20.0,color: Colors.white)),
-                Text(type, style: TextStyle(fontSize: 20.0,color: Colors.white))
-              ],
-            ),
-            
-         
-          ],
-        ),
-      );
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
+                       // physics: NeverScrollableScrollPhysics(),
+                        //shrinkWrap: true,
+                        children: <Widget>[
+                         Stack(
       children: <Widget>[
          Column(
       children: <Widget>[
@@ -914,10 +754,15 @@ class _MemberInfoState extends State<MemberInfo> {
           ),
           Container(
             height: 420,
-            child: ListView.builder(
+            child: FutureBuilder(
+              future: a(),
+
+              builder: (BuildContext context, AsyncSnapshot snapshot){
+
+              return  ListView.builder(
          
         shrinkWrap: false,
-        itemCount: 14,
+        itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
@@ -926,7 +771,7 @@ class _MemberInfoState extends State<MemberInfo> {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("Kojic", 20, Colors.white, ""),),
+                child: textCustom("${snapshot.data[index]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
@@ -944,7 +789,7 @@ class _MemberInfoState extends State<MemberInfo> {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("Kojica", 20, Colors.white, ""),),
+                child: textCustom("${snapshot.data[index]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
@@ -958,7 +803,10 @@ class _MemberInfoState extends State<MemberInfo> {
         ),
           );
         },
-      ),
+      );
+              },
+              
+            )
           ),
           
       Text(""),
@@ -1076,6 +924,246 @@ class _MemberInfoState extends State<MemberInfo> {
         
       ],
     )
+                        ],
+                      ),
+                    
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                     width: MediaQuery.of(context).size.width/3.13,
+                          color: Colors.black,
+                          child: Column(
+                        
+                            children: <Widget>[
+                           Container(
+                             padding: EdgeInsets.only(left: 10,top: 10,bottom: 20,right: 15),
+                             child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                               children: <Widget>[
+                                 Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("SUBTOTAL : ", 23, Colors.white, "style"),
+                               textCustom1("Php 100.00", 23, Colors.white, "style",FontWeight.bold),
+                             ],),
+                           Text(""),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("VAT : ", 23, Colors.white, "style"),
+                               textCustom1("0", 23, Colors.white, "style",FontWeight.bold),
+                             ],),
+                         
+                            Divider(
+                              color: Colors.greenAccent,
+                            ),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
+                               textCustom1("Php 100.00", 30, Colors.greenAccent, "style",FontWeight.bold),
+                             ],)
+                               ],
+                             ),
+                           ),
+
+                               rButtonView((){
+                         
+                           AwesomeDialog(context: context,
+            dialogType: DialogType.INFO,
+            animType: AnimType.BOTTOMSLIDE,
+            tittle: "",
+            desc: "Let us know we're doing. Please rate your experience using My Communty",
+            body: Column(
+              children: <Widget>[
+            
+                Container(
+                    width: double.infinity,
+                    color: Colors.black,
+                    child: Center(
+                      child: textCustom("ENTER PAYMENT AMOUNT", 50, Colors.white, "style"),
+                    )
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Card(
+                        child: Container(
+                          color: Colors.grey,
+                          height: MediaQuery.of(context).size.height/2,
+                          width: MediaQuery.of(context).size.width/2.6,
+                          child: Column(
+                            children: <Widget>[
+
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                
+
+              ],
+            )
+            //btnCancelText: "Not now",
+           // btnCancelOnPress: () {},
+           // btnOkText: "Rate",
+            
+          
+           /* btnOkOnPress: () {
+                SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+               SunmiAidlPrint.setFontSize(fontSize:30);
+               SunmiAidlPrint.printText(text: "Trudi POS");
+              /* SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Product: kojic normal1x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 50.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                SunmiAidlPrint.printText(text: "Product: kojic blue2x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 100.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                SunmiAidlPrint.printText(text: "Product: kojic white1x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 50.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+               SunmiAidlPrint.printText(text: "Product: kojic green1x");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.printText(text: "Php 50.00\n");
+               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "Subtotal: 150.00\n");
+              SunmiAidlPrint.printText(text: "Money: 150.00\n");
+              SunmiAidlPrint.printText(text: "Change: 150.00\n");
+                SunmiAidlPrint.printBitmap(bitmap:ByteData(10).buffer.asUint8List(10));
+               SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               SunmiAidlPrint.unbindPrinter(); 
+              // Navigator.pop(context, false);
+      /* Navigator.push(context, SlideRightRoute1(
+                            widget: viewreviews("...",userid,"")
+                            ));
+                              Navigator.push(context, SlideRightRoute1(
+                            widget: viewreviews("...",userid,"")
+                            ));*/*/
+
+            }*/).show();  
+                        }, "Check out", MediaQuery.of(context).size.width/3.14),
+                            ],
+                          ),
+                        )
+                      )
+                          ],
+                        )
+                      )
+                      /////////////////////////////////////////MEMBERINFO CONTENT//////////////////////////
+                    )
+                  ),
+                )
+              ],
+            )
+          ],
+        )
+
+        ],
+      )
+    );
+  }
+}
+class MyClipper extends CustomClipper<Path>{
+  @override
+  Path getClip(Size size){
+    var path=Path();
+    path.lineTo(0, size.height);
+    path.quadraticBezierTo(size.width/2, size.height-100, size.width, size.height);
+    path.quadraticBezierTo(size.width*2, size.height-100, size.width, size.height);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+
+  }
+  @override
+  bool shouldReclip(CustomClipper<Path>oldClipper){
+    return true;
+  }
+}
+
+class tableres extends StatefulWidget {
+  
+  List productName;
+  List quantity;
+  tableres(this.productName,this.quantity);
+  @override
+  _tableresState createState() => _tableresState(productName,quantity);
+}
+class _tableresState extends State<tableres> {
+    List productName;
+  List quantity;
+  _tableresState(this.productName,this.quantity);
+
+  @override
+  Widget build(BuildContext context) {
+  
+  }
+}
+//////////////////////////
+///Table//////
+
+//////////////////////MemberInformation///////////
+///
+class MemberInfo extends StatefulWidget {
+  List productName;
+  List quantity;
+ MemberInfo(this.productName,this.quantity);
+  @override
+  _MemberInfoState createState() => _MemberInfoState(productName,quantity);
+}
+
+class _MemberInfoState extends State<MemberInfo> {
+List productName;
+  List quantity;
+  Future a()async{
+    List b=['a','b'];
+    return productName;
+  }
+  _MemberInfoState(this.productName,this.quantity);
+  Container accountItems(
+          String item, String charge, String price, String type,
+          {Color oddColour = Colors.transparent}) =>
+      Container(
+        decoration: BoxDecoration(color: oddColour),
+        padding:
+            EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(item, style: TextStyle(fontSize: 20.0,color: Colors.white)),
+                Text(charge, style: TextStyle(fontSize: 20.0,color: Colors.white)),
+                Text(price, style: TextStyle(fontSize: 20.0,color: Colors.white)),
+                Text(type, style: TextStyle(fontSize: 20.0,color: Colors.white))
+              ],
+            ),
+            
+         
+          ],
+        ),
+      );
+  @override
+  Widget build(BuildContext context) {
+  
    ;
   }
 }
