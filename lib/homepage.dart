@@ -806,7 +806,7 @@ new OutlineButton(
             Container(padding: EdgeInsets.all(10),
                  child: textCustom("${a[2]}", 20, Colors.white, ""),),
                      Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${int.parse(a[1])*int.parse(a[2])}", 20, Colors.white, ""),)
+                 child: textCustom("${int.parse(a[1])*int.parse(a[2])*1}", 20, Colors.white, ""),)
                 
             ]
           )],
@@ -992,21 +992,131 @@ new OutlineButton(
               children: <Widget>[
             
                 Container(
+                
                     width: double.infinity,
-                    color: Colors.black,
+                 //   color: Colors.black,
                     child: Center(
-                      child: textCustom("ENTER PAYMENT AMOUNT", 50, Colors.white, "style"),
+                      child: textCustom("CHECK OUT", 50, Colors.black, "style"),
                     )
                   ),
                   Row(
                     children: <Widget>[
                       Card(
+                        shape:RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ) ,
+                        elevation: 0,
                         child: Container(
-                          color: Colors.grey,
-                          height: MediaQuery.of(context).size.height/2,
+                          
+                        
+                          padding: EdgeInsets.all(20),
+                          //color: Colors.black87,
+                          height: MediaQuery.of(context).size.height/1.5,
                           width: MediaQuery.of(context).size.width/2.6,
                           child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
+                         
+                              textCustom("Enter Payment Amount", 30, Colors.deepOrange, "style"),
+                           Container(
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(10)
+                             ),
+                             padding: EdgeInsets.all(10),
+                             child:   TextField(
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                color: Colors.white
+              ),
+              )
+                           ),
+                            Text(""),
+                             textCustom1("Customer Name", 30, Colors.deepOrange, "style",FontWeight.bold),
+                           Container(
+                             padding: EdgeInsets.all(10),
+                             child:   TextField(
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange, width: 5.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                     borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                color: Colors.white
+              ),
+              )
+                           ),
+                           Text(""),
+                            textCustom1("Customer TIN", 30, Colors.deepOrange, "style",FontWeight.bold),
+                           Container(
+                             padding: EdgeInsets.all(10),
+                             child:   TextField(
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.deepOrange, width: 5.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                     borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                color: Colors.white
+              ),
+              )
+                           ),
+                            Text(""),
+                            textCustom1("Customer Address", 30, Colors.deepOrange, "style",FontWeight.bold),
+                           Container(
+                             padding: EdgeInsets.all(10),
+                             child:    TextField(
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange, width: 5.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                     borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                color: Colors.white
+              ),
+              )
+                           ),
+                                textCustom("Total Amount : 400", 25, Colors.red, "style"),
 
                             ],
                           ),
