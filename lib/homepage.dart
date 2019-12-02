@@ -418,11 +418,10 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           padding: EdgeInsets.only(left: 10),
           height: 50,
           width: 70,
-          child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/upload+icon+upload+line+icon+icon-1320073121636456908.png"),fit: BoxFit.cover),
-
+         child: Image.asset("assets/q3.png", fit: BoxFit.cover),
         ),
         hintText: 'ENTER BARCODE',
-        hintStyle: TextStyle(fontSize: 40),
+        hintStyle: TextStyle(fontSize: 35),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
