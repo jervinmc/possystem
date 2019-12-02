@@ -812,7 +812,7 @@ new OutlineButton(
             Container(padding: EdgeInsets.all(10),
                  child: textCustom("${a[2]}", 20, Colors.white, ""),),
                      Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${int.parse(a[1])*int.parse(a[2])}", 20, Colors.white, ""),)
+                 child: textCustom("${int.parse(a[1])*int.parse(a[2])*1}", 20, Colors.white, ""),)
                 
             ]
           )],
