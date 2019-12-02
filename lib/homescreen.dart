@@ -45,18 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
                      fontStyle: FontStyle.italic,
                      fontSize: 30,
                      letterSpacing: 1.8,
+                     fontWeight: FontWeight.bold
                      ),
                     )
                       ],
                     )),
-                    SizedBox(height: 45),
-                    FadeAnimation(1.3, Text("Welcome to AUTHentic Point 0f Sales.",
-                    style: TextStyle(color: Colors.white.withOpacity(.65),
+                    SizedBox(height: 10),
+                    FadeAnimation(1.3, Text(".Welcome to AUTHentic Point of Sales.",
+                    style: TextStyle(color: Colors.white54,
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5,
                     fontStyle: FontStyle.italic,
-                     height: 1.5),)),
+                     height: 2.5),)),
                     SizedBox(height: 200),
                      Center(
                         child: Container(
