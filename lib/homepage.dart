@@ -708,7 +708,7 @@ class _tableresState extends State<tableres> {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${index+1}. ${productName[index]}", 20, Colors.black, ""),),
+                child: textCustom("${productName[index]}", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -756,8 +756,10 @@ class _tableresState extends State<tableres> {
 
                   ],
                 )),
-            Container(padding: EdgeInsets.all(10),
+            Center(
+              child: Container(padding: EdgeInsets.all(10),
                 child: textCustom("Php 50.00", 20, Colors.black, ""),),
+            ),
             ]
           )],
       
@@ -769,7 +771,7 @@ class _tableresState extends State<tableres> {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${index+1}. ${productName[index]}", 20, Colors.black, ""),),
+                child: textCustom("${productName[index]}", 20, Colors.black, ""),),
             Container(padding: EdgeInsets.all(10),
              
                 child: Row(
@@ -810,8 +812,10 @@ class _tableresState extends State<tableres> {
 
                   ],
                 )),
-            Container(padding: EdgeInsets.all(10),
+            Center(
+              child: Container(padding: EdgeInsets.all(10),
                 child: textCustom("Php 150.00", 20, Colors.black, ""),),
+            ),
                 
             ]
           )],
@@ -896,14 +900,22 @@ class _MemberInfoState extends State<MemberInfo> {
             border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(5),
-                child: textCustom("NAME", 28, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(5),
+               Center(
+                 child:  Container(padding: EdgeInsets.all(5),
+                child: textCustom("ITEM", 28, Colors.black, "",),),
+               ),
+              Center(
+                child:  Container(padding: EdgeInsets.all(5),
                 child: textCustom("QTY", 28, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(5),
+              ),
+              Center(
+                child: Container(padding: EdgeInsets.all(5),
                 child: textCustom("PRICE", 28, Colors.black, ""),),
-                 Container(padding: EdgeInsets.all(5),
+              ),
+              Center(
+                child: Container(padding: EdgeInsets.all(5),
                 child: textCustom("TOTAL", 28, Colors.black, ""),),
+              ),
             ]
           )],
       
@@ -912,7 +924,7 @@ class _MemberInfoState extends State<MemberInfo> {
           Container(
             height: 420,
             child: ListView.builder(
-         
+        
         shrinkWrap: false,
         itemCount: 14,
         itemBuilder: (BuildContext context, int index){
@@ -923,13 +935,19 @@ class _MemberInfoState extends State<MemberInfo> {
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("Kojic", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+                child: textCustom("Kojic", 20, Colors.white, "",),),
+            Center(
+              child: Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+            ),
+           Center(
+             child:  Container(padding: EdgeInsets.all(10),
                 child: textCustom("50", 20, Colors.white, ""),),
-                 Container(padding: EdgeInsets.all(10),
+           ),
+           Center(
+             child: Container(padding: EdgeInsets.all(10),
                 child: textCustom("100", 20, Colors.white, ""),),
+           ),      
             ]
           )],
       
@@ -942,12 +960,18 @@ class _MemberInfoState extends State<MemberInfo> {
             children:[
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("Kojica", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+            Center(
+              child: Container(padding: EdgeInsets.all(10),
                 child: textCustom("2", 20, Colors.white, ""),),
-            Container(padding: EdgeInsets.all(10),
+            ),
+            Center(
+              child: Container(padding: EdgeInsets.all(10),
                  child: textCustom("100", 20, Colors.white, ""),),
-                     Container(padding: EdgeInsets.all(10),
-                 child: textCustom("100", 20, Colors.white, ""),)
+            ),
+            Center(
+              child:       Container(padding: EdgeInsets.all(10),
+                 child: textCustom("100", 20, Colors.white, ""),),
+            ),   
                 
             ]
           )],
