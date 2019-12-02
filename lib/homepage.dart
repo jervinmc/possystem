@@ -806,7 +806,7 @@ new OutlineButton(
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[0]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}s", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
                  child: textCustom("100", 20, Colors.white, ""),),
                      Container(padding: EdgeInsets.all(10),
