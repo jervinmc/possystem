@@ -17,6 +17,13 @@ import 'package:stepper_touch/stepper_touch.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
+class product {
+  final name;
+  final qty;
+  final total;
+  product(this.name,this.qty,this.total);
+
+  }
 class RadialAnimation extends StatelessWidget {
   
   RadialAnimation({Key key,this.controller}):
@@ -220,7 +227,12 @@ new OutlineButton(
   Future a()async{
 
 
-    return productName;
+    List b=[];
+    for(int x=0;x<productName.length;x++){
+      b.add("${productName[x]} ,${quantity[x]}");
+      
+    }
+    return b;  
   }
   
   
@@ -764,6 +776,9 @@ new OutlineButton(
         shrinkWrap: false,
         itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
+          
+          List a=snapshot.data[index].toString().split(" ,");
+        
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
             child: Table(
@@ -771,9 +786,9 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${snapshot.data[index]}", 20, Colors.white, ""),),
+                child: textCustom("${a[0]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("2", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
                 child: textCustom("50", 20, Colors.white, ""),),
                  Container(padding: EdgeInsets.all(10),
@@ -789,13 +804,13 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${snapshot.data[index]}", 20, Colors.white, ""),),
+                child: textCustom("${a[0]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
-                child: textCustom("2", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}", 20, Colors.white, ""),),
             Container(padding: EdgeInsets.all(10),
                  child: textCustom("100", 20, Colors.white, ""),),
                      Container(padding: EdgeInsets.all(10),
-                 child: textCustom("100", 20, Colors.white, ""),)
+                 child: textCustom("${int.parse(a[1])*100}", 20, Colors.white, ""),)
                 
             ]
           )],
@@ -1133,9 +1148,9 @@ class MemberInfo extends StatefulWidget {
 class _MemberInfoState extends State<MemberInfo> {
 List productName;
   List quantity;
+  
   Future a()async{
-    List b=['a','b'];
-    return productName;
+
   }
   _MemberInfoState(this.productName,this.quantity);
   Container accountItems(
