@@ -680,7 +680,7 @@ class _tableresState extends State<tableres> {
           children: [TableRow(
             children:[
          Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom("NAME", 25, Colors.black, ""),)),
+                child:Center(child:  textCustom("ITEM", 25, Colors.black, ""),)),
           Container(padding: EdgeInsets.all(10),
                 child:
                    Center(child:  textCustom("QUANTITY", 25, Colors.black, ""),)
@@ -909,10 +909,12 @@ class _MemberInfoState extends State<MemberInfo> {
       
         ),
           ),
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: 10,
+          Container(
+            height: 420,
+            child: ListView.builder(
+         
+        shrinkWrap: false,
+        itemCount: 14,
         itemBuilder: (BuildContext context, int index){
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
@@ -954,6 +956,8 @@ class _MemberInfoState extends State<MemberInfo> {
           );
         },
       ),
+          ),
+          
       Text(""),
        Text(""),
         Text(""),
