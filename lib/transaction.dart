@@ -9,9 +9,8 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        title: Text("Transaction", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+        title: Text("", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.black87,
         iconTheme: IconThemeData(color: Colors.white, size: 25),
         elevation: 0,
@@ -21,13 +20,26 @@ class _TransactionState extends State<Transaction> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Transaction History", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            Text("Transaction History", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black87),
             ),
             SizedBox(height: 15.0),
-            
-          ],
+            Container(
+               padding: EdgeInsets.all(10),
+            ),
+            Card(
+              elevation: 20,
+                  child: Container(
+                    color: Colors.white70,
+                   height: MediaQuery.of(context).size.height/1.0,
+                    width: MediaQuery.of(context).size.width/1.0,
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+            ),
+            ),
+            )
+            ],
         ),
       ),
     );

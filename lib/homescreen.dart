@@ -1,4 +1,3 @@
-import 'package:possystem/homepage.dart';
 import 'package:possystem/signin.dart';
 import 'transition.dart';
 import 'fadeAnimation.dart';
@@ -37,35 +36,36 @@ class _HomeScreenState extends State<HomeScreen> {
                      fontStyle: FontStyle.italic,
                      fontWeight: FontWeight.bold,
                      fontSize: 70,
-                     letterSpacing: 2.5,
+                     letterSpacing: 2,
                      ),
                     ),
-                    Text("P.O.S",
+                    Text("POS",
                     style: TextStyle(color: Colors.white.withOpacity(.8),
                      fontStyle: FontStyle.italic,
                      fontSize: 30,
-                     letterSpacing: 2.5,
+                     letterSpacing: 1.8,
+                     fontWeight: FontWeight.bold
                      ),
                     )
                       ],
                     )),
-                    SizedBox(height: 45),
-                    FadeAnimation(1.3, Text("Welcome to AUTHentic Point 0f Sales.",
-                    style: TextStyle(color: Colors.white.withOpacity(.65),
+                    SizedBox(height: 10),
+                    FadeAnimation(1.3, Text(".Welcome to AUTHentic Point of Sales.",
+                    style: TextStyle(color: Colors.white54,
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5,
                     fontStyle: FontStyle.italic,
-                     height: 1.5),)),
+                     height: 2.5),)),
                     SizedBox(height: 200),
                      Center(
                         child: Container(
-                          width: 120,
-                          height: 100,
+                          width: 100,
+                          height: 90,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(60),
-                            color: Colors.grey.withOpacity(.3)
+                            color: Colors.grey.withOpacity(.6)
                           ),
                             child: InkWell(
                               onTap: (){
