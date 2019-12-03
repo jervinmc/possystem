@@ -8,46 +8,83 @@ class Transaction extends StatefulWidget {
 
 class _TransactionState extends State<Transaction> {
   List<Transach> transachs;
+  List <Transach> selectedtransachs;
+  bool sort;
 
   @override
   void initState(){
+    sort = false;
     transachs = Transach.getTransachs();
     super.initState();
   }
-
+onSortColum(int columnIndex, bool ascending){
+  if (columnIndex ==0){
+    if (ascending){
+transachs.sort((a,b) => a.id.compareTo(b.id));
+    }else{
+transachs.sort((a,b) => b.id.compareTo(a.id));
+    }
+  }
+}
  DataTable dataBody(){
    return DataTable(
-     columns: <DataColumn>[
+     columnSpacing: 400,
+     sortAscending: sort,
+     sortColumnIndex: 0,
+     columns: [
        DataColumn(
-         label: Text("ID", style: TextStyle(fontSize: 50),),
+         label: Text("ID", style: TextStyle(fontSize: 50)),
          numeric: false,
-         tooltip: "This is the ID"
+         tooltip: "This is the ID",
+         onSort: (columnIndex, ascending){
+           setState(() {
+             sort =!sort;
+           });
+           onSortColum(columnIndex, ascending);
+         }
        ),
        DataColumn(
-         label: Text("Productname",style: TextStyle(fontSize: 50),),
+         label: Text("Productname",style: TextStyle(fontSize: 50)),
          numeric: false,
          tooltip: "This is the productname",
+         onSort: (columnIndex, ascending){
+           setState(() {
+             sort =!sort;
+           });
+           onSortColum(columnIndex, ascending);
+         }
        ),
        DataColumn(
-         label: Text("Date",style: TextStyle(fontSize: 50),),
+         label: Text("Date",style: TextStyle(fontSize: 50)),
          numeric: false,
          tooltip: "This is the date",
+         onSort: (columnIndex, ascending){
+           setState(() {
+             sort =!sort;
+           });
+           onSortColum(columnIndex, ascending);
+         }
        )
      ], rows: transachs.map((transachs) => DataRow(
        cells: [
          DataCell(
-           Text(transachs.id)
+           Text(transachs.id),
+           onTap: (){
+             print("Selected ${transachs.id}");
+           }
          ),
          DataCell(
-           Text(transachs.productname)
+           Text(transachs.productname),
+           onTap: (){
+             print("Selected ${transachs.productname}");
+           }
          ),
          DataCell(
-           Text(transachs.date)
+           Text(transachs.date),
          ),
-       ]
+       ],
      ),
-     )
-     .toList(),
+     ).toList(),
    );
   }
   @override
@@ -67,13 +104,13 @@ class _TransactionState extends State<Transaction> {
         verticalDirection: VerticalDirection.down,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 45),
           ),
           Center(
             child: dataBody(),
           ),
         ],
-      ),
+      )
     );
   }
 }
