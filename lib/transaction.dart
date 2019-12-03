@@ -17,7 +17,7 @@ class _TransactionState extends State<Transaction> {
 
  DataTable dataBody(){
    return DataTable(
-     columns: [
+     columns: <DataColumn>[
        DataColumn(
          label: Text("ID", style: TextStyle(fontSize: 50),),
          numeric: false,
@@ -30,8 +30,8 @@ class _TransactionState extends State<Transaction> {
        ),
        DataColumn(
          label: Text("Date",style: TextStyle(fontSize: 50),),
-         numeric: true,
-         tooltip: "This is the date"
+         numeric: false,
+         tooltip: "This is the date",
        )
      ], rows: transachs.map((transachs) => DataRow(
        cells: [
@@ -66,6 +66,9 @@ class _TransactionState extends State<Transaction> {
         mainAxisAlignment: MainAxisAlignment.center,
         verticalDirection: VerticalDirection.down,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+          ),
           Center(
             child: dataBody(),
           ),

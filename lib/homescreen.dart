@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 600),
-            margin: EdgeInsets.only(top: 120, bottom: 160),
+            margin: EdgeInsets.only(top: 120, bottom: 200),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
