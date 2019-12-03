@@ -21,8 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Color(0xFFF001117).withOpacity(0.1),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 600),
-            margin: EdgeInsets.only(top: 120, bottom: 200),
+         //   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.5),
+            margin: EdgeInsets.only(bottom: 300),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -49,31 +49,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                       ],
                     )),
-                    SizedBox(height: 10),
+                    SizedBox(height: 3),
                     FadeAnimation(1.3, Text(".Welcome to AUTHentic Point of Sales.",
                     style: TextStyle(color: Colors.white54,
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5,
                     fontStyle: FontStyle.italic,
-                     height: 2.5),)),
-                    SizedBox(height: 200),
+                     height: 3),)),
+                    SizedBox(height: 100),
                      Center(
                         child: Container(
-                          width: 100,
+                          width: MediaQuery.of(context).size.width/4,
                           height: 90,
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(0),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
-                            color: Colors.orange.withOpacity(0.4)
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.black87
                           ),
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(context, SlideRightRoute(widget: SignIn()));
                               },
                               child: Container(
-                                width: 60,
-                                height: 0,
+                                width: MediaQuery.of(context).size.width/3,
+                                height: 100,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.orange,
