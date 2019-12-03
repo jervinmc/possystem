@@ -159,12 +159,14 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   Future<void> _ackAlert(BuildContext context,int x) {
   return showDialog<void>(   
     context: context,
+    
     builder: (BuildContext context) {
       return Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
+      backgroundColor: Colors.black87,
         title:Center( 
           child: textCustom("Enter Quantity", 25, Colors.black, "style"),),
         content:TextFormField(
@@ -223,6 +225,187 @@ new OutlineButton(
         ],
       ),
       );
+    },
+  );
+}
+ Future<void> _checkOut(BuildContext context,int x) {
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+     return Container(
+       //color: Colors.green,
+      // color: Colors.orange,
+       width: 500,
+       child: AlertDialog(
+         title: Container(
+              color: Colors.black,
+           width: 1000,
+           child: Column(
+             children: <Widget>[
+              Container(
+                height: 100,
+                
+                color: Colors.orange,
+                child:  Center(
+                 child: textCustom("Enter Payment Amount", 39, Colors.black, "style"),
+               ),
+              ),
+              Text(""),
+               Row(
+                 children: <Widget>[
+                  Container(
+                    height: 500,
+                    padding: EdgeInsets.all(20),
+                    child:  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                     children: <Widget>[
+                     
+                       textCustom("Enter payment amount", 30, Colors.white, ""),
+                       Text(""),
+                      Container(
+                        width: 450,
+                        child: TextField(
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 30,
+                color: Colors.white
+              ),
+              ),
+                      ),
+                      Text(""),
+                      textCustom("Customer TIN", 30, Colors.white, ""),
+                      Text(""),
+                      Container(
+                        width: 450,
+                        child: TextField(
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 30,
+                color: Colors.white
+              ),
+              ),
+                      ),
+                      Text(""),
+                      textCustom("Customer Address", 30, Colors.white, ""),
+                      Text(""),
+                      Container(
+                        width: 450,
+                        child: TextField(
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white
+              ),
+              ),
+                      ),
+                     ],
+                   ),
+                  ),
+                Container(
+                  height: 500,
+                  width: MediaQuery.of(context).size.width/3.9,
+                  child:   Column(
+                   crossAxisAlignment:CrossAxisAlignment.start,
+                   // crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                        Text("  "),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                       children: <Widget>[
+                          rButtonView2((){}, "1000", 200),
+                                Text("  "),
+                           rButtonView2((){}, "500 ", 200),
+                       ],
+                     ),
+                       Text("  "),
+                       Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                       children: <Widget>[
+                          rButtonView2((){}, "200", 200),
+                                Text("  "),
+                           rButtonView2((){}, "100 ", 200),
+                       ],
+                     ),
+                       Text("  "),
+                       Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                       children: <Widget>[
+                          rButtonView2((){},"50", 200),
+                                Text("  "),
+                           rButtonView2((){},"20", 200),
+                       ],
+                     ),
+                  
+                    
+                   
+                     
+                    ],
+                  ),
+                ),
+                
+               
+              
+                 ],
+               ),
+               Container(
+                 padding: EdgeInsets.all(10),
+                 child:  rButtonView3((){},"SUBMIT", double.infinity),
+               ),
+         
+                 Container(
+                 padding: EdgeInsets.all(10),
+                 child:  rButtonView4((){},"CANCEL", double.infinity),
+               ),
+             ],
+           ),
+         ),
+       )
+     );
     },
   );
 }
@@ -1022,7 +1205,8 @@ new OutlineButton(
                            ),
 
                                rButtonView((){
-                         
+                                 _checkOut(context, 1);
+                         /*
                            AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
             animType: AnimType.BOTTOMSLIDE,
@@ -1040,6 +1224,7 @@ new OutlineButton(
                     )
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Card(
                         shape:RoundedRectangleBorder(
@@ -1057,18 +1242,19 @@ new OutlineButton(
                           mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                          
-                              textCustom("Enter Payment Amount", 30, Colors.deepOrange, "style"),
+                              textCustom("Enter Payment Amount", 30, Colors.black, "style"),
                            Container(
                              decoration: BoxDecoration(
                                borderRadius: BorderRadius.circular(10)
                              ),
                              padding: EdgeInsets.all(10),
                              child:   TextField(
+                               textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
@@ -1080,20 +1266,21 @@ new OutlineButton(
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
-                color: Colors.white
+                color: Colors.black
               ),
               )
                            ),
                             Text(""),
-                             textCustom1("Customer Name", 30, Colors.deepOrange, "style",FontWeight.bold),
+                             textCustom1("Customer Name", 30, Colors.black, "style",FontWeight.normal),
                            Container(
                              padding: EdgeInsets.all(10),
                              child:   TextField(
+                               textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 2.0),
@@ -1104,20 +1291,21 @@ new OutlineButton(
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
-                color: Colors.white
+                color: Colors.black
               ),
               )
                            ),
                            Text(""),
-                            textCustom1("Customer TIN", 30, Colors.deepOrange, "style",FontWeight.bold),
+                            textCustom1("Customer TIN", 30, Colors.black, "style",FontWeight.normal),
                            Container(
                              padding: EdgeInsets.all(10),
                              child:   TextField(
+                               textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.deepOrange, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 2.0),
@@ -1128,20 +1316,21 @@ new OutlineButton(
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
-                color: Colors.white
+                color: Colors.black
               ),
               )
                            ),
                             Text(""),
-                            textCustom1("Contact Number", 30, Colors.deepOrange, "style",FontWeight.bold),
+                            textCustom1("Contact Number", 30, Colors.black, "style",FontWeight.normal),
                            Container(
                              padding: EdgeInsets.all(10),
                              child:    TextField(
+                               textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 2.0),
@@ -1152,16 +1341,57 @@ new OutlineButton(
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
-                color: Colors.white
+                color: Colors.black
               ),
               )
                            ),
-                                textCustom("Total Amount : 400", 25, Colors.red, "style"),
+                                textCustom("Total Amount : 400", 40, Colors.teal, "style"),
 
                             ],
                           ),
                         ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width/2,
+                        height: MediaQuery.of(context).size.height/1.5,
+                        child: 
+                        Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                           mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              //Text("               "),
+                              rButtonView2((){}, "500", 200),
+                              Text("    "),
+                              rButtonView2((){}, "1000", 200),
+                            ],
+                          ),
+                            Text("    "),
+                           Row(
+                           mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              //Text("               "),
+                              rButtonView2((){}, "100", 200),
+                              Text("    "),
+                              rButtonView2((){}, "200", 200),
+                            ],
+                          ),
+                            Text("    "),
+                           Row(
+                           mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              //Text("               "),
+                              rButtonView2((){}, "50", 200),
+                              Text("    "),
+                              rButtonView2((){}, "20", 200),
+                            ],
+                          ),
+                          
+                        ],
+                      ),
                       )
+                    
                     ],
                   )
                 
@@ -1219,7 +1449,7 @@ new OutlineButton(
                             widget: viewreviews("...",userid,"")
                             ));*/*/
 
-            }*/).show();  
+            }*/).show(); */ 
                         }, "Check out", MediaQuery.of(context).size.width/3.14),
                             ],
                           ),
