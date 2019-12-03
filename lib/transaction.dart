@@ -17,21 +17,21 @@ class _TransactionState extends State<Transaction> {
 
  DataTable dataBody(){
    return DataTable(
-     columns: [
+     columns: <DataColumn>[
        DataColumn(
-         label: Text("ID", style: TextStyle(fontSize: 40),),
+         label: Text("ID", style: TextStyle(fontSize: 50),),
          numeric: false,
          tooltip: "This is the ID"
        ),
        DataColumn(
-         label: Text("Productname",style: TextStyle(fontSize: 40),),
+         label: Text("Productname",style: TextStyle(fontSize: 50),),
          numeric: false,
          tooltip: "This is the productname",
        ),
        DataColumn(
-         label: Text("Date",style: TextStyle(fontSize: 40),),
-         numeric: true,
-         tooltip: "This is the date"
+         label: Text("Date",style: TextStyle(fontSize: 50),),
+         numeric: false,
+         tooltip: "This is the date",
        )
      ], rows: transachs.map((transachs) => DataRow(
        cells: [
@@ -54,7 +54,7 @@ class _TransactionState extends State<Transaction> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+        title: Text("Transaction History", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.black87,
         iconTheme: IconThemeData(color: Colors.white, size: 25),
         elevation: 0,
@@ -66,6 +66,9 @@ class _TransactionState extends State<Transaction> {
         mainAxisAlignment: MainAxisAlignment.center,
         verticalDirection: VerticalDirection.down,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+          ),
           Center(
             child: dataBody(),
           ),

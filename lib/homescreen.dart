@@ -16,13 +16,13 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Image.asset("assets/1.png", fit: BoxFit.fitWidth),
           Container(
-            width: MediaQuery.of(context).size.width/2,
-            height: MediaQuery.of(context).size.height/2,
+            width: MediaQuery.of(context).size.width/1,
+            height: MediaQuery.of(context).size.height/1,
             color: Color(0xFFF001117).withOpacity(0.1),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 500),
-            margin: EdgeInsets.only(top: 50, bottom: 50),
+            padding: EdgeInsets.symmetric(horizontal: 600),
+            margin: EdgeInsets.only(top: 120, bottom: 200),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(60),
-                            color: Colors.grey.withOpacity(.6)
+                            color: Colors.orange.withOpacity(0.4)
                           ),
                             child: InkWell(
                               onTap: (){
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 0,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.orange
+                                  color: Colors.orange,
                                 ),
                                 child: Icon(Icons.arrow_forward_ios, color: Colors.black),
                               ),
