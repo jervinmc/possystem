@@ -761,7 +761,7 @@ new OutlineButton(
         ),
           ),
           Container(
-            height: 420,
+            height: 140,
             child: FutureBuilder(
               future: a(),
 
@@ -769,7 +769,7 @@ new OutlineButton(
 
               return  ListView.builder(
          
-        shrinkWrap: false,
+        //shrinkWrap: false,
         itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
           
@@ -813,6 +813,7 @@ new OutlineButton(
       
         ),
           );
+
         },
       );
               },
@@ -869,6 +870,7 @@ new OutlineButton(
         Text(""),
           
        Text(""),
+       
         Text(""),
           
     
@@ -955,16 +957,16 @@ new OutlineButton(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("SUBTOTAL : ", 23, Colors.white, "style"),
-                               textCustom1("Php 100.00", 23, Colors.white, "style",FontWeight.bold),
+                               textCustom("SUBTOTAL : ", 16, Colors.white, "style"),
+                               textCustom1("Php 100.00", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("VAT : ", 23, Colors.white, "style"),
-                               textCustom1("0", 23, Colors.white, "style",FontWeight.bold),
+                               textCustom("VAT : ", 16, Colors.white, "style"),
+                               textCustom1("0", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                          
                             Divider(
