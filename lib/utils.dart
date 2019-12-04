@@ -80,15 +80,42 @@ class rButtonView2 extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Container(
-      child: new MaterialButton(color:Colors.black,textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 40),),
+      child: new MaterialButton(color:Colors.orange.withOpacity(0.9),textColor: Colors.black,child: new Text(text,style: TextStyle(fontSize: 30),),
                                /*()=>{
                                 Navigator.of(context).push(new MaterialPageRoute(
                                     builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
-                                    height: 130,
+                                    height: 45,
                                 onPressed: rBut,
                                 shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(10.0),
-        side: BorderSide(color: Colors.orange.withOpacity(0.9),width: 5)
+        side: BorderSide(color: Colors.orange,width: 5)
+),
+                                
+                            )
+
+    );
+  }
+}
+class rButtonView6 extends StatelessWidget {
+  Function rBut;
+  String text;
+  double width;
+   rButtonView6(this.rBut,this.text,this.width);
+  @override
+  Widget build(BuildContext context) {
+   
+    return Container(
+      child: new MaterialButton(color:Color(0xffe84118),textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 30),),
+                               /*()=>{
+                                Navigator.of(context).push(new MaterialPageRoute(
+                                    builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
+                                    height: 65,
+                                onPressed: rBut,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  
+        borderRadius: new BorderRadius.circular(20.0),
+        //side: BorderSide(color: Colors.black,width: 2)
 ),
                                 
                             )
@@ -105,16 +132,17 @@ class rButtonView3 extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Container(
-      child: new MaterialButton(color:Colors.black,textColor: Colors.tealAccent,child: new Text(text,style: TextStyle(fontSize: 40),),
+      child: new MaterialButton(color:Colors.white,textColor: Colors.green,child: new Text(text,style: TextStyle(fontSize: 30),),
                                /*()=>{
                                 Navigator.of(context).push(new MaterialPageRoute(
                                     builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
-                                    height: 80,
+                                    height: 50,
                                 onPressed: rBut,
+                                elevation: 0,
                                 shape: RoundedRectangleBorder(
                                   
         borderRadius: new BorderRadius.circular(25.0),
-        side: BorderSide(color: Colors.tealAccent,width: 2)
+        side: BorderSide(color: Colors.green,width: 2)
 ),
                                 
                             )
@@ -131,12 +159,13 @@ class rButtonView4 extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Container(
-      child: new MaterialButton(color:Colors.black,textColor: Colors.redAccent,child: new Text(text,style: TextStyle(fontSize: 40),),
+      child: new MaterialButton(color:Colors.white,textColor: Colors.redAccent,child: new Text(text,style: TextStyle(fontSize: 30),),
                                /*()=>{
                                 Navigator.of(context).push(new MaterialPageRoute(
                                     builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
-                                    height: 80,
+                                    height: 50,
                                 onPressed: rBut,
+                                   elevation: 0,
                                 shape: RoundedRectangleBorder(
                                   
         borderRadius: new BorderRadius.circular(25.0),

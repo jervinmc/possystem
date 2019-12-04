@@ -134,6 +134,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
+  
  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
   List quantity=[1,1,1];
   List price=[150,50,100];
@@ -146,7 +147,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     SunmiAidlPrint.bindPrinter();
 super.initState();
 controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
-
   }
     void dispose() {
     SunmiAidlPrint.bindPrinter();
@@ -156,6 +156,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   }
     int itemCounter=5;
   TextEditingController qtyCtrlr=new TextEditingController();
+   TextEditingController payment=new TextEditingController();
+    TextEditingController tin=new TextEditingController();
+     TextEditingController address=new TextEditingController();
   Future<void> _ackAlert(BuildContext context,int x) {
   return showDialog<void>(   
     context: context,
@@ -235,46 +238,52 @@ new OutlineButton(
      return Container(
        //color: Colors.green,
       // color: Colors.orange,
-       width: 500,
+       width: 700,
+       height: double.infinity,
        child: AlertDialog(
          title: Container(
-              color: Colors.black,
-           width: 1000,
+              color: Colors.white12,
+           width: 700,
+           height: 680,
            child: Column(
              children: <Widget>[
               Container(
-                height: 100,
+                height: 80,
                 
-                color: Colors.orange,
+                color: Colors.black,
                 child:  Center(
-                 child: textCustom("Enter Payment Amount", 39, Colors.black, "style"),
+                 child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
                ),
               ),
-              Text(""),
+           
                Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
                   Container(
-                    height: 500,
+                      height: MediaQuery.of(context).size.width/3.5,
+                    
                     padding: EdgeInsets.all(20),
                     child:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                      children: <Widget>[
                      
-                       textCustom("Enter payment amount", 30, Colors.white, ""),
+                       textCustom("Enter payment amount", 25, Colors.black, ""),
                        Text(""),
                       Container(
-                        width: 450,
+                        width: 250,
+                        height: 50,
                         child: TextField(
+                          controller: payment,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(20)
                 
                 ),
@@ -283,26 +292,28 @@ new OutlineButton(
               ),
               style: TextStyle(
                     fontSize: 30,
-                color: Colors.white
+                color: Colors.black
               ),
               ),
                       ),
                       Text(""),
-                      textCustom("Customer TIN", 30, Colors.white, ""),
+                      textCustom("Customer TIN", 25, Colors.black, ""),
                       Text(""),
                       Container(
-                        width: 450,
+                        height: 50,
+                        width: 250,
                         child: TextField(
+                          controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(20)
                 
                 ),
@@ -311,26 +322,28 @@ new OutlineButton(
               ),
               style: TextStyle(
                     fontSize: 30,
-                color: Colors.white
+                color: Colors.black
               ),
               ),
                       ),
                       Text(""),
-                      textCustom("Customer Address", 30, Colors.white, ""),
+                      textCustom("Customer Address", 25, Colors.black, ""),
                       Text(""),
                       Container(
-                        width: 450,
+                        height: 50,
+                        width: 250,
                         child: TextField(
+                          controller: address,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(20)
                 
                 ),
@@ -339,7 +352,7 @@ new OutlineButton(
               ),
               style: TextStyle(
                 fontSize: 30,
-                color: Colors.white
+                color: Colors.black
               ),
               ),
                       ),
@@ -347,37 +360,123 @@ new OutlineButton(
                    ),
                   ),
                 Container(
-                  height: 500,
-                  width: MediaQuery.of(context).size.width/3.9,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  padding: EdgeInsets.only(right: 0,top: 15),
+             height: MediaQuery.of(context).size.width/3.9,
+                  width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
                    // crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                        Text("  "),
-                     Row(
+                 
+                    Text(""),
+                   Container(
+                     padding: EdgeInsets.only(bottom: 11),
+                     child: 
+                       Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                        children: <Widget>[
-                          rButtonView2((){}, "1000", 200),
+                          rButtonView2((){
+                            setState(() {
+                              payment.text="1000.00";
+
+                            });
+
+                          }, "1000", 120),
                                 Text("  "),
-                           rButtonView2((){}, "500 ", 200),
+                           rButtonView2((){
+                                setState(() {
+                              payment.text="500.00";
+
+                            });
+                           }, "500 ", 120),
                        ],
                      ),
-                       Text("  "),
+                   ),
+                    
+                      Container(
+                        padding: EdgeInsets.only(bottom: 11),
+                        child:  Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                       children: <Widget>[
+                          rButtonView2((){
+                               setState(() {
+                              payment.text="200.00";
+
+                            });
+                          }, "200", 120),
+                                Text("  "),
+                           rButtonView2((){
+                                setState(() {
+                              payment.text="100.00";
+
+                            });
+                           }, "100 ",120),
+                       ],
+                     ),
+                      ),
+                 Container(
+                        padding: EdgeInsets.only(bottom: 11),
+                        child:  Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                       children: <Widget>[
+                          rButtonView2((){
+                               setState(() {
+                              payment.text="50.00";
+
+                            });
+                          }, "50", 120),
+                                Text("  "),
+                           rButtonView2((){
+                                setState(() {
+                              payment.text="20.00";
+
+                            });
+                           }, "20 ",120),
+                       ],
+                     ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 11),
+                        child:  Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                       children: <Widget>[
+                          rButtonView2((){
+                               setState(() {
+                              payment.text="10.00";
+
+                            });
+                          }, "10", 120),
+                                Text("  "),
+                           rButtonView2((){
+                                setState(() {
+                              payment.text="5.00";
+
+                            });
+                           }, "5 ",120),
+                       ],
+                     ),
+                      ),
                        Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                        children: <Widget>[
-                          rButtonView2((){}, "200", 200),
+                          rButtonView2((){
+                               setState(() {
+                              payment.text="1.00";
+
+                            });
+                          },"1", 120),
                                 Text("  "),
-                           rButtonView2((){}, "100 ", 200),
-                       ],
-                     ),
-                       Text("  "),
-                       Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                       children: <Widget>[
-                          rButtonView2((){},"50", 200),
-                                Text("  "),
-                           rButtonView2((){},"20", 200),
+                           rButtonView6((){
+                                setState(() {
+                              payment.text="";
+                              tin.text="";
+                              address.text="";
+
+                            });
+                           },"Clear",120),
                        ],
                      ),
                   
@@ -393,13 +492,15 @@ new OutlineButton(
                  ],
                ),
                Container(
-                 padding: EdgeInsets.all(10),
+                 padding: EdgeInsets.only(bottom: 10),
                  child:  rButtonView3((){},"SUBMIT", double.infinity),
                ),
          
                  Container(
-                 padding: EdgeInsets.all(10),
-                 child:  rButtonView4((){},"CANCEL", double.infinity),
+                      padding: EdgeInsets.only(bottom: 10),
+                 child:  rButtonView4((){
+                   Navigator.of(context).pop();
+                 },"CANCEL", double.infinity),
                ),
              ],
            ),
@@ -480,14 +581,14 @@ new OutlineButton(
         preferredSize: Size.fromHeight(60.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
-            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.black)),
+            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange)),
             FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),),
             
 
 
           ],
         ),
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.black87,
       actions: <Widget>[
               Container(
            padding: EdgeInsets.all(0),
@@ -952,7 +1053,7 @@ new OutlineButton(
         ),
           ),
           Container(
-            height: 170,
+            height: 185,
             child: FutureBuilder(
               future: a(),
 
@@ -1205,6 +1306,11 @@ new OutlineButton(
                            ),
 
                                rButtonView((){
+                                 setState(() {
+                                   payment.text="";
+                                   tin.text="";
+                                   address.text="";
+                                 });
                                  _checkOut(context, 1);
                          /*
                            AwesomeDialog(context: context,
