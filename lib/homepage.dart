@@ -297,14 +297,14 @@ new OutlineButton(
         preferredSize: Size.fromHeight(60.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
-            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange),),
+            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.black)),
             FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),),
             
-           
-          
+
+
           ],
         ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.deepOrange,
       actions: <Widget>[
               Container(
            padding: EdgeInsets.all(0),
@@ -644,7 +644,7 @@ new OutlineButton(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red,), 
+                    icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
                       setState(() {
                         if(quantity[index]==1){

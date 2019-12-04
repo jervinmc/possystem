@@ -10,7 +10,7 @@ class _TransactionState extends State<Transaction> {
   List<Transach> transachs;
   List <Transach> selectedtransachs;
   bool sort;
-
+  
   @override
   void initState(){
     sort = false;
@@ -22,7 +22,7 @@ onSortColum(int columnIndex, bool ascending){
     if (ascending){
 transachs.sort((a,b) => a.id.compareTo(b.id));
     }else{
-transachs.sort((a,b) => b.id.compareTo(a.id));
+transachs.sort((a,b,) => b.id.compareTo(a.id));
     }
   }
 }
@@ -92,9 +92,9 @@ transachs.sort((a,b) => b.id.compareTo(a.id));
     return Scaffold(
       appBar: AppBar(
         title: Text("Transaction History", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.deepOrangeAccent,
         iconTheme: IconThemeData(color: Colors.white, size: 25),
-        elevation: 0,
+        elevation: 2,
       ),
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
