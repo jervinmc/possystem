@@ -20,7 +20,7 @@ class _TransactionState extends State<Transaction> {
   }
 
 onSortColum(int columnIndex, bool ascending){
-  if (columnIndex ==0){
+  if (columnIndex ==1){
     if (ascending){
 transachs.sort((a,b) => a.productname.compareTo(b.productname));
     }else{
@@ -54,7 +54,7 @@ deleteSelected() async{
    return SingleChildScrollView(
      scrollDirection: Axis.vertical,
      child: DataTable(
-     columnSpacing: 550,
+     columnSpacing: 300,
      sortAscending: sort,
      sortColumnIndex: 0,
      columns: [
