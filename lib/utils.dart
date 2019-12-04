@@ -71,7 +71,83 @@ class rButtonView extends StatelessWidget {
     );
   }
 }
+class rButtonView2 extends StatelessWidget {
+  Function rBut;
+  String text;
+  double width;
+   rButtonView2(this.rBut,this.text,this.width);
+  @override
+  Widget build(BuildContext context) {
+   
+    return Container(
+      child: new MaterialButton(color:Colors.black,textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 40),),
+                               /*()=>{
+                                Navigator.of(context).push(new MaterialPageRoute(
+                                    builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
+                                    height: 130,
+                                onPressed: rBut,
+                                shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(10.0),
+        side: BorderSide(color: Colors.orange.withOpacity(0.9),width: 5)
+),
+                                
+                            )
 
+    );
+  }
+}
+class rButtonView3 extends StatelessWidget {
+  Function rBut;
+  String text;
+  double width;
+   rButtonView3(this.rBut,this.text,this.width);
+  @override
+  Widget build(BuildContext context) {
+   
+    return Container(
+      child: new MaterialButton(color:Colors.black,textColor: Colors.tealAccent,child: new Text(text,style: TextStyle(fontSize: 40),),
+                               /*()=>{
+                                Navigator.of(context).push(new MaterialPageRoute(
+                                    builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
+                                    height: 80,
+                                onPressed: rBut,
+                                shape: RoundedRectangleBorder(
+                                  
+        borderRadius: new BorderRadius.circular(25.0),
+        side: BorderSide(color: Colors.tealAccent,width: 2)
+),
+                                
+                            )
+
+    );
+  }
+}
+class rButtonView4 extends StatelessWidget {
+  Function rBut;
+  String text;
+  double width;
+   rButtonView4(this.rBut,this.text,this.width);
+  @override
+  Widget build(BuildContext context) {
+   
+    return Container(
+      child: new MaterialButton(color:Colors.black,textColor: Colors.redAccent,child: new Text(text,style: TextStyle(fontSize: 40),),
+                               /*()=>{
+                                Navigator.of(context).push(new MaterialPageRoute(
+                                    builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
+                                    height: 80,
+                                onPressed: rBut,
+                                shape: RoundedRectangleBorder(
+                                  
+        borderRadius: new BorderRadius.circular(25.0),
+        side: BorderSide(color: Colors.redAccent.withOpacity(0.9),width: 2)
+),
+                                
+                            )
+
+    );
+  }
+}
 class Question extends StatelessWidget {
   int entry;
   String questionText;
