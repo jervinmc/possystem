@@ -169,7 +169,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
         title:Center( 
           child: textCustom("Enter Quantity", 25, Colors.black, "style"),),
         content:TextFormField(
@@ -249,9 +249,6 @@ new OutlineButton(
              children: <Widget>[
               Container(
                 height: 80,
-                
-
-
                 color: Colors.black,
                 child:  Center(
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
@@ -278,8 +275,7 @@ new OutlineButton(
                           controller: payment,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
-                
-                 
+                        
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 2.0),
                   borderRadius: BorderRadius.circular(10)
