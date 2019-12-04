@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.5,
                     fontStyle: FontStyle.italic,
-                     height: 3),)),
+                     height: 3),),),
                     SizedBox(height: 100),
                      Center(
                         child: Container(
