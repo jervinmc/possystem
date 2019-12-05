@@ -59,7 +59,7 @@ deleteSelected() async{
      sortColumnIndex: 0,
      columns: [
        DataColumn(
-         label: Text("Transaction ID", style: TextStyle(fontSize: 45)),
+         label: Text("Transaction ID", style: TextStyle(fontSize: 40)),
          numeric: false,
          tooltip: "This is the ID",
          onSort: (columnIndex, ascending){
@@ -70,7 +70,7 @@ deleteSelected() async{
          }
        ),
        DataColumn(
-         label: Text("Items",style: TextStyle(fontSize: 45)),
+         label: Text("Items",style: TextStyle(fontSize: 40)),
          numeric: false,
          tooltip: "This is the items",
          onSort: (columnIndex, ascending){
@@ -81,7 +81,7 @@ deleteSelected() async{
          }
        ),
        DataColumn(
-         label: Text("Date", style: TextStyle(fontSize: 45)),
+         label: Text("Date", style: TextStyle(fontSize: 40)),
          numeric: false,
          tooltip: "This is the date",
          onSort: (columnIndex, ascending){
