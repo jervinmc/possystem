@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'transach.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
-
+import 'utils.dart';
 class Transaction extends StatefulWidget {
   @override
   _TransactionState createState() => _TransactionState();
@@ -55,7 +55,7 @@ deleteSelected() async{
    return SingleChildScrollView(
      scrollDirection: Axis.vertical,
      child: DataTable(
-     columnSpacing: 370,
+     columnSpacing: 200,
      sortAscending: sort,
      sortColumnIndex: 1,
      columns: [
@@ -105,9 +105,9 @@ deleteSelected() async{
                context: context, builder: (_) =>  AssetGiffyDialog(
                  image: Image.asset('assets/transaction.gif'),
                  buttonCancelColor: Colors.red,
-                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 30)),
                  buttonOkColor: Colors.green,
-                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 30)),
                  title: Text("DETAILS",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                  ),
                  description: Text("Transaction Details",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
@@ -126,9 +126,9 @@ deleteSelected() async{
              showDialog(
                context: context, builder: (_) => AssetGiffyDialog(
                  image: Image.asset("assets/it.gif"),
-                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 25)),
+                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 30)),
                  buttonCancelColor: Colors.red.withOpacity(.9),
-                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 25)),
+                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 30)),
                  buttonOkColor: Colors.green.withOpacity(.8),
                  title: Text("Item details", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                  ),
@@ -156,9 +156,13 @@ deleteSelected() async{
     return Scaffold(
       appBar: AppBar(
         title: Text("Transaction History", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.white, size: 30),
         elevation: 2,
+        actions: <Widget>[
+         textCustom('Selected ${selectedtransachs.length}', 30, Colors.white, "")
+      
+        ],
       ),
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
@@ -179,7 +183,9 @@ deleteSelected() async{
                 padding: EdgeInsets.all(20),
                 child: OutlineButton(
                   child: Text("Selected ${selectedtransachs.length}"),
-                  onPressed: (){},
+                  onPressed: (){
+                    
+                  },
                 ),
               ),
                Padding(
