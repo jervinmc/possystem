@@ -50,7 +50,7 @@ class _SignInState extends State<SignIn> {
                   ],
                 ),
                 ),
-                Container(
+                Container( 
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.4, vertical: 5.0),
                   child: FadeAnimation(2.9,Material(
                     elevation: 6,

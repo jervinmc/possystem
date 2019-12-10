@@ -873,23 +873,29 @@ new OutlineButton(
                   child:   Container(padding: EdgeInsets.all(10),
                 child: textCustom("${productName[index]}", 20, Colors.black, "")),
                 onTap: (){
-                  showDialog(
-               context: context, builder: (_) =>  AssetGiffyDialog(
-                 image: Image.asset('assets/sp1.gif'),
-                 buttonCancelColor: Colors.red,
-                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
-                 buttonOkColor: Colors.green,
-                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
-                 title: Text("Discount",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                 ),
-                 description: Text("",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                 textAlign: TextAlign.center),
-                 entryAnimation: EntryAnimation.RIGHT,
-                 onOkButtonPressed: (){
-                   Navigator.pop(context);
-                 },
-               ),
-             );
+                 showDialog(
+                   context: context,
+                   builder: (BuildContext context){
+                     return AlertDialog(
+                       title: Text("Product Name:",style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+                       content: Text("KOJIC WHITE", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+                       actions: <Widget>[
+                         FlatButton(
+                           child: Text("No"),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         ),
+                         FlatButton(
+                           child: Text("Yes"),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         )
+                       ],
+                     );
+                   }
+                 );
                 },
                 ),
                 Container(padding: EdgeInsets.all(10),
@@ -903,7 +909,7 @@ new OutlineButton(
                       ),
                     ),*/
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red,), 
+                    icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
                    setState(() {
                      if(quantity[index]==1){
