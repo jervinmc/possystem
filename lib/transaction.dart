@@ -165,7 +165,7 @@ deleteSelected() async{
       backgroundColor: Colors.white,
       body: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         verticalDirection: VerticalDirection.up,
         children: <Widget>[
           Expanded(
@@ -173,7 +173,7 @@ deleteSelected() async{
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20),

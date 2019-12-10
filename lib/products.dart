@@ -16,7 +16,7 @@ class _ProductsState extends State<Products> {
       ),
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white60,
+      backgroundColor: Colors.white,
       body: Container(
         child: Stack(
           children: <Widget>[
