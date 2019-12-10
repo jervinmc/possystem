@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
+import 'package:possystem/products.dart';
 
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
@@ -13,6 +14,9 @@ import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stepper_touch/stepper_touch.dart';
+import 'package:passcode_screen/passcode_screen.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
+
 
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +29,6 @@ class product {
 
   }
 class RadialAnimation extends StatelessWidget {
-  
   RadialAnimation({Key key,this.controller}):
   scale=Tween<double>(
     begin: 1.5,
@@ -51,9 +54,9 @@ class RadialAnimation extends StatelessWidget {
    final AnimationController controller;
     final Animation<double>translation;
   final Animation<double>scale;
+  
   @override
-
- 
+  
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
@@ -127,7 +130,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class Homepage extends StatefulWidget {
   @override
   _HomepageState createState() => _HomepageState();
@@ -135,7 +137,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
   
- List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
+  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
   List quantity=[1,1,1];
   List price=[150,50,100];
 
@@ -162,7 +164,6 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   Future<void> _ackAlert(BuildContext context,int x) {
   return showDialog<void>(   
     context: context,
-    
     builder: (BuildContext context) {
       return Container(
         decoration: BoxDecoration(
@@ -171,7 +172,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
         child: AlertDialog(
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Enter Quantity", 25, Colors.black, "style"),),
+          child: textCustom("Enter Quantity", 25, Colors.black87, "style",),),
         content:TextFormField(
           controller: qtyCtrlr,
           maxLength: 5,
@@ -196,7 +197,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
- 
+    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -209,7 +210,7 @@ new OutlineButton(
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Color(0xff30336b),
+    color:Colors.black,
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: (){
   setState(() {
@@ -280,11 +281,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                         
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(20)
                 
                 ),
@@ -307,14 +308,13 @@ new OutlineButton(
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
-                
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(20)
                 
                 ),
@@ -340,11 +340,11 @@ new OutlineButton(
                 
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(20)
                 
                 ),
@@ -494,7 +494,7 @@ new OutlineButton(
                ),
                Container(
                  padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView3((){},"SUBMIT", double.infinity),
+                 child:  rButtonView3((){},"SUBMIT",double.infinity),
                ),
          
                  Container(
@@ -524,7 +524,7 @@ new OutlineButton(
   
   
  
-  //////// Variables///////////////////////////////////////////
+  //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -536,8 +536,10 @@ new OutlineButton(
              SizedBox(
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
-              accountName: Text("Jervin Macalawa"),
-                                            ),
+              accountName: Text("Prokopyo Tunying",
+              style: TextStyle(fontSize: 25),
+              ),
+            ),
              ),
               new Container(    
                 child: 
@@ -555,14 +557,14 @@ new OutlineButton(
                 title: new Text('Products', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.shopping_basket, size: 30,),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Products()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new Divider(),
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
-                   onTap: () async{ 
+                   onTap: () async{
                      Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                     // SharedPreferences prefs=await SharedPreferences.getInstance();
                                   //       prefs.setString("loginFB", "0");
@@ -792,7 +794,6 @@ new OutlineButton(
           width: 70,
           child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
 
-
         ),
         hintText: 'ENTER BARCODE',
         hintStyle: TextStyle(fontSize: 40),
@@ -822,16 +823,15 @@ new OutlineButton(
           
           children: [TableRow(
             children:[
+
          Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom("ITEM", 25, Colors.black, ""),)),
+                child:Center(child:  textCustom("ITEM", 25, Colors.black, ""))),
+                
           Container(padding: EdgeInsets.all(10),
                 child:
-                   Center(child:  textCustom("QUANTITY", 25, Colors.black, ""),)
-                  
-                ),
+                   Center(child:  textCustom("QUANTITY", 25, Colors.black, ""))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom("PRICE", 25, Colors.black, ""),)),
-                
+                child: Center(child:  textCustom("PRICE", 25, Colors.black, ""))),
             ]
           )],
       
@@ -851,16 +851,15 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${productName[index]}", 20, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(10),
+                child: textCustom("${productName[index]}", 20, Colors.black, "")),
+                Container(padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
+                  children: <Widget>[  
                    /* SizedBox(
                       height: 50,
                       child: StepperTouch(
                         initialValue: 1,
-                        
                       ),
                     ),*/
                     IconButton(
@@ -868,7 +867,6 @@ new OutlineButton(
                     onPressed: (){
                    setState(() {
                      if(quantity[index]==1){
-                        
                           setState(()  {
                                productName.removeAt(index);
                           });
@@ -932,6 +930,7 @@ new OutlineButton(
                     icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
                       setState(() {
+                        
                         if(quantity[index]==1){
                             productName.removeAt(index);
                         }
@@ -1660,14 +1659,9 @@ List productName;
           ],
         ),
       );
+      
   @override
   Widget build(BuildContext context) {
-  
-   ;
+
   }
 }
-
-
-
-
-

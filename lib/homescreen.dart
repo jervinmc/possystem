@@ -1,93 +1,184 @@
-import 'package:possystem/signin.dart';
-import 'transition.dart';
-import 'fadeAnimation.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:possystem/Signin.dart';
+import 'fadeAnimation.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
-class _HomeScreenState extends State<HomeScreen> {
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
+  
+  
+  AnimationController _scaleController;
+  AnimationController _scale2Controller;
+  AnimationController _widthController;
+  AnimationController _positionController;
+
+  Animation<double> _scaleAnimation;
+  Animation<double> _scale2Animation;
+  Animation<double> _widthAnimation;
+  Animation<double> _positionAnimation;
+
+  bool hideIcon = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scaleController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300)
+    );
+
+    _scaleAnimation = Tween<double>(
+      begin: 1.0, end: 0.8
+    ).animate(_scaleController)..addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _widthController.forward();
+      }
+    });
+
+    _widthController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600)
+    );
+
+    _widthAnimation = Tween<double>(
+      begin: 90.0,
+      end: 300.0
+    ).animate(_widthController)..addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _positionController.forward();
+      }
+    });
+
+    _positionController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000)
+    );
+
+    _positionAnimation = Tween<double>(
+      begin: 1.0,
+      end: 215.0
+    ).animate(_positionController)..addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          hideIcon = true;
+        });
+        _scale2Controller.forward();
+      }
+    });
+
+    _scale2Controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300)
+    );
+
+    _scale2Animation = Tween<double>(
+      begin: 1.0,
+      end: 32.0
+    ).animate(_scale2Controller)..addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignIn()));
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image.asset("assets/1.png", fit: BoxFit.fitWidth),
-          Container(
-            width: MediaQuery.of(context).size.width/1,
-            height: MediaQuery.of(context).size.height/1,
-            color: Color(0xFFF001117).withOpacity(0.1),
-          ),
-          Container(
-         //   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.5),
-            margin: EdgeInsets.only(bottom: 300),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                    FadeAnimation(2, Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("AUTH",
-                    style: TextStyle(color: Colors.orange.withOpacity(.8),
-                     fontStyle: FontStyle.italic,
-                     fontWeight: FontWeight.bold,
-                     fontSize: 70,
-                     letterSpacing: 2,
-                     ),
-                    ),
-                    Text("POS",
-                    style: TextStyle(color: Colors.white.withOpacity(.8),
-                     fontStyle: FontStyle.italic,
-                     fontSize: 30,
-                     letterSpacing: 1.8,
-                     fontWeight: FontWeight.bold
-                     ),
-                    )
-                      ],
-                    )),
-                    SizedBox(height: 3),
-                    FadeAnimation(1.3, Text(".Welcome to AUTHentic Point of Sales.",
-                    style: TextStyle(color: Colors.white54,
-                    fontSize: 33,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                    fontStyle: FontStyle.italic,
-                     height: 3),),),
-                    SizedBox(height: 100),
-                     Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width/4,
+      backgroundColor: Colors.white12,
+      body: Container(
+        width: double.infinity,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 10,
+              left: 0,
+              child: FadeAnimation(1.5, Container(
+                width: width,
+                height: 350,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/POS.png'),
+                   // fit: BoxFit.cover
+                  )
+                ),
+              )),
+            ),
+            Container(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  FadeAnimation(1.8, Text("Welcome to AUTH-POS", 
+                  style: TextStyle(color: Colors.orange.withOpacity(.9), fontSize: 50, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
+                  SizedBox(height: 15,),
+                  FadeAnimation(1.3, Text("We provide POS System.", 
+                  style: TextStyle(color: Colors.white.withOpacity(.9), height: 1.4, fontSize: 20, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
+                  SizedBox(height: 80,),
+                  FadeAnimation(1.9, AnimatedBuilder(
+                    animation: _scaleController,
+                    builder: (context, child) => Transform.scale(
+                    scale: _scaleAnimation.value,
+                    child: Center(
+                      child: AnimatedBuilder(
+                        animation: _widthController,
+                        builder: (context, child) => Container(
+                          width: _widthAnimation.value,
                           height: 90,
-                          padding: EdgeInsets.all(0),
+                          padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Colors.black87
+                            color: Colors.orange.withOpacity(.4)
                           ),
-                            child: InkWell(
-                              onTap: (){
-                                Navigator.push(context, SlideRightRoute(widget: SignIn()));
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width/3,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.orange,
+                          child: InkWell(
+                            onTap: () {
+                              _scaleController.forward();
+                            },
+                            child: Stack(
+                              children: <Widget> [
+                                AnimatedBuilder(
+                                  animation: _positionController,
+                                  builder: (context, child) => Positioned(
+                                    left: _positionAnimation.value,
+                                    child: AnimatedBuilder(
+                                      animation: _scale2Controller,
+                                      builder: (context, child) => Transform.scale(
+                                        scale: _scale2Animation.value,
+                                        child: Container(
+                                          width: 60,
+                                          height: 65,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange
+                                          ),
+                                          child: hideIcon == false ?
+                                           Icon(Icons.arrow_forward,
+                                            color: Colors.white,) 
+                                            : Container(),
+                                        )
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                child: Icon(Icons.arrow_forward_ios, color: Colors.black),
-                              ),
+                              ]
                             ),
                           ),
                         ),
-              ],
-            ),
-                ),
-        ],
+                      ),
+                    )),
+                  )),
+                  SizedBox(height: 80),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
-          );
+    );
   }
 }
