@@ -185,7 +185,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
  }
  
   ///////////////variable/////
+  int lengthOfCount=0;
   bool openDialog=true;
+  double subtotal=0;
   bool shifted=false;
   int moneyHoldertext=0;
     int itemCounter=5;
@@ -274,6 +276,7 @@ Future<void> shifting(BuildContext context,int x) {
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
+        
       backgroundColor: Colors.white,
         title:Center( 
           child:Column(
@@ -344,14 +347,17 @@ new OutlineButton(
  Future<void> _checkOut(BuildContext context,int x) {
    moneyHoldertext=0;
   return showDialog<void>(   
+    
     context: context,
     builder: (BuildContext context) {
      return Container(
+      //padding:EdgeInsets.only(bottom: 200) ,
        //color: Colors.green,
       // color: Colors.orange,
        width: 700,
        height: double.infinity,
        child: AlertDialog(
+          // contentPadding: MediaQuery.of(context).viewInsets,
          title: Container(
               color: Colors.white12,
            width: 700,
@@ -1031,7 +1037,9 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
+
                    setState(() {
+                     
                      if(quantity[index]==1){
                           setState(()  {
                                productName.removeAt(index);
@@ -1040,6 +1048,8 @@ new OutlineButton(
                      }
                      else{
                          quantity[index]=quantity[index]-1;
+                         subtotal=0;
+                     lengthOfCount=0;
                      }
                      
                    });
@@ -1056,7 +1066,10 @@ new OutlineButton(
                     icon:  Icon(Icons.add,color: Colors.green,), 
                     onPressed: (){
                       setState(() {
+                         
                           quantity[index]=quantity[index]+1;
+                          subtotal=0;
+                     lengthOfCount=0;
                       });
                       
                     },
@@ -1116,12 +1129,15 @@ new OutlineButton(
                     icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
                       setState(() {
-                        
+                         subtotal=0;
+                     lengthOfCount=0;
                         if(quantity[index]==1){
                             productName.removeAt(index);
                         }
                         else{
                             quantity[index]=quantity[index]-1;
+                            subtotal=0;
+                     lengthOfCount=0;
                         }
                             
                       });
@@ -1139,7 +1155,10 @@ new OutlineButton(
                     icon:  Icon(Icons.add,color: Colors.green,), 
                     onPressed: (){
                       setState(() {
+                        
                           quantity[index]=quantity[index]+1;
+                          subtotal=0;
+                     lengthOfCount=0;
                       });
                     },
                     ),
@@ -1244,6 +1263,7 @@ new OutlineButton(
               future: a(),
 
               builder: (BuildContext context, AsyncSnapshot snapshot){
+                
 
               return  ListView.builder(
          
@@ -1251,7 +1271,23 @@ new OutlineButton(
         itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
           
+          
           List a=snapshot.data[index].toString().split(" ,");
+
+          if(lengthOfCount!=2){
+             double firstNumber=double.parse(a[1]);
+          double secondNumber=double.parse(a[2]);
+
+            subtotal=(firstNumber*secondNumber)+subtotal;
+          
+          if(snapshot.data.length==index+1){
+            lengthOfCount=2;
+
+            print("$index");
+            
+           }
+          }
+          
         
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
@@ -1280,7 +1316,7 @@ new OutlineButton(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${int.parse(a[1])*int.parse(a[2])}", 20, Colors.white, ""),),
+                child: textCustom("${double.parse(a[1])*double.parse(a[2])}", 20, Colors.white, ""),),
               ],
             ),     
             ]
@@ -1313,7 +1349,7 @@ new OutlineButton(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                  Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${int.parse(a[1])*int.parse(a[2])*1}", 20, Colors.white, ""),)
+                 child: textCustom("${double.parse(a[1])*double.parse(a[2])*1}", 20, Colors.white, ""),)
               ],
             ),        
                 
@@ -1468,7 +1504,7 @@ new OutlineButton(
                                children: <Widget>[
                                
                                textCustom("SUBTOTAL : ", 16, Colors.white, "style"),
-                               textCustom1("Php 100.00", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php $subtotal.00", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
