@@ -16,7 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stepper_touch/stepper_touch.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
-
+import 'dart:async';
 
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
@@ -145,17 +145,49 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
     @override
+    //function..
+    
+    Timer _timer;
+int _start = 10;
+void startTimer() {
+  const oneSec = const Duration(seconds: 1);
+  _timer = new Timer.periodic(
+    oneSec,
+    (Timer timer) => setState(
+      () {
+        if (_start < 9) {
+          if(openDialog){
+         shifting(context, 1);
+          timer.cancel();
+          openDialog=false;
+          }
+        } else {
+          _start = _start - 1;
+            print(_start);
+        }
+      },
+    ),
+  );
+}
   initState(){
     SunmiAidlPrint.bindPrinter();
 super.initState();
 controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
+
   }
+
     void dispose() {
+      _timer.cancel();
     SunmiAidlPrint.bindPrinter();
     //textYouWantToPrint.clear();
     super.dispose();
-    
-  }
+
+ }
+ 
+  ///////////////variable/////
+  bool openDialog=true;
+  bool shifted=false;
+  int moneyHoldertext=0;
     int itemCounter=5;
   TextEditingController qtyCtrlr=new TextEditingController();
    TextEditingController payment=new TextEditingController();
@@ -221,6 +253,83 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+Future<void> shifting(BuildContext context,int x) {
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+      backgroundColor: Colors.white,
+        title:Center( 
+          child:Column(
+          children: <Widget>[
+            textCustom("Enter Opening Amount", 20, Colors.black, "style"),
+            TextFormField(
+          controller: qtyCtrlr,
+          maxLength: 5,
+          textAlign: TextAlign.center,
+          keyboardType:TextInputType.number,
+        autofocus: true,
+        ),
+          ],
+        ),),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 260,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+new OutlineButton(
+      borderSide: BorderSide(
+        
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.black,
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+  setState(() {
+    //quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
                  ],
                ),
                )
@@ -233,6 +342,7 @@ new OutlineButton(
   );
 }
  Future<void> _checkOut(BuildContext context,int x) {
+   moneyHoldertext=0;
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -260,7 +370,10 @@ new OutlineButton(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
                   Container(
-                      height: MediaQuery.of(context).size.width/3.5,
+
+
+                    
+                      height: MediaQuery.of(context).size.width/3.4,
                     
                     padding: EdgeInsets.all(20),
                     child:  Column(
@@ -362,7 +475,7 @@ new OutlineButton(
                     borderRadius: BorderRadius.circular(5)
                   ),
                   padding: EdgeInsets.only(right: 0,top: 15),
-             height: MediaQuery.of(context).size.width/3.9,
+             height: MediaQuery.of(context).size.width/3.8,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
@@ -378,7 +491,8 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                             setState(() {
-                              payment.text="1000.00";
+                             moneyHoldertext=moneyHoldertext+1000;
+                              payment.text="${moneyHoldertext.toString()}.00";
 
                             });
 
@@ -386,7 +500,12 @@ new OutlineButton(
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="500.00";
+                              //payment.text="500";
+                            //  String paymentHolder=payment.text;
+                          moneyHoldertext=moneyHoldertext+500;
+                              payment.text="${moneyHoldertext.toString()}.00";
+
+
 
                             });
                            }, "500 ", 120),
@@ -401,14 +520,16 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="200.00";
+                           moneyHoldertext=moneyHoldertext+200;
+                               payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           }, "200", 120),
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="100.00";
+                               moneyHoldertext=moneyHoldertext+100;
+                               payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                            }, "100 ",120),
@@ -422,14 +543,16 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="50.00";
+                             moneyHoldertext=moneyHoldertext+50;
+                            payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           }, "50", 120),
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="20.00";
+                             moneyHoldertext=moneyHoldertext+20;
+                              payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                            }, "20 ",120),
@@ -443,14 +566,16 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="10.00";
+                            moneyHoldertext=moneyHoldertext+10;
+                               payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           }, "10", 120),
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="5.00";
+                            moneyHoldertext=moneyHoldertext+5;
+                             payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                            }, "5 ",120),
@@ -462,7 +587,8 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="1.00";
+                        moneyHoldertext=moneyHoldertext+1;
+                           payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           },"1", 120),
@@ -472,28 +598,24 @@ new OutlineButton(
                               payment.text="";
                               tin.text="";
                               address.text="";
+                              moneyHoldertext=0;
 
                             });
                            },"Clear",120),
                        ],
                      ),
-                  
-                    
-                   
-                     
+ 
                     ],
                   ),
                 ),
-                
-               
-              
+
                  ],
                ),
+               Text(""),
                Container(
                  padding: EdgeInsets.only(bottom: 10),
                  child:  rButtonView3((){},"SUBMIT",double.infinity),
                ),
-         
                  Container(
                       padding: EdgeInsets.only(bottom: 10),
                  child:  rButtonView4((){
@@ -509,21 +631,26 @@ new OutlineButton(
   );
 }
   Future a()async{
-
-
+   
     List b=[];
     for(int x=0;x<productName.length;x++){
       b.add("${productName[x]} ,${quantity[x]} ,${price[x]}");
-      
+
     }
-    return b;  
-  }
-  
+  for(int x=0;x<1000;x++){
+
   
  
+  }
+    return b;  
+    
+  }
+
+
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
+    startTimer();
     return Scaffold(
      drawer: Theme(
         data: ThemeData.dark(),
@@ -536,6 +663,7 @@ new OutlineButton(
               accountName: Text("Prokopyo Tunying",
               style: TextStyle(fontSize: 25),
               ),
+        
             ),
              ),
               new Container(    
@@ -1205,6 +1333,7 @@ new OutlineButton(
 
         },
       );
+
               },
               
             )
@@ -1378,7 +1507,9 @@ new OutlineButton(
                                    tin.text="";
                                    address.text="";
                                  });
-                                 _checkOut(context, 1);
+                                 _checkOut(context, 1); 
+                                // shifting(context, 1);
+
                          /*
                            AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
@@ -1699,9 +1830,7 @@ class _MemberInfoState extends State<MemberInfo> {
 List productName;
   List quantity;
   
-  Future a()async{
 
-  }
   _MemberInfoState(this.productName,this.quantity);
   Container accountItems(
           String item, String charge, String price, String type,
