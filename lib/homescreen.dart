@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                           height: 90,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(60),
                             color: Colors.orange.withOpacity(.4)
                           ),
                           child: InkWell(
