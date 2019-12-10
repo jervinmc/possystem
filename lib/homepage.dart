@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
-import 'package:possystem/products.dart';
+
 
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
@@ -661,7 +661,7 @@ new OutlineButton(
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("Prokopyo Tunying",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 20),
               ),
         
             ),
@@ -677,14 +677,6 @@ new OutlineButton(
                   Navigator.push(context, SlideRightRoute(widget: Transaction()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
-                Divider(),
-                new ListTile(
-                title: new Text('Products', style: TextStyle(fontSize: 24),),
-                trailing: new Icon(Icons.shopping_basket, size: 30,),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Products()));
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
-                }),
                new Divider(),
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
@@ -693,9 +685,9 @@ new OutlineButton(
                      showDialog(
                        context: context, builder: (BuildContext context){
                          return AlertDialog(
-                           backgroundColor: Colors.white60,
-                           title: Text("Logout?",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                           backgroundColor: Colors.white,
+                           title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
+                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              FlatButton(
                                child: Text("Yes", style: TextStyle(fontSize: 20)),
@@ -704,7 +696,7 @@ new OutlineButton(
                                },
                              ),
                              FlatButton(
-                               child: Text("No", style: TextStyle(fontSize: 20),),
+                               child: Text("No", style: TextStyle(fontSize: 20)),
                                onPressed: (){
                                  Navigator.pop(context);
                                },
@@ -1037,7 +1029,7 @@ new OutlineButton(
                       ),
                     ),*/
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red,),
+                    icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
                    setState(() {
                      if(quantity[index]==1){
