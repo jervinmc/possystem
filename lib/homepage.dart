@@ -149,13 +149,22 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     SunmiAidlPrint.bindPrinter();
 super.initState();
 controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
+
+  }
+  void shiftings(){
+    print("werc");
+
   }
     void dispose() {
     SunmiAidlPrint.bindPrinter();
     //textYouWantToPrint.clear();
     super.dispose();
-    
-  }
+
+ }
+  ///////////////variable/////
+  bool openDialog=false;
+  bool shifted=false;
+  int moneyHoldertext=0;
     int itemCounter=5;
   TextEditingController qtyCtrlr=new TextEditingController();
    TextEditingController payment=new TextEditingController();
@@ -221,6 +230,79 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+Future<void> shifting(BuildContext context,int x) {
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Enter Quantity", 25, Colors.black87, "style",),),
+        content:TextFormField(
+          controller: qtyCtrlr,
+          maxLength: 5,
+          textAlign: TextAlign.center,
+          keyboardType:TextInputType.number,
+        autofocus: true,
+        ),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 260,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+new OutlineButton(
+      borderSide: BorderSide(
+        
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.black,
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+  setState(() {
+    //quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
                  ],
                ),
                )
@@ -233,6 +315,7 @@ new OutlineButton(
   );
 }
  Future<void> _checkOut(BuildContext context,int x) {
+   moneyHoldertext=0;
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -263,7 +346,7 @@ new OutlineButton(
 
 
                     
-                      height: MediaQuery.of(context).size.width/3.5,
+                      height: MediaQuery.of(context).size.width/3.4,
                     
                     padding: EdgeInsets.all(20),
                     child:  Column(
@@ -365,7 +448,7 @@ new OutlineButton(
                     borderRadius: BorderRadius.circular(5)
                   ),
                   padding: EdgeInsets.only(right: 0,top: 15),
-             height: MediaQuery.of(context).size.width/3.9,
+             height: MediaQuery.of(context).size.width/3.8,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
@@ -381,7 +464,8 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                             setState(() {
-                              payment.text="1000.00";
+                             moneyHoldertext=moneyHoldertext+1000;
+                              payment.text="${moneyHoldertext.toString()}.00";
 
                             });
 
@@ -389,7 +473,12 @@ new OutlineButton(
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="500.00";
+                              //payment.text="500";
+                            //  String paymentHolder=payment.text;
+                          moneyHoldertext=moneyHoldertext+500;
+                              payment.text="${moneyHoldertext.toString()}.00";
+
+
 
                             });
                            }, "500 ", 120),
@@ -404,14 +493,16 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="200.00";
+                           moneyHoldertext=moneyHoldertext+200;
+                               payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           }, "200", 120),
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="100.00";
+                               moneyHoldertext=moneyHoldertext+100;
+                               payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                            }, "100 ",120),
@@ -425,14 +516,16 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="50.00";
+                             moneyHoldertext=moneyHoldertext+50;
+                            payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           }, "50", 120),
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="20.00";
+                             moneyHoldertext=moneyHoldertext+20;
+                              payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                            }, "20 ",120),
@@ -446,14 +539,16 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="10.00";
+                            moneyHoldertext=moneyHoldertext+10;
+                               payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           }, "10", 120),
                                 Text("  "),
                            rButtonView2((){
                                 setState(() {
-                              payment.text="5.00";
+                            moneyHoldertext=moneyHoldertext+5;
+                             payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                            }, "5 ",120),
@@ -465,7 +560,8 @@ new OutlineButton(
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
-                              payment.text="1.00";
+                        moneyHoldertext=moneyHoldertext+1;
+                           payment.text="${moneyHoldertext.toString()}.00";
 
                             });
                           },"1", 120),
@@ -475,28 +571,24 @@ new OutlineButton(
                               payment.text="";
                               tin.text="";
                               address.text="";
+                              moneyHoldertext=0;
 
                             });
                            },"Clear",120),
                        ],
                      ),
-                  
-                    
-                   
-                     
+ 
                     ],
                   ),
                 ),
-                
-               
-              
+
                  ],
                ),
+               Text(""),
                Container(
                  padding: EdgeInsets.only(bottom: 10),
                  child:  rButtonView3((){},"SUBMIT",double.infinity),
                ),
-         
                  Container(
                       padding: EdgeInsets.only(bottom: 10),
                  child:  rButtonView4((){
@@ -512,21 +604,27 @@ new OutlineButton(
   );
 }
   Future a()async{
-
-
+   
     List b=[];
     for(int x=0;x<productName.length;x++){
       b.add("${productName[x]} ,${quantity[x]} ,${price[x]}");
-      
+
     }
+  
+  if(openDialog){
+    openDialog=false;
+    print("object");
+    
+      }
     return b;  
+    
   }
-  
-  
- 
+
+
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
      drawer: Theme(
         data: ThemeData.dark(),
@@ -539,6 +637,7 @@ new OutlineButton(
               accountName: Text("Prokopyo Tunying",
               style: TextStyle(fontSize: 25),
               ),
+        
             ),
              ),
               new Container(    
@@ -1632,9 +1731,7 @@ class _MemberInfoState extends State<MemberInfo> {
 List productName;
   List quantity;
   
-  Future a()async{
 
-  }
   _MemberInfoState(this.productName,this.quantity);
   Container accountItems(
           String item, String charge, String price, String type,
