@@ -54,6 +54,7 @@ flutter:
   - assets/POS.png
   - assets/AUTHPOS.png
   - assets/t2.jpg
+  - assets/sd1.jpg
   - assets/bg.jpg
   - assets/b.jpg
   - assets/b1.jpg
@@ -81,6 +82,10 @@ flutter:
   - assets/p2.gif
   - assets/error.gif
   - assets/date.gif
+  - assets/20.gif
+  - assets/special.gif
+  - assets/sp1.gif
+  - assets/logout.gif
   - images/POS.png
   - assets/heart.png
 

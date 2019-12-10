@@ -137,7 +137,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
   
-  List productName=["Head and Shoulder","Kojic white","Safeguard Family Size XXL"];
+  List productName=["Head and Shoulder","Kojic white","Safeguard Family"];
   List quantity=[1,1,1];
   List price=[150,50,100];
 
@@ -369,7 +369,7 @@ new OutlineButton(
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(20),
                 
                 ),
             
@@ -663,12 +663,34 @@ new OutlineButton(
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
-                   onTap: () async{
-                     Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                   onTap: (){
+                     showDialog(
+                       context: context, builder: (BuildContext context){
+                         return AlertDialog(
+                           backgroundColor: Colors.white60,
+                           title: Text("Logout?",style: TextStyle(fontWeight: FontWeight.bold)),
+                           content: Text("Are you sure?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                           actions: <Widget>[
+                             FlatButton(
+                               child: Text("Yes", style: TextStyle(fontSize: 20)),
+                               onPressed: (){
+                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                               },
+                             ),
+                             FlatButton(
+                               child: Text("No", style: TextStyle(fontSize: 20),),
+                               onPressed: (){
+                                 Navigator.pop(context);
+                               },
+                             ),
+                           ],
+                         );
+                     }
+                     );
                     // SharedPreferences prefs=await SharedPreferences.getInstance();
                                   //       prefs.setString("loginFB", "0");
                       //runApp(MyApp1());
-                      }       
+                       }      
                           ),
             //new Divider(),
                 ],
@@ -949,8 +971,29 @@ new OutlineButton(
             border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(10),
+                InkWell(
+                  child:   Container(padding: EdgeInsets.all(10),
                 child: textCustom("${productName[index]}", 20, Colors.black, "")),
+                onTap: (){
+                  showDialog(
+               context: context, builder: (_) =>  AssetGiffyDialog(
+                 image: Image.asset('assets/sp1.gif'),
+                 buttonCancelColor: Colors.red,
+                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 buttonOkColor: Colors.green,
+                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 title: Text("Discount",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 ),
+                 description: Text("",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                 textAlign: TextAlign.center),
+                 entryAnimation: EntryAnimation.RIGHT,
+                 onOkButtonPressed: (){
+                   Navigator.pop(context);
+                 },
+               ),
+             );
+                },
+                ),
                 Container(padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1018,8 +1061,28 @@ new OutlineButton(
             border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(10),
+              InkWell(
+                child:   Container(padding: EdgeInsets.all(10),
                 child: textCustom("${productName[index]}", 20, Colors.black, ""),),
+                onTap: (){
+                   showDialog(
+               context: context, builder: (_) =>  AssetGiffyDialog(
+                 image: Image.asset('assets/sp1.gif'),
+                 buttonCancelColor: Colors.red,
+                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 buttonOkColor: Colors.green,
+                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 title: Text("DETAILS",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 ),
+                 description: Text("Transaction Details",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                 textAlign: TextAlign.center),
+                 entryAnimation: EntryAnimation.RIGHT,
+                 onOkButtonPressed: (){
+                   Navigator.pop(context);
+                 },
+               ));
+                },
+              ),
             Container(padding: EdgeInsets.all(10),
              
                 child: Row(
@@ -1174,6 +1237,7 @@ new OutlineButton(
             children:[
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[0]}", 20, Colors.white, ""),),
+              
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[

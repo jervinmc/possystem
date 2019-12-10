@@ -129,7 +129,7 @@ deleteSelected() async{
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 25)),
                  buttonCancelColor: Colors.red.withOpacity(.9),
                  buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 25)),
-                 buttonOkColor: Colors.orange.withOpacity(.8),
+                 buttonOkColor: Colors.green.withOpacity(.8),
                  title: Text("Item details", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                  ),
                  description: Text("Takes care of your skin irritation.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -143,24 +143,7 @@ deleteSelected() async{
            },
          ),
          DataCell(
-           Text(transachs.date),
-           onTap: (){
-             showDialog(
-               context: context, builder: (_) => AssetGiffyDialog(
-                 image: Image.asset("assets/date.gif"),
-                 buttonCancelColor: Colors.red,
-                 buttonOkColor: Colors.green,
-                 title: Text("Date History", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                 ),
-                 description: Text("Date Info.....", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                 textAlign: TextAlign.center),
-                 entryAnimation: EntryAnimation.RIGHT,
-                 onOkButtonPressed: (){
-                   Navigator.pop(context);
-                 },
-               ),
-             );
-           }
+           Text(transachs.date)
          ),
        ],
      ),
@@ -179,11 +162,11 @@ deleteSelected() async{
       ),
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white60,
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        verticalDirection: VerticalDirection.down,
+        mainAxisAlignment: MainAxisAlignment.end,
+        verticalDirection: VerticalDirection.up,
         children: <Widget>[
           Expanded(
             child: dataBody(),
