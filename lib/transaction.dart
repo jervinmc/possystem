@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'transach.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 class Transaction extends StatefulWidget {
   @override
   _TransactionState createState() => _TransactionState();
 }
-
+ 
 class _TransactionState extends State<Transaction> {
   List<Transach> transachs;
   List <Transach> selectedtransachs;
@@ -13,7 +14,7 @@ class _TransactionState extends State<Transaction> {
   
   @override
   void initState(){
-    sort = false;
+    sort = true;
     selectedtransachs = [];
     transachs = Transach.getTransachs();
     super.initState();
@@ -54,9 +55,9 @@ deleteSelected() async{
    return SingleChildScrollView(
      scrollDirection: Axis.vertical,
      child: DataTable(
-     columnSpacing: 300,
+     columnSpacing: 370,
      sortAscending: sort,
-     sortColumnIndex: 0,
+     sortColumnIndex: 1,
      columns: [
        DataColumn(
          label: Text("Transaction ID", style: TextStyle(fontSize: 40)),
@@ -100,19 +101,65 @@ deleteSelected() async{
          DataCell(
            Text(transachs.id),
            onTap: (){
-             print("Selected ${transachs.id}");
+             showDialog(
+               context: context, builder: (_) =>  AssetGiffyDialog(
+                 image: Image.asset('assets/transaction.gif'),
+                 buttonCancelColor: Colors.red,
+                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 buttonOkColor: Colors.green,
+                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
+                 title: Text("DETAILS",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 ),
+                 description: Text("Transaction Details",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                 textAlign: TextAlign.center),
+                 entryAnimation: EntryAnimation.RIGHT,
+                 onOkButtonPressed: (){
+                   Navigator.pop(context);
+                 },
+               ),
+             );
            },
          ),
          DataCell(
            Text(transachs.productname),
            onTap: (){
-             print("Selected ${transachs.productname}");
+             showDialog(
+               context: context, builder: (_) => AssetGiffyDialog(
+                 image: Image.asset("assets/it.gif"),
+                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 25)),
+                 buttonCancelColor: Colors.red.withOpacity(.9),
+                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 25)),
+                 buttonOkColor: Colors.orange.withOpacity(.8),
+                 title: Text("Item details", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 ),
+                 description: Text("Takes care of your skin irritation.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                 textAlign: TextAlign.center),
+                 entryAnimation: EntryAnimation.RIGHT,
+                 onOkButtonPressed: (){
+                   Navigator.pop(context);
+                 },
+               )
+             );
            },
          ),
          DataCell(
            Text(transachs.date),
            onTap: (){
-             print("Selected ${transachs.date}");
+             showDialog(
+               context: context, builder: (_) => AssetGiffyDialog(
+                 image: Image.asset("assets/date.gif"),
+                 buttonCancelColor: Colors.red,
+                 buttonOkColor: Colors.green,
+                 title: Text("Date History", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 ),
+                 description: Text("Date Info.....", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                 textAlign: TextAlign.center),
+                 entryAnimation: EntryAnimation.RIGHT,
+                 onOkButtonPressed: (){
+                   Navigator.pop(context);
+                 },
+               ),
+             );
            }
          ),
        ],
@@ -149,9 +196,7 @@ deleteSelected() async{
                 padding: EdgeInsets.all(20),
                 child: OutlineButton(
                   child: Text("Selected ${selectedtransachs.length}"),
-                  onPressed: (){
-
-                  },
+                  onPressed: (){},
                 ),
               ),
                Padding(

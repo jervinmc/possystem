@@ -11,21 +11,26 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
+  TextEditingController username = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white12,
       resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
       body: Stack(
-        fit: StackFit.expand, 
+        fit: StackFit.expand,
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 80,top: 0),
-                child: FadeAnimation(2.1,Image.asset("assets/AUTHPOS.png"),
+                padding: EdgeInsets.only(left: 2,top: 1, right: 2),
+                child: FadeAnimation(2.9,Image.asset("assets/POS.png"),
               )),
               Padding(
                 padding: EdgeInsets.only(bottom: 3.0),
@@ -33,12 +38,12 @@ class _SignInState extends State<SignIn> {
                   children: <Widget>[
                     Expanded(
                       child: Divider(
-                        height: 5.0,
+                        height: 15.0,
                         color: Colors.transparent,
                       ),),
                       Expanded(
                         child: Divider(
-                          height: 5.0,
+                          height: 15.0,
                           color: Colors.transparent,
                         ),
                       )
@@ -46,18 +51,17 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.45, vertical: 5.0),
-                  child: FadeAnimation(2.3,Material(
-                    elevation: 5,
-                    borderRadius: BorderRadius.circular (30),
+                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.4, vertical: 5.0),
+                  child: FadeAnimation(2.9,Material(
+                    elevation: 6,
+                    borderRadius: BorderRadius.circular (50),
                    // child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                        controller: username,
                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
-                          hintText: "",
-                          hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
-                          icon: Icon(Icons.person_outline, size: 30),
+                          icon: Icon(Icons.person_outline, size: 40),
                           labelText: "Username", labelStyle: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -67,19 +71,19 @@ class _SignInState extends State<SignIn> {
                 Text(""),
                  Container(
 
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.45, vertical: 5.0),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.4, vertical: 7.0),
 
-                  child: FadeAnimation (2.4,Material(
+                  child: FadeAnimation (2.9,Material(
                     elevation: 5,
-                     borderRadius: BorderRadius.circular (30),
+                     borderRadius: BorderRadius.circular (50),
                   //  child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                        controller: password,
                          textCapitalization: TextCapitalization.sentences,
+                         obscureText: true,
                         decoration: InputDecoration(
-                          hintText: "",
-                          hintStyle: TextStyle(color: Colors.black, fontStyle: FontStyle.normal, fontSize: 25),
-                          icon: Icon(Icons.lock_outline, size: 30),
+                          icon: Icon(Icons.lock_outline, size: 40),
                           labelText: "Password", labelStyle: TextStyle(color: Colors.black),
                         ),
                       //),
@@ -88,21 +92,22 @@ class _SignInState extends State<SignIn> {
                 )),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
-                  child: FadeAnimation(2.5,Material(
-                    color: Colors.orange[400],
+                  child: FadeAnimation(2.9,Material(
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(60.0),
                     shadowColor: Colors.white,
                   child: MaterialButton(
                     minWidth: 250.0,
-                    height: 30.0,
+                    height: 35.0,
                     onPressed: (){
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
                     child: Text("SIGN IN",
                     style: TextStyle(
                       fontSize: 28,
-                      color: Colors.black,
+                      color: Colors.orange[400],
                       fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic
                     ),),
                   ),
                 )

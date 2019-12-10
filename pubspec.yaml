@@ -29,6 +29,10 @@ dependencies:
   vector_math: ^2.0.8
   font_awesome_flutter: ^8.4.0
   stepper_touch: ^0.0.1
+  page_transition: ^1.1.4
+  passcode_screen: ^1.0.2
+  flutter_lock_screen: ^1.0.3
+  giffy_dialog: ^1.6.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +73,17 @@ flutter:
   - assets/q1.jpg
   - assets/q2.png
   - assets/q3.png
+  - assets/transaction.gif
+  - assets/t1.gif
+  - assets/it.gif
+  - assets/prod.gif
+  - assets/p1.gif
+  - assets/p2.gif
+  - assets/error.gif
+  - assets/date.gif
+  - images/POS.png
+  - assets/heart.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
