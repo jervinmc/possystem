@@ -16,7 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stepper_touch/stepper_touch.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
-
+import 'dart:async';
 
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
@@ -145,24 +145,47 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
     @override
+    //function..
+    
+    Timer _timer;
+int _start = 10;
+void startTimer() {
+  const oneSec = const Duration(seconds: 1);
+  _timer = new Timer.periodic(
+    oneSec,
+    (Timer timer) => setState(
+      () {
+        if (_start < 9) {
+          if(openDialog){
+         shifting(context, 1);
+          timer.cancel();
+          openDialog=false;
+          }
+        } else {
+          _start = _start - 1;
+            print(_start);
+        }
+      },
+    ),
+  );
+}
   initState(){
     SunmiAidlPrint.bindPrinter();
 super.initState();
 controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
 
   }
-  void shiftings(){
-    print("werc");
 
-  }
     void dispose() {
+      _timer.cancel();
     SunmiAidlPrint.bindPrinter();
     //textYouWantToPrint.clear();
     super.dispose();
 
  }
+ 
   ///////////////variable/////
-  bool openDialog=false;
+  bool openDialog=true;
   bool shifted=false;
   int moneyHoldertext=0;
     int itemCounter=5;
@@ -253,14 +276,18 @@ Future<void> shifting(BuildContext context,int x) {
         child: AlertDialog(
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Enter Quantity", 25, Colors.black87, "style",),),
-        content:TextFormField(
+          child:Column(
+          children: <Widget>[
+            textCustom("Enter Opening Amount", 20, Colors.black, "style"),
+            TextFormField(
           controller: qtyCtrlr,
           maxLength: 5,
           textAlign: TextAlign.center,
           keyboardType:TextInputType.number,
         autofocus: true,
         ),
+          ],
+        ),),
         actions: <Widget>[
            Center(
              child:Container(
@@ -610,12 +637,11 @@ new OutlineButton(
       b.add("${productName[x]} ,${quantity[x]} ,${price[x]}");
 
     }
+  for(int x=0;x<1000;x++){
+
   
-  if(openDialog){
-    openDialog=false;
-    print("object");
-    
-      }
+ 
+  }
     return b;  
     
   }
@@ -624,7 +650,7 @@ new OutlineButton(
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
-    
+    startTimer();
     return Scaffold(
      drawer: Theme(
         data: ThemeData.dark(),
@@ -1301,6 +1327,7 @@ new OutlineButton(
 
         },
       );
+
               },
               
             )
@@ -1474,7 +1501,9 @@ new OutlineButton(
                                    tin.text="";
                                    address.text="";
                                  });
-                                 _checkOut(context, 1);
+                                 _checkOut(context, 1); 
+                                // shifting(context, 1);
+
                          /*
                            AwesomeDialog(context: context,
             dialogType: DialogType.INFO,
