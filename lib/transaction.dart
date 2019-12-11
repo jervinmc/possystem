@@ -1,3 +1,5 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'transition.dart';
 import 'package:flutter/material.dart';
 import 'transach.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
@@ -126,32 +128,20 @@ deleteSelected() async{
          DataCell(
            Text(transachs.refund),
            onTap: (){
-             showDialog(
+             AwesomeDialog(
                context: context,
-               builder: (BuildContext context){
-                 return AlertDialog(
-                   title: Text("Transaction Details", style: TextStyle(fontSize: 40),),
-                   content: Text("CONTENT TRANSACTION......." ,style: TextStyle(fontSize: 40),),
-                   contentPadding: EdgeInsets.all(100),
-                   actions: <Widget>[
-                     new FlatButton(
-                       child: Text("Cancel", style: TextStyle(fontSize: 25),),
-                       onPressed: (){
-                         Navigator.pop(context);
-                       },
-                     ),
-                     Text(""),
-                     Text(""),
-                     FlatButton(
-                       child: Text("Confirm", style: TextStyle(fontSize: 25),),
-                       onPressed: (){
-                         Navigator.pop(context);
-                       },
-                     ),
-                   ],
-                 );
-               }
-             );
+               animType: AnimType.RIGHSLIDE,
+               dialogType: DialogType.INFO,
+               body: Center(
+                child: Text("Transaction History"),
+               ),
+               tittle: "Transaction History",
+               desc:  "......transach",
+               btnOkOnPress: (){
+                
+               },
+               btnCancelOnPress: (){}
+             ).show();
            }
          ),
        ],
@@ -169,8 +159,7 @@ deleteSelected() async{
         iconTheme: IconThemeData(color: Colors.white, size: 30),
         elevation: 2,
         actions: <Widget>[
-         textCustom('Selected ${selectedtransachs.length}', 30, Colors.white, "")
-      
+         textCustom('Selected ${selectedtransachs.length}', 30, Colors.white, "")      
         ],
       ),
       resizeToAvoidBottomPadding: true,

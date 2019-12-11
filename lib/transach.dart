@@ -3,7 +3,7 @@ class Transach{
   String date;
   String refund;
   
-  Transach({this.receipt, this.date, this.refund });
+  Transach({this.receipt, this.date, this.refund});
 
   static List<Transach> getTransachs(){
     return <Transach> [
