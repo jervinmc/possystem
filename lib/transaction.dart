@@ -23,9 +23,9 @@ class _TransactionState extends State<Transaction> {
 onSortColum(int columnIndex, bool ascending){
   if (columnIndex ==1){
     if (ascending){
-transachs.sort((a,b) => a.productname.compareTo(b.productname));
+transachs.sort((a,b) => a.date.compareTo(b.date));
     }else{
-transachs.sort((a,b,) => b.productname.compareTo(a.productname));
+transachs.sort((a,b,) => b.date.compareTo(a.date));
     }
   }
 }
@@ -60,9 +60,9 @@ deleteSelected() async{
      sortColumnIndex: 1,
      columns: [
        DataColumn(
-         label: Text("Transaction ID", style: TextStyle(fontSize: 40)),
+         label: Text("Receipt Number", style: TextStyle(fontSize: 40)),
          numeric: false,
-         tooltip: "This is the ID",
+         tooltip: "This is the receipt",
          onSort: (columnIndex, ascending){
            setState(() {
              sort =!sort;
@@ -71,20 +71,20 @@ deleteSelected() async{
          }
        ),
        DataColumn(
-         label: Text("Items",style: TextStyle(fontSize: 40)),
-         numeric: false,
-         tooltip: "This is the items",
-         onSort: (columnIndex, ascending){
-           setState(() {
-             sort =!sort;
-           });
-           onSortColum(columnIndex, ascending);
-         }
-       ),
-       DataColumn(
-         label: Text("Date", style: TextStyle(fontSize: 40)),
+         label: Text("Date",style: TextStyle(fontSize: 40)),
          numeric: false,
          tooltip: "This is the date",
+         onSort: (columnIndex, ascending){
+           setState(() {
+             sort =!sort;
+           });
+           onSortColum(columnIndex, ascending);
+         }
+       ),
+       DataColumn(
+         label: Text("Action", style: TextStyle(fontSize: 40)),
+         numeric: false,
+         tooltip: "This is the refund",
          onSort: (columnIndex, ascending){
            setState(() {
              sort =!sort;
@@ -99,7 +99,7 @@ deleteSelected() async{
        },
        cells:[
          DataCell(
-           Text(transachs.id),
+           Text(transachs.receipt),
            onTap: (){
              showDialog(
                context: context, builder: (_) =>  AssetGiffyDialog(
@@ -108,9 +108,9 @@ deleteSelected() async{
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 30)),
                  buttonOkColor: Colors.green,
                  buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 30)),
-                 title: Text("DETAILS",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 title: Text("Transaction Details",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                  ),
-                 description: Text("Transaction Details",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                 description: Text("",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                  textAlign: TextAlign.center),
                  entryAnimation: EntryAnimation.RIGHT,
                  onOkButtonPressed: (){
@@ -121,29 +121,38 @@ deleteSelected() async{
            },
          ),
          DataCell(
-           Text(transachs.productname),
-           onTap: (){
-             showDialog(
-               context: context, builder: (_) => AssetGiffyDialog(
-                 image: Image.asset("assets/it.gif"),
-                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 30)),
-                 buttonCancelColor: Colors.red.withOpacity(.9),
-                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 30)),
-                 buttonOkColor: Colors.green.withOpacity(.8),
-                 title: Text("Item details", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                 ),
-                 description: Text("Takes care of your skin irritation.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                 textAlign: TextAlign.center),
-                 entryAnimation: EntryAnimation.RIGHT,
-                 onOkButtonPressed: (){
-                   Navigator.pop(context);
-                 },
-               )
-             );
-           },
+           Text(transachs.date),
          ),
          DataCell(
-           Text(transachs.date)
+           Text(transachs.refund),
+           onTap: (){
+             showDialog(
+               context: context,
+               builder: (BuildContext context){
+                 return AlertDialog(
+                   title: Text("Transaction Details", style: TextStyle(fontSize: 40),),
+                   content: Text("CONTENT TRANSACTION......." ,style: TextStyle(fontSize: 40),),
+                   contentPadding: EdgeInsets.all(100),
+                   actions: <Widget>[
+                     new FlatButton(
+                       child: Text("Cancel", style: TextStyle(fontSize: 25),),
+                       onPressed: (){
+                         Navigator.pop(context);
+                       },
+                     ),
+                     Text(""),
+                     Text(""),
+                     FlatButton(
+                       child: Text("Confirm", style: TextStyle(fontSize: 25),),
+                       onPressed: (){
+                         Navigator.pop(context);
+                       },
+                     ),
+                   ],
+                 );
+               }
+             );
+           }
          ),
        ],
      ),

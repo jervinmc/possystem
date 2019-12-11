@@ -1260,7 +1260,7 @@ new OutlineButton(
                         child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Colors.green,), 
+                    icon:  Icon(Icons.add,color: Colors.green,),
                     onPressed: (){
                       setState(() {
                          
