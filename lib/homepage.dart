@@ -860,7 +860,7 @@ new OutlineButton(
               accountName: Text("Prokopyo Tunying",
               style: TextStyle(fontSize: 20),
               ),
-        
+
             ),
              ),
               new Container(    
@@ -1234,6 +1234,23 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context){
+                          return AlertDialog(
+                            title: Text("Input Username And Password"),
+                            content: Text("....."),
+                            actions: <Widget>[
+                              new FlatButton(
+                                child: Text("VOID"),
+                                onPressed: (){
+                                  
+                                },
+                              ),
+                            ],
+                          );
+                        }
+                      );
 
                    setState(() {
                      

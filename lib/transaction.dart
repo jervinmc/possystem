@@ -133,14 +133,12 @@ deleteSelected() async{
                animType: AnimType.RIGHSLIDE,
                dialogType: DialogType.INFO,
                body: Center(
-                child: Text("Transaction History"),
+                child: Text("Transaction History", style: TextStyle(fontSize: 35)),
                ),
-               tittle: "Transaction History",
-               desc:  "......transach",
-               btnOkOnPress: (){
-                
-               },
-               btnCancelOnPress: (){}
+               tittle: "",
+               btnOkColor: Colors.blue,
+               btnOkOnPress: (){},
+               btnCancelOnPress: (){},
              ).show();
            }
          ),
@@ -182,7 +180,6 @@ deleteSelected() async{
                 child: OutlineButton(
                   child: Text("Selected ${selectedtransachs.length}"),
                   onPressed: (){
-                    
                   },
                 ),
               ),
