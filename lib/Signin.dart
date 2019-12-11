@@ -3,6 +3,8 @@ import 'package:possystem/homepage.dart';
 import 'fadeAnimation.dart';
 import 'transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:convert';
+import 'package:http/http.dart'as http;
 
 
 class SignIn extends StatefulWidget {
@@ -99,8 +101,19 @@ class _SignInState extends State<SignIn> {
                   child: MaterialButton(
                     minWidth: 250.0,
                     height: 35.0,
-                    onPressed: (){
+                    onPressed: ()async{
+                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"),headers: {
+                     "Accept":"application/json"
+
+     });
+     var reviewdata = json.decode(response.body);
+     for (int x = 0; x < reviewdata.length; x++) {
+       if (username.text == reviewdata[x]['firstname'] ){
+         
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
+       }
+     }
+
                     },
                     child: Text("SIGN IN",
                     style: TextStyle(

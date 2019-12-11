@@ -368,6 +368,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
  }
  
   ///////////////variable/////
+  String function="";
+  int sd=0;
   int lengthOfCount=0;
   bool openDialog=true;
   double subtotal=0;
@@ -828,11 +830,28 @@ new OutlineButton(
   );
 }
   Future a()async{
-   
+    
+    if(function=="add"){
+      setState(() {
+         // quantity[sd]=quantity[sd]+1;
+          subtotal=subtotal+price[sd];
+          function="";
+      });
+      print("${quantity[sd]} eto sd");
+    sd=0;
+    }
+    else if(function=="remove"){
+      setState(() {
+         // quantity[sd]=quantity[sd]+1;
+          subtotal=subtotal-price[sd];
+          function="";
+      });
+      print("${quantity[sd]} eto sd");
+    sd=0;
+    }
     List b=[];
     for(int x=0;x<productName.length;x++){
       b.add("${productName[x]} ,${quantity[x]} ,${price[x]}");
-
     }
   for(int x=0;x<1000;x++){
 
@@ -1234,7 +1253,8 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
-
+                      sd=index;
+                      function="remove";
                    setState(() {
                      
                      if(quantity[index]==1){
@@ -1263,7 +1283,9 @@ new OutlineButton(
                     icon:  Icon(Icons.add,color: Colors.green,),
                     onPressed: (){
                       setState(() {
-                         
+                         print("awerc");
+                         function="add";
+                         sd=index;
                           quantity[index]=quantity[index]+1;
                           subtotal=0;
                      lengthOfCount=0;
@@ -1325,6 +1347,8 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
+                      sd=index;
+                      function="remove";
                       setState(() {
                          subtotal=0;
                      lengthOfCount=0;
@@ -1352,7 +1376,9 @@ new OutlineButton(
                     icon:  Icon(Icons.add,color: Colors.green,), 
                     onPressed: (){
                       setState(() {
-                        
+                      
+                          function="add";
+                          sd=index;
                           quantity[index]=quantity[index]+1;
                           subtotal=0;
                      lengthOfCount=0;
@@ -1476,7 +1502,8 @@ new OutlineButton(
           double secondNumber=double.parse(a[2]);
           
             subtotal=(firstNumber*secondNumber)+subtotal;
-          
+            print("sec ${a[1]}");
+            print("first $subtotal");
           if(snapshot.data.length==index+1){
             lengthOfCount=2;
             print("$index");            
