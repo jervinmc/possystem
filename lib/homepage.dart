@@ -17,7 +17,8 @@ import 'package:stepper_touch/stepper_touch.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
@@ -137,7 +138,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
   
-  List productName=["Head and Shoulder","Kojic white","Safeguard Family"];
+  List productName=["Head and Shoulder","Kojic white","SafeguardS Family"];
   List quantity=[1,1,1];
   List price=[150,50,100];
 
@@ -146,7 +147,189 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController searchCtrlr=new TextEditingController();
     @override
     //function..
+    void enterBarcode()async{
+      print(searchCtrlr.text);
+      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
+        "Accept":"application/json"
+     });
+    var reviewdata=json.decode(response.body);
+
+    print("${reviewdata['sellingPrice']} eto ang nakuha");
+    //price.removeAt(2);
+    int trap=0;
+    setState(() {
+      for(int x=0;x<productName.length;x++){
+        if(productName[x]==reviewdata['productName']){
+            
+            quantity.insert(x, quantity[x]+1);
+            trap=1;
+        }
+      }
+      if(trap==0 && reviewdata['sellingPrice']!=null ){
+              price.add(reviewdata['sellingPrice']);
+    quantity.add(1);
+  productName.add(reviewdata['productName']);
+  trap=1;
+      }
+      
+  //quantity.insert(2, 10);
+  if(productName.indexOf(reviewdata['productName'])<0){
+      print("okkkk");
+  }
+
+    });
+
+
+    }
+       Future<void> customerAddress(BuildContext context,int x) {
+         address.text="";
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Enter Customer TIN", 25, Colors.black87, "style",),),
+        content:TextFormField(
+          controller: address,
+          maxLength: 15,
+          textAlign: TextAlign.center,
+          keyboardType:TextInputType.number,
+        autofocus: true,
+        ),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 400,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
     
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+new OutlineButton(
+      borderSide: BorderSide(
+        
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.black,
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+  setState(() {
+    quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+     Future<void> customerTin(BuildContext context,int x) {
+       tinNumber.text="";
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Enter Customer TIN", 25, Colors.black87, "style",),),
+        content:TextFormField(
+          controller: tinNumber,
+          maxLength: 15,
+          textAlign: TextAlign.center,
+          keyboardType:TextInputType.number,
+        autofocus: true,
+        ),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 400,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+new OutlineButton(
+      borderSide: BorderSide(
+        
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.black,
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+  setState(() {
+    quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
     Timer _timer;
 int _start = 10;
 void startTimer() {
@@ -193,6 +376,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     int itemCounter=5;
   TextEditingController qtyCtrlr=new TextEditingController();
    TextEditingController payment=new TextEditingController();
+     TextEditingController tinNumber=new TextEditingController();
+
     TextEditingController tin=new TextEditingController();
      TextEditingController address=new TextEditingController();
   Future<void> _ackAlert(BuildContext context,int x) {
@@ -204,6 +389,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
           child: textCustom("Enter Quantity", 25, Colors.black87, "style",),),
@@ -276,7 +462,7 @@ Future<void> shifting(BuildContext context,int x) {
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
-        
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
           child:Column(
@@ -415,7 +601,7 @@ new OutlineButton(
               ),
                       ),
                       Text(""),
-                      textCustom("Customer TIN", 25, Colors.black, ""),
+                      textCustom("Customer Name", 25, Colors.black, ""),
                       Text(""),
                       Container(
                         height: 50,
@@ -443,37 +629,45 @@ new OutlineButton(
               ),
               ),
                       ),
+
                       Text(""),
-                      textCustom("Customer Address", 25, Colors.black, ""),
-                      Text(""),
-                      Container(
-                        height: 50,
-                        width: 250,
-                        child: TextField(
-                          controller: address,
-                               textAlign: TextAlign.center,
-              decoration: new InputDecoration(
-                
-                 
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(20)
-                
-                ),
-            
-               // hintText: 'Mobile Number',
-              ),
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.black
-              ),
-              ),
-                      ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.confirmation_number,size: 40,),
+                          onPressed: (){
+                            customerTin(context,1);
+                          },
+                        ),
+                         Container(
+                         padding: EdgeInsets.only(top: 18),
+                         child:  Text(" Customer TIN"),
+                       )
+                         
+                      ],
+                    ),
+                        Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.home,size: 40),
+                          onPressed: (){
+                          customerAddress(context,1);
+
+                          },
+                        ),
+                       Container(
+                         padding: EdgeInsets.only(top: 18),
+                         child:  Text(" Customer Address"),
+                       )
+                         
+                      ],
+                    ),
+                     
                      ],
+                     
                    ),
                   ),
                 Container(
@@ -510,9 +704,6 @@ new OutlineButton(
                             //  String paymentHolder=payment.text;
                           moneyHoldertext=moneyHoldertext+500;
                               payment.text="${moneyHoldertext.toString()}.00";
-
-
-
                             });
                            }, "500 ", 120),
                        ],
@@ -933,11 +1124,17 @@ new OutlineButton(
     },
     keyboardType: TextInputType.text,
     decoration: InputDecoration(
+     
         icon: Container(
           padding: EdgeInsets.only(left: 15),
           height: 50,
           width: 70,
-          child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+          child: InkWell(
+            onTap: (){
+              enterBarcode();
+            },
+            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+          )
 
         ),
         hintText: 'ENTER BARCODE',
@@ -1277,14 +1474,12 @@ new OutlineButton(
           if(lengthOfCount!=2){
              double firstNumber=double.parse(a[1]);
           double secondNumber=double.parse(a[2]);
-
+          
             subtotal=(firstNumber*secondNumber)+subtotal;
           
           if(snapshot.data.length==index+1){
             lengthOfCount=2;
-
-            print("$index");
-            
+            print("$index");            
            }
           }
           
@@ -1296,27 +1491,27 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[0]}", 20, Colors.white, ""),),
+                child: textCustom("${a[0]}", 14, Colors.white, ""),),
               
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[2]}", 20, Colors.white, ""),),
+                child: textCustom("${a[2]}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
+              children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${double.parse(a[1])*double.parse(a[2])}", 20, Colors.white, ""),),
+                child: textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, ""),),
               ],
             ),     
             ]
@@ -1330,26 +1525,26 @@ new OutlineButton(
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[0]}", 20, Colors.white, ""),),
+                child: textCustom("${a[0]}", 14, Colors.white, ""),),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${a[2]}", 20, Colors.white, ""),),
+                 child: textCustom("${a[2]}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                  Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${double.parse(a[1])*double.parse(a[2])*1}", 20, Colors.white, ""),)
+                 child: textCustom("${double.parse(a[1])*double.parse(a[2])*1}", 14, Colors.white, ""),)
               ],
             ),        
                 
