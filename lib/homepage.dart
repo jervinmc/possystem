@@ -163,13 +163,17 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             
             quantity.insert(x, quantity[x]+1);
             trap=1;
+            sd=x;
+              function="add";
         }
       }
       if(trap==0 && reviewdata['sellingPrice']!=null ){
+
               price.add(reviewdata['sellingPrice']);
     quantity.add(1);
   productName.add(reviewdata['productName']);
   trap=1;
+
       }
       
   //quantity.insert(2, 10);
@@ -178,7 +182,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   }
 
     });
-
+    sd=productName.length-1;
+              function="add";
 
     }
        Future<void> customerAddress(BuildContext context,int x) {
@@ -1151,6 +1156,7 @@ new OutlineButton(
           child: InkWell(
             onTap: (){
               enterBarcode();
+              
             },
             child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
           )
