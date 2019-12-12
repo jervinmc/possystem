@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Colors.white12,
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -105,7 +105,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
                 Container( 
-                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.4, vertical: 5.0),
+                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.5, vertical: 5.0),
                   child: FadeAnimation(2.9,Material(
                     elevation: 6,
                     borderRadius: BorderRadius.circular (50),
@@ -125,7 +125,7 @@ class _SignInState extends State<SignIn> {
                 Text(""),
                  Container(
 
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.4, vertical: 7.0),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.5, vertical: 5.0),
 
                   child: FadeAnimation (2.9,Material(
                     elevation: 5,
@@ -160,7 +160,11 @@ class _SignInState extends State<SignIn> {
      });
      int a=0;
      var reviewdata = json.decode(response.body);
+<<<<<<< HEAD
     for (int x = 0; x < reviewdata.length; x++) {
+=======
+     for (int x = 0; x < reviewdata.length; x++) { 
+>>>>>>> da75d67a3c48b54a3eac76eba5bb6d40a10220a7
        if (username.text == reviewdata[x]['firstname'] ){
               a=1;
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));

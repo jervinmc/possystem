@@ -137,6 +137,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
+
+  TextEditingController username = new TextEditingController();
+  TextEditingController password = new TextEditingController();
   
   List productName=["Head and Shoulder","Kojic white","SafeguardS Family"];
   List quantity=[1,1,1];
@@ -1394,15 +1397,100 @@ new OutlineButton(
                         context: context,
                         builder: (BuildContext context){
                           return AlertDialog(
-                            title: Text("Input Username And Password"),
-                            content: Text("....."),
+                            title: Text("Enter Username And Password", style: TextStyle(fontSize: 25)),
+                            content: Container(
+                              width: 200.0,
+                              height: 200.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: const Color(0xFFFFF),
+                                borderRadius: BorderRadius.all(Radius.circular(32.0)
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white
+                                          ),
+                                          child: Text("",style: TextStyle(
+                                            fontSize: 20, fontWeight: FontWeight.bold
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: TextField(
+                                        controller: username,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          filled: false,
+                                          contentPadding: EdgeInsets.only(
+                                            left: 10.0,
+                                            top: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          hintText: "Username", hintStyle: TextStyle(
+                                            fontSize: 20.0, color: Colors.black
+                                          )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: TextField(
+                                        controller: password,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          filled: false,
+                                          contentPadding: EdgeInsets.only(
+                                            left: 10.0,
+                                            top: 10.0,
+                                            right: 10.0
+                                          ),
+                                          hintText: "Password", hintStyle: TextStyle(
+                                            fontSize: 20.0, color: Colors.black
+                                          )
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                                
+                              ),
+                              
+                            ),
+                            
+                            
                             actions: <Widget>[
-                              new FlatButton(
-                                child: Text("VOID"),
-                                onPressed: (){
+                               new FlatButton(
+                                child: Text("VOID", style: TextStyle(color: Colors.black),),
+                                onPressed: ()async{
+                                   http.Response response = await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"), headers: {
+                                     'Accept' : 'application/json'
+                                   });
+                                   var reviewdata = json.decode(response.body);
+                                   for (int x = 0; x < reviewdata.length; x++){
+                                     if (username.text == reviewdata [x] ['firstname']) {
+                                       Navigator.pop(context);
+                                     }
+                                     
+                                   }
                                   
+                                 
                                 },
                               ),
+                             
+                             
                             ],
                           );
                         }
@@ -1448,7 +1536,6 @@ new OutlineButton(
                           subtotal=0;
                      lengthOfCount=0;
                       });
-                      
                     },
                     ),
                     
@@ -1505,6 +1592,102 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
+                        showDialog(
+                        context: context,
+                        builder: (BuildContext context){
+                          return AlertDialog(
+                            title: Text("Enter Username And Password ", style: TextStyle(fontSize: 25)),
+                            content: Container(
+                              width: 250.0,
+                              height: 220.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: const Color(0xFFFFF), 
+                                borderRadius: BorderRadius.all(Radius.circular(32.0)
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white
+                                          ),
+                                          child: Text("",style: TextStyle(
+                                            fontSize: 25, fontWeight: FontWeight.bold
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          filled: false,
+                                          contentPadding: EdgeInsets.only(
+                                            left: 10.0,
+                                            top: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          hintText: 'Username',hintStyle: TextStyle(
+                                            fontSize: 25, fontWeight: FontWeight.bold
+                                          )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                    Expanded(
+                                    child: Container(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          filled: false,
+                                          contentPadding: EdgeInsets.only(
+                                            left: 10.0,
+                                            top: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          hintText: 'Password',hintStyle: TextStyle(
+                                            fontSize: 25, fontWeight: FontWeight.bold
+                                          )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                               new FlatButton(
+                                child: Text("VOID", style: TextStyle(color: Colors.black),),
+                                onPressed: ()async{
+                                   http.Response response = await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"), headers: {
+                                     'Accept' : 'application/json'
+                                   });
+                                   var reviewdata = json.decode(response.body);
+                                   for (int x = 0; x < reviewdata.length; x++){
+                                     if (username.text == reviewdata [x] ['firstname']){
+                                       Navigator.pop(context);
+                                     }
+                                     
+                                   }
+                                  
+                                 
+                                },
+                              ),
+                             
+                             
+                            ],
+                          );
+                        }
+                      );
                       sd=index;
                       function="remove";
                        points=points-pointsTotal[index];
