@@ -48,7 +48,7 @@ class _SignInState extends State<SignIn> {
                           height: 15.0,
                           color: Colors.transparent,
                         ),
-                      )
+                      ),
                   ],
                 ),
                 ),

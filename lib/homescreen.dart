@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                           height: 90,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
+                            borderRadius: BorderRadius.circular(50),
                             color: Colors.orange.withOpacity(.4)
                           ),
                           child: InkWell(
@@ -144,21 +144,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                                 AnimatedBuilder(
                                   animation: _positionController,
                                   builder: (context, child) => Positioned(
-                                    left: _positionAnimation.value,
+                                    right: _positionAnimation.value,
                                     child: AnimatedBuilder(
                                       animation: _scale2Controller,
                                       builder: (context, child) => Transform.scale(
                                         scale: _scale2Animation.value,
                                         child: Container(
-                                          width: 60,
-                                          height: 65,
+                                          width: 70,
+                                          height: 70,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Colors.orange
+                                            color: Colors.orange,
                                           ),
                                           child: hideIcon == false ?
                                            Icon(Icons.arrow_forward,
-                                            color: Colors.white,) 
+                                            color: Colors.white) 
                                             : Container(),
                                         )
                                       ),
