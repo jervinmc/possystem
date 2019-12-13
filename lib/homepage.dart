@@ -150,6 +150,56 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController searchCtrlr=new TextEditingController();
     @override
     //function..
+    Future<void> paymentRestriction(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Please enter the payment", 25, Colors.red, "style",),),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
     void enterBarcode()async{
       print(searchCtrlr.text);
       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
@@ -167,6 +217,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             quantity.insert(x, quantity[x]+1);
             trap=1;
             sd=x;
+              points=points+reviewdata['points'];
               function="add";
         }
       }
@@ -175,8 +226,9 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               price.add(reviewdata['sellingPrice']);
     quantity.add(1);
   productName.add(reviewdata['productName']);
+    points=points+reviewdata['points'];
+    pointsTotal.add(reviewdata['points']);
   trap=1;
-
       }
       
   //quantity.insert(2, 10);
@@ -202,7 +254,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Enter Customer TIN", 25, Colors.black87, "style",),),
+          child: textCustom("Enter Customer Address", 25, Colors.black87, "style",),),
         content:TextFormField(
           controller: address,
           maxLength: 15,
@@ -254,7 +306,7 @@ new OutlineButton(
 
                  ],
                ),
-               )
+               ) 
              )
            )
         ],
@@ -345,11 +397,13 @@ void startTimer() {
   _timer = new Timer.periodic(
     oneSec,
     (Timer timer) => setState(
+      
       () {
+          timer.cancel();
         if (_start < 9) {
           if(openDialog){
          shifting(context, 1);
-          timer.cancel();
+        
           openDialog=false;
           }
         } else {
@@ -376,6 +430,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
  }
  
   ///////////////variable/////
+  List pointsTotal=[0.0,0.0,0.0];
+  double points=0.0;
   String function="";
   int sd=0;
   int lengthOfCount=0;
@@ -581,40 +637,10 @@ new OutlineButton(
                     child:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                      children: <Widget>[
-                     
-                       textCustom("Enter payment amount", 25, Colors.black, ""),
-                       Text(""),
-                      Container(
-                        width: 250,
-                        height: 50,
-                        child: TextField(
-                          controller: payment,
-                               textAlign: TextAlign.center,
-              decoration: new InputDecoration(
-                        
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(20),
-                
-                ),
-            
-               // hintText: 'Mobile Number',
-              ),
-              style: TextStyle(
-                    fontSize: 30,
-                color: Colors.black
-              ),
-              ),
-                      ),
-                      Text(""),
                       textCustom("Customer Name", 25, Colors.black, ""),
-                      Text(""),
+                    
                       Container(
-                        height: 50,
+                        height: 40,
                         width: 250,
                         child: TextField(
                           controller: tin,
@@ -640,59 +666,124 @@ new OutlineButton(
               ),
                       ),
 
-                      Text(""),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.confirmation_number,size: 40,),
-                          onPressed: (){
-                            customerTin(context,1);
-                          },
-                        ),
-                         Container(
-                         padding: EdgeInsets.only(top: 18),
-                         child:  Text(" Customer TIN"),
-                       )
-                         
-                      ],
-                    ),
-                        Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.home,size: 40),
-                          onPressed: (){
-                          customerAddress(context,1);
-
-                          },
-                        ),
-                       Container(
-                         padding: EdgeInsets.only(top: 18),
-                         child:  Text(" Customer Address"),
-                       )
-                         
-                      ],
-                    ),
+                   
+ textCustom("Customer TIN", 25, Colors.black, ""),
+                    
+                      Container(
+                        height: 40,
+                        width: 250,
+                        child: TextField(
+                          controller: tin,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 30,
+                color: Colors.black
+              ),
+              ),
+                      ),
+                       textCustom("Customer Address", 25, Colors.black, ""),
+                    
+                      Container(
+                        height: 40,
+                        width: 250,
+                        child: TextField(
+                          controller: tin,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderRadius: BorderRadius.circular(20)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 30,
+                color: Colors.black
+              ),
+              ),
+                      ),
                      
                      ],
                      
                    ),
                   ),
+                  
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5)
                   ),
-                  padding: EdgeInsets.only(right: 0,top: 15),
-             height: MediaQuery.of(context).size.width/3.8,
+                  padding: EdgeInsets.only(right: 0,top: 0),
+             height: MediaQuery.of(context).size.width/3.9,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
                    // crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                           Column(
+                             children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(bottom: 5),
+                             // margin: EdgeInsets.only(bottom: 10),
+                              child:     textCustom("Enter payment amount", 25, Colors.black, ""),
+                            ),
+
+                                 Container(
+                        width: 250,
+                        height: 40,
+                        child: TextField(
+                          controller: payment,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                        
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderRadius: BorderRadius.circular(20),
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 30,
+                color: Colors.black
+              ),
+              ),
+                      ),
+                             ],
+                           )
+                        ],
+                      ),
+               
                  
-                    Text(""),
+
                    Container(
                      padding: EdgeInsets.only(bottom: 11),
                      child: 
@@ -821,7 +912,44 @@ new OutlineButton(
                Text(""),
                Container(
                  padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView3((){},"SUBMIT",double.infinity),
+                 child:  rButtonView3((){
+                   if(payment.text==""){
+                     paymentRestriction(context, 1);
+                     
+                   }
+                   else{
+                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               SunmiAidlPrint.setFontSize(fontSize:30);
+               
+               SunmiAidlPrint.printText(text: "Trudi POS");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Member:__________________Prokopyo tunying\n");
+              SunmiAidlPrint.printText(text: "Points:___________________________$points'\n");
+               SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL$points'\n");
+              for(int x=0;x<productName.length;x++){
+                SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
+              }
+            
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "                    Subtotal: 150.00\n");
+              SunmiAidlPrint.printText(text: "                    Money: 150.00\n");
+              SunmiAidlPrint.printText(text: "                    Change: 150.00\n");
+         
+            
+                   }
+                 
+                 },"SUBMIT",double.infinity),
                ),
                  Container(
                       padding: EdgeInsets.only(bottom: 10),
@@ -1158,7 +1286,9 @@ new OutlineButton(
           width: 70,
           child: InkWell(
             onTap: (){
+              
               enterBarcode();
+              searchCtrlr.text="";
               
             },
             child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
@@ -1262,7 +1392,7 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
-
+                          points=points-pointsTotal[index];
                       showDialog(
                         context: context,
                         builder: (BuildContext context){
@@ -1400,6 +1530,7 @@ new OutlineButton(
                       setState(() {
                          print("awerc");
                          function="add";
+                         points=points+pointsTotal[index];
                          sd=index;
                           quantity[index]=quantity[index]+1;
                           subtotal=0;
@@ -1559,6 +1690,7 @@ new OutlineButton(
                       );
                       sd=index;
                       function="remove";
+                       points=points-pointsTotal[index];
                       setState(() {
                          subtotal=0;
                      lengthOfCount=0;
@@ -1588,6 +1720,7 @@ new OutlineButton(
                       setState(() {
                       
                           function="add";
+                           points=points+pointsTotal[index];
                           sd=index;
                           quantity[index]=quantity[index]+1;
                           subtotal=0;
@@ -1667,7 +1800,7 @@ new OutlineButton(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Points :", 20, Colors.white, "style",FontWeight.normal),
-              textCustom1("5.0", 20, Colors.white, "style",FontWeight.normal),
+              textCustom1("$points", 20, Colors.white, "style",FontWeight.normal),
           ],
         ),
         Divider(),
@@ -1936,7 +2069,7 @@ new OutlineButton(
                                children: <Widget>[
                                
                                textCustom("SUBTOTAL : ", 16, Colors.white, "style"),
-                               textCustom1("Php $subtotal.00", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php ${subtotal-(subtotal*0.12)}", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
@@ -1944,7 +2077,7 @@ new OutlineButton(
                                children: <Widget>[
                                
                                textCustom("VAT : ", 16, Colors.white, "style"),
-                               textCustom1("0", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php ${subtotal*0.12}", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                          
                             Divider(
@@ -1955,12 +2088,11 @@ new OutlineButton(
                                children: <Widget>[
                                
                                textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
-                               textCustom1("Php 100.00", 30, Colors.greenAccent, "style",FontWeight.bold),
+                               textCustom1("Php $subtotal", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),
                            ),
-
                                rButtonView((){
                                  setState(() {
                                    payment.text="";
