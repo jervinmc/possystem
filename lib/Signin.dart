@@ -160,11 +160,11 @@ class _SignInState extends State<SignIn> {
      });
      int a=0;
      var reviewdata = json.decode(response.body);
-<<<<<<< HEAD
+
     for (int x = 0; x < reviewdata.length; x++) {
-=======
+
      for (int x = 0; x < reviewdata.length; x++) { 
->>>>>>> da75d67a3c48b54a3eac76eba5bb6d40a10220a7
+
        if (username.text == reviewdata[x]['firstname'] ){
               a=1;
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
@@ -179,8 +179,8 @@ class _SignInState extends State<SignIn> {
                     },
                     child: Text("SIGN IN",
                     style: TextStyle(
-                      fontSize: 28,
-                      color: Colors.orange[400],
+                      fontSize: 40,
+                      color: Colors.orangeAccent,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic
                     ),),

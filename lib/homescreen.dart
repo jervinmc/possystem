@@ -115,11 +115,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   FadeAnimation(1.8, Text("Welcome to AUTH-POS", 
-                  style: TextStyle(color: Colors.orange.withOpacity(.9), fontSize: 50, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
+                  style: TextStyle(color: Colors.orangeAccent, fontSize: 50, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
                   SizedBox(height: 15,),
-                  FadeAnimation(1.3, Text("We provide POS System.", 
-                  style: TextStyle(color: Colors.white.withOpacity(.9), height: 1.4, fontSize: 20, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
-                  SizedBox(height: 80,),
+                  FadeAnimation(1.3, Text("We provide POS System", 
+                  style: TextStyle(color: Colors.white, height: 1.2, fontSize: 40, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
+                  SizedBox(height: 40,),
                   FadeAnimation(1.9, AnimatedBuilder(
                     animation: _scaleController,
                     builder: (context, child) => Transform.scale(
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                                           height: 68,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Colors.orange,
+                                            color: Colors.orangeAccent,
                                           ),
                                           child: hideIcon == false ?
                                            Icon(Icons.arrow_forward,
