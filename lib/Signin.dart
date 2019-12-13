@@ -154,28 +154,28 @@ class _SignInState extends State<SignIn> {
                     minWidth: 250.0,
                     height: 35.0,
                     onPressed: ()async{
-                    /*  http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"),headers: {
+                      /*http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"),headers: {
                      "Accept":"application/json"
 
      });
      int a=0;
      var reviewdata = json.decode(response.body);
-<<<<<<< HEAD
+
     for (int x = 0; x < reviewdata.length; x++) {
-=======
-     for (int x = 0; x < reviewdata.length; x++) { 
->>>>>>> da75d67a3c48b54a3eac76eba5bb6d40a10220a7
+
+   
+
        if (username.text == reviewdata[x]['firstname'] ){
               a=1;
                      Navigator.push(context, SlideRightRoute(widget: Homepage()));
 
        }
-     }*/
-    //if(a==0){
-    //    signinFunction(context, 1);
-   // }
-   Navigator.push(context, SlideRightRoute(widget: Homepage()));
-
+     }
+   // if(a==0){
+     //   signinFunction(context, 1);
+   // }*/
+         Navigator.push(context, SlideRightRoute(widget: Homepage()));
+   //Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
                     child: Text("SIGN IN",
                     style: TextStyle(

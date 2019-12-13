@@ -141,9 +141,9 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
   
-  List productName=["Head and Shoulder","Kojic white","SafeguardS Family"];
-  List quantity=[1,1,1];
-  List price=[150,50,100];
+  List productName=[];
+  List quantity=[];
+  List price=[];
 
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
@@ -187,8 +187,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
                  ],
                ),
                )
@@ -213,7 +211,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     setState(() {
       for(int x=0;x<productName.length;x++){
         if(productName[x]==reviewdata['productName']){
-            
+            print("nag insert");
             quantity.insert(x, quantity[x]+1);
             trap=1;
             sd=x;
@@ -238,9 +236,14 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 
     });
     sd=productName.length-1;
-              function="add";
+ print("eto ang prod ${productName.length}");
+            
+    
+       if(productName.length>1){
+        function="add";
+       }
 
-    }
+   }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
   return showDialog<void>(   
@@ -613,24 +616,21 @@ new OutlineButton(
          title: Container(
               color: Colors.white12,
            width: 700,
-           height: 680,
+           height: 520,
            child: Column(
              children: <Widget>[
               Container(
                 height: 80,
                 color: Colors.black,
                 child:  Center(
+
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
                ),
               ),
-           
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
-                  Container(
-
-
-                    
+                  Container(  
                       height: MediaQuery.of(context).size.width/3.4,
                     
                     padding: EdgeInsets.all(20),
@@ -723,6 +723,66 @@ new OutlineButton(
               ),
               ),
                       ),
+                      Text(""),
+                      Text(""),
+                      Text(""),
+                  
+                        Container(
+                 padding: EdgeInsets.only(bottom: 10),
+                 child:  rButtonView3((){
+                   if(payment.text==""){
+                     paymentRestriction(context, 1);
+                     
+                   }
+                   else if(0<subtotal){
+                     
+                   }
+                   else{
+                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               SunmiAidlPrint.setFontSize(fontSize:30);
+               
+               SunmiAidlPrint.printText(text: "Trudi POS");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Member:__________________Prokopyo tunying\n");
+              SunmiAidlPrint.printText(text: "Points:___________________________$points'\n");
+               SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL$points'\n");
+              for(int x=0;x<productName.length;x++){
+                SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
+              }
+            
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "                    Subtotal: 150.00\n");
+              SunmiAidlPrint.printText(text: "                    Money: 150.00\n");
+              SunmiAidlPrint.printText(text: "                    Change: 150.00\n");
+              productName=[];
+              quantity=[];
+              price=[];
+              pointsTotal=[];
+              points=0;
+                  Navigator.of(context).pop();
+
+            
+                   }
+                 
+                 },"SUBMIT",300),
+               ),
+                 Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                 child:  rButtonView4((){
+                   Navigator.of(context).pop();
+                 },"CANCEL", 300),
+               ),
                      
                      ],
                      
@@ -909,54 +969,8 @@ new OutlineButton(
 
                  ],
                ),
-               Text(""),
-               Container(
-                 padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView3((){
-                   if(payment.text==""){
-                     paymentRestriction(context, 1);
-                     
-                   }
-                   else{
-                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-               SunmiAidlPrint.setFontSize(fontSize:30);
-               
-               SunmiAidlPrint.printText(text: "Trudi POS");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:__________________Prokopyo tunying\n");
-              SunmiAidlPrint.printText(text: "Points:___________________________$points'\n");
-               SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL$points'\n");
-              for(int x=0;x<productName.length;x++){
-                SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
-              }
-            
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                    Subtotal: 150.00\n");
-              SunmiAidlPrint.printText(text: "                    Money: 150.00\n");
-              SunmiAidlPrint.printText(text: "                    Change: 150.00\n");
-         
-            
-                   }
-                 
-                 },"SUBMIT",double.infinity),
-               ),
-                 Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView4((){
-                   Navigator.of(context).pop();
-                 },"CANCEL", double.infinity),
-               ),
+             
+             
              ],
            ),
          ),
