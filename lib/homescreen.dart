@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
     _scale2Animation = Tween<double>(
       begin: 1.0,
-      end: 32.0
+      end: 55.0
     ).animate(_scale2Controller)..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignIn()));
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                           height: 90,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(70),
                             color: Colors.orange.withOpacity(.4)
                           ),
                           child: InkWell(
@@ -144,14 +144,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                                 AnimatedBuilder(
                                   animation: _positionController,
                                   builder: (context, child) => Positioned(
-                                    right: _positionAnimation.value,
+                                    left: _positionAnimation.value,
                                     child: AnimatedBuilder(
                                       animation: _scale2Controller,
                                       builder: (context, child) => Transform.scale(
                                         scale: _scale2Animation.value,
                                         child: Container(
-                                          width: 70,
-                                          height: 70,
+                                          width: 65,
+                                          height: 68,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.orange,
