@@ -100,7 +100,7 @@ class _SignInState extends State<SignIn> {
                           height: 15.0,
                           color: Colors.transparent,
                         ),
-                      )
+                      ),
                   ],
                 ),
                 ),
@@ -164,6 +164,7 @@ class _SignInState extends State<SignIn> {
     for (int x = 0; x < reviewdata.length; x++) {
 
    
+     for (int x = 0; x < reviewdata.length; x++) { 
 
        if (username.text == reviewdata[x]['firstname'] ){
               a=1;
@@ -179,8 +180,8 @@ class _SignInState extends State<SignIn> {
                     },
                     child: Text("SIGN IN",
                     style: TextStyle(
-                      fontSize: 28,
-                      color: Colors.orange[400],
+                      fontSize: 40,
+                      color: Colors.orangeAccent,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic
                     ),),

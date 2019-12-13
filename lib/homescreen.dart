@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
     _scale2Animation = Tween<double>(
       begin: 1.0,
-      end: 32.0
+      end: 55.0
     ).animate(_scale2Controller)..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignIn()));
@@ -115,11 +115,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   FadeAnimation(1.8, Text("Welcome to AUTH-POS", 
-                  style: TextStyle(color: Colors.orange.withOpacity(.9), fontSize: 50, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
+                  style: TextStyle(color: Colors.orangeAccent, fontSize: 50, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
                   SizedBox(height: 15,),
-                  FadeAnimation(1.3, Text("We provide POS System.", 
-                  style: TextStyle(color: Colors.white.withOpacity(.9), height: 1.4, fontSize: 20, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
-                  SizedBox(height: 80,),
+                  FadeAnimation(1.3, Text("We provide POS System", 
+                  style: TextStyle(color: Colors.white, height: 1.2, fontSize: 40, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),)),
+                  SizedBox(height: 40,),
                   FadeAnimation(1.9, AnimatedBuilder(
                     animation: _scaleController,
                     builder: (context, child) => Transform.scale(
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                           height: 90,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
+                            borderRadius: BorderRadius.circular(70),
                             color: Colors.orange.withOpacity(.4)
                           ),
                           child: InkWell(
@@ -150,15 +150,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                                       builder: (context, child) => Transform.scale(
                                         scale: _scale2Animation.value,
                                         child: Container(
-                                          width: 60,
-                                          height: 65,
+                                          width: 65,
+                                          height: 68,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Colors.orange
+                                            color: Colors.orangeAccent,
                                           ),
                                           child: hideIcon == false ?
                                            Icon(Icons.arrow_forward,
-                                            color: Colors.white,) 
+                                            color: Colors.white) 
                                             : Container(),
                                         )
                                       ),
