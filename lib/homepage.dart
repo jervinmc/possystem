@@ -1,6 +1,8 @@
 import 'dart:math';
+
 import 'package:possystem/fadeAnimation.dart';
-import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+
+
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
 import 'homescreen.dart';
@@ -139,9 +141,9 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
   
-  List productName=[];
-  List quantity=[];
-  List price=[];
+  List productName=["Head and Shoulder","Kojic white","SafeguardS Family"];
+  List quantity=[1,1,1];
+  List price=[150,50,100];
 
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
@@ -185,6 +187,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
+
                  ],
                ),
                )
@@ -198,20 +202,18 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 }
     void enterBarcode()async{
       print(searchCtrlr.text);
-     
       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
-       _ackAlert(context, 1);
     var reviewdata=json.decode(response.body);
-   
+
     print("${reviewdata['sellingPrice']} eto ang nakuha");
     //price.removeAt(2);
     int trap=0;
     setState(() {
       for(int x=0;x<productName.length;x++){
         if(productName[x]==reviewdata['productName']){
-            print("nag insert");
+            
             quantity.insert(x, quantity[x]+1);
             trap=1;
             sd=x;
@@ -219,8 +221,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               function="add";
         }
       }
-      if(trap==0 && reviewdata['sellingPrice']!=null ){ 
-      //  function="add";
+      if(trap==0 && reviewdata['sellingPrice']!=null ){
+
               price.add(reviewdata['sellingPrice']);
     quantity.add(1);
   productName.add(reviewdata['productName']);
@@ -228,22 +230,17 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     pointsTotal.add(reviewdata['points']);
   trap=1;
       }
-      else{
-        _ackAlert(context, 1);
-      }
       
   //quantity.insert(2, 10);
   if(productName.indexOf(reviewdata['productName'])<0){
       print("okkkk");
   }
+
     });
     sd=productName.length-1;
- print("eto ang prod ${productName.length}");
-       if(productName.length>1){
-       function="add";
-       }
+              function="add";
 
-   }
+    }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
   return showDialog<void>(   
@@ -357,6 +354,7 @@ new OutlineButton(
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
+    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -364,6 +362,7 @@ new OutlineButton(
 
 new OutlineButton(
       borderSide: BorderSide(
+        
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -379,6 +378,7 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
                  ],
                ),
                )
@@ -430,14 +430,13 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
  }
  
   ///////////////variable/////
-  FlutterMoneyFormatter fmfSubtotal;
   List pointsTotal=[0.0,0.0,0.0];
   double points=0.0;
   String function="";
   int sd=0;
   int lengthOfCount=0;
   bool openDialog=true;
-  double subtotal=0.0;
+  double subtotal=0;
   bool shifted=false;
   int moneyHoldertext=0;
     int itemCounter=5;
@@ -614,21 +613,24 @@ new OutlineButton(
          title: Container(
               color: Colors.white12,
            width: 700,
-           height: 520,
+           height: 680,
            child: Column(
              children: <Widget>[
               Container(
                 height: 80,
                 color: Colors.black,
                 child:  Center(
-
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
                ),
               ),
+           
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
-                  Container(  
+                  Container(
+
+
+                    
                       height: MediaQuery.of(context).size.width/3.4,
                     
                     padding: EdgeInsets.all(20),
@@ -721,66 +723,6 @@ new OutlineButton(
               ),
               ),
                       ),
-                      Text(""),
-                      Text(""),
-                      Text(""),
-                  
-                        Container(
-                 padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView3((){
-                   if(payment.text==""){
-                     paymentRestriction(context, 1);
-                     
-                   }
-                   else if(0<subtotal){
-                     
-                   }
-                   else{
-                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-               SunmiAidlPrint.setFontSize(fontSize:30);
-               
-               SunmiAidlPrint.printText(text: "Trudi POS");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:__________________Prokopyo tunying\n");
-              SunmiAidlPrint.printText(text: "Points:___________________________$points'\n");
-               SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL$points'\n");
-              for(int x=0;x<productName.length;x++){
-                SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
-              }
-            
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                    Subtotal: 150.00\n");
-              SunmiAidlPrint.printText(text: "                    Money: 150.00\n");
-              SunmiAidlPrint.printText(text: "                    Change: 150.00\n");
-              productName=[];
-              quantity=[];
-              price=[];
-              pointsTotal=[];
-              points=0;
-                  Navigator.of(context).pop();
-
-            
-                   }
-                 
-                 },"SUBMIT",300),
-               ),
-                 Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView4((){
-                   Navigator.of(context).pop();
-                 },"CANCEL", 300),
-               ),
                      
                      ],
                      
@@ -967,8 +909,54 @@ new OutlineButton(
 
                  ],
                ),
-             
-             
+               Text(""),
+               Container(
+                 padding: EdgeInsets.only(bottom: 10),
+                 child:  rButtonView3((){
+                   if(payment.text==""){
+                     paymentRestriction(context, 1);
+                     
+                   }
+                   else{
+                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               SunmiAidlPrint.setFontSize(fontSize:30);
+               
+               SunmiAidlPrint.printText(text: "Trudi POS");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+               SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Member:__________________Prokopyo tunying\n");
+              SunmiAidlPrint.printText(text: "Points:___________________________$points'\n");
+               SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL$points'\n");
+              for(int x=0;x<productName.length;x++){
+                SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
+              }
+            
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "                    Subtotal: 150.00\n");
+              SunmiAidlPrint.printText(text: "                    Money: 150.00\n");
+              SunmiAidlPrint.printText(text: "                    Change: 150.00\n");
+         
+            
+                   }
+                 
+                 },"SUBMIT",double.infinity),
+               ),
+                 Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                 child:  rButtonView4((){
+                   Navigator.of(context).pop();
+                 },"CANCEL", double.infinity),
+               ),
              ],
            ),
          ),
@@ -978,7 +966,6 @@ new OutlineButton(
   );
 }
   Future a()async{
-
     
     if(function=="add"){
       setState(() {
@@ -1002,18 +989,16 @@ new OutlineButton(
     for(int x=0;x<productName.length;x++){
       b.add("${productName[x]} ,${quantity[x]} ,${price[x]}");
     }
-  if(b.length==0){
-      emptyTable=0;
-  }
-  else{
-     emptyTable=1;
-  }
-  print("eto ang b $b");
+  for(int x=0;x<1000;x++){
+
+  
  
+  }
     return b;  
     
   }
-  int emptyTable=0;
+
+
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
@@ -1090,7 +1075,7 @@ new OutlineButton(
         preferredSize: Size.fromHeight(60.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
-            Text("AUTHs",style: TextStyle(fontSize: 50,color: Colors.orange)),
+            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange)),
             FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),),
             
 
@@ -1325,43 +1310,47 @@ new OutlineButton(
     ),
 ),
     ),
-    emptyTable!=0?Container(
+    Container(
+      
       padding: EdgeInsets.all(10),
       child: Column(
       children: <Widget>[
+        
       Container(
-       //color: Colors.green,
+        color: Colors.orange.withAlpha(50),
         child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          
           children: [TableRow(
             children:[
+
          Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom1("ITEM", 33, Colors.black, "",FontWeight.bold))),
+                child:Center(child:  textCustom("ITEM", 25, Colors.black, ""))),
+                
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 33, Colors.black, "",FontWeight.bold))),
+                child:
+                   Center(child:  textCustom("QUANTITY", 25, Colors.black, ""))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("PRICE", 33, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom("PRICE", 25, Colors.black, ""))),
             ]
           )],
+      
         ),
       ),
+
       Container(
-        padding: EdgeInsets.only(top: 10),
         height: MediaQuery.of(context).size.height/1.45,
         child:  ListView.builder(
         shrinkWrap: true,
         itemCount: productName.length,
         itemBuilder: (BuildContext context, int index){
-          return  index%2==0? Container(
+          return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
             child: Table(
-           // border: TableBorder.all(width: 0.5,color: Colors.black87),
+            border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
             children:[
                 InkWell(
-                  onDoubleTap: (){
-                    _ackAlert(context, 1);
-                  },
                   child:   Container(padding: EdgeInsets.all(10),
                 child: textCustom("${productName[index]}", 20, Colors.black, "")),
                 onTap: (){
@@ -1392,7 +1381,7 @@ new OutlineButton(
                 ),
                 Container(padding: EdgeInsets.all(10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[  
                    /* SizedBox(
                       height: 50,
@@ -1466,11 +1455,11 @@ new OutlineButton(
                                           contentPadding: EdgeInsets.only(
                                             left: 10.0,
                                             top: 10.0,
-                                            right: 10.0
+                                            right: 10.0,
                                           ),
                                           hintText: "Password", hintStyle: TextStyle(
                                             fontSize: 20.0, color: Colors.black
-                                          )
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -1486,13 +1475,14 @@ new OutlineButton(
                                new FlatButton(
                                 child: Text("VOID", style: TextStyle(color: Colors.black),),
                                 onPressed: ()async{
+                                  Navigator.pop(context);
                                    http.Response response = await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"), headers: {
                                      'Accept' : 'application/json'
                                    });
                                    var reviewdata = json.decode(response.body);
                                    for (int x = 0; x < reviewdata.length; x++){
                                      if (username.text == reviewdata [x] ['firstname']) {
-                                       Navigator.pop(context);
+                                       
                                      }
                                      
                                    }
@@ -1536,7 +1526,7 @@ new OutlineButton(
                         child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Colors.green,),
+                    icon:  Icon(Icons.add,color: Colors.green),
                     onPressed: (){
                       setState(() {
                          print("awerc");
@@ -1559,24 +1549,7 @@ new OutlineButton(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(""),
-                     Container(
-                       padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Php ${price[index]}0", 20, Colors.black, ""),
-                     ),
-                     // VerticalDivider(),
-                    Container(
-                     
-                      child:   IconButton(
-                        icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
-                        onPressed:(){} ,
-                      ),
-                    )
-                    ],
-                  ),
+                  child: textCustom("Php ${price[index]}.00", 20, Colors.black, ""),
                 ),
               ],
             ),
@@ -1587,7 +1560,7 @@ new OutlineButton(
           ): Container(
             color: Colors.white.withAlpha(50),
             child: Table(
-           // border: TableBorder.all(width: 0.5,color: Colors.black87),
+            border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
             children:[
               InkWell(
@@ -1613,12 +1586,11 @@ new OutlineButton(
                 },
               ),
             Container(padding: EdgeInsets.all(10),
-             
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red,),
+                    icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
                         showDialog(
                         context: context,
@@ -1684,7 +1656,7 @@ new OutlineButton(
                                           ),
                                           hintText: 'Password',hintStyle: TextStyle(
                                             fontSize: 25, fontWeight: FontWeight.bold
-                                          )
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -1694,15 +1666,15 @@ new OutlineButton(
                             ),
                             actions: <Widget>[
                                new FlatButton(
-                                child: Text("VOID", style: TextStyle(color: Colors.black),),
+                                child: Text("VOID", style: TextStyle(color: Colors.black)),
                                 onPressed: ()async{
+                                  Navigator.pop(context);
                                    http.Response response = await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"), headers: {
-                                     'Accept' : 'application/json'
-                                   });
+                                     'Accept' : 'application/json'});
                                    var reviewdata = json.decode(response.body);
                                    for (int x = 0; x < reviewdata.length; x++){
-                                     if (username.text == reviewdata [x] ['firstname']){
-                                       Navigator.pop(context);
+                                     if (username.text == reviewdata [x] ['firstname']) {
+
                                      }
                                      
                                    }
@@ -1743,7 +1715,7 @@ new OutlineButton(
                         child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Colors.green,), 
+                    icon:  Icon(Icons.add,color: Colors.green),
                     onPressed: (){
                       setState(() {
                       
@@ -1756,7 +1728,6 @@ new OutlineButton(
                       });
                     },
                     ),
-                    
                      
 
                   ],
@@ -1765,21 +1736,7 @@ new OutlineButton(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(""),
-                      Container(
-                       padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Php ${price[index]}0", 20, Colors.black, ""),
-                     ),
-                  
-                      IconButton(
-                        icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
-                        onPressed:(){} ,
-                      )
-                    ],
-                  ),
+                  child: textCustom("Php ${price[index]}.00", 20, Colors.black, ""),
                 ), 
               ],
             ),               
@@ -1796,7 +1753,7 @@ new OutlineButton(
   
       ],
     ),
-    ):Container()
+    )
   
     ///////////////////////////////COLUMNNNNNNNNNNNNNNNN FOR TABLE CONTENTS///////////////////////////////
                       ],
@@ -1878,10 +1835,14 @@ new OutlineButton(
         //shrinkWrap: false,
         itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
+          
+          
           List a=snapshot.data[index].toString().split(" ,");
+
           if(lengthOfCount!=2){
              double firstNumber=double.parse(a[1]);
           double secondNumber=double.parse(a[2]);
+          
             subtotal=(firstNumber*secondNumber)+subtotal;
             print("sec ${a[1]}");
             print("first $subtotal");
@@ -1891,10 +1852,11 @@ new OutlineButton(
            }
           }
           
+        
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
             child: Table(
-          //  border: TableBorder.all(width: 1,color: Colors.black87),
+            border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
@@ -1928,7 +1890,7 @@ new OutlineButton(
           ): Container(
             color: Colors.transparent.withAlpha(50),
             child: Table(
-           // border: TableBorder.all(width: 1,color: Colors.black87),
+            border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
