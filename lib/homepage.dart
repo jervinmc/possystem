@@ -147,6 +147,121 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
     @override
+    Future<void> voidItem(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: Column(
+            children: <Widget>[
+             Container(
+               padding: EdgeInsets.only(bottom: 10),
+               child:  textCustom("ENTER USERNAME", 25, Colors.black, "style",),
+             ),
+              Container(
+                        height: 40,
+                        width: 250,
+                        child: TextField(
+                          controller: usernameVoid,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(5)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(15)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 20,
+                color: Colors.black
+              ),
+              ),
+                      ),
+                       Container(
+               padding: EdgeInsets.only(bottom: 10,top: 20),
+               child:  textCustom("ENTER PASSWORD", 25, Colors.black, "style",),
+             ),
+              Container(
+                        height: 40,
+                        width: 250,
+                        child: TextField(
+                          obscureText: true,
+                          controller: passwordVoid,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(5)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(15)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 20,
+                color: Colors.black
+              ),
+              ),
+                      ),
+            ],
+          ),),
+
+        //content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
     //function..
     Future<void> paymentRestriction(BuildContext context,int x) {
         
@@ -199,12 +314,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     void enterBarcode()async{
       print(searchCtrlr.text);
      
-      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/Inventories/getbyid/5d80a280c321c7152c783e0a"),headers: {
+      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
        _ackAlert(context, 1);
     var reviewdata=json.decode(response.body);
-   
+
     print("${reviewdata['sellingPrice']} eto ang nakuha");
     //price.removeAt(2);
     int trap=0;
@@ -217,10 +332,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             sd=x;
               points=points+reviewdata['points'];
               function="add";
+
         }
       }
       if(trap==0 && reviewdata['sellingPrice']!=null ){ 
-        function="add";
+       // function="add";
               price.add(reviewdata['sellingPrice']);
     quantity.add(1);
   productName.add(reviewdata['productName']);
@@ -430,6 +546,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
  }
  
   ///////////////variable/////
+  TextEditingController usernameVoid=new TextEditingController();
+   TextEditingController passwordVoid=new TextEditingController();
   FlutterMoneyFormatter fmfSubtotal;
   List pointsTotal=[0.0,0.0,0.0];
   double points=0.0;
@@ -484,15 +602,12 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
 new OutlineButton(
       borderSide: BorderSide(
-        
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -501,14 +616,21 @@ new OutlineButton(
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: (){
   setState(() {
+    sd=x;
+    subtotal=0;
+    //function="add";
     quantity[x]=int.parse(qtyCtrlr.text) ;
+    for(int x=0;x<productName.length;x++){
+        subtotal=subtotal+(price[x]*quantity[x]);
+    }
     qtyCtrlr.text="";
+    print(quantity[x]); 
+    //subtotal=price[x]*quantity[x];
   });
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
                  ],
                ),
                )
@@ -816,7 +938,7 @@ new OutlineButton(
                           controller: payment,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
-                        
+                
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(10)
@@ -1572,7 +1694,9 @@ new OutlineButton(
                      
                       child:   IconButton(
                         icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
-                        onPressed:(){} ,
+                        onPressed:(){
+                          voidItem(context, 1);
+                        } ,
                       ),
                     )
                     ],
@@ -1776,7 +1900,9 @@ new OutlineButton(
                   
                       IconButton(
                         icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
-                        onPressed:(){} ,
+                        onPressed:(){
+                          voidItem(context, 1);
+                        } ,
                       )
                     ],
                   ),
