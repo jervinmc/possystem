@@ -12,9 +12,12 @@ class _VoidState extends State<Void> {
       appBar: AppBar(
         title: Text("Void", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
         backgroundColor: Colors.black87,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Container(
-        
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+        ),
       ),
     );
   }
