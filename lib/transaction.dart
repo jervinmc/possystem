@@ -104,21 +104,29 @@ deleteSelected() async{
            Text(transachs.receipt),
            onTap: (){
              showDialog(
-               context: context, builder: (_) =>  AssetGiffyDialog(
-                 image: Image.asset('assets/transaction.gif'),
-                 buttonCancelColor: Colors.red,
-                 buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 30)),
-                 buttonOkColor: Colors.green,
-                 buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 30)),
-                 title: Text("Transaction Details",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                 ),
-                 description: Text("",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                 textAlign: TextAlign.center),
-                 entryAnimation: EntryAnimation.RIGHT,
-                 onOkButtonPressed: (){
-                   Navigator.pop(context);
-                 },
-               ),
+             context: context,
+             builder: (BuildContext context) {
+               return AlertDialog(
+                 title: Text("Transaction Details",style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+                  content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                 shape: RoundedRectangleBorder(
+                   borderRadius: BorderRadius.circular(40)),
+                    actions: <Widget>[
+                         FlatButton(
+                           child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         ),
+                         FlatButton(
+                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         )
+                       ],
+               );
+             }
              );
            },
          ),
@@ -128,18 +136,30 @@ deleteSelected() async{
          DataCell(
            Text(transachs.refund),
            onTap: (){
-             AwesomeDialog(
-               context: context,
-               animType: AnimType.RIGHSLIDE,
-               dialogType: DialogType.INFO,
-               body: Center(
-                child: Text("Transaction History", style: TextStyle(fontSize: 35)),
-               ),
-               tittle: "",
-               btnOkColor: Colors.blue,
-               btnOkOnPress: (){},
-               btnCancelOnPress: (){},
-             ).show();
+            showDialog(
+                   context: context,
+                   builder: (BuildContext context){
+                     return AlertDialog(
+                       title: Text("",style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+                       content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                       actions: <Widget>[
+                         FlatButton(
+                           child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         ),
+                         FlatButton(
+                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         )
+                       ],
+                     );
+                   }
+                 );
            }
          ),
        ],

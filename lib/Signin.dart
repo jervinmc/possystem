@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style",),),
+          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style"),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -156,7 +156,7 @@ class _SignInState extends State<SignIn> {
                     onPressed: ()async{
                       /*http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/User/GetAll"),headers: {
                      "Accept":"application/json"
-
+    
      });
      int a=0;
      var reviewdata = json.decode(response.body);
