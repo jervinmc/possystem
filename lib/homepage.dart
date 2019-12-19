@@ -306,7 +306,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 }
     void enterBarcode()async{
       print(searchCtrlr.text);
+
       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
+
+
+    
+
         "Accept":"application/json"
      });
        _ackAlert(context, 1);
@@ -364,6 +369,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
         title:Center( 
           child: textCustom("Enter Customer Address", 25, Colors.black87, "style",),),
         content:TextFormField(
+           textCapitalization: TextCapitalization.sentences,
           controller: address,
           maxLength: 15,
           textAlign: TextAlign.center,
@@ -471,7 +477,7 @@ new OutlineButton(
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: (){
   setState(() {
-    quantity[x]=int.parse(qtyCtrlr.text) ;
+    quantity[x]=int.parse(qtyCtrlr.text);
     qtyCtrlr.text="";
   });
   Navigator.of(context).pop();
@@ -759,6 +765,7 @@ new OutlineButton(
                         height: 40,
                         width: 250,
                         child: TextField(
+                           textCapitalization: TextCapitalization.sentences,
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -789,6 +796,7 @@ new OutlineButton(
                         height: 40,
                         width: 250,
                         child: TextField(
+                           textCapitalization: TextCapitalization.sentences,
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -817,6 +825,7 @@ new OutlineButton(
                         height: 40,
                         width: 250,
                         child: TextField(
+                           textCapitalization: TextCapitalization.sentences,
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -953,6 +962,7 @@ new OutlineButton(
                         width: 250,
                         height: 40,
                         child: TextField(
+                           textCapitalization: TextCapitalization.sentences,
                           controller: payment,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -1185,6 +1195,7 @@ new OutlineButton(
                   Navigator.push(context, SlideRightRoute(widget: Transaction()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
+                Divider(),
                  new ListTile(
                 title: new Text('Refund', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.redeem, size: 30,),
@@ -1203,28 +1214,40 @@ new OutlineButton(
                new Divider(),
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
-                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
+                  trailing: new Icon(Icons.exit_to_app, size: 30,),             
                    onTap: (){
                      showDialog(
                        context: context, builder: (BuildContext context){
                          return AlertDialog(
                            backgroundColor: Colors.white,
+                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                           content: Text("Are you sure you want to Logout?", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
                            actions: <Widget>[
                              FlatButton(
+
                                child: Text("Yes", style: TextStyle(fontSize: 20)),
                                onPressed: () async{
-                                  SharedPreferences prefs=await SharedPreferences.getInstance();
-                                  prefs.setString("userUsed", "notUsed");
-                                  prefs.setString("openingAmount", "");
-                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
-                               },
-                             ),
-                             FlatButton(
-                               child: Text("No", style: TextStyle(fontSize: 20)),
+                                
+
+                               splashColor: Colors.white,
+                               color: Colors.redAccent,
+                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                               child: Text("Cancel", style: TextStyle(fontSize: 20, color: Colors.white)),
                                onPressed: (){
                                  Navigator.pop(context);
+  
+                               },
+                             ),
+                             Text(""),
+                             Text(""),
+                             FlatButton(
+                               color: Colors.greenAccent,
+                               splashColor: Colors.white,
+                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                               child: Text("Ok", style: TextStyle(fontSize: 20, color: Colors.white)),
+                               onPressed: (){
+                               Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                                },
                              ),
                            ],
@@ -1444,6 +1467,7 @@ new OutlineButton(
         
     borderRadius: BorderRadius.circular(5.0),),
       child: TextField(
+         textCapitalization: TextCapitalization.sentences,
     textAlign: TextAlign.start,  
     controller: searchCtrlr,
     onChanged: (value){

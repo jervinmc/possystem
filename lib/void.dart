@@ -6,18 +6,14 @@ class Void extends StatefulWidget {
 }
 
 class _VoidState extends State<Void> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Void", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
+        title: Text("Void", style: TextStyle(fontSize: 35),),
         backgroundColor: Colors.black87,
-        iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-        ),
+      body: Container(
+        child: Text("List of Void"),
       ),
     );
   }

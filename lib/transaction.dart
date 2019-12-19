@@ -114,13 +114,13 @@ deleteSelected() async{
                    borderRadius: BorderRadius.circular(40)),
                     actions: <Widget>[
                          FlatButton(
-                           child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+                           child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
                            onPressed: (){
                              Navigator.pop(context);
                            },
                          ),
                          FlatButton(
-                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center),
                            onPressed: (){
                              Navigator.pop(context);
                            },
@@ -186,8 +186,8 @@ deleteSelected() async{
       backgroundColor: Colors.white,
       body: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        verticalDirection: VerticalDirection.up,
+        mainAxisAlignment: MainAxisAlignment.start,
+        verticalDirection: VerticalDirection.down,
         children: <Widget>[
           Expanded(
             child: dataBody(),
