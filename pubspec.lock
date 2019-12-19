@@ -76,6 +76,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.3"
+  flutter_multiselect:
+    dependency: "direct main"
+    description:
+      name: flutter_multiselect
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -172,6 +179,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
+  shared_preferences:
+    dependency: "direct main"
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   simple_animations:
     dependency: transitive
     description:
@@ -256,4 +270,4 @@ packages:
     version: "2.0.8"
 sdks:
   dart: ">=2.4.0 <3.0.0"
-  flutter: ">=1.7.8+hotfix.3"
+  flutter: ">=1.7.8+hotfix.3 <2.0.0"

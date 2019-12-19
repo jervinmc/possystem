@@ -6,7 +6,7 @@ import 'transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart'as http;
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -175,6 +175,9 @@ class _SignInState extends State<SignIn> {
    // if(a==0){
      //   signinFunction(context, 1);
    // }*/
+   SharedPreferences prefs=await SharedPreferences.getInstance();
+  prefs.setString("userUsed", "used");
+
          Navigator.push(context, SlideRightRoute(widget: Homepage()));
    //Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },

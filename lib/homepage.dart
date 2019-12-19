@@ -7,7 +7,7 @@ import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
 import 'homescreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+//import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import './utils.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
@@ -19,6 +19,7 @@ import 'package:giffy_dialog/giffy_dialog.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
@@ -91,26 +92,22 @@ class RadialAnimation extends StatelessWidget {
           ],
         );
 //buildbutton............. 7:00 mns
-  
       },
-      
-      
     );
   }
   _buildButton(double angle, {Color color, IconData icon}){
       final double rad=prefix0.radians(angle);
-      return Transform(
-            
+      return Transform(  
             transform: Matrix4.identity()..translate(
               (translation.value) * cos(rad),
               (translation.value) * sin(rad),
             ),
             child: angle==-193 ? FloatingActionButton(
-              heroTag: "heroTag",
-              child: Icon(icon),backgroundColor: color,onPressed: _close,
+             heroTag: "heroTag",
+              child: Icon(icon),backgroundColor: color,onPressed: (){print("okkkkkkkkkkkkkkkkkkkkkkkkkkk");},
             ) : FloatingActionButton(
-              heroTag: "heroTag1",
-              child: Icon(icon),backgroundColor: color,onPressed: _close,
+             heroTag: "heroTag1",
+              child: Icon(icon),backgroundColor: color,onPressed: (){print("okkkkkkkkkkkkkkkkkkkkkkkkkkk");},
             ),
       );
     }
@@ -118,6 +115,7 @@ class RadialAnimation extends StatelessWidget {
     controller.forward();
   }
   _close(){
+  //  print("oooooooooooookkkkkkkkkkkkkk");
     controller.reverse();
   }
 }
@@ -135,22 +133,17 @@ class Homepage extends StatefulWidget {
   @override
   _HomepageState createState() => _HomepageState();
 }
-
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
-
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
-  
   List productName=[];
   List quantity=[];
   List price=[];
-
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
     @override
     Future<void> voidItem(BuildContext context,int x) {
-        
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -183,9 +176,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(15)
-                
                 ),
-            
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
@@ -315,13 +306,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 }
     void enterBarcode()async{
       print(searchCtrlr.text);
-     
-      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.115:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
+      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
        _ackAlert(context, 1);
     var reviewdata=json.decode(response.body);
-
     print("${reviewdata['sellingPrice']} eto ang nakuha");
     //price.removeAt(2);
     int trap=0;
@@ -329,16 +318,19 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
       for(int x=0;x<productName.length;x++){
         if(productName[x]==reviewdata['productName']){
             print("nag insert");
-            quantity.insert(x, quantity[x]+1);
+           //quantity.insert(x, quantity[x]+1);
+           quantity[x]=quantity[x]+1;
             trap=1;
             sd=x;
               points=points+reviewdata['points'];
               function="add";
-
+              break;
         }
       }
       if(trap==0 && reviewdata['sellingPrice']!=null ){ 
+       productId.add(reviewdata['productId']);
        // function="add";
+       print("${reviewdata['productId']} eto ang product id");
               price.add(reviewdata['sellingPrice']);
     quantity.add(1);
   productName.add(reviewdata['productName']);
@@ -346,10 +338,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     pointsTotal.add(reviewdata['points']);
   trap=1;
       }
-      else{
-        _ackAlert(context, 1);
-      }
-      
   //quantity.insert(2, 10);
   if(productName.indexOf(reviewdata['productName'])<0){
       print("okkkk");
@@ -360,7 +348,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        if(productName.length>1){
         function="add";
        }
-
    }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
@@ -400,15 +387,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
 new OutlineButton(
       borderSide: BorderSide(
-        
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -424,7 +408,6 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
                  ],
                ),
                ) 
@@ -441,7 +424,6 @@ new OutlineButton(
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
-
       return Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
@@ -479,7 +461,6 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
 new OutlineButton(
       borderSide: BorderSide(
             color: Colors.green, //Color of the border
@@ -510,7 +491,8 @@ new OutlineButton(
 }
     Timer _timer;
 int _start = 10;
-void startTimer() {
+void startTimer()async{
+  SharedPreferences prefs=await SharedPreferences.getInstance();
   const oneSec = const Duration(seconds: 1);
   _timer = new Timer.periodic(
     oneSec,
@@ -520,7 +502,13 @@ void startTimer() {
           timer.cancel();
         if (_start < 9) {
           if(openDialog){
-         shifting(context, 1);
+           if(prefs.getString("openingAmount")!=""){
+              print("pumasok na dito");
+            }
+            else{
+              shifting(context, 1);
+            }
+         
         
           openDialog=false;
           }
@@ -551,7 +539,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   TextEditingController usernameVoid=new TextEditingController();
    TextEditingController passwordVoid=new TextEditingController();
   FlutterMoneyFormatter fmfSubtotal;
-  List pointsTotal=[0.0,0.0,0.0];
+  List productId=[];
+  List pointsTotal=[];
   double points=0.0;
   String function="";
   int sd=0;
@@ -644,11 +633,14 @@ new OutlineButton(
     },
   );
 }
-Future<void> shifting(BuildContext context,int x) {
+Future<void> shifting(BuildContext context,int x) async{
+  SharedPreferences prefs=await SharedPreferences.getInstance();
+
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
-      return Container(
+      return   
+  Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
@@ -660,7 +652,7 @@ Future<void> shifting(BuildContext context,int x) {
           children: <Widget>[
             textCustom("Enter Opening Amount", 20, Colors.black, "style"),
             TextFormField(
-          controller: qtyCtrlr,
+          controller: openingA,
           maxLength: 5,
           textAlign: TextAlign.center,
           keyboardType:TextInputType.number,
@@ -700,7 +692,9 @@ new OutlineButton(
           ),
     color:Colors.black,
   child: new textCustom("Submit",25,Colors.green,""),
-  onPressed: (){
+  onPressed: ()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    prefs.setString("openingAmount","${openingA.text}");
   setState(() {
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
@@ -753,7 +747,7 @@ new OutlineButton(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
                   Container(  
-                      height: MediaQuery.of(context).size.width/3.4,
+                      height: MediaQuery.of(context).size.width/3.1,
                     
                     padding: EdgeInsets.all(20),
                     child:  Column(
@@ -851,16 +845,39 @@ new OutlineButton(
                   
                         Container(
                  padding: EdgeInsets.only(bottom: 10),
-                 child:  rButtonView3((){
+                 child:  rButtonView3(() async{
                    if(payment.text==""){
                      paymentRestriction(context, 1);
                      
                    }
                    else if(0<subtotal){
-                     
+                     var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+                       "receiptNo":"001"
+                     });
+                     for(int x=0;x<productName.length;x++){
+                            await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
+                       "amount":"${price[x]}","categoryDesc":"safeguard",
+                       "productId":"${productId[x]}",
+//"productName":"${productName[x]}",
+"quantity":"${quantity[x]}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"${header.body}"
+
+                     });
+                     }
+                     productName=[];
+                     quantity=[];
+                     price=[];
+
+            
+                     // print(a.body);
+             Navigator.of(context).pop();
                    }
                    else{
-                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+  
+                     print("printed");                
+                   /*  SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                SunmiAidlPrint.setFontSize(fontSize:30);
                
@@ -878,7 +895,6 @@ new OutlineButton(
               for(int x=0;x<productName.length;x++){
                 SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
               }
-            
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -891,13 +907,13 @@ new OutlineButton(
               quantity=[];
               price=[];
               pointsTotal=[];
-              points=0;
-                  Navigator.of(context).pop();
+              points=0;*/
+                
 
             
                    }
                  
-                 },"SUBMIT",300),
+                 },"CHECKOUT",300),
                ),
                  Container(
                       padding: EdgeInsets.only(bottom: 10),
@@ -916,7 +932,7 @@ new OutlineButton(
                     borderRadius: BorderRadius.circular(5)
                   ),
                   padding: EdgeInsets.only(right: 0,top: 0),
-             height: MediaQuery.of(context).size.width/3.9,
+             height: MediaQuery.of(context).size.width/3.3,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
@@ -1132,12 +1148,13 @@ new OutlineButton(
   else{
      emptyTable=1;
   }
-  print("eto ang b $b");
+
  
     return b;  
     
   }
   int emptyTable=0;
+  TextEditingController openingA=new TextEditingController();
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
@@ -1197,7 +1214,10 @@ new OutlineButton(
                            actions: <Widget>[
                              FlatButton(
                                child: Text("Yes", style: TextStyle(fontSize: 20)),
-                               onPressed: (){
+                               onPressed: () async{
+                                  SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "");
                                  Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                                },
                              ),
@@ -1608,15 +1628,14 @@ new OutlineButton(
                     Container(
                      
                       child:   IconButton(
-<<<<<<< HEAD
+
                         icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
                         onPressed:(){
-                          voidItem(context, 1);
-=======
-                        icon: Icon(Icons.delete_outline,color: Color(0xffED4C67),size: 25,),
-                        onPressed:(){
-                          
->>>>>>> 290cd8a7b609a76268f444f8f66f004c112fcdb6
+                              subtotal=subtotal-(quantity[index]*price[index]);
+                            quantity.removeAt(index);
+                              price.removeAt(index);
+                                productName.removeAt(index);
+                          //voidItem(context, 1);
                         } ,
                       ),
                     )
@@ -1641,14 +1660,14 @@ new OutlineButton(
                 onTap: (){
                    showDialog(
                context: context, builder: (_) =>  AssetGiffyDialog(
-                 image: Image.asset('assets/sp1.gif'),
+                 image:Image(image: NetworkImage("https://images-na.ssl-images-amazon.com/images/I/81yMUvgpSLL._SL1500_.jpg"),),
                  buttonCancelColor: Colors.red,
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
                  buttonOkColor: Colors.green,
                  buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
-                 title: Text("DETAILS",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 title: Text("Discount",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  ),
-                 description: Text("Transaction Details",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                 description: Text("Transaction Details",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  textAlign: TextAlign.center),
                  entryAnimation: EntryAnimation.RIGHT,
                  onOkButtonPressed: (){
@@ -1727,7 +1746,11 @@ new OutlineButton(
                       IconButton(
                         icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
                         onPressed:(){
-                          voidItem(context, 1);
+                          subtotal=subtotal-(quantity[index]*price[index]);
+                           quantity.removeAt(index);
+                              price.removeAt(index);
+                                productName.removeAt(index);
+                         // voidItem(context, 1);
                         } ,
                       )
                     ],

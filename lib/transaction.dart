@@ -12,8 +12,9 @@ class Transaction extends StatefulWidget {
 class _TransactionState extends State<Transaction> {
   List<Transach> transachs;
   List <Transach> selectedtransachs;
+  Transach transach;
   bool sort;
-  
+  List a;
   @override
   void initState(){
     sort = true;
@@ -21,7 +22,6 @@ class _TransactionState extends State<Transaction> {
     transachs = Transach.getTransachs();
     super.initState();
   }
-
 onSortColum(int columnIndex, bool ascending){
   if (columnIndex ==1){
     if (ascending){
@@ -31,7 +31,6 @@ transachs.sort((a,b,) => b.date.compareTo(a.date));
     }
   }
 }
-
 onSelectedRow(bool selected, Transach transach) async{
   setState(() {
     if (selected) {
@@ -49,6 +48,8 @@ deleteSelected() async{
       for (Transach transach in temp){
         transachs.remove(transach);
         selectedtransachs.remove(transach);
+       
+        //transachs.add();
       }
     }
   });
@@ -78,7 +79,7 @@ deleteSelected() async{
          tooltip: "This is the date",
          onSort: (columnIndex, ascending){
            setState(() {
-             sort =!sort;
+             sort=!sort;
            });
            onSortColum(columnIndex, ascending);
          }
