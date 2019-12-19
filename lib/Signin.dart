@@ -134,7 +134,6 @@ class _SignInState extends State<SignIn> {
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
                         controller: password,
-                         textCapitalization: TextCapitalization.sentences,
                          obscureText: true,
                         decoration: InputDecoration(
                           icon: Icon(Icons.lock_outline, size: 40),
