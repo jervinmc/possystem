@@ -36,11 +36,7 @@ dependencies:
   giffy_dialog: ^1.6.1
   http: ^0.12.0+2
   flutter_money_formatter: ^0.8.3
-<<<<<<< HEAD
   flutter_multiselect: ^0.0.1
-=======
-  flappy_search_bar: ^1.4.1
->>>>>>> ce71003771a95f8173c4a7d47548898dc6013929
 dev_dependencies:
   flutter_test:
     sdk: flutter
