@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/refund.dart';
@@ -174,7 +175,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                    mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                    new OutlineButton(
-      borderSide: BorderSide(
+            borderSide: BorderSide(
             color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -299,7 +300,7 @@ new OutlineButton(
             width: 2, //width of the border
           ),
     color:Colors.black,
-  child: new textCustom("Submit",25,Colors.green,""),
+  child: new textCustom("Check out",25,Colors.green,""),
   onPressed: (){
   setState(() {
     quantity[x]=int.parse(qtyCtrlr.text) ;
@@ -312,7 +313,7 @@ new OutlineButton(
 
                  ],
                ),
-               ) 
+               ), 
              )
            )
         ],
@@ -329,14 +330,15 @@ new OutlineButton(
 
       return Container(
         decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
+          borderRadius:BorderRadius.circular(15),
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
       backgroundColor: Colors.white,
         title:Center( 
           child: textCustom("Enter Customer TIN", 25, Colors.black87, "style",),),
         content:TextFormField(
+          textCapitalization: TextCapitalization.sentences,
           controller: tinNumber,
           maxLength: 15,
           textAlign: TextAlign.center,
@@ -621,7 +623,7 @@ new OutlineButton(
            child: Column(
              children: <Widget>[
               Container(
-                height: 80,
+                height: 45,
                 color: Colors.black,
                 child:  Center(
 
@@ -629,20 +631,21 @@ new OutlineButton(
                ),
               ),
                Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget>[
                   Container(  
                       height: MediaQuery.of(context).size.width/3.4,
                     
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(30),
                     child:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: <Widget>[
                       textCustom("Customer Name", 25, Colors.black, ""),
                     
                       Container(
-                        height: 40,
-                        width: 250,
+                        height: 55,
+                        width: 300,
                         child: TextField(
                            textCapitalization: TextCapitalization.sentences,
                           controller: tin,
@@ -672,8 +675,8 @@ new OutlineButton(
  textCustom("Customer TIN", 25, Colors.black, ""),
                     
                       Container(
-                        height: 40,
-                        width: 250,
+                        height: 55,
+                        width: 300,
                         child: TextField(
                            textCapitalization: TextCapitalization.sentences,
                           controller: tin,
@@ -701,8 +704,8 @@ new OutlineButton(
                        textCustom("Customer Address", 25, Colors.black, ""),
                     
                       Container(
-                        height: 40,
-                        width: 250,
+                       height: 55,
+                        width: 300,
                         child: TextField(
                            textCapitalization: TextCapitalization.sentences,
                           controller: tin,
@@ -732,7 +735,7 @@ new OutlineButton(
                       Text(""),
                   
                         Container(
-                 padding: EdgeInsets.only(bottom: 10),
+                 padding: EdgeInsets.only(bottom: 5),
                  child:  rButtonView3((){
                    if(payment.text==""){
                      paymentRestriction(context, 1);
@@ -779,10 +782,10 @@ new OutlineButton(
             
                    }
                  
-                 },"SUBMIT",300),
+                 },"CHECKOUT",300),
                ),
                  Container(
-                      padding: EdgeInsets.only(bottom: 10),
+                      padding: EdgeInsets.only(bottom: 30),
                  child:  rButtonView4((){
                    Navigator.of(context).pop();
                  },"CANCEL", 300),
@@ -799,34 +802,34 @@ new OutlineButton(
                   ),
                   padding: EdgeInsets.only(right: 0,top: 0),
              height: MediaQuery.of(context).size.width/3.9,
-                  width: MediaQuery.of(context).size.width/4.3,
+                  width: MediaQuery.of(context).size.width/3.4,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
                    // crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                            Column(
                              children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(bottom: 5),
+                              padding: EdgeInsets.only(bottom: 10),
                              // margin: EdgeInsets.only(bottom: 10),
                               child:     textCustom("Enter payment amount", 25, Colors.black, ""),
                             ),
 
                                  Container(
-                        width: 250,
-                        height: 40,
+                        width: 200,
+                        height: 60,
                         child: TextField(
-                           textCapitalization: TextCapitalization.sentences,
+                          textCapitalization: TextCapitalization.sentences,
                           controller: payment,
-                               textAlign: TextAlign.center,
-              decoration: new InputDecoration(
+                          textAlign: TextAlign.center,
+                decoration: new InputDecoration(
                         
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(10)
+                  borderRadius: BorderRadius.circular(20)
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
@@ -853,7 +856,7 @@ new OutlineButton(
                      padding: EdgeInsets.only(bottom: 11),
                      child: 
                        Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                             setState(() {
@@ -879,7 +882,7 @@ new OutlineButton(
                       Container(
                         padding: EdgeInsets.only(bottom: 11),
                         child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -902,7 +905,7 @@ new OutlineButton(
                  Container(
                         padding: EdgeInsets.only(bottom: 11),
                         child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -925,7 +928,7 @@ new OutlineButton(
                       Container(
                         padding: EdgeInsets.only(bottom: 11),
                         child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -946,7 +949,7 @@ new OutlineButton(
                      ),
                       ),
                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -954,7 +957,7 @@ new OutlineButton(
                            payment.text="${moneyHoldertext.toString()}.00";
 
                             });
-                          },"1", 120),
+                          },"1", 120,),
                                 Text("  "),
                            rButtonView6((){
                                 setState(() {
@@ -1369,12 +1372,12 @@ new OutlineButton(
           children: [TableRow(
             children:[
          Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom1("ITEM", 33, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 33, Colors.black, "",FontWeight.bold))),
           Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("QUANTITY", 33, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("PRICE", 33, Colors.black, "",FontWeight.bold))),
-            ]
+            ],
           )],
         ),
       ),

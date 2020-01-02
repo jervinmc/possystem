@@ -35,7 +35,6 @@ dependencies:
   giffy_dialog: ^1.6.1
   http: ^0.12.0+2
   flutter_money_formatter: ^0.8.3
-  flappy_search_bar: ^1.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

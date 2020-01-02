@@ -1,8 +1,5 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'transition.dart';
 import 'package:flutter/material.dart';
 import 'transach.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 import 'utils.dart';
 class Transaction extends StatefulWidget {
   @override
@@ -107,10 +104,10 @@ deleteSelected() async{
              context: context,
              builder: (BuildContext context) {
                return AlertDialog(
-                 title: Text("Transaction Details",style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+                 title: Text("Transaction Details", style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
                   content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
                  shape: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(40)),
+                   borderRadius: BorderRadius.circular(10)),
                     actions: <Widget>[
                          FlatButton(
                            child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
@@ -134,7 +131,7 @@ deleteSelected() async{
            Text(transachs.date),
          ),
          DataCell(
-           Text(transachs.refund),
+           Text(transachs.view),
            onTap: (){
             showDialog(
                    context: context,
@@ -142,7 +139,7 @@ deleteSelected() async{
                      return AlertDialog(
                        title: Text("",style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
                        content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
-                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                        actions: <Widget>[
                          FlatButton(
                            child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
@@ -151,7 +148,7 @@ deleteSelected() async{
                            },
                          ),
                          FlatButton(
-                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center),
                            onPressed: (){
                              Navigator.pop(context);
                            },
@@ -177,7 +174,7 @@ deleteSelected() async{
         iconTheme: IconThemeData(color: Colors.white, size: 30),
         elevation: 2,
         actions: <Widget>[
-         textCustom('Selected ${selectedtransachs.length}', 30, Colors.white, "")      
+         textCustom('Selected ${selectedtransachs.length}', 30, Colors.white, ""),   
         ],
       ),
       resizeToAvoidBottomPadding: true,
