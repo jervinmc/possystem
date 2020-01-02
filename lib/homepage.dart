@@ -601,7 +601,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Please enter the payment", 25, Colors.red, "style",),),
+          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",): textCustom("Insufficient Money", 25, Colors.red, "style",),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -1113,11 +1113,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
@@ -1143,11 +1143,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
@@ -1171,11 +1171,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
@@ -1199,10 +1199,10 @@ new OutlineButton(
                      paymentRestriction(context, 1);
                      
                    }
-                   else if(0<subtotal){
+                   else if(double.parse(payment.text)>=subtotal){
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
-                       ,"totalAmt":"$subtotal","payment":"${double.parse("${payment.text}")}"
+                       ,"totalAmt":"$subtotal","payment":"${double.parse("${payment.text}")}","memberPoints":"$points"
                        
                      });
                      final myString = '${header.body}';
@@ -1212,6 +1212,7 @@ print("object $headers");
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${price[x]}","categoryDesc":"safeguard",
                        "productId":"${productId[x]}",
+                       "amount":"${price[x]}",
 //"productName":"${productName[x]}",
 "quantity":"${quantity[x]}",
 "points":"20",
@@ -1236,9 +1237,9 @@ print("object $headers");
              Navigator.of(context).pop();
                    }
                    else{
-                     print("printed");                
+                     paymentRestriction(context, 2);                
                    /*  SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                SunmiAidlPrint.setFontSize(fontSize:30);
                
                SunmiAidlPrint.printText(text: "Trudi POS");
@@ -1530,7 +1531,7 @@ print("object $headers");
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20,color: Colors.orange),
               ),
 
             ),
@@ -1543,6 +1544,7 @@ print("object $headers");
                 title: new Text('Transaction', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context, SlideRightRoute(widget: Transaction()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
@@ -1550,6 +1552,7 @@ print("object $headers");
                 title: new Text('Refund', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.redeem, size: 30,),
                 onTap: () {
+
                   Navigator.push(context, SlideRightRoute(widget: Refund()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
@@ -1563,8 +1566,10 @@ print("object $headers");
                 }),
                  new ListTile(
                 title: new Text('Discount', style: TextStyle(fontSize: 24),),
+
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
+                  Navigator.pop(context);
                   if(productName.length==0){
 
                   }
@@ -2002,7 +2007,7 @@ print("object $headers");
                       Text(""),
                      Container(
                        padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Php ${price[index]}0", 20, Colors.black, ""),
+                       child:  textCustom("Php ${FlutterMoneyFormatter(amount:price[index]).output.nonSymbol}", 20, Colors.black, ""),
                      ),
                      // VerticalDivider(),
                     Container(
@@ -2120,7 +2125,7 @@ print("object $headers");
                       Text(""),
                       Container(
                        padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Php ${price[index]}0", 20, Colors.black, ""),
+                       child:  textCustom("Php ${FlutterMoneyFormatter(amount:price[index]).output.nonSymbol}", 20, Colors.black, ""),
                      ),
                   
                       IconButton(
@@ -2247,6 +2252,17 @@ print("object $headers");
             print("$index");            
            }
           }
+    
+ FlutterMoneyFormatter fmf1 = FlutterMoneyFormatter(
+    amount: double.parse(a[1])
+);
+ FlutterMoneyFormatter fmf2 = FlutterMoneyFormatter(
+    amount:double.parse(a[2])
+);
+ FlutterMoneyFormatter total = FlutterMoneyFormatter(
+    amount:double.parse(a[1])*double.parse(a[2])
+);
+
           
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
@@ -2268,14 +2284,14 @@ print("object $headers");
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[2]}", 14, Colors.white, ""),),
+                child: textCustom("${fmf2.output.nonSymbol}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
-                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, "") : textCustom("${double.parse(a[1])*double.parse(a[2])}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
+                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 14, Colors.white, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
               ],
             ),     
             ]
@@ -2301,14 +2317,14 @@ print("object $headers");
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${a[2]}", 14, Colors.white, ""),),
+                 child: textCustom("${fmf2.output.nonSymbol}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                  Container(padding: EdgeInsets.all(10),
-                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, "") : textCustom("${double.parse(a[1])*double.parse(a[2])}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
+                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 14, Colors.white, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
               ],
             ),        
                 
@@ -2471,7 +2487,7 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("SUBTOTAL : ", 16, Colors.white, "style"),
-                               textCustom1("Php ${subtotal-(subtotal*0.12)}", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
@@ -2479,7 +2495,7 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("VAT : ", 16, Colors.white, "style"),
-                               textCustom1("Php ${subtotal*0.12}", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                          
                             Divider(
@@ -2490,7 +2506,7 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
-                               textCustom1("Php ${subtotal-discountLabel}", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),
