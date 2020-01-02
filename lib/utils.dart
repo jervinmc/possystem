@@ -160,6 +160,14 @@ class rButtonView extends StatelessWidget {
     );
   }
 }
+class showdialogFunction extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
+  }
+}
 class rButtonView2 extends StatelessWidget {
   Function rBut;
   String text;

@@ -4,12 +4,96 @@ import 'package:flutter/material.dart';
 import 'transach.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'utils.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+class Services {
+ 
+  
+  final String id;
+  final double discount;
+  Services(this.id,this.discount);
+
+}
 class Transaction extends StatefulWidget {
   @override
   _TransactionState createState() => _TransactionState();
 }
  
 class _TransactionState extends State<Transaction> {
+  Future<List<Services>> _getServices() async {
+
+ http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/tranheader/GetAll"),headers: {
+        "Accept":"application/json"
+     });
+    List reviewdata=json.decode(response.body);
+
+ 
+    List<Services> services = [];
+    int x=0;
+    for(var u in reviewdata){
+      
+      Services service = Services(u["_id"],u["discount"]);
+       services.add(service);
+    }
+
+    print("eto ang laman $services");
+
+    return services;
+  }
+  Future<void> viewdetails(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style",),),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+  //function..
+  List tranheader=[1,1,1];
+
+  //variable
   List<Transach> transachs;
   List <Transach> selectedtransachs;
   Transach transach;
@@ -57,7 +141,10 @@ deleteSelected() async{
   SingleChildScrollView dataBody(){
    return SingleChildScrollView(
      scrollDirection: Axis.vertical,
-     child: DataTable(
+     child: Column(
+       children: <Widget>[
+         
+         DataTable(
      columnSpacing: 200,
      sortAscending: sort,
      sortColumnIndex: 1,
@@ -167,6 +254,8 @@ deleteSelected() async{
      ),
      ).toList(),
      )
+       ],
+     )
    );
   }
   @override
@@ -184,40 +273,946 @@ deleteSelected() async{
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        verticalDirection: VerticalDirection.down,
-        children: <Widget>[
-          Expanded(
-            child: dataBody(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: OutlineButton(
-                  child: Text("Selected ${selectedtransachs.length}"),
-                  onPressed: (){
+      body: Container(
+        child:  Column(
+          children: <Widget>[
+            Container(
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         Container(padding: EdgeInsets.all(10),
+                child:Center(child:  textCustom1("Receipt Number", 33, Colors.black, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("Date", 33, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("Action", 33, Colors.black, "",FontWeight.bold))),
+            ]
+          )],
+        ),
+      ),
+        FutureBuilder(
+          future: _getServices(),
+          builder: (BuildContext context,AsyncSnapshot snapshot){
+           return snapshot.data.length!=0?Container(
+        padding: EdgeInsets.only(top: 10),
+        height: MediaQuery.of(context).size.height/1.45,
+        child:  ListView.builder(
+        shrinkWrap: true,
+        itemCount: snapshot.data.length,
+        itemBuilder: (BuildContext context, int index){
+          return  index%2==0? Container( 
+            color: Colors.grey.withAlpha(40),
+            child: Table(
+           // border: TableBorder.all(width: 0.5,color: Colors.black87),
+          children: [TableRow(
+            
+            children:[
+                InkWell(
+                  onDoubleTap: (){
                   },
-                ),
-              ),
-               Padding(
-            padding: EdgeInsets.all(20),
-            child: OutlineButton(
-              child: Text("Delete"),
-              onPressed: selectedtransachs.isEmpty
-              ? null
-              : (){
-                deleteSelected();
-              },
-            ),
+                  child:   Container(padding: EdgeInsets.all(10),
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //idclick
+                     textCustom("${snapshot.data[index].id}", 20, Colors.black, "")
+                  ],
+                )),
+                onTap: ()async{
+
+                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var reviewdata=json.decode(response.body);
+     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var rev=json.decode(res.body);
+    print(reviewdata);
+                 showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Container(
+          width: 700,
+          height: 700,
+          child: Column(
+          children: <Widget>[
+         Container(
+           
+           color: Colors.black,
+           child: 
+              Center( 
+          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Date/Time", 25, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Cashier", 25, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Points", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+         Divider(),
+         Container(
+           color: Colors.black,
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+            ]
+          
+            
           )
-            ],
+          ],
+        ),
+      ),
+      Container(
+        
+        height: 150,
+        child: ListView.builder(
+          itemCount: reviewdata.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+               
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+             Expanded(
+               child: Container(
+                 padding: EdgeInsets.all(2),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+               ),
+             ),
+           ],
+         ),
+           Container(padding: EdgeInsets.all(2),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(2),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      );
+
+            },
+        ),
+       
+      ),
+       Divider(),
+       Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Subtotal", 25, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("VAT", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Tax", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Discount", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].discount}", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Total", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Payment", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Change", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+       
+          ],
+        ),
+        ),
+        content:Text(""),
+        actions: <Widget>[
+            Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.transparent, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
           ),
+    color:Colors.green,
+  child: Icon(Icons.print,color: Colors.green,size: 50,),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.blue, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+         
         ],
+      ),
+      );
+    },
+  );
+
+                },
+                ),
+                //date...
+                Container(padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[  
+                   /* SizedBox(
+                      height: 50,
+                      child: StepperTouch(
+                        initialValue: 1,
+                      ),
+                    ),*/
+                     InkWell(
+                        onTap: ()async{
+
+                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+        
+     
+    var reviewdata=json.decode(response.body);
+     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var rev=json.decode(res.body);
+
+    print(reviewdata);
+
+                 showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Container(
+          width: 700,
+          height: 700,
+          child: Column(
+          children: <Widget>[
+         Container(
+           
+           color: Colors.black,
+           child: 
+              Center( 
+          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Date/Time", 25, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Cashier", 25, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Points", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+         Divider(),
+         Container(
+           color: Colors.black,
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      ),
+      Container(
+        
+        height: 150,
+        child: ListView.builder(
+          itemCount: reviewdata.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+               
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+             Expanded(
+               child: Container(
+                 padding: EdgeInsets.all(2),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+               ),
+             ),
+           ],
+         ),
+           Container(padding: EdgeInsets.all(2),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(2),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      );
+
+            },
+        ),
+       
+      ),
+       Divider(),
+       Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Subtotal", 25, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("VAT", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Tax", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Discount", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Total", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Payment", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Change", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+       
+          ],
+        ),
+        ),
+        content:Text(""),
+        actions: <Widget>[
+            Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.transparent, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: Icon(Icons.print,color: Colors.green,size: 50,),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.blue, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+         
+        ],
+      ),
+      );
+    },
+  );
+
+                },
+                        child:  textCustom("2019/10/10", 25, Colors.black, "style"),
+                      ),
+              
+
+                  ],
+                )),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                     Container(
+                       padding: EdgeInsets.only(left: 50),
+                       child:  textCustom("Refund", 20, Colors.black, ""),
+                     ),
+                     // VerticalDivider(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            ]
+          )],
+      
+        ),
+          ): Container(
+            color: Colors.white.withAlpha(50),
+            child: Table(
+           // border: TableBorder.all(width: 0.5,color: Colors.black87),
+          children: [TableRow(
+            children:[
+              InkWell(
+                child:   Container(padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    textCustom("${snapshot.data[index].id}", 20, Colors.black, ""),
+                  ],
+                )),
+                onTap: ()async{
+
+                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+        
+     
+    var reviewdata=json.decode(response.body);
+     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var rev=json.decode(res.body);
+
+    print(reviewdata);
+
+                 showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Container(
+          width: 700,
+          height: 700,
+          child: Column(
+          children: <Widget>[
+         Container(
+           
+           color: Colors.black,
+           child: 
+              Center( 
+          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Date/Time", 25, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Cashier", 25, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Points", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+         Divider(),
+         Container(
+           color: Colors.black,
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      ),
+      Container(
+        
+        height: 150,
+        child: ListView.builder(
+          itemCount: reviewdata.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+               
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+             Expanded(
+               child: Container(
+                 padding: EdgeInsets.all(2),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+               ),
+             ),
+           ],
+         ),
+           Container(padding: EdgeInsets.all(2),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(2),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      );
+
+            },
+        ),
+       
+      ),
+       Divider(),
+       Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Subtotal", 25, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("VAT", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Tax", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Discount", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Total", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Payment", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Change", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
+             
+           ],
+         ),
+       
+          ],
+        ),
+        ),
+        content:Text(""),
+        actions: <Widget>[
+            Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.transparent, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: Icon(Icons.print,color: Colors.green,size: 50,),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.blue, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+         
+        ],
+      ),
+      );
+    },
+  );
+                },
+              ),
+            Container(padding: EdgeInsets.all(10),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[  
+                   /* SizedBox(
+                      height: 50,
+                      child: StepperTouch(
+                        initialValue: 1,
+                      ),
+                    ),*/
+             
+                    
+                     InkWell(
+                        onTap: (){
+                  
+                        },
+                        child:  textCustom("2019/10/10", 25, Colors.black, "style"),
+                      ),
+              
+                    
+                    
+                     
+
+                  ],
+                )
+             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                    
+                      Container(
+                       padding: EdgeInsets.only(left: 50),
+                       child:  textCustom("Refund", 20, Colors.black, ""),
+                     ),
+                  
+                   
+                    ],
+                  ),
+                ), 
+              ],
+            ),               
+            ]
+          )],
+      
+        ),
+          );
+        },
+      ),
+      ) : Container();
+          },
+        )
+          ],
+        )
       )
     );
   }
