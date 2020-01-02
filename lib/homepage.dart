@@ -137,6 +137,7 @@ class Homepage extends StatefulWidget {
 }
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
   String user;
+  bool checkedOut=false;
   _HomepageState(this.user);
   String usernamePrefs;
   String passwordPrefs;
@@ -245,22 +246,19 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   onPressed: ()async{ 
        print("objectsss");
        if (usernameVoid.text == usernamePrefs ){
-             
          print("objectssssss");
            subtotal=subtotal-(quantity[x]*price[x]);
            print("$subtotal eto ang sub");
                             quantity.removeAt(x);
                               price.removeAt(x);
                                 productName.removeAt(x);
-
+                            points=0.0;
+                            checkedOut=true;
                 Navigator.of(context).pop();
        }
        else{
          voidFailed(context, 1);
        }
-     
-  
-    
 
 
   },
@@ -643,7 +641,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
-     
     var reviewdata=json.decode(response.body);
     print("${reviewdata['sellingPrice']} eto ang nakuha");
     //price.removeAt(2);
@@ -668,9 +665,9 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        productId.add(reviewdata['productId']);
        // function="add";
        print("${reviewdata['productId']} eto ang product id");
-              price.add(reviewdata['sellingPrice']);
-    quantity.add(1);
-  productName.add(reviewdata['productName']);
+price.add(reviewdata['sellingPrice']);
+quantity.add(1);
+productName.add(reviewdata['productName']);
     points=points+reviewdata['points'];
     pointsTotal.add(reviewdata['points']);
   trap=1;
@@ -681,6 +678,10 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   }
     });
     sd=productName.length-1;
+    if(checkedOut==true){
+       function="add";
+       checkedOut=false;
+    }
  print("eto ang prod ${productName.length}");
        if(productName.length>1){
         function="add";
@@ -1200,7 +1201,9 @@ new OutlineButton(
                    }
                    else if(0<subtotal){
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"$discountLabel","receiptNo":"001","memberName":"Prokopyo tunying"
+                       "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
+                       ,"totalAmt":"$subtotal","payment":"${double.parse("${payment.text}")}"
+                       
                      });
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
@@ -1216,22 +1219,23 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
+                     replacementDiscount.clear();
+                    checkedOut=true;
+                   // print("$checkedOut 5d80a894c321c7152c783e69");
                      productId.clear();
-                     productName=[];
-                     quantity=[];
-                     price=[];
+                     productName.clear();
+                     quantity.clear();
+                     price.clear();
                     quantityDiscount=[];
                     quantityDiscountCtrlr.clear();
                     amountDiscountCtrlr.clear();
                      subtotal=0.0;
-                                    points=0.0;
-                                    discountLabel=0.0;
-
+                    points=0.0;
+                    discountLabel=0.0;
                      // print(a.body);
              Navigator.of(context).pop();
                    }
                    else{
-  
                      print("printed");                
                    /*  SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
@@ -1624,7 +1628,7 @@ print("object $headers");
         preferredSize: Size.fromHeight(60.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
-            Text("AUTHs",style: TextStyle(fontSize: 50,color: Colors.orange)),
+            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange)),
             FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),),
             
 
