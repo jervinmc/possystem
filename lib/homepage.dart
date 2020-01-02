@@ -20,9 +20,11 @@ import 'package:giffy_dialog/giffy_dialog.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
+import 'utils.dart';
 class product {
   final name;
   final qty;
@@ -92,26 +94,22 @@ class RadialAnimation extends StatelessWidget {
           ],
         );
 //buildbutton............. 7:00 mns
-  
       },
-      
-      
     );
   }
   _buildButton(double angle, {Color color, IconData icon}){
       final double rad=prefix0.radians(angle);
-      return Transform(
-            
+      return Transform(  
             transform: Matrix4.identity()..translate(
               (translation.value) * cos(rad),
               (translation.value) * sin(rad),
             ),
             child: angle==-193 ? FloatingActionButton(
-              heroTag: "heroTag",
-              child: Icon(icon),backgroundColor: color,onPressed: _close,
+             heroTag: "heroTag",
+              child: Icon(icon),backgroundColor: color,onPressed: (){print("okkkkkkkkkkkkkkkkkkkkkkkkkkk");},
             ) : FloatingActionButton(
-              heroTag: "heroTag1",
-              child: Icon(icon),backgroundColor: color,onPressed: _close,
+             heroTag: "heroTag1",
+              child: Icon(icon),backgroundColor: color,onPressed: (){print("okkkkkkkkkkkkkkkkkkkkkkkkkkk");},
             ),
       );
     }
@@ -119,6 +117,7 @@ class RadialAnimation extends StatelessWidget {
     controller.forward();
   }
   _close(){
+  //  print("oooooooooooookkkkkkkkkkkkkk");
     controller.reverse();
   }
 }
@@ -127,29 +126,471 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       
-      home: Homepage(),
+      home: Homepage(""),
       
     );
   }
 }
 class Homepage extends StatefulWidget {
+  String username;
+  Homepage(this.username);
   @override
-  _HomepageState createState() => _HomepageState();
+  _HomepageState createState() => _HomepageState(username);
 }
-
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
-
+  String user;
+  _HomepageState(this.user);
+  String usernamePrefs;
+  String passwordPrefs;
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
-  
   List productName=[];
   List quantity=[];
   List price=[];
-
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
     @override
+    Future<void> voidItem(BuildContext context,int x) {
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: Column(
+            children: <Widget>[
+             Container(
+               padding: EdgeInsets.only(bottom: 10),
+               child:  textCustom("ENTER USERNAME", 25, Colors.black, "style",),
+             ),
+              Container(
+                        height: 40,
+                        width: 250,
+                        child: TextField(
+                          controller: usernameVoid,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(5)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(15)
+                ),
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 20,
+                color: Colors.black
+              ),
+              ),
+                      ),
+                       Container(
+               padding: EdgeInsets.only(bottom: 10,top: 20),
+               child:  textCustom("ENTER PASSWORD", 25, Colors.black, "style",),
+             ),
+              Container(
+                        height: 40,
+                        width: 250,
+                        child: TextField(
+                          obscureText: true,
+                          controller: passwordVoid,
+                               textAlign: TextAlign.center,
+              decoration: new InputDecoration(
+                 
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(5)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(15)
+                
+                ),
+            
+               // hintText: 'Mobile Number',
+              ),
+              style: TextStyle(
+                    fontSize: 20,
+                color: Colors.black
+              ),
+              ),
+                      ),
+            ],
+          ),),
+
+        //content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
+  onPressed: ()async{ 
+       print("objectsss");
+       if (usernameVoid.text == usernamePrefs ){
+             
+         print("objectssssss");
+           subtotal=subtotal-(quantity[x]*price[x]);
+           print("$subtotal eto ang sub");
+                            quantity.removeAt(x);
+                              price.removeAt(x);
+                                productName.removeAt(x);
+
+                Navigator.of(context).pop();
+       }
+       else{
+         voidFailed(context, 1);
+       }
+     
+  
+    
+
+
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+  Future<void> discountFunction(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child:Column(
+            children: <Widget>[
+         Container(
+           height: 80,
+           color: Colors.black,
+           child: Center(
+             child: textCustom("Discount Payment", 30, Colors.white, "style"),
+           ),
+         ),
+    Container(
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         Container(padding: EdgeInsets.all(10),
+                child:Center(child:  textCustom1("", 33, Colors.black, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("OFF%", 27, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("AMOUNT", 27, Colors.black, "",FontWeight.bold))),
+            ]
+          )],
+        ),
+      ),
+    Container(
+      height: 400,
+      width: 700,
+      child: ListView.builder(
+      itemCount: productName.length,
+      itemBuilder: (BuildContext context,int index){
+      //  TextEditingController s=new TextEditingController(text: quantity[index].toString());
+        //quantityDiscountCtrlr[index]=s;
+        var textEditingController = new TextEditingController(text: "");
+        quantityDiscountCtrlr.add(textEditingController);
+        var textEditingController1 = new TextEditingController(text: "");
+        amountDiscountCtrlr.add(textEditingController1);
+         var textEditingController2 = new TextEditingController(text: "");
+      discountablePrice.add(textEditingController2);
+        return Container(
+          // color:  index%2==0 ? Colors.grey.withAlpha(40) : Colors.white,
+            child: Table(
+           // border: TableBorder.all(width: 0.5,color: Colors.black87),
+          children: [
+            TableRow(
+            children:[
+                InkWell(
+                  onDoubleTap: (){
+                    _ackAlert(context, 1);
+                  },
+                  child:Container(padding: EdgeInsets.all(10),
+                child: textCustom("${productName[index]}", 20, Colors.black, "")),
+                onTap: (){                  
+                 showDialog(
+                   context: context,
+                   builder: (BuildContext context){
+                     return AlertDialog(
+                       title: Text("Product Name",style: TextStyle(fontSize: 25), textAlign: TextAlign.center),
+                       content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                       actions: <Widget>[
+                         FlatButton(
+                           child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
+                           onPressed: (){
+                             Navigator.pop(context);
+                           },
+                         ),
+                         FlatButton(
+                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           onPressed: (){
+                          
+                             Navigator.pop(context);
+                           },
+                         )
+                       ],
+                     );
+                   }
+                 );
+                },
+                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  //Text(""),  
+                   Container(
+                width: 100,
+                child:  TextField(
+              textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                
+                  hintText: quantity[index].toString()
+                ),
+                 controller: quantityDiscountCtrlr[index],
+                 onChanged:(value){
+                  // print(value);
+                  setState(() {
+                   // TextEditingController a=new TextEditingController(text:quantityDiscountCtrlr[index].text );
+                   if(value=="${quantity[index]}"){
+                      quantityDiscount[index]="0";
+                         discountablePrice[index].text="0";
+                   }
+                  else if(int.parse("$value")>int.parse("${quantity[index]}")){
+                      quantityDiscount[index]="0";
+                      discountablePrice[index].text="0";
+                  } 
+                   else{
+                     
+                       int a=int.parse("${quantity[index]}");
+                        int b=int.parse("${quantityDiscountCtrlr[index].text}");
+                         var c=a-b;
+                      discountablePrice[index].text="${int.parse("$c")*price[index]}";
+                      discountGlobal=discountablePrice[index].text;
+                         TextEditingController sd=new TextEditingController(text: c.toString());
+                        // quantityDiscount[index]=c.toString();
+                         quantityDiscount[index]=sd;
+                      print("$c asdf");
+                        //quantityDiscount[index]=int.parse("${quantity[index]-quantityDiscountCtrlr[index].text}");
+                   }
+                  });
+                 } ,
+                onTap: (){
+                  setState(() {
+                      indexDiscount=index;
+                  });
+                },
+               ),
+              ),
+                ],
+              ),
+             Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+               //  Text(""),
+                  Container(
+                width: 120,
+                child:  TextField(
+                  controller: amountDiscountCtrlr[index],
+                  onChanged: (value){ 
+                    if(value==null || value==""){
+                      discountablePrice[index].text=discountGlobal;
+                    }
+                    var a=discountablePrice[index].text;
+                    
+                    TextEditingController b=new TextEditingController(text: discountGlobal.toString());
+                   var percent="${double.parse(b.text)*(double.parse("${amountDiscountCtrlr[index].text}")/100)}";
+                   
+                  discountablePrice[index].text="${percent}";
+
+                 print(percent);
+                  },
+               ),
+              ),
+               ],
+             ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                 // Text(""),
+                  Container(
+                width: 120,
+                child:  TextField( 
+                  controller: discountablePrice[index],
+                    onChanged: (value){
+                        print("object");
+                    },
+                 
+               ),
+              ),
+                ],
+              )
+            ]
+          )
+          ]
+          ,
+      
+        ),
+          );
+
+
+      },
+    ),
+    )
+            ],
+          )),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
+  onPressed: (){
+    discountLabel=0.0;
+    for(int x=0;x<productName.length;x++){
+
+      if(discountablePrice[x].text=="" || discountablePrice[x].text=="0"){
+        replacementDiscount[x]="0";
+      }
+      else{
+          replacementDiscount[x]=discountablePrice[x];
+          discountLabel=discountLabel+double.parse("${discountablePrice[x].text}");
+      } 
+      
+      
+      print(replacementDiscount[x]);
+    }
+      setState(() {
+           setState(() {
+             int a=int.parse("${quantity[0]}");
+            // int b=int.parse("${quantityDiscount[0]}");
+             print(a);
+            //  initialDiscount=int.parse(quantity[0])*int.parse(quantityDiscount[0]);
+            //  print(initialDiscount);
+                              // quantityDiscount[indexDiscount]=quantityDiscountCtrlr[indexDiscount];
+                               print("${ quantityDiscount[indexDiscount]} eto na yunnnnn");
+                             });
+        //quantityDiscount[index]=
+      });
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+ 
+}
+ Future<void> voidFailed(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style",),),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
     //function..
     Future<void> paymentRestriction(BuildContext context,int x) {
         
@@ -201,13 +642,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 }
     void enterBarcode()async{
       print(searchCtrlr.text);
-
-      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/5d80a280c321c7152c783e0a"),headers: {
+      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
-       _ackAlert(context, 1);
+     
     var reviewdata=json.decode(response.body);
-   
     print("${reviewdata['sellingPrice']} eto ang nakuha");
     //price.removeAt(2);
     int trap=0;
@@ -215,15 +654,22 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
       for(int x=0;x<productName.length;x++){
         if(productName[x]==reviewdata['productName']){
             print("nag insert");
-            quantity.insert(x, quantity[x]+1);
+           //quantity.insert(x, quantity[x]+1);
+           quantity[x]=quantity[x]+1;
             trap=1;
             sd=x;
               points=points+reviewdata['points'];
               function="add";
+              break;
         }
       }
       if(trap==0 && reviewdata['sellingPrice']!=null ){ 
-        function="add";
+        replacementDiscount.add("0");
+        quantityDiscount.add("0");
+        print("$quantityDiscount eto ang quantity discount");
+       productId.add(reviewdata['productId']);
+       // function="add";
+       print("${reviewdata['productId']} eto ang product id");
               price.add(reviewdata['sellingPrice']);
     quantity.add(1);
   productName.add(reviewdata['productName']);
@@ -231,10 +677,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     pointsTotal.add(reviewdata['points']);
   trap=1;
       }
-      else{
-        _ackAlert(context, 1);
-      }
-      
   //quantity.insert(2, 10);
   if(productName.indexOf(reviewdata['productName'])<0){
       print("okkkk");
@@ -245,7 +687,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        if(productName.length>1){
         function="add";
        }
-
    }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
@@ -262,7 +703,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
         title:Center( 
           child: textCustom("Enter Customer Address", 25, Colors.black87, "style",),),
         content:TextFormField(
-           textCapitalization: TextCapitalization.sentences,
           controller: address,
           maxLength: 15,
           textAlign: TextAlign.center,
@@ -286,15 +726,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
 new OutlineButton(
       borderSide: BorderSide(
-        
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -310,7 +747,6 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
                  ],
                ),
                ), 
@@ -327,7 +763,6 @@ new OutlineButton(
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
-
       return Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15),
@@ -366,7 +801,6 @@ new OutlineButton(
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
 new OutlineButton(
       borderSide: BorderSide(
             color: Colors.green, //Color of the border
@@ -377,7 +811,7 @@ new OutlineButton(
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: (){
   setState(() {
-    quantity[x]=int.parse(qtyCtrlr.text);
+    quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
   });
   Navigator.of(context).pop();
@@ -397,7 +831,13 @@ new OutlineButton(
 }
     Timer _timer;
 int _start = 10;
-void startTimer() {
+void startTimer()async{
+  SharedPreferences prefs=await SharedPreferences.getInstance();
+  setState(() {
+    
+    usernamePrefs=prefs.getString("userName");
+  passwordPrefs=prefs.getString("userPass");
+  });
   const oneSec = const Duration(seconds: 1);
   _timer = new Timer.periodic(
     oneSec,
@@ -407,8 +847,12 @@ void startTimer() {
           timer.cancel();
         if (_start < 9) {
           if(openDialog){
-         shifting(context, 1);
-        
+           if(prefs.getString("openingAmount")!=""){
+              print("pumasok na dito");
+            }
+            else{
+              shifting(context, 1);
+            }
           openDialog=false;
           }
         } else {
@@ -431,12 +875,24 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     SunmiAidlPrint.bindPrinter();
     //textYouWantToPrint.clear();
     super.dispose();
-
  }
- 
+  List replacementDiscount=[];
+  
   ///////////////variable/////
+  List quantityDiscount=[];
+  int initialDiscount=0;
+  double discountLabel=0.0;
+  var discountGlobal;
+  int indexDiscount;
+  List priceDiscount=[];
+   List<TextEditingController> quantityDiscountCtrlr=[];
+   List<TextEditingController>amountDiscountCtrlr=[];
+   TextEditingController priceDiscountCtrlr=new TextEditingController();
+  TextEditingController usernameVoid=new TextEditingController();
+   TextEditingController passwordVoid=new TextEditingController();
   FlutterMoneyFormatter fmfSubtotal;
-  List pointsTotal=[0.0,0.0,0.0];
+  List productId=[];
+  List pointsTotal=[];
   double points=0.0;
   String function="";
   int sd=0;
@@ -489,15 +945,12 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
 new OutlineButton(
       borderSide: BorderSide(
-        
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -506,14 +959,21 @@ new OutlineButton(
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: (){
   setState(() {
+    sd=x;
+    subtotal=0;
+    //function="add";
     quantity[x]=int.parse(qtyCtrlr.text) ;
+    for(int x=0;x<productName.length;x++){
+        subtotal=subtotal+(price[x]*quantity[x]);
+    }
     qtyCtrlr.text="";
+    print(quantity[x]); 
+    //subtotal=price[x]*quantity[x];
   });
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
                  ],
                ),
                )
@@ -525,11 +985,14 @@ new OutlineButton(
     },
   );
 }
-Future<void> shifting(BuildContext context,int x) {
+Future<void> shifting(BuildContext context,int x) async{
+  SharedPreferences prefs=await SharedPreferences.getInstance();
+
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
-      return Container(
+      return   
+  Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
@@ -541,7 +1004,7 @@ Future<void> shifting(BuildContext context,int x) {
           children: <Widget>[
             textCustom("Enter Opening Amount", 20, Colors.black, "style"),
             TextFormField(
-          controller: qtyCtrlr,
+          controller: openingA,
           maxLength: 5,
           textAlign: TextAlign.center,
           keyboardType:TextInputType.number,
@@ -566,7 +1029,6 @@ Future<void> shifting(BuildContext context,int x) {
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -581,7 +1043,9 @@ new OutlineButton(
           ),
     color:Colors.black,
   child: new textCustom("Submit",25,Colors.green,""),
-  onPressed: (){
+  onPressed: ()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    prefs.setString("openingAmount","${openingA.text}");
   setState(() {
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
@@ -634,7 +1098,7 @@ new OutlineButton(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget>[
                   Container(  
-                      height: MediaQuery.of(context).size.width/3.4,
+                      height: MediaQuery.of(context).size.width/3.1,
                     
                     padding: EdgeInsets.all(30),
                     child:  Column(
@@ -647,7 +1111,6 @@ new OutlineButton(
                         height: 55,
                         width: 300,
                         child: TextField(
-                           textCapitalization: TextCapitalization.sentences,
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -658,7 +1121,7 @@ new OutlineButton(
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(10)
                 
                 ),
             
@@ -678,7 +1141,6 @@ new OutlineButton(
                         height: 55,
                         width: 300,
                         child: TextField(
-                           textCapitalization: TextCapitalization.sentences,
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -689,7 +1151,7 @@ new OutlineButton(
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(10)
                 
                 ),
             
@@ -707,7 +1169,6 @@ new OutlineButton(
                        height: 55,
                         width: 300,
                         child: TextField(
-                           textCapitalization: TextCapitalization.sentences,
                           controller: tin,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -718,7 +1179,7 @@ new OutlineButton(
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(10)
                 
                 ),
             
@@ -735,17 +1196,48 @@ new OutlineButton(
                       Text(""),
                   
                         Container(
-                 padding: EdgeInsets.only(bottom: 5),
-                 child:  rButtonView3((){
+                 padding: EdgeInsets.only(bottom: 10),         
+                 child:  rButtonView3(() async{
                    if(payment.text==""){
                      paymentRestriction(context, 1);
                      
                    }
                    else if(0<subtotal){
-                     
+                     var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+                       "discount":"$discountLabel","receiptNo":"001","memberName":"Prokopyo tunying"
+                     });
+                     final myString = '${header.body}';
+var headers = myString.replaceAll(RegExp('"'), ''); 
+print("object $headers");
+                     for(int x=0;x<productName.length;x++){
+                            await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
+                       "sellingPrice":"${price[x]}","categoryDesc":"safeguard",
+                       "productId":"${productId[x]}",
+//"productName":"${productName[x]}",
+"quantity":"${quantity[x]}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headers"
+                     });
+                     }
+                     productId.clear();
+                     productName=[];
+                     quantity=[];
+                     price=[];
+                    quantityDiscount=[];
+                    quantityDiscountCtrlr.clear();
+                    amountDiscountCtrlr.clear();
+                     subtotal=0.0;
+                                    points=0.0;
+                                    discountLabel=0.0;
+
+                     // print(a.body);
+             Navigator.of(context).pop();
                    }
                    else{
-                     SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+  
+                     print("printed");                
+                   /*  SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                SunmiAidlPrint.setFontSize(fontSize:30);
                
@@ -763,7 +1255,6 @@ new OutlineButton(
               for(int x=0;x<productName.length;x++){
                 SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
               }
-            
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -776,14 +1267,14 @@ new OutlineButton(
               quantity=[];
               price=[];
               pointsTotal=[];
-              points=0;
-                  Navigator.of(context).pop();
+              points=0;*/
+                
 
             
                    }
                  
-                 },"CHECKOUT",300),
-               ),
+                 },"CHECKOUT",300)),
+                 
                  Container(
                       padding: EdgeInsets.only(bottom: 30),
                  child:  rButtonView4((){
@@ -791,7 +1282,7 @@ new OutlineButton(
                  },"CANCEL", 300),
                ),
                      
-                     ],
+                        ],
                      
                    ),
                   ),
@@ -801,8 +1292,8 @@ new OutlineButton(
                     borderRadius: BorderRadius.circular(5)
                   ),
                   padding: EdgeInsets.only(right: 0,top: 0),
-             height: MediaQuery.of(context).size.width/3.9,
-                  width: MediaQuery.of(context).size.width/3.4,
+             height: MediaQuery.of(context).size.width/3.3,
+                  width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,
                    // crossAxisAlignment: CrossAxisAlignment.end,
@@ -822,11 +1313,14 @@ new OutlineButton(
                         width: 200,
                         height: 60,
                         child: TextField(
+
                           textCapitalization: TextCapitalization.sentences,
                           controller: payment,
                           textAlign: TextAlign.center,
                 decoration: new InputDecoration(
-                        
+
+             
+                
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 5.0),
                   borderRadius: BorderRadius.circular(20)
@@ -1018,12 +1512,14 @@ new OutlineButton(
   else{
      emptyTable=1;
   }
-  print("eto ang b $b");
+
  
     return b;  
     
   }
   int emptyTable=0;
+  TextEditingController openingA=new TextEditingController();
+ List<TextEditingController> discountablePrice=[];
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
@@ -1037,7 +1533,7 @@ new OutlineButton(
              SizedBox(
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
-              accountName: Text("Prokopyo Tunying",
+              accountName: Text("$usernamePrefs",
               style: TextStyle(fontSize: 20),
               ),
 
@@ -1054,7 +1550,6 @@ new OutlineButton(
                   Navigator.push(context, SlideRightRoute(widget: Transaction()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
-                Divider(),
                  new ListTile(
                 title: new Text('Refund', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.redeem, size: 30,),
@@ -1062,7 +1557,7 @@ new OutlineButton(
                   Navigator.push(context, SlideRightRoute(widget: Refund()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
-                Divider(),
+              
                  new ListTile(
                 title: new Text('Void', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
@@ -1070,37 +1565,49 @@ new OutlineButton(
                   Navigator.push(context, SlideRightRoute(widget: Void()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
+                 new ListTile(
+                title: new Text('Discount', style: TextStyle(fontSize: 24),),
+                trailing: new Icon(Icons.assignment, size: 30,),
+                onTap: () {
+                  if(productName.length==0){
+
+                  }
+                  else{
+                      quantityDiscountCtrlr.clear();
+                      amountDiscountCtrlr.clear();
+                      //discountablePrice.clear();
+                  discountFunction(context, 1);
+                  }
+                
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
                new Divider(),
                new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
-                  trailing: new Icon(Icons.exit_to_app, size: 30,),             
+                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
                        context: context, builder: (BuildContext context){
                          return AlertDialog(
                            backgroundColor: Colors.white,
-                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to Logout?", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              FlatButton(
-                               splashColor: Colors.white,
-                               color: Colors.redAccent,
-                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                               child: Text("Cancel", style: TextStyle(fontSize: 20, color: Colors.white)),
-                               onPressed: (){
-                                 Navigator.pop(context);
+                               child: Text("Yes", style: TextStyle(fontSize: 20)),
+                               onPressed: () async{
+                                  SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "");
+                                  prefs.setString("userName", "");
+                                  prefs.setString("userPass", "");
+                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                                },
                              ),
-                             Text(""),
-                             Text(""),
                              FlatButton(
-                               color: Colors.greenAccent,
-                               splashColor: Colors.white,
-                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                               child: Text("Ok", style: TextStyle(fontSize: 20, color: Colors.white)),
+                               child: Text("No", style: TextStyle(fontSize: 20)),
                                onPressed: (){
-                               Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                                 Navigator.pop(context);
                                },
                              ),
                            ],
@@ -1320,7 +1827,6 @@ new OutlineButton(
         
     borderRadius: BorderRadius.circular(5.0),),
       child: TextField(
-         textCapitalization: TextCapitalization.sentences,
     textAlign: TextAlign.start,  
     controller: searchCtrlr,
     onChanged: (value){
@@ -1418,6 +1924,8 @@ new OutlineButton(
                          FlatButton(
                            child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
                            onPressed: (){
+                           
+                            
                              Navigator.pop(context);
                            },
                          )
@@ -1440,20 +1948,19 @@ new OutlineButton(
                     IconButton(
                     icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
-                          points=points-pointsTotal[index];
-                  
-                      sd=index;
-                      function="remove";
+                          
 
                    setState(() {
                      
                      if(quantity[index]==1){
-                          setState(()  {
-                               productName.removeAt(index);
-                          });
+                           voidItem(context, index);
                          
                      }
                      else{
+                       points=points-pointsTotal[index];
+                  
+                      sd=index;
+                      function="remove";
                          quantity[index]=quantity[index]-1;
                          subtotal=0;
                      lengthOfCount=0;
@@ -1467,7 +1974,7 @@ new OutlineButton(
                         onTap: (){
                        _ackAlert(context,index);
                         },
-                        child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
+                        child: quantityDiscount[index]=="0" || quantityDiscount[index]==null || quantityDiscount[index]=="" || quantityDiscount[index]=="${quantity[index]}" ? textCustom("${quantity[index]}", 25, Colors.black, "style") : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
                       ),
                      IconButton(
                     icon:  Icon(Icons.add,color: Colors.green,),
@@ -1505,9 +2012,12 @@ new OutlineButton(
                     Container(
                      
                       child:   IconButton(
-                        icon: Icon(Icons.delete_outline,color: Color(0xffED4C67),size: 25,),
+
+                        icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
                         onPressed:(){
-                          
+                          voidItem(context, index);
+                              
+                          //voidItem(context, 1);
                         } ,
                       ),
                     )
@@ -1532,17 +2042,18 @@ new OutlineButton(
                 onTap: (){
                    showDialog(
                context: context, builder: (_) =>  AssetGiffyDialog(
-                 image: Image.asset('assets/sp1.gif'),
+                 image:Image(image: NetworkImage("https://images-na.ssl-images-amazon.com/images/I/81yMUvgpSLL._SL1500_.jpg"),),
                  buttonCancelColor: Colors.red,
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
                  buttonOkColor: Colors.green,
                  buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
-                 title: Text("DETAILS",style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                 title: Text("Discount",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  ),
-                 description: Text("Transaction Details",style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                 description: Text("Transaction Details",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  textAlign: TextAlign.center),
                  entryAnimation: EntryAnimation.RIGHT,
                  onOkButtonPressed: (){
+                   
                    Navigator.pop(context);
                  },
                ));
@@ -1557,19 +2068,20 @@ new OutlineButton(
                     icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
                         
-                      sd=index;
-                      function="remove";
-                       points=points-pointsTotal[index];
+                    
                       setState(() {
                          subtotal=0;
                      lengthOfCount=0;
                         if(quantity[index]==1){
-                            productName.removeAt(index);
+                          voidItem(context, index);
                         }
                         else{
                             quantity[index]=quantity[index]-1;
                             subtotal=0;
                      lengthOfCount=0;
+                       sd=index;
+                      function="remove";
+                       points=points-pointsTotal[index];
                         }
                             
                       });
@@ -1581,7 +2093,7 @@ new OutlineButton(
                         onTap: (){
                         _ackAlert(context,index);
                         },
-                        child: textCustom("${quantity[index]}", 25, Colors.black, "style"),
+                        child: quantityDiscount[index]=="0" || quantityDiscount[index]==null? textCustom("${quantity[index]}", 25, Colors.black, "style") : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
                       ),
                      IconButton(
                     icon:  Icon(Icons.add,color: Colors.green,), 
@@ -1617,7 +2129,15 @@ new OutlineButton(
                   
                       IconButton(
                         icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
-                        onPressed:(){} ,
+                        onPressed:(){
+                          subtotal=subtotal-(quantity[index]*price[index]);
+                           quantity.removeAt(index);
+                              price.removeAt(index);
+                                productName.removeAt(index);
+                                points=0.0;
+                                discountLabel=0.0;
+                         // voidItem(context, 1);
+                        } ,
                       )
                     ],
                   ),
@@ -1759,7 +2279,7 @@ new OutlineButton(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, ""),),
+                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, "") : textCustom("${double.parse(a[1])*double.parse(a[2])}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
               ],
             ),     
             ]
@@ -1792,7 +2312,7 @@ new OutlineButton(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                  Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${double.parse(a[1])*double.parse(a[2])*1}", 14, Colors.white, ""),)
+                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, "") : textCustom("${double.parse(a[1])*double.parse(a[2])}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
               ],
             ),        
                 
@@ -1942,6 +2462,14 @@ new OutlineButton(
                              child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                children: <Widget>[
+                                discountLabel!=0.0?    Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom("Discount : ", 16, Colors.white, "style"),
+                               textCustom1("Php -${discountLabel}", 16, Colors.red, "style",FontWeight.bold),
+                             ],):Container(),
+                                  Text(""),
                                  Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
@@ -1966,7 +2494,7 @@ new OutlineButton(
                                children: <Widget>[
                                
                                textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
-                               textCustom1("Php $subtotal", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
+                               textCustom1("Php ${subtotal-discountLabel}", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),
@@ -1976,6 +2504,7 @@ new OutlineButton(
                                    payment.text="";
                                    tin.text="";
                                    address.text="";
+                                  
                                  });
                                  _checkOut(context, 1); 
                                 // shifting(context, 1);
