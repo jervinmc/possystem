@@ -930,7 +930,7 @@ void startTimer()async{
           timer.cancel();
         if (_start < 9) {
           if(openDialog){
-           if(prefs.getString("openingAmount")!=""){
+           if(prefs.getString("openingAmount")!="0.0"){
               print("pumasok na dito");
             }
             else{
@@ -938,7 +938,8 @@ void startTimer()async{
             }
           openDialog=false;
           }
-        } else {
+        } 
+        else {
           _start = _start - 1;
             print(_start);
         }

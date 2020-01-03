@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:possystem/Signin.dart';
+
 import 'fadeAnimation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class HomeScreen extends StatefulWidget {
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       end: 55.0
     ).animate(_scale2Controller)..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignIn()));
+       // Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignIn()));
       }
     });
   }
