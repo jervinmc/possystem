@@ -611,6 +611,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   );
 }
     //function..
+
     Future<void> paymentRestriction(BuildContext context,int x) {
         
   return showDialog<void>(   
@@ -659,7 +660,61 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     },
   );
 }
+Future<void> transactFailed(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.red, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
     void enterBarcode()async{
+      setState(() {
+         counterData=1;
+      });
+      int counterGate=0;
       print(searchCtrlr.text);
       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
@@ -678,6 +733,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             sd=x;
               points=points+reviewdata['points'];
               function="add";
+              counterGate=1;
               break;
         }
       }
@@ -694,6 +750,7 @@ productName.add(reviewdata['productName']);
     points=points+reviewdata['points'];
     pointsTotal.add(reviewdata['points']);
   trap=1;
+  counterGate=1;
       }
   //quantity.insert(2, 10);
   if(productName.indexOf(reviewdata['productName'])<0){
@@ -709,6 +766,11 @@ productName.add(reviewdata['productName']);
        if(productName.length>1){
         function="add";
        }
+       if(counterGate==0){
+         transactFailed(context, 2);
+       }
+      
+
    }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
@@ -900,6 +962,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
  }
   List replacementDiscount=[];
   int counterData=1;
+  double totalAmountSave=0;
+  TextEditingController closingAmountText=new TextEditingController();
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1221,7 +1285,12 @@ new OutlineButton(
                         Container(
                  padding: EdgeInsets.only(bottom: 10),         
                  child:  rButtonView3(() async{
-                   if(payment.text==""){
+                   if(productName.length==0){
+                     Navigator.pop(context);
+                      transactFailed(context, 1);
+                   }
+                   else{
+                      if(payment.text==""){
                      paymentRestriction(context, 1);
                      
                    }
@@ -1246,6 +1315,7 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
+                     totalAmountSave+=subtotal-discountLabel;
                     setState(() {
                       counterData=0;
                        replacementDiscount.clear();
@@ -1261,6 +1331,7 @@ print("object $headers");
                      subtotal=0.0;
                     points=0.0;
                     discountLabel=0.0;
+                     
                     });
                      // print(a.body);
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1320,6 +1391,8 @@ print("object $headers");
 
             
                    }
+                   }
+                  
                  
                  },"CHECKOUT",300)),
                  
@@ -1598,7 +1671,7 @@ print("object $headers");
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
                   Navigator.pop(context);
-                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"))));
+                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"),totalAmountSave)));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
@@ -1637,19 +1710,27 @@ print("object $headers");
                new ListTile(
                   title: new Text('Close Shift', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
-                   onTap: (){
+                   onTap: ()async{
+                     SharedPreferences prefs=await SharedPreferences.getInstance();
+                     Navigator.of(context).pop();
                      showDialog(
+                      
                        context: context, builder: (BuildContext context){
+                      
                          return AlertDialog(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                            backgroundColor: Colors.white,
                            title: Container(
                              child: Center(
                                child: Column(
                                  children: <Widget>[
-                                   Text("Enter Closing Amount", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                                   Text("Enter Closing Amount", style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
+                                   Text("(${FlutterMoneyFormatter(amount:totalAmountSave+double.parse(prefs.getString("openingAmount"))).output.nonSymbol})",style: TextStyle(color: Colors.red),),
+                                   Text(""),
                                    Container(
                                      width: 300,
                                      child: TextField(
+                                       controller: closingAmountText,
                                        textAlign: TextAlign.center,
                                      ),
                                    )
@@ -1659,25 +1740,32 @@ print("object $headers");
                            ),
                            //content: 
                            actions: <Widget>[
-                             
-                             FlatButton(
-                               child: Text("Yes", style: TextStyle(fontSize: 20)),
-                               onPressed: () async{
-                                  SharedPreferences prefs=await SharedPreferences.getInstance();
-                                  prefs.setString("userUsed", "notUsed");
-                                  prefs.setString("openingAmount", "");
-                                  prefs.setString("userName", "");
-                                  prefs.setString("userPass", "");
-                                  prefs.setStringList("tranhistory", []);
-                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
-                               },
-                             ),
-                             FlatButton(
-                               child: Text("No", style: TextStyle(fontSize: 20)),
+                               FlatButton(
+                               child: Text("Cancel", style: TextStyle(fontSize: 20,color: Colors.red)),
                                onPressed: (){
                                  Navigator.pop(context);
                                },
                              ),
+                             FlatButton(
+                               child: Text("Confirm", style: TextStyle(fontSize: 20,color: Colors.green )),
+                               onPressed: () async{
+                                 if(closingAmountText.text==""){
+                                   transactFailed(context, 3);
+                                 }
+                                 else{
+                                     SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "0.0");
+                                  prefs.setString("userName", "");
+                                  prefs.setString("userPass", "");
+                                  prefs.setStringList("tranhistory", []);
+                                  prefs.setString("available","");
+                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                                 }
+                                
+                               },
+                             ),
+                          
                            ],
                          );
                      }
@@ -2305,7 +2393,7 @@ print("object $headers");
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Points :", 20, Colors.white, "style",FontWeight.normal),
-              textCustom1("$points", 20, Colors.white, "style",FontWeight.normal),
+              textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 20, Colors.white, "style",FontWeight.normal),
           ],
         ),
         Divider(),
