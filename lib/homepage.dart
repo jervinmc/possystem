@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:possystem/refund.dart';
 import 'package:possystem/void.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
@@ -246,7 +245,27 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     color:Colors.green,
   child: new textCustom("OK",25,Colors.green,""),
   onPressed: ()async{ 
-       print("objectsss");
+     if(x==2){  
+       if (usernameVoid.text == usernamePrefs ){
+          replacementDiscount.clear();
+                    checkedOut=true;
+                   // print("$checkedOut 5d80a894c321c7152c783e69");
+                     productId.clear();
+                     productName.clear();
+                     quantity.clear();
+                     price.clear();
+                    quantityDiscount=[];
+                    quantityDiscountCtrlr.clear();
+                    amountDiscountCtrlr.clear();
+                     subtotal=0.0;
+                    points=0.0;
+                    discountLabel=0.0;
+                     // print(a.body);
+             Navigator.of(context).pop();
+       }
+     }
+     else{
+         print("objectsss");
        if (usernameVoid.text == usernamePrefs ){
          print("objectssssss");
            subtotal=subtotal-(quantity[x]*price[x]);
@@ -261,6 +280,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        else{
          voidFailed(context, 1);
        }
+     }
 
 
   },
@@ -603,7 +623,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Please enter the payment", 25, Colors.red, "style",),),
+          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",): textCustom("Insufficient Amount", 25, Colors.red, "style",),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -878,7 +898,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     super.dispose();
  }
   List replacementDiscount=[];
-  
+  int counterData=1;
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1047,6 +1067,7 @@ new OutlineButton(
   onPressed: ()async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
     prefs.setString("openingAmount","${openingA.text}");
+
   setState(() {
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
@@ -1117,11 +1138,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
@@ -1147,11 +1168,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
@@ -1175,11 +1196,11 @@ new OutlineButton(
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
@@ -1203,10 +1224,10 @@ new OutlineButton(
                      paymentRestriction(context, 1);
                      
                    }
-                   else if(0<subtotal){
+                   else if(double.parse(payment.text)>=subtotal-discountLabel){
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
-                       ,"totalAmt":"$subtotal","payment":"${double.parse("${payment.text}")}"
+                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points"
                        
                      });
                      final myString = '${header.body}';
@@ -1216,6 +1237,7 @@ print("object $headers");
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${price[x]}","categoryDesc":"safeguard",
                        "productId":"${productId[x]}",
+                       "amount":"${price[x]}",
 //"productName":"${productName[x]}",
 "quantity":"${quantity[x]}",
 "points":"20",
@@ -1223,7 +1245,9 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
-                     replacementDiscount.clear();
+                    setState(() {
+                      counterData=0;
+                       replacementDiscount.clear();
                     checkedOut=true;
                    // print("$checkedOut 5d80a894c321c7152c783e69");
                      productId.clear();
@@ -1236,13 +1260,32 @@ print("object $headers");
                      subtotal=0.0;
                     points=0.0;
                     discountLabel=0.0;
+                    });
                      // print(a.body);
+                     SharedPreferences prefs=await SharedPreferences.getInstance();
+                   // List tranhis1=prefs.getStringList("tranhistory");
+                   if(prefs.getStringList("tranhistory")==[]){
+
+                   }
+                   else if(tranhis.length==0){
+                    print("${prefs.getStringList("tranhistory")} wearcerwerawr");
+                      tranhis=prefs.getStringList("tranhistory");
+                      tranhis.add("$headers");
+                   }
+                   else{
+                      tranhis.add("$headers");
+                   prefs.setStringList("tranhistory",tranhis);
+                   }
+                 
+                  
+                          print("dumaan sa header");
+                   
              Navigator.of(context).pop();
                    }
                    else{
-                     print("printed");                
+                     paymentRestriction(context, 2);                
                    /*  SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+                SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                SunmiAidlPrint.setFontSize(fontSize:30);
                
                SunmiAidlPrint.printText(text: "Trudi POS");
@@ -1292,6 +1335,7 @@ print("object $headers");
                   ),
                   
                 Container(
+                  
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5)
                   ),
@@ -1312,7 +1356,7 @@ print("object $headers");
                              // margin: EdgeInsets.only(bottom: 10),
                               child:     textCustom("Enter payment amount", 25, Colors.black, ""),
                             ),
-
+                            
                                  Container(
                         width: 200,
                         height: 60,
@@ -1326,11 +1370,11 @@ print("object $headers");
              
                 
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(20)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(20),
                 
                 ),
@@ -1521,6 +1565,7 @@ print("object $headers");
     return b;  
     
   }
+  List<String> tranhis=[];
   int emptyTable=0;
   TextEditingController openingA=new TextEditingController();
  List<TextEditingController> discountablePrice=[];
@@ -1538,10 +1583,9 @@ print("object $headers");
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20,color: Colors.orange),
+                ),
               ),
-
-            ),
              ),
               new Container(    
                 child: 
@@ -1550,31 +1594,27 @@ print("object $headers");
                 new ListTile(
                 title: new Text('Transaction', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
-                onTap: () {
-                  Navigator.push(context, SlideRightRoute(widget: Transaction()));
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                onTap: () async{
+                  SharedPreferences prefs=await SharedPreferences.getInstance();
+                  Navigator.pop(context);
+                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"))));
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
-                 new ListTile(
-                title: new Text('Refund', style: TextStyle(fontSize: 24),),
-                trailing: new Icon(Icons.redeem, size: 30,),
-                onTap: () {
-                  Navigator.push(context, SlideRightRoute(widget: Refund()));
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
-                }),
-              
                  new ListTile(
                 title: new Text('Void', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
-                  Navigator.push(context, SlideRightRoute(widget: Void()));
+                  Navigator.pop(context);
+              //    Navigator.push(context, SlideRightRoute(widget: Void()));
+              voidItem(context, 2);
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
                 title: new Text('Discount', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
+                  Navigator.pop(context);
                   if(productName.length==0){
-
                   }
                   else{
                       quantityDiscountCtrlr.clear();
@@ -1582,22 +1622,35 @@ print("object $headers");
                       //discountablePrice.clear();
                   discountFunction(context, 1);
                   }
-                
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 24),),
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
                        context: context, builder: (BuildContext context){
                          return AlertDialog(
                            backgroundColor: Colors.white,
-                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                           title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 25, color: Colors.black), textAlign: TextAlign.center,),
+                           title: Container(
+                             child: Center(
+                               child: Column(
+                                 children: <Widget>[
+                                   Text("Enter Closing Amount", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                                   Container(
+                                     width: 300,
+                                     child: TextField(
+                                       textAlign: TextAlign.center,
+                                     ),
+                                   )
+                                 ],
+                               ),
+                             ),
+                           ),
+                           //content: 
                            actions: <Widget>[
+                             
                              FlatButton(
                                child: Text("Yes", style: TextStyle(fontSize: 20)),
                                onPressed: () async{
@@ -1606,6 +1659,41 @@ print("object $headers");
                                   prefs.setString("openingAmount", "");
                                   prefs.setString("userName", "");
                                   prefs.setString("userPass", "");
+                                  prefs.setStringList("tranhistory", []);
+                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                               },
+                             ),
+                             FlatButton(
+                               child: Text("No", style: TextStyle(fontSize: 20)),
+                               onPressed: (){
+                                 Navigator.pop(context);
+                               },
+                             ),
+                           ],
+                         );
+                     }
+                     );
+                    // SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  //       prefs.setString("loginFB", "0");
+                      //runApp(MyApp1());
+                       }      
+                          ),
+                          new ListTile(
+                  title: new Text('Logout', style: TextStyle(fontSize: 24),),
+                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
+                   onTap: (){
+                     showDialog(
+                       context: context, builder: (BuildContext context){
+                         return AlertDialog(
+                           backgroundColor: Colors.white,
+                           title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
+                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                           actions: <Widget>[
+                             FlatButton(
+                               child: Text("Yes", style: TextStyle(fontSize: 20)),
+                               onPressed: () async{
+                                  SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("available", "avail");
                                  Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                                },
                              ),
@@ -2011,7 +2099,7 @@ print("object $headers");
                       Text(""),
                      Container(
                        padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Php ${price[index]}0", 20, Colors.black, ""),
+                       child:  textCustom("Php ${FlutterMoneyFormatter(amount:price[index]).output.nonSymbol}", 20, Colors.black, ""),
                      ),
                      // VerticalDivider(),
                     Container(
@@ -2129,7 +2217,7 @@ print("object $headers");
                       Text(""),
                       Container(
                        padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Php ${price[index]}0", 20, Colors.black, ""),
+                       child:  textCustom("Php ${FlutterMoneyFormatter(amount:price[index]).output.nonSymbol}", 20, Colors.black, ""),
                      ),
                   
                       IconButton(
@@ -2238,11 +2326,11 @@ print("object $headers");
 
               builder: (BuildContext context, AsyncSnapshot snapshot){
                 
-
-              return  ListView.builder(
+                
+              return snapshot.data==null?Container() : ListView.builder(
          
         //shrinkWrap: false,
-        itemCount: snapshot.data.length,
+        itemCount: counterData!=0 ? snapshot.data.length : 0,
         itemBuilder: (BuildContext context, int index){
           List a=snapshot.data[index].toString().split(" ,");
           if(lengthOfCount!=2){
@@ -2256,6 +2344,17 @@ print("object $headers");
             print("$index");            
            }
           }
+    
+ FlutterMoneyFormatter fmf1 = FlutterMoneyFormatter(
+    amount: double.parse(a[1])
+);
+ FlutterMoneyFormatter fmf2 = FlutterMoneyFormatter(
+    amount:double.parse(a[2])
+);
+ FlutterMoneyFormatter total = FlutterMoneyFormatter(
+    amount:double.parse(a[1])*double.parse(a[2])
+);
+
           
           return  index%2==1? Container(
             color: Colors.grey.withAlpha(40),
@@ -2277,14 +2376,14 @@ print("object $headers");
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[2]}", 14, Colors.white, ""),),
+                child: textCustom("${fmf2.output.nonSymbol}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
-                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, "") : textCustom("${double.parse(a[1])*double.parse(a[2])}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
+                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 14, Colors.white, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
               ],
             ),     
             ]
@@ -2310,14 +2409,14 @@ print("object $headers");
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${a[2]}", 14, Colors.white, ""),),
+                 child: textCustom("${fmf2.output.nonSymbol}", 14, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                  Container(padding: EdgeInsets.all(10),
-                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${double.parse(a[1])*double.parse(a[2])}", 14, Colors.white, "") : textCustom("${double.parse(a[1])*double.parse(a[2])}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
+                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 14, Colors.white, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
               ],
             ),        
                 
@@ -2480,7 +2579,7 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("SUBTOTAL : ", 16, Colors.white, "style"),
-                               textCustom1("Php ${subtotal-(subtotal*0.12)}", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
@@ -2488,7 +2587,7 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("VAT : ", 16, Colors.white, "style"),
-                               textCustom1("Php ${subtotal*0.12}", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 16, Colors.white, "style",FontWeight.bold),
                              ],),
                          
                             Divider(
@@ -2499,7 +2598,7 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
-                               textCustom1("Php ${subtotal-discountLabel}", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),
