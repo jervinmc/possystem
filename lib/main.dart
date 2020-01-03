@@ -22,7 +22,6 @@ void main ()async {
   else{ 
   runApp(SignIn1());
   }
-
 }
 class SignIn1 extends StatelessWidget {
   @override
@@ -56,7 +55,7 @@ class _SignInState extends State<SignIn> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style"),),
+          child: textCustom("Password/Username is not recognizeds.", 25, Colors.red, "style"),),
         content:Text(""),
         actions: <Widget>[
            Center(
