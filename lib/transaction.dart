@@ -24,15 +24,17 @@ class Services {
 class Transaction extends StatefulWidget {
   String openingAmt;
   List tranhistory;
-  Transaction(this.openingAmt,this.tranhistory);
+  double totalamount;
+  Transaction(this.openingAmt,this.tranhistory,this.totalamount);
   @override
-  _TransactionState createState() => _TransactionState(openingAmt,tranhistory);
+  _TransactionState createState() => _TransactionState(openingAmt,tranhistory,totalamount);
 }
  
 class _TransactionState extends State<Transaction> {
   String openingAmt;
    List tranhistory;
-  _TransactionState(this.openingAmt,this.tranhistory);
+   double totalamount;
+  _TransactionState(this.openingAmt,this.tranhistory,this.totalamount);
   Future<List<Services>> _getServices() async {
 
  http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/tranheader/GetAll"),headers: {
@@ -369,7 +371,7 @@ deleteSelected() async{
            children: <Widget>[
               textCustom("Total Amount:", 20, Colors.white, "style"),
               Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:200).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
+              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
            ],
          ),
            ],
