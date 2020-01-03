@@ -1,14 +1,13 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'transition.dart';
 import 'package:flutter/material.dart';
+import 'package:possystem/refund.dart';
 import 'transach.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 import 'utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Services {
  
   
@@ -24,11 +23,17 @@ class Services {
 
 }
 class Transaction extends StatefulWidget {
+  String openingAmt;
+  List tranhistory;
+  Transaction(this.openingAmt,this.tranhistory);
   @override
-  _TransactionState createState() => _TransactionState();
+  _TransactionState createState() => _TransactionState(openingAmt,tranhistory);
 }
  
 class _TransactionState extends State<Transaction> {
+  String openingAmt;
+   List tranhistory;
+  _TransactionState(this.openingAmt,this.tranhistory);
   Future<List<Services>> _getServices() async {
 
  http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/tranheader/GetAll"),headers: {
@@ -36,15 +41,34 @@ class _TransactionState extends State<Transaction> {
      });
     List reviewdata=json.decode(response.body);
 
- 
+  int x=0;
     List<Services> services = [];
-  
-    for(var u in reviewdata){
+    if(getSearchReceipt==""){
+       for(var u in reviewdata){
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"]);
+       
+      
        services.add(service);
     }
+    }
+    else{
+       for(var u in reviewdata){
+      
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"]);
+       
+      if(getSearchReceipt==reviewdata[x]['_id']){
+           services.add(service);
+           print("may pumasok");
+      }
+      x++;
+    }
+   
+    }
+  
+    if(services==null){
 
+    }
     print("eto ang laman $services");
 
     return services;
@@ -99,10 +123,12 @@ class _TransactionState extends State<Transaction> {
     },
   );
 }
+
   //function..
   List tranheader=[1,1,1];
-
+  TextEditingController receiptText=new TextEditingController();
   //variable
+  String getSearchReceipt="";
   List<Transach> transachs;
   List <Transach> selectedtransachs;
   Transach transach;
@@ -152,14 +178,63 @@ deleteSelected() async{
      scrollDirection: Axis.vertical,
      child: Column(
        children: <Widget>[
+         Container(
+           child:   Card(
+                      
+      elevation: 2,
+       shape: BeveledRectangleBorder(
+        
+    borderRadius: BorderRadius.circular(5.0),),
+      child: TextField(
+    textAlign: TextAlign.start,  
+ 
+    onChanged: (value){
+        setState(() {
          
+        });
+    },
+    keyboardType: TextInputType.text,
+    decoration: InputDecoration(
+     
+        icon: Container(
+          padding: EdgeInsets.only(left: 15),
+          height: 50,
+          width: 70,
+          child: InkWell(
+            onTap: (){
+              
+            //  enterBarcode();
+            //  searchCtrlr.text="";
+              
+            },
+            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+          )
+
+        ),
+        hintText: 'ENTER RECEIPT NO.',
+        hintStyle: TextStyle(fontSize: 40),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+                width: 0, 
+                style: BorderStyle.none,
+            ),
+        ),
+        filled: false,
+        contentPadding: EdgeInsets.all(16),
+        fillColor: Colors.white
+    ),
+),
+    ),
+         ),
          DataTable(
      columnSpacing: 200,
      sortAscending: sort,
      sortColumnIndex: 1,
      columns: [
+       
        DataColumn(
-         label: Text("Receipt Number", style: TextStyle(fontSize: 40)),
+         label: Text("Receipt NumberS", style: TextStyle(fontSize: 40)),
          numeric: false,
          tooltip: "This is the receipt",
          onSort: (columnIndex, ascending){
@@ -204,10 +279,10 @@ deleteSelected() async{
              context: context,
              builder: (BuildContext context) {
                return AlertDialog(
-                 title: Text("Transaction Details",style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+                 title: Text("Transaction Details", style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
                   content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
                  shape: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(40)),
+                   borderRadius: BorderRadius.circular(10)),
                     actions: <Widget>[
                          FlatButton(
                            child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
@@ -239,7 +314,7 @@ deleteSelected() async{
                      return AlertDialog(
                        title: Text("",style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
                        content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
-                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                        actions: <Widget>[
                          FlatButton(
                            child: Text("Cancel", style: TextStyle(fontSize: 20), textAlign: TextAlign.center,),
@@ -248,7 +323,7 @@ deleteSelected() async{
                            },
                          ),
                          FlatButton(
-                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center),
                            onPressed: (){
                              Navigator.pop(context);
                            },
@@ -280,13 +355,26 @@ deleteSelected() async{
      
        Container(
          width: 400,
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+         child:Column(
            children: <Widget>[
-              textCustom("Total Amount:", 30, Colors.white, "style"),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:200).output.nonSymbol}", 30, Colors.orange, "style",FontWeight.bold)
+              Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+              textCustom("Opening Amount:", 20, Colors.white, "style"),
+              Text("    "),
+              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
            ],
          ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+              textCustom("Total Amount:", 20, Colors.white, "style"),
+              Text("    "),
+              textCustom1("Php ${FlutterMoneyFormatter(amount:200).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
+           ],
+         ),
+           ],
+         )
        )
        
         ],
@@ -298,6 +386,57 @@ deleteSelected() async{
       body: Container(
         child:  Column(
           children: <Widget>[
+             Container(
+           child:   Card(
+                      
+      elevation: 2,
+       shape: BeveledRectangleBorder(
+        
+    borderRadius: BorderRadius.circular(5.0),),
+      child: TextField(
+    textAlign: TextAlign.start ,  
+    controller: receiptText,
+    onChanged: (value){
+        setState(() {
+         
+        });
+    },
+    keyboardType: TextInputType.text,
+    decoration: InputDecoration(
+     
+        icon: Container(
+          padding: EdgeInsets.only(left: 15),
+          height: 50,
+          width: 70,
+          child: InkWell(
+            onTap: (){
+            // input the receipt no. for searching.
+            setState(() {
+               getSearchReceipt=receiptText.text;
+            });
+           
+              
+            },
+            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+          )
+
+        ),
+        hintText: 'ENTER RECEIPT NO.',
+        hintStyle: TextStyle(fontSize: 40),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+                width: 0, 
+                style: BorderStyle.none,
+            ),
+        ),
+        filled: false,
+        contentPadding: EdgeInsets.all(16),
+        fillColor: Colors.white
+    ),
+),
+    ),
+         ),
             Container(
        //color: Colors.green,
         child:  Table(
@@ -322,7 +461,7 @@ deleteSelected() async{
         height: MediaQuery.of(context).size.height/1.45,
         child:  ListView.builder(
         shrinkWrap: true,
-        itemCount: snapshot.data.length,
+        itemCount: getSearchReceipt!="" ? snapshot.data.length : tranhistory.length,
         itemBuilder: (BuildContext context, int index){
            DateTime dateTime = DateTime.parse(snapshot.data[index].dateTime);
                     String dates = DateFormat('dd-MM-yyyy').format(dateTime);
@@ -397,8 +536,8 @@ deleteSelected() async{
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style"),
+              textCustom("", 25, Colors.black, "style"),
              
            ],
          ),
@@ -495,14 +634,7 @@ deleteSelected() async{
              
            ],
          ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
+      
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1193,7 +1325,7 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Refund", 35, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1482,7 +1614,7 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Refund", 35, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,

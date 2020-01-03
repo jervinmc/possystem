@@ -155,16 +155,20 @@ class _SignInState extends State<SignIn> {
                     onPressed: ()async{
                       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/User/GetAll"),headers: {
                      "Accept":"application/json"
-    
      });
      int a=0;
      var reviewdata = json.decode(response.body);
-
-  
-
-   
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if(prefs.getString("available")=="avail"){
+      if(prefs.getString("userName")==username.text){
+          Navigator.push(context, SlideRightRoute(widget: Homepage(username.text)));
+      }
+      else{
+        print("it is using by cashier already");
+      }
+  }
+  else{
      for (int x = 0; x < reviewdata.length; x++) { 
-
        if (username.text == reviewdata[x]['firstname'] ){
               a=1;
             print("object dumaan");
@@ -180,6 +184,11 @@ class _SignInState extends State<SignIn> {
         signinFunction(context, 1);
         a=1;
     }
+
+  }
+
+   
+    
 
 
       //   Navigator.push(context, SlideRightRoute(widget: Homepage()));

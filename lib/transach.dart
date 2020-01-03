@@ -8,6 +8,7 @@ class Transach{
   Transach({this.receipt, this.date, this.refund});
 
   static List<Transach> getTransachs(){
+
     var reviewdata;
     
     void dataTable()async{

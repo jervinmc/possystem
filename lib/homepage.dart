@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/refund.dart';
@@ -7,7 +8,7 @@ import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
 import 'homescreen.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import './utils.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
@@ -23,6 +24,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
+import 'utils.dart';
 class product {
   final name;
   final qty;
@@ -244,7 +246,27 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     color:Colors.green,
   child: new textCustom("OK",25,Colors.green,""),
   onPressed: ()async{ 
-       print("objectsss");
+     if(x==2){  
+       if (usernameVoid.text == usernamePrefs ){
+          replacementDiscount.clear();
+                    checkedOut=true;
+                   // print("$checkedOut 5d80a894c321c7152c783e69");
+                     productId.clear();
+                     productName.clear();
+                     quantity.clear();
+                     price.clear();
+                    quantityDiscount=[];
+                    quantityDiscountCtrlr.clear();
+                    amountDiscountCtrlr.clear();
+                     subtotal=0.0;
+                    points=0.0;
+                    discountLabel=0.0;
+                     // print(a.body);
+             Navigator.of(context).pop();
+       }
+     }
+     else{
+         print("objectsss");
        if (usernameVoid.text == usernamePrefs ){
          print("objectssssss");
            subtotal=subtotal-(quantity[x]*price[x]);
@@ -259,6 +281,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        else{
          voidFailed(context, 1);
        }
+     }
 
 
   },
@@ -601,7 +624,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",): textCustom("Insufficient Money", 25, Colors.red, "style",),),
+          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",): textCustom("Insufficient Amount", 25, Colors.red, "style",),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -612,7 +635,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                    mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                    new OutlineButton(
-      borderSide: BorderSide(
+            borderSide: BorderSide(
             color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -736,7 +759,7 @@ new OutlineButton(
             width: 2, //width of the border
           ),
     color:Colors.black,
-  child: new textCustom("Submit",25,Colors.green,""),
+  child: new textCustom("Check out",25,Colors.green,""),
   onPressed: (){
   setState(() {
     quantity[x]=int.parse(qtyCtrlr.text) ;
@@ -748,7 +771,7 @@ new OutlineButton(
 ),
                  ],
                ),
-               ) 
+               ), 
              )
            )
         ],
@@ -764,14 +787,15 @@ new OutlineButton(
     builder: (BuildContext context) {
       return Container(
         decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
+          borderRadius:BorderRadius.circular(15),
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
       backgroundColor: Colors.white,
         title:Center( 
           child: textCustom("Enter Customer TIN", 25, Colors.black87, "style",),),
         content:TextFormField(
+          textCapitalization: TextCapitalization.sentences,
           controller: tinNumber,
           maxLength: 15,
           textAlign: TextAlign.center,
@@ -875,7 +899,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     super.dispose();
  }
   List replacementDiscount=[];
-  
+  int counterData=1;
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1044,6 +1068,7 @@ new OutlineButton(
   onPressed: ()async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
     prefs.setString("openingAmount","${openingA.text}");
+
   setState(() {
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
@@ -1085,7 +1110,7 @@ new OutlineButton(
            child: Column(
              children: <Widget>[
               Container(
-                height: 80,
+                height: 45,
                 color: Colors.black,
                 child:  Center(
 
@@ -1093,20 +1118,21 @@ new OutlineButton(
                ),
               ),
                Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget>[
                   Container(  
                       height: MediaQuery.of(context).size.width/3.1,
                     
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(30),
                     child:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: <Widget>[
                       textCustom("Customer Name", 25, Colors.black, ""),
                     
                       Container(
-                        height: 40,
-                        width: 250,
+                        height: 55,
+                        width: 300,
                         child: TextField(
                           controller: tin,
                                textAlign: TextAlign.center,
@@ -1135,8 +1161,8 @@ new OutlineButton(
  textCustom("Customer TIN", 25, Colors.black, ""),
                     
                       Container(
-                        height: 40,
-                        width: 250,
+                        height: 55,
+                        width: 300,
                         child: TextField(
                           controller: tin,
                                textAlign: TextAlign.center,
@@ -1163,8 +1189,8 @@ new OutlineButton(
                        textCustom("Customer Address", 25, Colors.black, ""),
                     
                       Container(
-                        height: 40,
-                        width: 250,
+                       height: 55,
+                        width: 300,
                         child: TextField(
                           controller: tin,
                                textAlign: TextAlign.center,
@@ -1193,16 +1219,16 @@ new OutlineButton(
                       Text(""),
                   
                         Container(
-                 padding: EdgeInsets.only(bottom: 10),
+                 padding: EdgeInsets.only(bottom: 10),         
                  child:  rButtonView3(() async{
                    if(payment.text==""){
                      paymentRestriction(context, 1);
                      
                    }
-                   else if(double.parse(payment.text)>=subtotal){
+                   else if(double.parse(payment.text)>=subtotal-discountLabel){
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
-                       ,"totalAmt":"$subtotal","payment":"${double.parse("${payment.text}")}","memberPoints":"$points"
+                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points"
                        
                      });
                      final myString = '${header.body}';
@@ -1220,7 +1246,9 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
-                     replacementDiscount.clear();
+                    setState(() {
+                      counterData=0;
+                       replacementDiscount.clear();
                     checkedOut=true;
                    // print("$checkedOut 5d80a894c321c7152c783e69");
                      productId.clear();
@@ -1233,7 +1261,26 @@ print("object $headers");
                      subtotal=0.0;
                     points=0.0;
                     discountLabel=0.0;
+                    });
                      // print(a.body);
+                     SharedPreferences prefs=await SharedPreferences.getInstance();
+                   // List tranhis1=prefs.getStringList("tranhistory");
+                   if(prefs.getStringList("tranhistory")==[]){
+
+                   }
+                   else if(tranhis.length==0){
+                    print("${prefs.getStringList("tranhistory")} wearcerwerawr");
+                      tranhis=prefs.getStringList("tranhistory");
+                      tranhis.add("$headers");
+                   }
+                   else{
+                      tranhis.add("$headers");
+                   prefs.setStringList("tranhistory",tranhis);
+                   }
+                 
+                  
+                          print("dumaan sa header");
+                   
              Navigator.of(context).pop();
                    }
                    else{
@@ -1274,21 +1321,22 @@ print("object $headers");
             
                    }
                  
-                 },"CHECKOUT",300),
-               ),
+                 },"CHECKOUT",300)),
+                 
                  Container(
-                      padding: EdgeInsets.only(bottom: 10),
+                      padding: EdgeInsets.only(bottom: 30),
                  child:  rButtonView4((){
                    Navigator.of(context).pop();
                  },"CANCEL", 300),
                ),
                      
-                     ],
+                        ],
                      
                    ),
                   ),
                   
                 Container(
+                  
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5)
                   ),
@@ -1300,30 +1348,34 @@ print("object $headers");
                    // crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                            Column(
                              children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(bottom: 5),
+                              padding: EdgeInsets.only(bottom: 10),
                              // margin: EdgeInsets.only(bottom: 10),
                               child:     textCustom("Enter payment amount", 25, Colors.black, ""),
                             ),
-
+                            
                                  Container(
-                        width: 250,
-                        height: 40,
+                        width: 200,
+                        height: 60,
                         child: TextField(
+
+                          textCapitalization: TextCapitalization.sentences,
                           controller: payment,
-                               textAlign: TextAlign.center,
-              decoration: new InputDecoration(
+                          textAlign: TextAlign.center,
+                decoration: new InputDecoration(
+
+             
                 
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
-                  borderRadius: BorderRadius.circular(10)
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(20)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(20),
                 
                 ),
@@ -1347,7 +1399,7 @@ print("object $headers");
                      padding: EdgeInsets.only(bottom: 11),
                      child: 
                        Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                             setState(() {
@@ -1373,7 +1425,7 @@ print("object $headers");
                       Container(
                         padding: EdgeInsets.only(bottom: 11),
                         child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -1396,7 +1448,7 @@ print("object $headers");
                  Container(
                         padding: EdgeInsets.only(bottom: 11),
                         child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -1419,7 +1471,7 @@ print("object $headers");
                       Container(
                         padding: EdgeInsets.only(bottom: 11),
                         child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -1440,7 +1492,7 @@ print("object $headers");
                      ),
                       ),
                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
                           rButtonView2((){
                                setState(() {
@@ -1448,7 +1500,7 @@ print("object $headers");
                            payment.text="${moneyHoldertext.toString()}.00";
 
                             });
-                          },"1", 120),
+                          },"1", 120,),
                                 Text("  "),
                            rButtonView6((){
                                 setState(() {
@@ -1514,6 +1566,7 @@ print("object $headers");
     return b;  
     
   }
+  List<String> tranhis=[];
   int emptyTable=0;
   TextEditingController openingA=new TextEditingController();
  List<TextEditingController> discountablePrice=[];
@@ -1532,9 +1585,8 @@ print("object $headers");
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
               style: TextStyle(fontSize: 20,color: Colors.orange),
+                ),
               ),
-
-            ),
              ),
               new Container(    
                 child: 
@@ -1543,10 +1595,11 @@ print("object $headers");
                 new ListTile(
                 title: new Text('Transaction', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
-                onTap: () {
+                onTap: () async{
+                  SharedPreferences prefs=await SharedPreferences.getInstance();
                   Navigator.pop(context);
-                  Navigator.push(context, SlideRightRoute(widget: Transaction()));
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"))));
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
                 title: new Text('Refund', style: TextStyle(fontSize: 24),),
@@ -1556,22 +1609,21 @@ print("object $headers");
                   Navigator.push(context, SlideRightRoute(widget: Refund()));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
-              
                  new ListTile(
                 title: new Text('Void', style: TextStyle(fontSize: 24),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
-                  Navigator.push(context, SlideRightRoute(widget: Void()));
+                  Navigator.pop(context);
+              //    Navigator.push(context, SlideRightRoute(widget: Void()));
+              voidItem(context, 2);
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
                 title: new Text('Discount', style: TextStyle(fontSize: 24),),
-
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
                   if(productName.length==0){
-
                   }
                   else{
                       quantityDiscountCtrlr.clear();
@@ -1579,11 +1631,63 @@ print("object $headers");
                       //discountablePrice.clear();
                   discountFunction(context, 1);
                   }
-                
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new Divider(),
                new ListTile(
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 24),),
+                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
+                   onTap: (){
+                     showDialog(
+                       context: context, builder: (BuildContext context){
+                         return AlertDialog(
+                           backgroundColor: Colors.white,
+                           title: Container(
+                             child: Center(
+                               child: Column(
+                                 children: <Widget>[
+                                   Text("Enter Closing Amount", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                                   Container(
+                                     width: 300,
+                                     child: TextField(
+                                       textAlign: TextAlign.center,
+                                     ),
+                                   )
+                                 ],
+                               ),
+                             ),
+                           ),
+                           //content: 
+                           actions: <Widget>[
+                             
+                             FlatButton(
+                               child: Text("Yes", style: TextStyle(fontSize: 20)),
+                               onPressed: () async{
+                                  SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "");
+                                  prefs.setString("userName", "");
+                                  prefs.setString("userPass", "");
+                                  prefs.setStringList("tranhistory", []);
+                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                               },
+                             ),
+                             FlatButton(
+                               child: Text("No", style: TextStyle(fontSize: 20)),
+                               onPressed: (){
+                                 Navigator.pop(context);
+                               },
+                             ),
+                           ],
+                         );
+                     }
+                     );
+                    // SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  //       prefs.setString("loginFB", "0");
+                      //runApp(MyApp1());
+                       }      
+                          ),
+                          new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 24),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
@@ -1598,10 +1702,7 @@ print("object $headers");
                                child: Text("Yes", style: TextStyle(fontSize: 20)),
                                onPressed: () async{
                                   SharedPreferences prefs=await SharedPreferences.getInstance();
-                                  prefs.setString("userUsed", "notUsed");
-                                  prefs.setString("openingAmount", "");
-                                  prefs.setString("userName", "");
-                                  prefs.setString("userPass", "");
+                                  prefs.setString("available", "avail");
                                  Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
                                },
                              ),
@@ -1879,12 +1980,12 @@ print("object $headers");
           children: [TableRow(
             children:[
          Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom1("ITEM", 33, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 33, Colors.black, "",FontWeight.bold))),
           Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("QUANTITY", 33, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("PRICE", 33, Colors.black, "",FontWeight.bold))),
-            ]
+            ],
           )],
         ),
       ),
@@ -2234,11 +2335,11 @@ print("object $headers");
 
               builder: (BuildContext context, AsyncSnapshot snapshot){
                 
-
-              return  ListView.builder(
+                
+              return snapshot.data==null?Container() : ListView.builder(
          
         //shrinkWrap: false,
-        itemCount: snapshot.data.length,
+        itemCount: counterData!=0 ? snapshot.data.length : 0,
         itemBuilder: (BuildContext context, int index){
           List a=snapshot.data[index].toString().split(" ,");
           if(lengthOfCount!=2){
