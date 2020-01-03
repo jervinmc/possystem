@@ -1,11 +1,11 @@
 import 'dart:math';
 
+import 'package:possystem/Signin.dart';
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/void.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
-import 'homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -77,7 +77,7 @@ class RadialAnimation extends StatelessWidget {
                 heroTag: "btn1",
               child: Icon(FontAwesomeIcons.stream,color: Colors.orange,),
             onPressed: _close,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             ),
             ),
             Transform.scale(
@@ -1660,7 +1660,7 @@ print("object $headers");
                                   prefs.setString("userName", "");
                                   prefs.setString("userPass", "");
                                   prefs.setStringList("tranhistory", []);
-                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn()));
                                },
                              ),
                              FlatButton(
@@ -1694,7 +1694,7 @@ print("object $headers");
                                onPressed: () async{
                                   SharedPreferences prefs=await SharedPreferences.getInstance();
                                   prefs.setString("available", "avail");
-                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn()));
                                },
                              ),
                              FlatButton(
