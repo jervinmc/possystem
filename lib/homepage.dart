@@ -1594,8 +1594,9 @@ print("object $headers");
                        context: context, builder: (BuildContext context){
                          return AlertDialog(
                            backgroundColor: Colors.white,
+                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 25, color: Colors.black), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              FlatButton(
                                child: Text("Yes", style: TextStyle(fontSize: 20)),

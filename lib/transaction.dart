@@ -471,14 +471,6 @@ deleteSelected() async{
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
               textCustom("Discount", 25, Colors.black, "style",),
               textCustom("${snapshot.data[index].discount}", 25, Colors.black, "style",),
              
@@ -739,14 +731,6 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
               textCustom("0", 25, Colors.black, "style",),
              
            ],
@@ -1022,14 +1006,6 @@ deleteSelected() async{
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
               textCustom("Discount", 25, Colors.black, "style",),
               textCustom("0", 25, Colors.black, "style",),
              
@@ -1213,8 +1189,6 @@ deleteSelected() async{
                 child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -1250,12 +1224,34 @@ deleteSelected() async{
          ),
            Container(padding: EdgeInsets.all(2),
                 child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
-            ]
-          
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.remove, color: Colors.red),
+                        onPressed: (){
+                          setState(() {
+                            
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.add, color: Colors.green),
+                        onPressed: (){
+                          setState(() {
+                            
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                )
+            ],
+
             
-          )
+          ),
           ],
         ),
       );
@@ -1264,97 +1260,6 @@ deleteSelected() async{
         ),
        
       ),
-       Divider(),
-       Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-       
-          ],
-        ),
-        ),
-        content:Text(""),
-        actions: <Widget>[
-            Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.transparent, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
-  onPressed: (){
-    
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
            Center(
              child:Container(
                width: 300,
@@ -1381,9 +1286,11 @@ deleteSelected() async{
                )
              )
            ),
-         
+        
         ],
       ),
+        )
+        )
       );
     },
   );
@@ -1392,8 +1299,8 @@ deleteSelected() async{
                        padding: EdgeInsets.only(left: 50),
                        child:  textCustom("Refund", 20, Colors.black, ""),
                      ),
-                     )
-                   )
+                     ),
+                   ),
                      // VerticalDivider(),
                     ],
                   ),
@@ -1566,14 +1473,6 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
               textCustom("0", 25, Colors.black, "style",),
              
            ],
@@ -1848,14 +1747,6 @@ deleteSelected() async{
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
               textCustom("Discount", 25, Colors.black, "style",),
               textCustom("0", 25, Colors.black, "style",),
              
@@ -1910,10 +1801,7 @@ deleteSelected() async{
     
   Navigator.of(context).pop();
   },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))),
                  ],
                ),
                )
@@ -1924,7 +1812,7 @@ deleteSelected() async{
                width: 300,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
@@ -2031,61 +1919,14 @@ deleteSelected() async{
                                           ],
                                         ),
                                       ),
-                                     Container(
-                                       child: Center(
-                                         child: Row(
-                                           mainAxisAlignment: MainAxisAlignment.end,
-                                           crossAxisAlignment: CrossAxisAlignment.end,
-                                           children: <Widget>[
-                                             new OutlineButton(
-                                               borderSide: BorderSide(
-                                                 color: Colors.transparent,
-                                                 style: BorderStyle.solid,
-                                                 width: 2,
-                                               ),
-                                               color: Colors.green,
-                                               child: Icon(Icons.print, color: Colors.green, size: 50,),
-                                               onPressed: (){
-                                                 Navigator.pop(context);
-                                               },
-                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                                             ),
-                                           ],
-                                         ),
-                                       ),
-                                     ),
-                                     Center(
-                                       child: Container(
-                                         width: 300,
-                                         child: Center(
-                                           child: Row(
-                                             crossAxisAlignment: CrossAxisAlignment.end,
-                                             mainAxisAlignment: MainAxisAlignment.end,
-                                             children: <Widget>[
-                                               OutlineButton(
-                                                 borderSide: BorderSide(
-                                                   color: Colors.blue,
-                                                   style: BorderStyle.solid,
-                                                   width: 2,
-                                                 ),
-                                                 color: Colors.blue,
-                                                 child: textCustom("Ok", 25, Colors.blue,""),
-                                                 onPressed: (){
-                                                   Navigator.of(context).pop();
-                                                 },
-                                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                                               )
-                                             ],
-                                           ),
-                                         ),
-                                       ),
-                                     )
+                                    
+                                     
                                     ],
                                   ),
                                 ),
                               ),
                             );
-                          }
+                          },
                         );
                       },
                         child: Container(
