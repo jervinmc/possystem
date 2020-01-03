@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:possystem/main.dart';
 import 'package:possystem/void.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
@@ -1752,7 +1753,7 @@ print("object $headers");
                                   prefs.setString("userPass", "");
                                   prefs.setStringList("tranhistory", []);
                                   prefs.setString("available","");
-                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                  }
                                 
                                },
@@ -1783,7 +1784,7 @@ print("object $headers");
                                onPressed: () async{
                                   SharedPreferences prefs=await SharedPreferences.getInstance();
                                   prefs.setString("available", "avail");
-                                 Navigator.push(context, SlideRightRoute(widget: HomeScreen()));
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                },
                              ),
                              FlatButton(

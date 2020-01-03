@@ -51,6 +51,7 @@ class _SignInState extends State<SignIn> {
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
+        
         child: AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
@@ -139,7 +140,10 @@ class _SignInState extends State<SignIn> {
                         controller: username,
                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.person_outline, size: 40),
+                          icon:Container(
+                            padding: EdgeInsets.only(left: 20),
+                            child:  Icon(Icons.person_outline, size: 40),
+                          ),
                           labelText: "Username", labelStyle: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -160,7 +164,10 @@ class _SignInState extends State<SignIn> {
                         controller: password,
                          obscureText: true,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.lock_outline, size: 40),
+                          icon: Container(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Icon(Icons.lock_outline, size: 40),
+                          ),
                           labelText: "Password", labelStyle: TextStyle(color: Colors.black),
                         ),
                       //),
