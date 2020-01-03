@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:possystem/refund.dart';
 import 'package:possystem/void.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
@@ -1673,14 +1672,6 @@ print("object $headers");
                   Navigator.pop(context);
                   Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"),totalAmountSave)));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
-                }),
-                 new ListTile(
-                title: new Text('Refund', style: TextStyle(fontSize: 24),),
-                trailing: new Icon(Icons.redeem, size: 30,),
-                onTap: () {
-
-                  Navigator.push(context, SlideRightRoute(widget: Refund()));
-                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
                 title: new Text('Void', style: TextStyle(fontSize: 24),),
