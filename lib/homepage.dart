@@ -1766,7 +1766,7 @@ print("object $headers");
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
-              style: TextStyle(fontSize: 20,color: Colors.white),
+              style: TextStyle(fontSize: 30,color: Colors.white),
                 ),
               ),
              ),
@@ -1775,7 +1775,7 @@ print("object $headers");
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 24, color: Colors.white),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 30, color: Colors.white),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1784,7 +1784,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 24, color: Colors.white),),
+                title: new Text('Void', style: TextStyle(fontSize: 30, color: Colors.white),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1793,7 +1793,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 24, color: Colors.white),),
+                title: new Text('Discount', style: TextStyle(fontSize: 30, color: Colors.white),),
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1809,7 +1809,7 @@ print("object $headers");
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Close Shift', style: TextStyle(fontSize: 24, color: Colors.white),),
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 30, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1877,7 +1877,7 @@ print("object $headers");
                        }      
                           ),
                           new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 24, color: Colors.white),),
+                  title: new Text('Logout', style: TextStyle(fontSize: 30, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
