@@ -773,7 +773,7 @@ Future<void> transactFailed(BuildContext context,int x) {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.black, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
+          child: x==1? textCustom("There is no product to transact.", 25, Color(0xFFF95700), "style",) : x==2? textCustom("There is no product found.", 25, Color(0xFFF95700), "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
         content:Text(""),
         actions: <Widget>[
            Center(
