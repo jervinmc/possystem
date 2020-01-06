@@ -248,6 +248,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   onPressed: ()async{ 
      if(x==2){  
        if (usernameVoid.text == usernamePrefs ){
+
+         counterData=0;
           replacementDiscount.clear();
                     checkedOut=true;
                    // print("$checkedOut 5d80a894c321c7152c783e69");
@@ -1097,7 +1099,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
 
     TextEditingController tin=new TextEditingController();
      TextEditingController address=new TextEditingController();
-  Future<void> _ackAlert(BuildContext context,int x) {
+  Future<void> _ackAlert(BuildContext context,int x) {  
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -1154,6 +1156,7 @@ new OutlineButton(
     quantity[x]=int.parse(qtyCtrlr.text) ;
     for(int x=0;x<productName.length;x++){
         subtotal=subtotal+(price[x]*quantity[x]);
+        
     }
     qtyCtrlr.text="";
     print(quantity[x]); 
@@ -1193,6 +1196,16 @@ Future<void> shifting(BuildContext context,int x) async{
           children: <Widget>[
             textCustom("Enter Opening Amount", 20, Colors.black, "style"),
             TextFormField(
+              onFieldSubmitted: (value) async{
+ SharedPreferences prefs=await SharedPreferences.getInstance();
+    prefs.setString("openingAmount","${openingA.text}");
+
+  setState(() {
+    //quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+              },
           controller: openingA,
           maxLength: 5,
           textAlign: TextAlign.center,
@@ -1231,7 +1244,7 @@ Future<void> shifting(BuildContext context,int x) async{
 
 new OutlineButton(
       borderSide: BorderSide(
-        
+
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -1787,9 +1800,14 @@ print("object $headers");
                 title: new Text('Void', style: TextStyle(fontSize: 20, color: Colors.white),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
-                  Navigator.pop(context);
+                  if(productName.length==0){
+                     Navigator.pop(context);
+                  }
+                 else{
+                        voidItem(context, 2);
+                 }
               //    Navigator.push(context, SlideRightRoute(widget: Void()));
-              voidItem(context, 2);
+         
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
@@ -1936,7 +1954,7 @@ print("object $headers");
               Container(
            padding: EdgeInsets.all(0),
            child:IconButton(
-             iconSize: 50,
+             iconSize: 40,
              icon: Icon(Icons.person_pin,color: Colors.white,),
              onPressed: (){
                cashierInfo(context, 1);
@@ -2376,7 +2394,7 @@ print("object $headers");
                          subtotal=0;
                      lengthOfCount=0;
                         if(quantity[index]==1){
-                          voidItem(context, index);
+                      
                         }
                         else{
                             quantity[index]=quantity[index]-1;
@@ -2785,7 +2803,7 @@ print("object $headers");
                           child: Column(
                         
                             children: <Widget>[
-                              Divider(),
+                             // Divider(),
                            Container(
                              padding: EdgeInsets.only(left: 10,top: 10,bottom: 20,right: 15),
                              child: Column(
@@ -2816,14 +2834,14 @@ print("object $headers");
                              ],),
                          
                             Divider(
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom1("TOTAL AMOUNT : ", 20, Colors.black, "style",FontWeight.bold),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),// with formula...
+                               textCustom1("TOTAL AMOUNT : ", 30, Colors.black, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.black, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),

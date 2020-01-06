@@ -348,7 +348,7 @@ deleteSelected() async{
     return Scaffold(
       appBar: AppBar(
         title: Text("Transaction History", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFFF95700),
         iconTheme: IconThemeData(color: Colors.white, size: 30),
         elevation: 2,
         actions: <Widget>[
@@ -402,7 +402,7 @@ deleteSelected() async{
 
         ),
         hintText: 'ENTER RECEIPT NO.', 
-        hintStyle: TextStyle(fontSize: 40,),
+        hintStyle: TextStyle(fontSize: 20,),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
@@ -423,12 +423,12 @@ deleteSelected() async{
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
           children: [TableRow(
             children:[
-         Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom1("Receipt Number", 33, Colors.black, "",FontWeight.bold))),
+         Container(padding: EdgeInsets.all(10),   
+                child:Center(child:  textCustom1("Receipt Number", 25, Colors.black, "",FontWeight.bold))),
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("Date", 33, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("Date", 25, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("Action", 33, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("Action", 25, Colors.black, "",FontWeight.bold))),
             ]
           )],
         ),
@@ -581,7 +581,8 @@ deleteSelected() async{
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1(
+                  "${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
           child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 20, Colors.black, "",FontWeight.bold))),
             ]
@@ -2569,17 +2570,17 @@ deleteSelected() async{
               Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Opening Amount:", 35, Colors.black, "style"),
+              textCustom("Opening Amount:", 25, Colors.black, "style"),
               Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 35, Colors.black, "style",FontWeight.bold)
+              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 25, Colors.black, "style",FontWeight.bold)
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total Amount:", 35, Colors.black, "style"),
+              textCustom("Total Amount:", 25, Colors.black, "style"),
               Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 35, Colors.black, "style",FontWeight.bold)
+              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 25, Colors.black, "style",FontWeight.bold)
            ],
          ),
            ],
