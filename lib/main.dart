@@ -56,8 +56,8 @@ class _SignInState extends State<SignIn> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1?textCustom("Invalid Username/Password", 25, Colors.red, "style"): textCustom("Current shift not yet closed", 25, Colors.red, "style"),),
-        content:Text(""),
+          child: x==1?textCustom("Invalid Username/Password", 25, Color(0xFFF95700), "style"): textCustom("Someone already logged in!", 25, Colors.red, "style",),),
+        content:Text("Kindly ask the current user to close shift.", style: TextStyle(fontSize: 25, color: Colors.red),),
         actions: <Widget>[
            Center(
              child:Container(
@@ -68,12 +68,12 @@ class _SignInState extends State<SignIn> {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.black, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+    color:Color(0xFFF95700),
+  child: new textCustom("OK",25,Color(0xFFF95700),""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -97,7 +97,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF95700),
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: true,
       body: Stack(
@@ -109,7 +109,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 2,top: 1, right: 2),
-                child: FadeAnimation(2.9,Image.asset("assets/POS.png"),
+                child: FadeAnimation(2.9,Image.asset("assets/POS2.png"),
               )),
               Padding(
                 padding: EdgeInsets.only(bottom: 3.0),
@@ -229,7 +229,7 @@ class _SignInState extends State<SignIn> {
                     child: Text("SIGN IN",
                     style: TextStyle(
                       fontSize: 40,
-                      color: Colors.orange,
+                      color: Color(0xFFF95700),
                       fontWeight: FontWeight.bold,
                     ),),
                   ),
