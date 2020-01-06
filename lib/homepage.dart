@@ -239,12 +239,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.orange,
+  child: new textCustom("OK",25,Color(0xFFF95700),""),
   onPressed: ()async{ 
      if(x==2){  
        if (usernameVoid.text == usernamePrefs ){
@@ -287,6 +287,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
 
 
                  ],
@@ -772,24 +773,24 @@ Future<void> transactFailed(BuildContext context,int x) {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.red, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
+          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.black, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
         content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
-               width: 300,
+               width: 100,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
+            width: 1, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+    color:Color(0xFFF95700),
+  child: new textCustom("OK",20,Color(0xFFF95700),""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -915,12 +916,12 @@ productName.add(reviewdata['productName']);
 ),
 new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
     color:Colors.black,
-  child: new textCustom("Check out",25,Colors.green,""),
+  child: new textCustom("Check out",25,Color(0xFFF95700),""),
   onPressed: (){
   setState(() {
     quantity[x]=int.parse(qtyCtrlr.text) ;
@@ -1757,7 +1758,7 @@ print("object $headers");
     startTimer();
     return Scaffold(
      drawer: Theme(
-        data: ThemeData.light(),
+        data: ThemeData.dark(),
         child: new Drawer(  //drawer holds the profile and logout function which the user can easily route
         child: new ListView( 
           children: <Widget>[
@@ -1765,7 +1766,7 @@ print("object $headers");
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
-              style: TextStyle(fontSize: 20,color: Colors.black),
+              style: TextStyle(fontSize: 20,color: Colors.white),
                 ),
               ),
              ),
@@ -1774,7 +1775,7 @@ print("object $headers");
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 24, color: Colors.black),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 24, color: Colors.white),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1783,7 +1784,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 24, color: Colors.black),),
+                title: new Text('Void', style: TextStyle(fontSize: 24, color: Colors.white),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1792,7 +1793,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 24, color: Colors.black),),
+                title: new Text('Discount', style: TextStyle(fontSize: 24, color: Colors.white),),
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1808,7 +1809,7 @@ print("object $headers");
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Close Shift', style: TextStyle(fontSize: 24, color: Colors.black),),
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 24, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1876,7 +1877,7 @@ print("object $headers");
                        }      
                           ),
                           new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 24, color: Colors.black),),
+                  title: new Text('Logout', style: TextStyle(fontSize: 24, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
@@ -2491,14 +2492,14 @@ print("object $headers");
      
         Container(
         
-          child: textCustom1("Member Information", 20, Colors.black, "style",FontWeight.bold),
+          child: textCustom1("Member Information", 25, Colors.black, "style",FontWeight.bold),
         ),
         Text(""),
         Text(""),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 20, Colors.white, "style",FontWeight.normal),
+             textCustom1("Member :", 25, Colors.white, "style",FontWeight.bold),
              //textCustom1("Prokopyo Tunying", 25, Colors.white, "style",FontWeight.bold),
           ],
         ),
@@ -2507,7 +2508,7 @@ print("object $headers");
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Points :", 20, Colors.black, "style",FontWeight.bold),
+             textCustom1("Points :", 25, Colors.black, "style",FontWeight.bold),
               textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),
           ],
         ),
