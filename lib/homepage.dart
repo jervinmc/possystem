@@ -741,7 +741,7 @@ Future<void> cashierInfo(BuildContext context,int x) {
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
+    color: Colors.red,
   child: new textCustom("OK",25,Colors.red,""),
   onPressed: (){
     
@@ -1506,7 +1506,7 @@ print("object $headers");
                  },"CHECKOUT",300)),
                  
                  Container(
-                      padding: EdgeInsets.only(bottom: 30),
+                      padding: EdgeInsets.only(bottom: 100),
                  child:  rButtonView4((){
                    Navigator.of(context).pop();
                  },"CANCEL", 300),
@@ -1775,7 +1775,7 @@ print("object $headers");
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 30, color: Colors.white),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 20, color: Colors.white),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1784,7 +1784,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 30, color: Colors.white),),
+                title: new Text('Void', style: TextStyle(fontSize: 20, color: Colors.white),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1793,7 +1793,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 30, color: Colors.white),),
+                title: new Text('Discount', style: TextStyle(fontSize: 20, color: Colors.white),),
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1809,7 +1809,7 @@ print("object $headers");
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Close Shift', style: TextStyle(fontSize: 30, color: Colors.white),),
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 20, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1877,7 +1877,7 @@ print("object $headers");
                        }      
                           ),
                           new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 30, color: Colors.white),),
+                  title: new Text('Logout', style: TextStyle(fontSize: 20, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
@@ -2492,7 +2492,9 @@ print("object $headers");
      
         Container(
         
-          child: textCustom1("Member Information", 25, Colors.black, "style",FontWeight.bold),
+          child: Center(
+            child:  textCustom1("Member Information", 25, Colors.black, "style",FontWeight.bold),
+          ),
         ),
         Text(""),
         Text(""),
