@@ -1937,7 +1937,7 @@ print("object $headers");
            padding: EdgeInsets.all(0),
            child:IconButton(
              iconSize: 50,
-             icon: Icon(Icons.person_pin),
+             icon: Icon(Icons.person_pin,color: Colors.black,),
              onPressed: (){
                cashierInfo(context, 1);
              },
@@ -2499,8 +2499,8 @@ print("object $headers");
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 25, Colors.white, "style",FontWeight.bold),
-             //textCustom1("Prokopyo Tunying", 25, Colors.white, "style",FontWeight.bold),
+             textCustom1("Member :", 20, Colors.black, "style",FontWeight.bold),
+             textCustom1("Prokopyo Tunying", 25, Colors.black, "style",FontWeight.bold),
           ],
         ),
          Text(""),
@@ -2512,21 +2512,21 @@ print("object $headers");
               textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),
           ],
         ),
-        Divider(),
+        Divider(height: 5,),
      Container(
-            color: Colors.black,
+            color: Colors.white,
             child: Table(
-            border: TableBorder.all(width: .1 ,color: Colors.black),
+            border: TableBorder.all(width: .1 ,color: Colors.white),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(5),
-                child: textCustom("ITEM", 28, Colors.black, ""),),
+                child: textCustom1("ITEM", 28, Colors.black, "",FontWeight.bold),),
             Container(padding: EdgeInsets.all(5),
-                child: textCustom("QTY", 28, Colors.black, ""),),
+                child: textCustom1("QTY", 28, Colors.black, "",FontWeight.bold),),
             Container(padding: EdgeInsets.all(5),
-                child: textCustom("PRICE", 28, Colors.black, ""),),
+                child: textCustom1("PRICE", 28, Colors.black, "",FontWeight.bold),),
                  Container(padding: EdgeInsets.all(5),
-                child: textCustom("TOTAL", 28, Colors.black, ""),),
+                child: textCustom1("TOTAL", 28, Colors.black, "",FontWeight.bold),),
             ]
           )],
       
@@ -2569,34 +2569,34 @@ print("object $headers");
 );
 
           
-          return  index%2==1? Container(
-            color: Colors.grey.withAlpha(30),
+          return  index%2==0? Container(
+            color: Colors.grey.withAlpha(40),
             child: Table(
           //  border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[0]}", 20, Colors.white, ""),),
+                child: textCustom("${a[0]}", 20, Colors.black, ""),),
               
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}", 20, Colors.white, ""),),
+                child: textCustom("${a[1]}", 20, Colors.black, ""),),
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${fmf2.output.nonSymbol}", 20, Colors.white, ""),),
+                child: textCustom("${fmf2.output.nonSymbol}", 20, Colors.black, ""),),
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
-                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 14, Colors.white, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
+                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 20, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 15, Colors.black, ""),),
               ],
             ),     
             ]
@@ -2637,7 +2637,7 @@ print("object $headers");
               children: <Widget>[
                  Center(
                    child: Container(padding: EdgeInsets.all(10),
-                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 20, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 20, Colors.black, ""),),
+                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 20, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 18, Colors.black, ""),),
                  ),
               ],
             ),        
@@ -2779,10 +2779,11 @@ print("object $headers");
                         bottom: 0,
                         child: Container(
                      width: MediaQuery.of(context).size.width/3.13,
-                          color: Colors.black,
+                          color: Colors.white60,
                           child: Column(
                         
                             children: <Widget>[
+                              Divider(),
                            Container(
                              padding: EdgeInsets.only(left: 10,top: 10,bottom: 20,right: 15),
                              child: Column(
@@ -2792,7 +2793,7 @@ print("object $headers");
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("Discount : ", 16, Colors.white, "style"),
+                               textCustom1("Discount : ", 20, Colors.black, "style",FontWeight.bold),
                                textCustom1("Php -${discountLabel}", 20, Colors.red, "style",FontWeight.bold),
                              ],):Container(),
                                   Text(""),
@@ -2800,16 +2801,16 @@ print("object $headers");
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("SUBTOTAL : ", 20, Colors.white, "style"),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 20, Colors.white, "style",FontWeight.bold),
+                               textCustom1("SUBTOTAL : ", 20, Colors.black, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("VAT : ", 20, Colors.white, "style"),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 20, Colors.white, "style",FontWeight.bold),
+                               textCustom1("VAT : ", 20, Colors.black, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),
                              ],),
                          
                             Divider(
@@ -2819,8 +2820,8 @@ print("object $headers");
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("TOTAL AMOUNT : ", 20, Colors.white, "style",),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 20, Colors.white, "style",FontWeight.bold),// with formula...
+                               textCustom1("TOTAL AMOUNT : ", 20, Colors.black, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),
