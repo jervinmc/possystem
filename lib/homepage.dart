@@ -168,7 +168,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             children: <Widget>[
              Container(
                padding: EdgeInsets.only(bottom: 10),
-               child:  textCustom("ENTER USERNAME", 25, Colors.black, "style",),
+               child:  textCustom("ENTER USERNAME", 25, Color(0xFFF95700), "style",),
              ),
               Container(
                         height: 40,
@@ -179,11 +179,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
                   borderRadius: BorderRadius.circular(15)
                 ),
                // hintText: 'Mobile Number',
@@ -196,7 +196,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                       ),
                        Container(
                padding: EdgeInsets.only(bottom: 10,top: 20),
-               child:  textCustom("ENTER PASSWORD", 25, Colors.black, "style",),
+               child:  textCustom("ENTER PASSWORD", 25, Color(0xFFF95700), "style",),
              ),
               Container(
                         height: 40,
@@ -208,11 +208,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
                   borderRadius: BorderRadius.circular(15)
                 
                 ),
@@ -239,12 +239,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.orange,
+  child: new textCustom("OK",25,Color(0xFFF95700),""),
   onPressed: ()async{ 
      if(x==2){  
        if (usernameVoid.text == usernamePrefs ){
@@ -289,6 +289,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
 
 
                  ],
@@ -586,32 +587,32 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style",),),
+          child: textCustom("Password/Username is not recognized.", 25, Color(0xFFF95700), "style",),),
         content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
-               width: 300,
+               width: 70,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+    color:Color(0xFFF95700),
+  child: new textCustom("OK",25,Color(0xFFF95700),""),
   onPressed: (){
     
   Navigator.of(context).pop();
   },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0))
 ),
 
 
@@ -644,30 +645,30 @@ Future<void> cashierInfo(BuildContext context,int x) {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    textCustom("NAME :", 25, Colors.black, "style",),
-                    textCustom("Emil", 25, Colors.black, "style",),
+                    textCustom("NAME :", 25, Color(0xFFF95700), "style",),
+                    textCustom("Emil", 25, Color(0xFFF95700), "style",),
                   ],
                 ),
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("BIRTHDATE :", 25, Colors.black, "style",),
-                    textCustom("01/01/1999", 25, Colors.black, "style",),
+                    textCustom("BIRTHDATE :", 25, Color(0xFFF95700), "style",),
+                    textCustom("01/01/1999", 25, Color(0xFFF95700), "style",),
                   ],
                 ),
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("EMAIL :", 25, Colors.black, "style",),
-                    textCustom("Emil@trudi.tech", 25, Colors.black, "style",),
+                    textCustom("EMAIL :", 25, Color(0xFFF95700), "style",),
+                    textCustom("Emil@trudi.tech", 25, Color(0xFFF95700), "style",),
 
                   ],
                 ),
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("CONTACT NO. :", 25, Colors.black, "style",),
-                    textCustom("02349273542", 25, Colors.black, "style",),
+                    textCustom("CONTACT NO. :", 25, Color(0xFFF95700), "style",),
+                    textCustom("02349273542", 25, Color(0xFFF95700), "style",),
 
                   ],
                 ),
@@ -686,12 +687,12 @@ Future<void> cashierInfo(BuildContext context,int x) {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
     color:Colors.red,
-  child: new textCustom("OK",25,Colors.blue,""),
+  child: new textCustom("OK",25,Color(0xFFF95700),""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -774,24 +775,24 @@ Future<void> transactFailed(BuildContext context,int x) {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.red, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
+          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.black, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
         content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
-               width: 300,
+               width: 100,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
+            width: 1, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+    color:Color(0xFFF95700),
+  child: new textCustom("OK",20,Color(0xFFF95700),""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -917,12 +918,12 @@ productName.add(reviewdata['productName']);
 ),
 new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Color(0xFFF95700), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
     color:Colors.black,
-  child: new textCustom("Check out",25,Colors.green,""),
+  child: new textCustom("Check out",25,Color(0xFFF95700),""),
   onPressed: (){
   setState(() {
     quantity[x]=int.parse(qtyCtrlr.text) ;
@@ -1760,7 +1761,7 @@ print("object $headers");
     startTimer();
     return Scaffold(
      drawer: Theme(
-        data: ThemeData.light(),
+        data: ThemeData.dark(),
         child: new Drawer(  //drawer holds the profile and logout function which the user can easily route
         child: new ListView( 
           children: <Widget>[
@@ -1768,7 +1769,7 @@ print("object $headers");
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
-              style: TextStyle(fontSize: 20,color: Colors.black),
+              style: TextStyle(fontSize: 30,color: Colors.white),
                 ),
               ),
              ),
@@ -1777,7 +1778,7 @@ print("object $headers");
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 24, color: Colors.black),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 30, color: Colors.white),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1786,7 +1787,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 24, color: Colors.black),),
+                title: new Text('Void', style: TextStyle(fontSize: 30, color: Colors.white),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
                   if(productName.length==0){
@@ -1800,7 +1801,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 24, color: Colors.black),),
+                title: new Text('Discount', style: TextStyle(fontSize: 30, color: Colors.white),),
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1816,7 +1817,7 @@ print("object $headers");
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Close Shift', style: TextStyle(fontSize: 24, color: Colors.black),),
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 30, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1849,13 +1850,13 @@ print("object $headers");
                            //content: 
                            actions: <Widget>[
                                FlatButton(
-                               child: Text("Cancel", style: TextStyle(fontSize: 20,color: Colors.red)),
+                               child: Text("Cancel", style: TextStyle(fontSize: 20,color: Colors.black)),
                                onPressed: (){
                                  Navigator.pop(context);
                                },
                              ),
                              FlatButton(
-                               child: Text("Confirm", style: TextStyle(fontSize: 20,color: Colors.green )),
+                               child: Text("Confirm", style: TextStyle(fontSize: 20,color: Color(0xFFF95700) )),
                                onPressed: () async{
                                  if(closingAmountText.text==""){
                                    transactFailed(context, 3);
@@ -1884,7 +1885,7 @@ print("object $headers");
                        }      
                           ),
                           new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 24, color: Colors.black),),
+                  title: new Text('Logout', style: TextStyle(fontSize: 30, color: Colors.white),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
@@ -1944,7 +1945,7 @@ print("object $headers");
            padding: EdgeInsets.all(0),
            child:IconButton(
              iconSize: 50,
-             icon: Icon(Icons.person_pin,color: Colors.black,),
+             icon: Icon(Icons.person_pin,color: Colors.white,),
              onPressed: (){
                cashierInfo(context, 1);
              },
@@ -2515,7 +2516,7 @@ print("object $headers");
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Points :", 20, Colors.black, "style",FontWeight.bold),
+             textCustom1("Points :", 25, Colors.black, "style",FontWeight.bold),
               textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),
           ],
         ),
