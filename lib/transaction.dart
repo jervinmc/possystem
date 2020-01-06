@@ -354,29 +354,6 @@ deleteSelected() async{
         actions: <Widget>[
          
      
-       Container(
-         width: 400,
-         child:Column(
-           children: <Widget>[
-              Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-              textCustom("Opening Amount:", 20, Colors.white, "style"),
-              Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-              textCustom("Total Amount:", 20, Colors.white, "style"),
-              Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
-           ],
-         ),
-           ],
-         )
-       )
        
         ],
      
@@ -384,7 +361,9 @@ deleteSelected() async{
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      body: Container(
+      body: Stack(
+        children: <Widget>[
+          Container(
         child:  Column(
           children: <Widget>[
              Container(
@@ -2573,6 +2552,41 @@ deleteSelected() async{
       
           ],
         )
+      ),
+      Positioned(
+        bottom: 0,
+        left: 0,
+        child: 
+       Container(
+         padding: EdgeInsets.all(20),
+         width: 1800,
+         child:Column(
+           children: <Widget>[
+             Divider(
+               height: 5,
+               
+             ),
+              Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Opening Amount:", 35, Colors.black, "style"),
+              Text("    "),
+              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 35, Colors.black, "style",FontWeight.bold)
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Total Amount:", 35, Colors.black, "style"),
+              Text("    "),
+              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 35, Colors.black, "style",FontWeight.bold)
+           ],
+         ),
+           ],
+         )
+       ),
+      )
+        ],
       )
     );
   }

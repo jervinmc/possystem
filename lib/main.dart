@@ -41,6 +41,7 @@ class _SignInState extends State<SignIn> {
 //variable
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
+  
   //function
   Future<void> signinFunction(BuildContext context,int x) {
         
@@ -56,7 +57,7 @@ class _SignInState extends State<SignIn> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognizeds.", 25, Colors.red, "style"),),
+          child: x==1?textCustom("Invalid Username/Password", 25, Colors.red, "style"): textCustom("Current shift not yet closed", 25, Colors.red, "style"),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -196,7 +197,7 @@ class _SignInState extends State<SignIn> {
           Navigator.push(context, SlideRightRoute(widget: Homepage(username.text)));
       }
       else{
-        print("it is using by cashier already");
+        signinFunction(context, 2);
       }
   }
   else{
