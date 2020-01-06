@@ -40,6 +40,7 @@ class _SignInState extends State<SignIn> {
 //variable
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
+  
   //function
   Future<void> signinFunction(BuildContext context,int x) {
         
@@ -50,11 +51,12 @@ class _SignInState extends State<SignIn> {
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(10)
         ),
+        
         child: AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Enter Valid Username/Password.", 25, Colors.red, "style"),),
+          child: x==1?textCustom("Invalid Username/Password", 25, Colors.red, "style"): textCustom("Current shift not yet closed", 25, Colors.red, "style"),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -138,8 +140,11 @@ class _SignInState extends State<SignIn> {
                         controller: username,
                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.person_outline, size: 60, color: Colors.black,),
-                          labelText: "USERNAME", labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          icon:Container(
+                            padding: EdgeInsets.only(left: 20),
+                            child:  Icon(Icons.person_outline, size: 40),
+                          ),
+                          labelText: "Username", labelStyle: TextStyle(color: Colors.black),
                         ),
                       ),
                     //),
@@ -159,8 +164,11 @@ class _SignInState extends State<SignIn> {
                         controller: password,
                          obscureText: true,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.lock_outline, size: 50, color: Colors.black,),
-                          labelText: "PASSWORD", labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          icon: Container(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Icon(Icons.lock_outline, size: 40),
+                          ),
+                          labelText: "Password", labelStyle: TextStyle(color: Colors.black),
                         ),
                       //),
                     ),
@@ -188,7 +196,7 @@ class _SignInState extends State<SignIn> {
           Navigator.push(context, SlideRightRoute(widget: Homepage(username.text)));
       }
       else{
-        print("it is using by cashier already");
+        signinFunction(context, 2);
       }
   }
   else{

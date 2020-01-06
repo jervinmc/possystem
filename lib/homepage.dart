@@ -1,7 +1,9 @@
 import 'dart:math';
-import 'main.dart';
+
+
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:possystem/main.dart';
 import 'package:possystem/void.dart';
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
@@ -322,22 +324,36 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
          ),
     Container(
        //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         Container(padding: EdgeInsets.all(10),
-                child:Center(child:  textCustom1("", 33, Colors.black, "",FontWeight.bold))),
-          Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("OFF%", 27, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.black, "",FontWeight.bold))),
-            ]
-          )],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+             Container(padding: EdgeInsets.all(10),
+                child:Center(child:  textCustom1("Discount Type  ", 33, Colors.black, "",FontWeight.bold))),
+         
+       Container(
+         height: 60,
+         child:  DropdownButton(
+            hint: Text('Please choose a location'), // Not necessary for Option 1
+            value: _selectedLocation,
+            onChanged: (newValue) {
+             Navigator.of(context).pop();
+              setState(() {
+                _selectedLocation = newValue;
+              });
+              discountFunction(context, 1);
+            },
+            items: _locations.map((location) {
+              return DropdownMenuItem(
+                child: new textCustom1(location, 20, Colors.black87,"style", FontWeight.normal),
+                value: location,
+              );
+            }).toList(),
+          ),
+       ),
+          ],
         ),
       ),
+      Text(""),
     Container(
       height: 400,
       width: 700,
@@ -589,6 +605,91 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           ),
     color:Colors.red,
   child: new textCustom("OK",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+Future<void> cashierInfo(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    textCustom("NAME :", 25, Colors.black, "style",),
+                    textCustom("Emil", 25, Colors.black, "style",),
+                  ],
+                ),
+                Text(""),
+                Row(
+                  children: <Widget>[
+                    textCustom("BIRTHDATE :", 25, Colors.black, "style",),
+                    textCustom("01/01/1999", 25, Colors.black, "style",),
+                  ],
+                ),
+                Text(""),
+                Row(
+                  children: <Widget>[
+                    textCustom("EMAIL :", 25, Colors.black, "style",),
+                    textCustom("Emil@trudi.tech", 25, Colors.black, "style",),
+
+                  ],
+                ),
+                Text(""),
+                Row(
+                  children: <Widget>[
+                    textCustom("CONTACT NO. :", 25, Colors.black, "style",),
+                    textCustom("02349273542", 25, Colors.black, "style",),
+
+                  ],
+                ),
+
+              ],
+            ),
+          )),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.blue, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -963,6 +1064,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   int counterData=1;
   double totalAmountSave=0;
   TextEditingController closingAmountText=new TextEditingController();
+  List<String> _locations = ['QUANTITY', 'PERCENT']; // Option 2
+  String _selectedLocation; 
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1114,7 +1217,13 @@ Future<void> shifting(BuildContext context,int x) async{
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-  Navigator.of(context).pop();
+    prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "0.0");
+                                  prefs.setString("userName", "");
+                                  prefs.setString("userPass", "");
+                                  prefs.setStringList("tranhistory", []);
+                                  prefs.setString("available","");
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1716,7 +1825,7 @@ print("object $headers");
                                child: Column(
                                  children: <Widget>[
                                    Text("Enter Closing Amount", style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                                   Text("(${FlutterMoneyFormatter(amount:totalAmountSave+double.parse(prefs.getString("openingAmount"))).output.nonSymbol})",style: TextStyle(color: Colors.red),),
+                                 
                                    Text(""),
                                    Container(
                                      width: 300,
@@ -1783,7 +1892,7 @@ print("object $headers");
                                onPressed: () async{
                                   SharedPreferences prefs=await SharedPreferences.getInstance();
                                   prefs.setString("available", "avail");
-                                 Navigator.push(context, SlideRightRoute(widget: SignIn()));
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                },
                              ),
                              FlatButton(
@@ -1825,7 +1934,13 @@ print("object $headers");
       actions: <Widget>[
               Container(
            padding: EdgeInsets.all(0),
-           child:  RadialAnimation(controller: controller,),
+           child:IconButton(
+             iconSize: 50,
+             icon: Icon(Icons.person_pin),
+             onPressed: (){
+               cashierInfo(context, 1);
+             },
+           )
          ),
         
       
@@ -2009,12 +2124,17 @@ print("object $headers");
         
     borderRadius: BorderRadius.circular(5.0),),
       child: TextField(
-    textAlign: TextAlign.start,  
+    textAlign: TextAlign.start,
+      
     controller: searchCtrlr,
     onChanged: (value){
         setState(() {
          
         });
+    },
+    onSubmitted: (value){
+        enterBarcode();
+              searchCtrlr.text="";
     },
     keyboardType: TextInputType.text,
     decoration: InputDecoration(
@@ -2026,8 +2146,7 @@ print("object $headers");
           child: InkWell(
             onTap: (){
               
-              enterBarcode();
-              searchCtrlr.text="";
+              
               
             },
             child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
@@ -2035,7 +2154,7 @@ print("object $headers");
 
         ),
         hintText: 'ENTER BARCODE',
-        hintStyle: TextStyle(fontSize: 30),
+        hintStyle: TextStyle(fontSize: 18),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
@@ -2086,7 +2205,8 @@ print("object $headers");
                   onDoubleTap: (){
                     _ackAlert(context, 1);
                   },
-                  child:   Container(padding: EdgeInsets.all(10),
+                  child:   Container(padding: EdgeInsets.only(left: 10,
+                  top: 23),
                 child: textCustom("${productName[index]}", 20, Colors.black, "")),
                 onTap: (){
                  showDialog(
@@ -2378,8 +2498,8 @@ print("object $headers");
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 20, Colors.black, "style",FontWeight.bold),
-             textCustom1("Prokopyo Tunying", 20, Colors.black, "style",FontWeight.bold),
+             textCustom1("Member :", 20, Colors.white, "style",FontWeight.normal),
+             //textCustom1("Prokopyo Tunying", 25, Colors.white, "style",FontWeight.bold),
           ],
         ),
          Text(""),
@@ -2398,22 +2518,14 @@ print("object $headers");
             border: TableBorder.all(width: .1 ,color: Colors.black),
           children: [TableRow(
             children:[
-                Center(
-                  child: Container(padding: EdgeInsets.all(5),
-                child: textCustom("ITEM", 20, Colors.white, ""),),
-                ),
-                Center(
-                  child: Container(padding: EdgeInsets.all(5),
-                child: textCustom("QTY", 20, Colors.white, ""),),
-                ),
-                Center(
-                  child: Container(padding: EdgeInsets.all(5),
-                child: textCustom("PRICE", 20, Colors.white, ""),),
-                ),
-                Center(
-                  child: Container(padding: EdgeInsets.all(5),
-                child: textCustom("TOTAL", 20, Colors.white, "",),),
-                ),
+                Container(padding: EdgeInsets.all(5),
+                child: textCustom("ITEM", 28, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(5),
+                child: textCustom("QTY", 28, Colors.black, ""),),
+            Container(padding: EdgeInsets.all(5),
+                child: textCustom("PRICE", 28, Colors.black, ""),),
+                 Container(padding: EdgeInsets.all(5),
+                child: textCustom("TOTAL", 28, Colors.black, ""),),
             ]
           )],
       
