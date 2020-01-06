@@ -144,7 +144,7 @@ class rButtonView extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Container(
-      child: new MaterialButton(color:Colors.orange,textColor: Colors.black87,child: new Text(text,style: TextStyle(fontSize: 40),),
+      child: new MaterialButton(color:Color(0xFFF95700),textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 40),),
                                /*()=>{
                                 Navigator.of(context).push(new MaterialPageRoute(
                                     builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
@@ -152,7 +152,7 @@ class rButtonView extends StatelessWidget {
                                 onPressed: rBut,
                                 shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(3.0),
-        side: BorderSide(color: Colors.orange.withOpacity(0.9))
+        side: BorderSide(color: Colors.transparent),
 ),
                                 
                             )

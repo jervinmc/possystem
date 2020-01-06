@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import 'package:http/http.dart'as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './transition.dart';
@@ -28,7 +27,7 @@ class SignIn1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: SignIn(),
-      
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -49,25 +48,25 @@ class _SignInState extends State<SignIn> {
     builder: (BuildContext context) {
       return Container(
         decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
+          borderRadius:BorderRadius.circular(10)
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognizeds.", 25, Colors.red, "style"),),
+          child: textCustom("Enter Valid Username/Password.", 25, Colors.red, "style"),),
         content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
-               width: 300,
+               width: 250,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.black, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
@@ -96,7 +95,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white12,
+      backgroundColor: Color(0xFFF95700),
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: true,
       body: Stack(
@@ -128,8 +127,8 @@ class _SignInState extends State<SignIn> {
                   ],
                 ),
                 ),
-                Container( 
-                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.5, vertical: 5.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.4, vertical: 2.0),
                   child: FadeAnimation(2.9,Material(
                     elevation: 6,
                     borderRadius: BorderRadius.circular (50),
@@ -139,8 +138,8 @@ class _SignInState extends State<SignIn> {
                         controller: username,
                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.person_outline, size: 40),
-                          labelText: "Username", labelStyle: TextStyle(color: Colors.black),
+                          icon: Icon(Icons.person_outline, size: 60, color: Colors.black,),
+                          labelText: "USERNAME", labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ),
                     //),
@@ -149,10 +148,10 @@ class _SignInState extends State<SignIn> {
                 Text(""),
                  Container(
 
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.5, vertical: 5.0),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.4, vertical: 2.0),
 
                   child: FadeAnimation (2.9,Material(
-                    elevation: 5,
+                    elevation: 6,
                      borderRadius: BorderRadius.circular (50),
                   //  child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
@@ -160,8 +159,8 @@ class _SignInState extends State<SignIn> {
                         controller: password,
                          obscureText: true,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.lock_outline, size: 40),
-                          labelText: "Password", labelStyle: TextStyle(color: Colors.black),
+                          icon: Icon(Icons.lock_outline, size: 50, color: Colors.black,),
+                          labelText: "PASSWORD", labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       //),
                     ),
@@ -222,9 +221,8 @@ class _SignInState extends State<SignIn> {
                     child: Text("SIGN IN",
                     style: TextStyle(
                       fontSize: 40,
-                      color: Colors.orangeAccent,
+                      color: Colors.orange,
                       fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic
                     ),),
                   ),
                 )

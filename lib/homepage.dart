@@ -1,6 +1,5 @@
 import 'dart:math';
-
-import 'package:possystem/Signin.dart';
+import 'main.dart';
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/void.dart';
@@ -318,7 +317,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
            height: 80,
            color: Colors.black,
            child: Center(
-             child: textCustom("Discount Payment", 30, Colors.white, "style"),
+             child: textCustom("Discount Payment", 20, Colors.white, "style"),
            ),
          ),
     Container(
@@ -1649,7 +1648,7 @@ print("object $headers");
     startTimer();
     return Scaffold(
      drawer: Theme(
-        data: ThemeData.dark(),
+        data: ThemeData.light(),
         child: new Drawer(  //drawer holds the profile and logout function which the user can easily route
         child: new ListView( 
           children: <Widget>[
@@ -1657,7 +1656,7 @@ print("object $headers");
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
               accountName: Text("$usernamePrefs",
-              style: TextStyle(fontSize: 20,color: Colors.orange),
+              style: TextStyle(fontSize: 20,color: Colors.black),
                 ),
               ),
              ),
@@ -1666,7 +1665,7 @@ print("object $headers");
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 24),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 24, color: Colors.black),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1675,7 +1674,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 24),),
+                title: new Text('Void', style: TextStyle(fontSize: 24, color: Colors.black),),
                 trailing: new Icon(Icons.delete_outline, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1684,7 +1683,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 24),),
+                title: new Text('Discount', style: TextStyle(fontSize: 24, color: Colors.black),),
                 trailing: new Icon(Icons.assignment, size: 30,),
                 onTap: () {
                   Navigator.pop(context);
@@ -1700,7 +1699,7 @@ print("object $headers");
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Close Shift', style: TextStyle(fontSize: 24),),
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 24, color: Colors.black),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1752,7 +1751,7 @@ print("object $headers");
                                   prefs.setString("userPass", "");
                                   prefs.setStringList("tranhistory", []);
                                   prefs.setString("available","");
-                                 Navigator.push(context, SlideRightRoute(widget: SignIn()));
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                  }
                                 
                                },
@@ -1768,15 +1767,16 @@ print("object $headers");
                        }      
                           ),
                           new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 24),),
+                  title: new Text('Logout', style: TextStyle(fontSize: 24, color: Colors.black),),
                   trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
                    onTap: (){
                      showDialog(
                        context: context, builder: (BuildContext context){
                          return AlertDialog(
+                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            backgroundColor: Colors.white,
                            title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to LOGOUT?", style: TextStyle(fontSize: 35), textAlign: TextAlign.center,),
+                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              FlatButton(
                                child: Text("Yes", style: TextStyle(fontSize: 20)),
@@ -1814,14 +1814,14 @@ print("object $headers");
         preferredSize: Size.fromHeight(60.0),
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
-            Text("AUTH",style: TextStyle(fontSize: 50,color: Colors.orange)),
-            FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR"),),),
+            Text("",style: TextStyle(fontSize: 50,color: Colors.white)),
+            FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR", color: Colors.white),),),
             
 
 
           ],
         ),
-      backgroundColor: Colors.black87,
+      backgroundColor: Color(0xFFF95700),
       actions: <Widget>[
               Container(
            padding: EdgeInsets.all(0),
@@ -2035,7 +2035,7 @@ print("object $headers");
 
         ),
         hintText: 'ENTER BARCODE',
-        hintStyle: TextStyle(fontSize: 40),
+        hintStyle: TextStyle(fontSize: 30),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
@@ -2128,14 +2128,14 @@ print("object $headers");
                       ),
                     ),*/
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red),
+                    icon:  Icon(Icons.remove,color: Colors.black),
                     onPressed: (){
                           
 
                    setState(() {
                      
                      if(quantity[index]==1){
-                           voidItem(context, index);
+                          
                          
                      }
                      else{
@@ -2159,7 +2159,7 @@ print("object $headers");
                         child: quantityDiscount[index]=="0" || quantityDiscount[index]==null || quantityDiscount[index]=="" || quantityDiscount[index]=="${quantity[index]}" ? textCustom("${quantity[index]}", 25, Colors.black, "style") : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Colors.green,),
+                    icon:  Icon(Icons.add,color: Color(0xFFF95700),),
                     onPressed: (){
                       setState(() {
                          print("awerc");
@@ -2195,7 +2195,7 @@ print("object $headers");
                      
                       child:   IconButton(
 
-                        icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
+                        icon: Icon(Icons.delete,color: Colors.black,size: 25,),
                         onPressed:(){
                           voidItem(context, index);
                               
@@ -2247,7 +2247,7 @@ print("object $headers");
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red,),
+                    icon:  Icon(Icons.remove,color: Colors.black,),
                     onPressed: (){
                         
                     
@@ -2278,7 +2278,7 @@ print("object $headers");
                         child: quantityDiscount[index]=="0" || quantityDiscount[index]==null? textCustom("${quantity[index]}", 25, Colors.black, "style") : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Colors.green,), 
+                    icon:  Icon(Icons.add,color: Color(0xFFF95700)), 
                     onPressed: (){
                       setState(() {
                       
@@ -2310,7 +2310,7 @@ print("object $headers");
                      ),
                   
                       IconButton(
-                        icon: Icon(Icons.delete,color: Color(0xffED4C67),size: 25,),
+                        icon: Icon(Icons.delete,color: Colors.black,size: 25,),
                         onPressed:(){
                           subtotal=subtotal-(quantity[index]*price[index]);
                            quantity.removeAt(index);
@@ -2349,7 +2349,7 @@ print("object $headers");
                 Card(
                   elevation: 5,
                   child: Container(
-                    color: Colors.black87,
+                    color: Colors.white,
                    height: MediaQuery.of(context).size.height/1.1,
                     width: MediaQuery.of(context).size.width/3.05,
                     child: Container(
@@ -2369,14 +2369,17 @@ print("object $headers");
       children: <Widget>[
          Text(""),
      
-        textCustom1("Member Information", 40, Colors.greenAccent, "style",FontWeight.bold),
+        Container(
+        
+          child: textCustom1("Member Information", 20, Colors.black, "style",FontWeight.bold),
+        ),
         Text(""),
         Text(""),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 20, Colors.white, "style",FontWeight.normal),
-             textCustom1("Prokopyo Tunying", 25, Colors.white, "style",FontWeight.bold),
+             textCustom1("Member :", 20, Colors.black, "style",FontWeight.bold),
+             textCustom1("Prokopyo Tunying", 20, Colors.black, "style",FontWeight.bold),
           ],
         ),
          Text(""),
@@ -2384,25 +2387,33 @@ print("object $headers");
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Points :", 20, Colors.white, "style",FontWeight.normal),
-              textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 20, Colors.white, "style",FontWeight.normal),
+             textCustom1("Points :", 20, Colors.black, "style",FontWeight.bold),
+              textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 20, Colors.black, "style",FontWeight.bold),
           ],
         ),
         Divider(),
      Container(
-            color: Colors.grey,
+            color: Colors.black,
             child: Table(
-            border: TableBorder.all(width: 1,color: Colors.black87),
+            border: TableBorder.all(width: .1 ,color: Colors.black),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(5),
-                child: textCustom("NAME", 28, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(5),
-                child: textCustom("QTY", 28, Colors.black, ""),),
-            Container(padding: EdgeInsets.all(5),
-                child: textCustom("PRICE", 28, Colors.black, ""),),
-                 Container(padding: EdgeInsets.all(5),
-                child: textCustom("TOTAL", 28, Colors.black, ""),),
+                Center(
+                  child: Container(padding: EdgeInsets.all(5),
+                child: textCustom("ITEM", 20, Colors.white, ""),),
+                ),
+                Center(
+                  child: Container(padding: EdgeInsets.all(5),
+                child: textCustom("QTY", 20, Colors.white, ""),),
+                ),
+                Center(
+                  child: Container(padding: EdgeInsets.all(5),
+                child: textCustom("PRICE", 20, Colors.white, ""),),
+                ),
+                Center(
+                  child: Container(padding: EdgeInsets.all(5),
+                child: textCustom("TOTAL", 20, Colors.white, "",),),
+                ),
             ]
           )],
       
@@ -2446,26 +2457,26 @@ print("object $headers");
 
           
           return  index%2==1? Container(
-            color: Colors.grey.withAlpha(40),
+            color: Colors.grey.withAlpha(30),
             child: Table(
           //  border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[0]}", 14, Colors.white, ""),),
+                child: textCustom("${a[0]}", 20, Colors.white, ""),),
               
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}", 14, Colors.white, ""),),
+                child: textCustom("${a[1]}", 20, Colors.white, ""),),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
-                child: textCustom("${fmf2.output.nonSymbol}", 14, Colors.white, ""),),
+                child: textCustom("${fmf2.output.nonSymbol}", 20, Colors.white, ""),),
               ],
             ),
             Column(
@@ -2480,32 +2491,41 @@ print("object $headers");
       
         ),
           ): Container(
-            color: Colors.transparent.withAlpha(50),
+            color: Colors.white,
             child: Table(
            // border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-                Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[0]}", 14, Colors.white, ""),),
+                Center(
+                  child: Container(padding: EdgeInsets.all(10),
+                child: textCustom("${a[0]}", 20, Colors.black, ""),),
+                ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[1]}", 14, Colors.white, ""),),
+               Center(
+                 child:  Container(padding: EdgeInsets.all(10),
+                child: textCustom("${a[1]}", 20, Colors.black, ""),),
+               )
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${fmf2.output.nonSymbol}", 14, Colors.white, ""),),
+                 Center(
+                   child: Container(padding: EdgeInsets.all(10),
+                 child: textCustom("${fmf2.output.nonSymbol}", 20, Colors.black, ""),),
+                 ),
+               
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                 Container(padding: EdgeInsets.all(10),
-                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 14, Colors.white, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 14, Colors.white, ""),),
+                 Center(
+                   child: Container(padding: EdgeInsets.all(10),
+                 child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 20, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 20, Colors.black, ""),),
+                 ),
               ],
             ),        
                 
@@ -2660,34 +2680,34 @@ print("object $headers");
                                children: <Widget>[
                                
                                textCustom("Discount : ", 16, Colors.white, "style"),
-                               textCustom1("Php -${discountLabel}", 16, Colors.red, "style",FontWeight.bold),
+                               textCustom1("Php -${discountLabel}", 20, Colors.red, "style",FontWeight.bold),
                              ],):Container(),
                                   Text(""),
                                  Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("SUBTOTAL : ", 16, Colors.white, "style"),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom("SUBTOTAL : ", 20, Colors.white, "style"),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 20, Colors.white, "style",FontWeight.bold),
                              ],),
                            Text(""),
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("VAT : ", 16, Colors.white, "style"),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 16, Colors.white, "style",FontWeight.bold),
+                               textCustom("VAT : ", 20, Colors.white, "style"),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 20, Colors.white, "style",FontWeight.bold),
                              ],),
                          
                             Divider(
-                              color: Colors.greenAccent,
+                              color: Colors.white,
                             ),
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
-                               textCustom("TOTAL AMOUNT : ", 23, Colors.white, "style"),
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.greenAccent, "style",FontWeight.bold),// with formula...
+                               textCustom("TOTAL AMOUNT : ", 20, Colors.white, "style",),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 20, Colors.white, "style",FontWeight.bold),// with formula...
                              ],)
                                ],
                              ),

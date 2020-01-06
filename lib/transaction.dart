@@ -235,7 +235,7 @@ deleteSelected() async{
      columns: [
        
        DataColumn(
-         label: Text("Receipt NumberS", style: TextStyle(fontSize: 40)),
+         label: Text("Receipt NumberS", style: TextStyle(fontSize: 20)),
          numeric: false,
          tooltip: "This is the receipt",
          onSort: (columnIndex, ascending){
@@ -246,7 +246,7 @@ deleteSelected() async{
          }
        ),
        DataColumn(
-         label: Text("Date",style: TextStyle(fontSize: 40)),
+         label: Text("Date",style: TextStyle(fontSize: 20)),
          numeric: false,
          tooltip: "This is the date",
          onSort: (columnIndex, ascending){
@@ -257,7 +257,7 @@ deleteSelected() async{
          }
        ),
        DataColumn(
-         label: Text("Action", style: TextStyle(fontSize: 40)),
+         label: Text("Action", style: TextStyle(fontSize: 20)),
          numeric: false,
          tooltip: "This is the refund",
          onSort: (columnIndex, ascending){
@@ -363,7 +363,7 @@ deleteSelected() async{
            children: <Widget>[
               textCustom("Opening Amount:", 20, Colors.white, "style"),
               Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
+              textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 20, Colors.orange[100], "style",FontWeight.bold)
            ],
          ),
           Row(
@@ -371,7 +371,7 @@ deleteSelected() async{
            children: <Widget>[
               textCustom("Total Amount:", 20, Colors.white, "style"),
               Text("    "),
-              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 20, Colors.orange, "style",FontWeight.bold)
+              textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 20, Colors.orange[100], "style",FontWeight.bold)
            ],
          ),
            ],
@@ -422,8 +422,8 @@ deleteSelected() async{
           )
 
         ),
-        hintText: 'ENTER RECEIPT NO.',
-        hintStyle: TextStyle(fontSize: 40),
+        hintText: 'ENTER RECEIPT NO.', 
+        hintStyle: TextStyle(fontSize: 40,),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
