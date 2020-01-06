@@ -1936,7 +1936,7 @@ print("object $headers");
            padding: EdgeInsets.all(0),
            child:IconButton(
              iconSize: 50,
-             icon: Icon(Icons.person_pin),
+             icon: Icon(Icons.person_pin,color: Colors.black,),
              onPressed: (){
                cashierInfo(context, 1);
              },
