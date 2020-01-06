@@ -1196,6 +1196,16 @@ Future<void> shifting(BuildContext context,int x) async{
           children: <Widget>[
             textCustom("Enter Opening Amount", 20, Colors.black, "style"),
             TextFormField(
+              onFieldSubmitted: (value) async{
+ SharedPreferences prefs=await SharedPreferences.getInstance();
+    prefs.setString("openingAmount","${openingA.text}");
+
+  setState(() {
+    //quantity[x]=int.parse(qtyCtrlr.text) ;
+    qtyCtrlr.text="";
+  });
+  Navigator.of(context).pop();
+              },
           controller: openingA,
           maxLength: 5,
           textAlign: TextAlign.center,
@@ -1234,7 +1244,7 @@ Future<void> shifting(BuildContext context,int x) async{
 
 new OutlineButton(
       borderSide: BorderSide(
-        
+
             color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
@@ -1944,7 +1954,7 @@ print("object $headers");
               Container(
            padding: EdgeInsets.all(0),
            child:IconButton(
-             iconSize: 50,
+             iconSize: 40,
              icon: Icon(Icons.person_pin,color: Colors.white,),
              onPressed: (){
                cashierInfo(context, 1);
