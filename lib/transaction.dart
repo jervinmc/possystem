@@ -128,6 +128,7 @@ class _TransactionState extends State<Transaction> {
 
   //function..
   List tranheader=[1,1,1];
+   List<TextEditingController> refundTextCtrlr=[];
   TextEditingController receiptText=new TextEditingController();
   //variable
   String getSearchReceipt="";
@@ -1279,6 +1280,7 @@ deleteSelected() async{
                  showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
+    
       return Container(
         
         decoration: BoxDecoration(
@@ -1289,51 +1291,19 @@ deleteSelected() async{
       backgroundColor: Colors.white,
         title:Container(
           width: 700,
-          height: 700,
+          height: 450,
           child: Column(
           children: <Widget>[
          Container(
-           
+           height: 50,
            color: Colors.deepOrange,
            child: 
               Center( 
-          child: textCustom("Refund", 35, Colors.white, "style",),),
+          child: textCustom("Refund Item", 35, Colors.white, "style",),),
          ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-         Divider(),
+        
          Container(
-           color: Colors.deepOrange,
+        
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -1342,9 +1312,9 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 27, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -1354,10 +1324,12 @@ deleteSelected() async{
       ),
       Container(
         
-        height: 150,
+        height: 270,
         child: ListView.builder(
           itemCount: reviewdata.length,
             itemBuilder: (BuildContext context, int index){
+                var textEditingController = new TextEditingController(text: "");
+        refundTextCtrlr.add(textEditingController);
               return Container(
                
            height: 50,
@@ -1372,38 +1344,23 @@ deleteSelected() async{
            children: <Widget>[
              Expanded(
                child: Container(
-                 padding: EdgeInsets.all(2),
+                 padding: EdgeInsets.only(top: 20,left: 15),
                  child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.remove, color: Colors.red),
-                        onPressed: (){
-                          setState(() {
-                            
-                          });
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.add, color: Colors.green),
-                        onPressed: (){
-                          setState(() {
-                            
-                          });
-                        },
-                      )
-                    ],
+           width: 20,
+                child: TextField(
+                  controller: refundTextCtrlr[index],
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    
+                    hintText:"${reviewdata[index]["quantity"]}"
                   ),
-                )
+                )),
+            
             ],
 
             
@@ -1416,27 +1373,44 @@ deleteSelected() async{
         ),
        
       ),
+      Text(""),
+   
            Center(
              child:Container(
-               width: 300,
+               margin: EdgeInsets.only(top: 5),
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: <Widget>[
-                   new OutlineButton(
+                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
     
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: (){
+    //balik
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
                  ],
                ),
                )
