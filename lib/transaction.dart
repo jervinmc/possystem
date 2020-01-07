@@ -495,37 +495,37 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("${dates}", 25, Colors.black, "style",),
+              textCustom("Date/Time", 20, Colors.black, "style",),
+              textCustom("${dates}", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Cashier", 20, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style"),
-              textCustom("", 25, Colors.black, "style"),
+              textCustom("Member", 20, Colors.black, "style"),
+              textCustom("", 20, Colors.black, "style"),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].memberPoints).output.nonSymbol}", 25, Colors.black, "style",),
+              textCustom("Points", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].memberPoints).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -540,11 +540,11 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -575,16 +575,16 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
                 child: Center(child:  textCustom1(
-                  "${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                  "${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -602,16 +602,16 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].subtotal).output.nonSymbol}", 25, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].subtotal).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].vat).output.nonSymbol}", 25, Colors.black, "style",),
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].vat).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -619,24 +619,24 @@ deleteSelected() async{
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 25, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt).output.nonSymbol}", 25, Colors.black, "style",),
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}", 25, Colors.black, "style",),
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -644,8 +644,8 @@ deleteSelected() async{
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 25, Colors.green, "style",),
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
              
            ],
          ),
@@ -676,8 +676,6 @@ deleteSelected() async{
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
                  ],
                ),
                )
@@ -1036,37 +1034,37 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+              textCustom("Date/Time", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Cashier", 20, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Points", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -1081,11 +1079,11 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -1114,15 +1112,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -1139,48 +1137,48 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -1778,37 +1776,37 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+              textCustom("Date/Time", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Cashier", 20, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Points", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -1823,11 +1821,11 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -1856,15 +1854,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -1881,48 +1879,48 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2043,37 +2041,37 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+              textCustom("Date/Time", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Cashier", 20, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Points", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2088,11 +2086,11 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -2121,15 +2119,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -2146,56 +2144,56 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Tax", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2305,37 +2303,37 @@ deleteSelected() async{
            color: Colors.black,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+              textCustom("Date/Time", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Cashier", 20, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Points", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2350,11 +2348,11 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -2383,15 +2381,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -2408,56 +2406,56 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Tax", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Tax", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2560,7 +2558,7 @@ deleteSelected() async{
         child: 
        Container(
          padding: EdgeInsets.all(20),
-         width: 1800,
+         width: 1650,
          child:Column(
            children: <Widget>[
              Divider(
@@ -2571,7 +2569,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Opening Amount:", 25, Colors.black, "style"),
-              Text("    "),
+          
               textCustom1("Php ${FlutterMoneyFormatter(amount:double.parse(openingAmt)).output.nonSymbol}", 25, Colors.black, "style",FontWeight.bold)
            ],
          ),
@@ -2579,7 +2577,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Total Amount:", 25, Colors.black, "style"),
-              Text("    "),
+             
               textCustom1("Php ${FlutterMoneyFormatter(amount:totalamount).output.nonSymbol}", 25, Colors.black, "style",FontWeight.bold)
            ],
          ),
