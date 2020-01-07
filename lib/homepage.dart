@@ -1287,7 +1287,7 @@ new OutlineButton(
       // color: Colors.orange,
        width: 700,
        height: double.infinity,
-       child: AlertDialog(
+       child:FadeAnimation(1.0, AlertDialog(
           // contentPadding: MediaQuery.of(context).viewInsets,
          title: Container(
               color: Colors.white12,
@@ -1721,7 +1721,7 @@ print("object $headers");
            ),
          ),
        )
-     );
+     ));
     },
   );
 }
@@ -1788,7 +1788,8 @@ print("object $headers");
               new Column(
                 children: <Widget>[
                 new ListTile(
-                title: new Text('Transaction', style: TextStyle(fontSize: 20, color: Colors.white),),
+                title: new Text('Transaction', style: TextStyle(fontSize: 20,
+                 color: Colors.white),),
                 trailing: new Icon(Icons.account_balance, size: 30,),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
