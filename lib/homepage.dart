@@ -1291,7 +1291,7 @@ new OutlineButton(
       // color: Colors.orange,
        width: 700,
        height: double.infinity,
-       child:FadeAnimation(1.0, AlertDialog(
+       child:FadeAnimation(0.5, AlertDialog(
           // contentPadding: MediaQuery.of(context).viewInsets,
          title: Container(
               color: Colors.white12,

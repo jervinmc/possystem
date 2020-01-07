@@ -483,7 +483,7 @@ deleteSelected() async{
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: FadeAnimation(1.2, AlertDialog(
+        child: FadeAnimation(0.5, AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
