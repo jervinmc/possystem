@@ -1302,8 +1302,8 @@ new OutlineButton(
            child: Column(
              children: <Widget>[
               Container(
-                height: 45,
-                color: Colors.black,
+                height: 60,
+                color: Colors.deepOrange,
                 child:  Center(
 
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
@@ -1326,7 +1326,7 @@ new OutlineButton(
                         height: 55,
                         width: 300,
                         child: TextField(
-                          controller: tin,
+                          controller: customerName,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                  
@@ -1384,7 +1384,7 @@ new OutlineButton(
                        height: 55,
                         width: 300,
                         child: TextField(
-                          controller: tin,
+                          controller: address,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                  
@@ -1544,7 +1544,7 @@ print("object $headers");
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5)
                   ),
-                  padding: EdgeInsets.only(right: 0,top: 0),
+                  padding: EdgeInsets.only(right: 0,top: 0,left: 60),
              height: MediaQuery.of(context).size.width/3.3,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
@@ -1596,9 +1596,9 @@ print("object $headers");
                            )
                         ],
                       ),
-               
+                  
                  
-
+                    Text(""),
                    Container(
                      padding: EdgeInsets.only(bottom: 11),
                      child: 
@@ -1774,6 +1774,9 @@ print("object $headers");
   int emptyTable=0;
   TextEditingController openingA=new TextEditingController();
  List<TextEditingController> discountablePrice=[];
+ TextEditingController customerName= new TextEditingController();
+  //TextEditingController customerTin= new TextEditingController();
+   //TextEditingController customerAddress= new TextEditingController();
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
@@ -2752,13 +2755,7 @@ print("object $headers");
          
        Text(""),
         Text(""),
-         
-       Text(""),
-        Text(""),
-          
-       Text(""),
-       
-        Text(""),
+        
           
     
         

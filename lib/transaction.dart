@@ -188,7 +188,10 @@ deleteSelected() async{
         
     borderRadius: BorderRadius.circular(5.0),),
       child: TextField(
-    textAlign: TextAlign.start,  
+    textAlign: TextAlign.start, 
+    onSubmitted: (value){
+
+    }, 
  
     onChanged: (value){
         setState(() {
@@ -377,6 +380,11 @@ deleteSelected() async{
       child: TextField(
     textAlign: TextAlign.start ,  
     controller: receiptText,
+    onSubmitted: (val){
+        setState(() {
+          getSearchReceipt=receiptText.text;
+        });
+    },
     onChanged: (value){
         setState(() {
          
