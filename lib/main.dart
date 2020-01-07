@@ -97,7 +97,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white.withAlpha(225),
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: true,
       body: Stack(
