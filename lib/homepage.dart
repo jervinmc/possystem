@@ -153,6 +153,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController searchCtrlr=new TextEditingController();
     @override
     Future<void> voidItem(BuildContext context,int x) {
+      usernameVoid.text="";
+      passwordVoid.text="";
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -168,7 +170,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             children: <Widget>[
              Container(
                padding: EdgeInsets.only(bottom: 10),
-               child:  textCustom("ENTER USERNAME", 25, Color(0xFFF95700), "style",),
+               child:  textCustom("ENTER USERNAME", 25, Colors.black, "style",),
              ),
               Container(
                         height: 40,
@@ -196,7 +198,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                       ),
                        Container(
                padding: EdgeInsets.only(bottom: 10,top: 20),
-               child:  textCustom("ENTER PASSWORD", 25, Color(0xFFF95700), "style",),
+               child:  textCustom("ENTER PASSWORD", 25, Colors.black, "style",),
              ),
               Container(
                         height: 40,
@@ -235,16 +237,31 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                width: 300,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFF95700), //Color of the border
+            color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.orange,
-  child: new textCustom("OK",25,Color(0xFFF95700),""),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: ()async{ 
+    
+    Navigator.of(context).pop();
+
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("  Void  ",25,Colors.red,""),
   onPressed: ()async{ 
      if(x==2){  
        if (usernameVoid.text == usernamePrefs ){
