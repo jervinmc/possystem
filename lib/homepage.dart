@@ -798,8 +798,10 @@ Future<void> transactFailed(BuildContext context,int x) {
     color:Color(0xFFF95700),
   child: new textCustom("OK",20,Color(0xFFF95700),""),
   onPressed: (){
-    
-  Navigator.of(context).pop();
+      if(x==3){
+
+      }
+  Navigator.of(context).pop();    
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1856,6 +1858,16 @@ print("object $headers");
                                    Container(
                                      width: 300,
                                      child: TextField(
+                                       onSubmitted: (value)async{
+                                            SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "0.0");
+                                  prefs.setString("userName", "");
+                                  prefs.setString("userPass", "");
+                                  prefs.setStringList("tranhistory", []);
+                                  prefs.setString("available","");
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
+                                       },
                                        controller: closingAmountText,
                                        textAlign: TextAlign.center,
                                      ),
