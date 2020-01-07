@@ -1845,7 +1845,7 @@ print("object $headers");
                        context: context, builder: (BuildContext context){
                       
                          return AlertDialog(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            backgroundColor: Colors.white,
                            title: Container(
                              child: Center(
@@ -1878,8 +1878,9 @@ print("object $headers");
                                          borderSide: BorderSide(
                                            color: Colors.red,
                                            style: BorderStyle.solid,
-                                           width: 2,
+                                           width: 3,
                                          ),
+                                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                                          color: Colors.red,
                                          child: new textCustom("Cancel", 25, Colors.red, ""),
                                          onPressed: (){
@@ -1890,8 +1891,14 @@ print("object $headers");
                                    ),
                                  ),
                                ),
-                             FlatButton(
-                               child: Text("Confirm", style: TextStyle(fontSize: 20,color: Color(0xFFF95700) )),
+                              OutlineButton(
+                                borderSide: BorderSide(
+                                  color: Colors.green,
+                                  style: BorderStyle.solid,
+                                  width: 3,
+                                ),
+                                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                               child: Text("Confirm", style: TextStyle(fontSize: 25,color: Colors.green)),
                                onPressed: () async{
                                  if(closingAmountText.text==""){
                                    transactFailed(context, 3);
@@ -1908,7 +1915,7 @@ print("object $headers");
                                  }
                                 
                                },
-                             ),
+                              ),
                           
                            ],
                          );
@@ -1921,7 +1928,7 @@ print("object $headers");
                           ),
                           new ListTile(
                   title: new Text('Logout', style: TextStyle(fontSize: 20, color: Colors.white),),
-                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
+                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),      
                    onTap: (){
                      showDialog(
                        context: context, builder: (BuildContext context){
