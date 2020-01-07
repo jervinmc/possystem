@@ -185,7 +185,7 @@ class rButtonView2 extends StatelessWidget {
                                 onPressed: rBut,
                                 shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(5.0),
-        side: BorderSide(color: Colors.deepOrange,width: 5)
+        side: BorderSide(color: Colors.deepOrange ,width: 5)
 ),
                                 
                             )

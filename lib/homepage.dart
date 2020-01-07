@@ -1298,7 +1298,7 @@ new OutlineButton(
          title: Container(
               color: Colors.white12,
            width: 700,
-           height: 520,
+           height: 550,
            child: Column(
              children: <Widget>[
               Container(
@@ -1313,7 +1313,7 @@ new OutlineButton(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget>[
                   Container(  
-                      height: MediaQuery.of(context).size.width/3.1,
+                      height: MediaQuery.of(context).size.width/2.9,
                     
                     padding: EdgeInsets.all(30),
                     child:  Column(
@@ -1528,7 +1528,7 @@ print("object $headers");
                  },"CHECKOUT",300)),
                  
                  Container(
-                      padding: EdgeInsets.only(bottom: 100),
+                      padding: EdgeInsets.only(bottom: 180),
                  child:  rButtonView4((){
                    Navigator.of(context).pop();
                  },"CANCEL", 300),
@@ -1544,8 +1544,8 @@ print("object $headers");
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5)
                   ),
-                  padding: EdgeInsets.only(right: 0,top: 0,left: 60),
-             height: MediaQuery.of(context).size.width/3.3,
+                  padding: EdgeInsets.only(right: 0,top: 0,left: 50),
+             height: MediaQuery.of(context).size.width/2.9,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
                    crossAxisAlignment:CrossAxisAlignment.start,

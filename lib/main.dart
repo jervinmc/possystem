@@ -185,7 +185,7 @@ class _SignInState extends State<SignIn> {
                     height: 35.0,
                     onPressed: ()async{
                   
-                      http.Response response=await http.get(Uri.encodeFull("http://filmeapi.azurewebsites.net/api/user/getall"),headers: {
+                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/user/GetAll"),headers: {
                      "Accept":"application/json"
      });
      int a=0;
