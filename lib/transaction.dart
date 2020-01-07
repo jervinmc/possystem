@@ -501,7 +501,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -540,7 +540,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -772,16 +772,16 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 25, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+              textCustom("Date/Time", 22, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 22, Colors.black, "style",),
              
            ],
          ),
@@ -789,29 +789,29 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 22, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("", 25, Colors.black, "style",),
+              textCustom("Member", 22, Colors.black, "style",),
+              textCustom("", 22, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Points", 22, Colors.black, "style",),
+              textCustom("0", 22, Colors.black, "style",),
              
            ],
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -1040,7 +1040,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -1079,7 +1079,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -1294,7 +1294,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Refund", 35, Colors.white, "style",),),
@@ -1333,7 +1333,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -1514,7 +1514,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Refund", 30, Colors.white, "style",),),
@@ -1553,7 +1553,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -1568,7 +1568,6 @@ deleteSelected() async{
            Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
-          
             
           )
           ],
@@ -1782,7 +1781,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -1821,7 +1820,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -2047,7 +2046,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -2086,7 +2085,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -2309,7 +2308,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -2348,7 +2347,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.black,
+           color: Colors.deepOrange,
            height: 50,
        //color: Colors.green,
         child:  Table(
