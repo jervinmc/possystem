@@ -202,7 +202,7 @@ class rButtonView6 extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Container(
-      child: new MaterialButton(color:Colors.black,textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 30),),
+      child: new MaterialButton(color:Colors.red,textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 30),),
                                /*()=>{
                                 Navigator.of(context).push(new MaterialPageRoute(
                                     builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
