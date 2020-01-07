@@ -798,8 +798,10 @@ Future<void> transactFailed(BuildContext context,int x) {
     color:Color(0xFFF95700),
   child: new textCustom("OK",20,Color(0xFFF95700),""),
   onPressed: (){
-    
-  Navigator.of(context).pop();
+      if(x==3){
+
+      }
+  Navigator.of(context).pop();    
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1300,8 +1302,8 @@ new OutlineButton(
            child: Column(
              children: <Widget>[
               Container(
-                height: 45,
-                color: Colors.black,
+                height: 60,
+                color: Colors.deepOrange,
                 child:  Center(
 
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
@@ -1324,7 +1326,7 @@ new OutlineButton(
                         height: 55,
                         width: 300,
                         child: TextField(
-                          controller: tin,
+                          controller: customerName,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                  
@@ -1382,7 +1384,7 @@ new OutlineButton(
                        height: 55,
                         width: 300,
                         child: TextField(
-                          controller: tin,
+                          controller: address,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
                  
@@ -1542,7 +1544,7 @@ print("object $headers");
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5)
                   ),
-                  padding: EdgeInsets.only(right: 0,top: 0),
+                  padding: EdgeInsets.only(right: 0,top: 0,left: 60),
              height: MediaQuery.of(context).size.width/3.3,
                   width: MediaQuery.of(context).size.width/4.3,
                   child:   Column(
@@ -1594,9 +1596,9 @@ print("object $headers");
                            )
                         ],
                       ),
-               
+                  
                  
-
+                    Text(""),
                    Container(
                      padding: EdgeInsets.only(bottom: 11),
                      child: 
@@ -1772,6 +1774,9 @@ print("object $headers");
   int emptyTable=0;
   TextEditingController openingA=new TextEditingController();
  List<TextEditingController> discountablePrice=[];
+ TextEditingController customerName= new TextEditingController();
+  //TextEditingController customerTin= new TextEditingController();
+   //TextEditingController customerAddress= new TextEditingController();
   //////// Variables/////////////////////////////////////////// 
  @override
   Widget build(BuildContext context) {
@@ -1858,6 +1863,16 @@ print("object $headers");
                                    Container(
                                      width: 300,
                                      child: TextField(
+                                       onSubmitted: (value)async{
+                                            SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  prefs.setString("userUsed", "notUsed");
+                                  prefs.setString("openingAmount", "0.0");
+                                  prefs.setString("userName", "");
+                                  prefs.setString("userPass", "");
+                                  prefs.setStringList("tranhistory", []);
+                                  prefs.setString("available","");
+                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
+                                       },
                                        controller: closingAmountText,
                                        textAlign: TextAlign.center,
                                      ),
@@ -2747,13 +2762,7 @@ print("object $headers");
          
        Text(""),
         Text(""),
-         
-       Text(""),
-        Text(""),
-          
-       Text(""),
-       
-        Text(""),
+        
           
     
         
