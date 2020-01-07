@@ -612,12 +612,12 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].subtotal).output.nonSymbol}", 20, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
-             Row(
+         Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("VAT", 20, Colors.black, "style",),
@@ -625,15 +625,17 @@ deleteSelected() async{
              
            ],
          ),
-      
-          Row(
+       Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].subtotal).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
+             
+      
+          
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -879,48 +881,50 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 25, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
-             Row(
+         Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
-          Row(
+       Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
+             
+           ],
+         ),
+             
+          
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Change", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
@@ -1590,6 +1594,22 @@ deleteSelected() async{
        
       ),
        Divider(),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
+             
+           ],
+         ),
+              Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].vat).output.nonSymbol}", 20, Colors.black, "style",),
+             
+           ],
+         ),
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1598,22 +1618,8 @@ deleteSelected() async{
              
            ],
          ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 25, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].vat).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
+        
+        
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1858,6 +1864,22 @@ deleteSelected() async{
        
       ),
        Divider(),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1866,22 +1888,8 @@ deleteSelected() async{
              
            ],
          ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
+            
+        
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -2388,12 +2396,12 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
              
            ],
          ),
-             Row(
+         Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("VAT", 20, Colors.black, "style",),
@@ -2401,22 +2409,16 @@ deleteSelected() async{
              
            ],
          ),
-          Row(
+       Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Tax", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
              
            ],
          ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
+            
+          
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
