@@ -7,6 +7,7 @@ import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'fadeAnimation.dart';
 class Services {
  
   
@@ -482,7 +483,7 @@ deleteSelected() async{
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(1.2, AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -712,7 +713,7 @@ deleteSelected() async{
          
         ],
       ),
-      );
+      ));
     },
   );
 
@@ -809,7 +810,7 @@ deleteSelected() async{
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
           children: [TableRow(
             children:[
-         
+              
           Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
@@ -817,7 +818,7 @@ deleteSelected() async{
            Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
             ]
-          
+           
             
           )
           ],
@@ -850,9 +851,9 @@ deleteSelected() async{
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.normal))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.normal))),
             ]
           
             
