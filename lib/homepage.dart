@@ -1445,29 +1445,29 @@ print("object $headers");
                // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
               // SunmiAidlPrint.setFontSize(fontSize:30);
             
-               SunmiAidlPrint.printText(text: "             Trudi POS");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                             Prokopyo tunying\n");
-              SunmiAidlPrint.printText(text: "Points:                             $points'\n");
-               SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL \n");
-              for(int x=0;x<productName.length;x++){
-                SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
-              }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                    Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                    Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                    Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                    Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+              // SunmiAidlPrint.printText(text: "             Trudi POS");
+              // SunmiAidlPrint.printText(text: "\n");
+              // SunmiAidlPrint.printText(text: "\n");
+              // SunmiAidlPrint.printText(text: "\n");
+              // SunmiAidlPrint.printText(text: "\n");
+              // SunmiAidlPrint.printText(text: "\n");
+              // SunmiAidlPrint.printText(text: "\n");
+              //SunmiAidlPrint.setFontSize(fontSize:20);
+              //SunmiAidlPrint.printText(text: "Member:                             Prokopyo tunying\n");
+              //SunmiAidlPrint.printText(text: "Points:                             $points'\n");
+               //SunmiAidlPrint.printText(text: "NAME     QTY     PRICE     TOTAL \n");
+              //for(int x=0;x<productName.length;x++){
+               // SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
+              //}
+              //SunmiAidlPrint.printText(text: "\n");
+              //SunmiAidlPrint.printText(text: "\n");
+              //SunmiAidlPrint.printText(text: "\n");
+              //SunmiAidlPrint.printText(text: "\n");
+              //SunmiAidlPrint.printText(text: "\n");
+              //SunmiAidlPrint.printText(text: "                                    Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+              //SunmiAidlPrint.printText(text: "                                    Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+              //SunmiAidlPrint.printText(text: "                                    Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              //SunmiAidlPrint.printText(text: "                                    Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
               productName=[];
               quantity=[];
               price=[];
@@ -1849,6 +1849,7 @@ print("object $headers");
                            backgroundColor: Colors.white,
                            title: Container(
                              child: Center(
+                               
                                child: Column(
                                  children: <Widget>[
                                    Text("Enter Closing Amount", style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
@@ -1867,12 +1868,28 @@ print("object $headers");
                            ),
                            //content: 
                            actions: <Widget>[
-                               FlatButton(
-                               child: Text("Cancel", style: TextStyle(fontSize: 20,color: Colors.black)),
-                               onPressed: (){
-                                 Navigator.pop(context);
-                               },
-                             ),
+                               Center(
+                                 child: Container(
+                                   width: 260,
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                     children: <Widget>[
+                                       OutlineButton(
+                                         borderSide: BorderSide(
+                                           color: Colors.red,
+                                           style: BorderStyle.solid,
+                                           width: 2,
+                                         ),
+                                         color: Colors.red,
+                                         child: new textCustom("Cancel", 25, Colors.red, ""),
+                                         onPressed: (){
+                                           Navigator.pop(context);
+                                         },
+                                       )
+                                     ],
+                                   ),
+                                 ),
+                               ),
                              FlatButton(
                                child: Text("Confirm", style: TextStyle(fontSize: 20,color: Color(0xFFF95700) )),
                                onPressed: () async{
