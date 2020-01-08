@@ -542,7 +542,7 @@ deleteSelected() async{
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -572,7 +572,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -843,7 +843,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1495,7 +1495,7 @@ deleteSelected() async{
            color: Colors.deepOrange,
            child: 
               Center( 
-          child: textCustom("Refund", 30, Colors.white, "style",),),
+          child: textCustom("Transaction details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1532,7 +1532,7 @@ deleteSelected() async{
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1559,7 +1559,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1801,7 +1801,7 @@ deleteSelected() async{
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1829,7 +1829,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1848,7 +1848,7 @@ deleteSelected() async{
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
           child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
@@ -2068,7 +2068,7 @@ deleteSelected() async{
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2076,10 +2076,10 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
@@ -2096,7 +2096,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2114,9 +2114,9 @@ deleteSelected() async{
              ),
            ],
          ),
-           Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(2),
+          Container(padding: EdgeInsets.all(2),
+          child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(2),
           child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
@@ -2330,7 +2330,7 @@ deleteSelected() async{
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2338,10 +2338,10 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
@@ -2358,7 +2358,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),

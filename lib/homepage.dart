@@ -181,11 +181,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(15)
                 ),
                // hintText: 'Mobile Number',
@@ -210,11 +210,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(15)
                 
                 ),
@@ -222,7 +222,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20, 
                 color: Colors.black
               ),
               ),
@@ -1494,7 +1494,7 @@ new OutlineButton(
               ),
               style: TextStyle(
                     fontSize: 30,
-                color: Colors.black
+                color: Colors.black,
               ),
               ),
                       ),
@@ -1537,8 +1537,8 @@ print("object $headers");
                     // SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
               // SunmiAidlPrint.setFontSize(fontSize:30);
-              SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
+             
+             /* SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
             SunmiAidlPrint.printText(text: "\n");
@@ -1561,7 +1561,7 @@ print("object $headers");
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
             SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
-              productName=[];
+              */productName=[];
               quantity=[];
               price=[];
               pointsTotal=[];
@@ -2066,7 +2066,7 @@ print("object $headers");
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            backgroundColor: Colors.white,
                            title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25,), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              new OutlineButton(
                              borderSide: BorderSide(
@@ -2549,9 +2549,9 @@ print("object $headers");
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
                  buttonOkColor: Colors.green,
                  buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
-                 title: Text("Discount",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                 title: Text("",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  ),
-                 description: Text("Transaction Details",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                 description: Text("",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  textAlign: TextAlign.center),
                  entryAnimation: EntryAnimation.RIGHT,
                  onOkButtonPressed: (){
