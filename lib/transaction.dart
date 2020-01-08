@@ -702,12 +702,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -856,7 +856,7 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.normal),
                ),
              ),
            ],
@@ -971,12 +971,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1239,12 +1239,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1688,12 +1688,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1954,12 +1954,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -2230,12 +2230,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -2486,12 +2486,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();

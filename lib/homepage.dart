@@ -1243,7 +1243,7 @@ Future<void> shifting(BuildContext context,int x) async{
              child:Container(
                child: Center(
                  child:  Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
@@ -1264,15 +1264,7 @@ Future<void> shifting(BuildContext context,int x) async{
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-Text(""),
-Text(""),
-Text(""),
-Text(""),
-Text(""),
-Text(""),
-Text(""),
-Text(""),
-Text(""),
+
 new OutlineButton(
       borderSide: BorderSide(
             color: Colors.green, //Color of the border
@@ -2423,7 +2415,7 @@ print("object $headers");
                      
                       child:   IconButton(
 
-                        icon: Icon(Icons.delete,color: Colors.black,size: 25,),
+                        icon: Icon(Icons.delete,color: Colors.red,size: 25,),
                         onPressed:(){
                           voidItem(context, index);
                               
@@ -2538,7 +2530,7 @@ print("object $headers");
                      ),
                   
                       IconButton(
-                        icon: Icon(Icons.delete,color: Colors.black,size: 25,),
+                        icon: Icon(Icons.delete,color: Colors.red,size: 25,),
                         onPressed:(){
                           
                           voidItem(context, index);
