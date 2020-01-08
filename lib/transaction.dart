@@ -501,7 +501,7 @@ deleteSelected() async{
           child: Column(
           children: <Widget>[
          Container(
-           
+            height: 40,
            color: Colors.deepOrange,
            child: 
               Center( 
@@ -512,7 +512,6 @@ deleteSelected() async{
            children: <Widget>[
               textCustom("Date/Time", 20, Colors.black, "style",),
               textCustom("${dates}", 20, Colors.black, "style",),
-             
            ],
          ),
              Row(
@@ -542,7 +541,7 @@ deleteSelected() async{
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -774,7 +773,7 @@ deleteSelected() async{
           child: Column(
           children: <Widget>[
          Container(
-           
+            height: 50,
            color: Colors.deepOrange,
            child: 
               Center( 
@@ -1408,9 +1407,34 @@ deleteSelected() async{
           ),
     color:Colors.green,
   child: new textCustom("Submit",25,Colors.green,""),
-  onPressed: (){
-    //balik
+  onPressed: ()async{
+ 
+    var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       ,"totalAmt":"${rev["totalAmt"]}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}"
+                     });
+                          print("object");
+                     final myString = '${header.body}';
+var headers = myString.replaceAll(RegExp('"'), ''); 
+print("object $headers");
+                     for(int x=0;x<reviewdata.length;x++){
+                    
+                      int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
+                      print("burat $refund");
+                            await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
+                       "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
+                       "productId":"${reviewdata[x]["productId"]}",
+                       "amount":"${reviewdata[x]["amount"]}",
+//"productName":"${productName[x]}",
+"quantity":"$refund",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headers"
+                     });
+                     }
+                       tranhistory.add("");
   Navigator.of(context).pop();
+
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),

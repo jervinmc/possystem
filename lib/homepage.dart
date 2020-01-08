@@ -1545,7 +1545,7 @@ print("object $headers");
                     // SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
               // SunmiAidlPrint.setFontSize(fontSize:30);
-              SunmiAidlPrint.openDrawer1();
+             /* SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1569,6 +1569,7 @@ print("object $headers");
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
             SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+            */
               productName=[];
               quantity=[];
               price=[];
