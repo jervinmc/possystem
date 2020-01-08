@@ -293,11 +293,16 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
          print("objectssssss");
            subtotal=subtotal-(quantity[x]*price[x]);
            print("$subtotal eto ang sub");
+            discountLabel=discountLabel-price[x];
+          TextEditingController a=new TextEditingController(text:"0");
+          
+            replacementDiscount[x]="0";
                             quantity.removeAt(x);
                               price.removeAt(x);
                                productName.removeAt(x);
                             points=0.0;
                             checkedOut=true;
+                           
                             //discountablePrice
                 Navigator.of(context).pop();
        }
@@ -341,7 +346,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             children: <Widget>[
          Container(
            height: 80,
-           color: Colors.black,
+           color: Colors.deepOrange,
            child: Center(
              child: textCustom("Discount Payment", 20, Colors.white, "style"),
            ),
@@ -357,7 +362,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        Container(
          height: 60,
          child:  DropdownButton(
-            hint: Text('Please choose a location'), // Not necessary for Option 1
+            hint: Text('Type of Discount'), // Not necessary for Option 1
             value: _selectedLocation,
             onChanged: (newValue) {
              Navigator.of(context).pop();
@@ -378,8 +383,27 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
         ),
       ),
       Text(""),
+      Table(
+        children: [
+          TableRow(
+            children: [
+              Text(""),
+              Text(""),
+              
+                  Text(""),
+                  Text(""),
+                  _selectedLocation=="QUANTITY" ?Text("QTY",style: TextStyle(fontWeight: FontWeight.bold)) : Text("OFF",style: TextStyle(fontWeight: FontWeight.bold)) ,
+                  Text(""),
+                  Text(""),
+       Text("AMT",style: TextStyle(fontWeight: FontWeight.bold))  ,
+                  Text(""),
+            ]
+          )
+        ],
+      ),
+      Text(""),
     Container(
-      height: 400,
+      height: 200,
       width: 700,
       child: ListView.builder(
       itemCount: productName.length,
@@ -433,7 +457,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  );
                 },
                 ),
-                  Row(
+                _selectedLocation=="QUANTITY"? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //Text(""),  
@@ -481,7 +505,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                ),
               ),
                 ],
-              ),
+              ) :
              Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                children: <Widget>[
@@ -538,22 +562,22 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     )
             ],
           )),
-        content:Text(""),
+    
         actions: <Widget>[
            Center(
              child:Container(
                width: 300,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
+                   mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
+    color:Colors.deepOrange,
   child: new textCustom("OK",25,Colors.red,""),
   onPressed: (){
     discountLabel=0.0;
@@ -714,6 +738,56 @@ Future<void> cashierInfo(BuildContext context,int x) {
           ),
     color:Colors.red,
   child: new textCustom("OK",25,Color(0xFFF95700),""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           )
+        ],
+      ),
+      );
+    },
+  );
+}
+Future<void> restrictAmount(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Center( 
+          child: textCustom("Please enter opening amount.", 25, Colors.red, "style",),),
+        content:Text(""),
+        actions: <Widget>[
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1228,7 +1302,10 @@ Future<void> shifting(BuildContext context,int x) async{
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
   });
-  Navigator.of(context).pop();
+
+    if(openingA.text==""){
+      restrictAmount(context,1);
+    }
               },
           controller: openingA,
           maxLength: 5,
@@ -1465,33 +1542,33 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
-                      //   SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+                    // SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
               // SunmiAidlPrint.setFontSize(fontSize:30);
-            
-              //SunmiAidlPrint.printText(text: "             Trudi POS");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.setFontSize(fontSize:20);
-              //SunmiAidlPrint.printText(text: "Member:                             Prokopyo tunying\n");
-              //SunmiAidlPrint.printText(text: "Points:                             $points'\n");
-              //SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
-              //for(int x=0;x<productName.length;x++){
-            // SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
-              //}
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "\n");
-              //SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              //SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-              //SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              //SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+              SunmiAidlPrint.openDrawer1();
+              SunmiAidlPrint.printText(text: "             Trudi POS");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+            SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Member:                            PT\n");
+              SunmiAidlPrint.printText(text: "Points:                             $points'\n");
+              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              for(int x=0;x<productName.length;x++){
+             SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
+              }
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
               productName=[];
               quantity=[];
               price=[];
@@ -1513,9 +1590,7 @@ print("object $headers");
                      subtotal=0.0;
                     points=0.0;
                     discountLabel=0.0;
-                     
                     });
-                    
                      // print(a.body);
                      SharedPreferences prefs=await SharedPreferences.getInstance();
                    // List tranhis1=prefs.getStringList("tranhistory");
@@ -1806,15 +1881,25 @@ print("object $headers");
     startTimer();
     return Scaffold(
      drawer: Theme(
-        data: ThemeData.dark(),
+        data: ThemeData.light(),
         child: new Drawer(  //drawer holds the profile and logout function which the user can easily route
         child: new ListView( 
           children: <Widget>[
+        
              SizedBox(
                height: 80,
                child:  new UserAccountsDrawerHeader( //Account Header which to show the picture and the name of the signed user
+               decoration: BoxDecoration(
+        color: Colors.deepOrange,
+    ),
+    currentAccountPicture: CircleAvatar(
+        backgroundColor: Colors.black,
+        backgroundImage: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv3DlJmfdBdEjgRJQGdADUS4oTg-NfveMDnsi7N_PVqqy7ZUCv&s"),
+    ),
+      
               accountName: Text("$usernamePrefs",
               style: TextStyle(fontSize: 30,color: Colors.white),
+          
                 ),
               ),
              ),
@@ -1824,8 +1909,11 @@ print("object $headers");
                 children: <Widget>[
                 new ListTile(
                 title: new Text('Transaction', style: TextStyle(fontSize: 20,
-                 color: Colors.white),),
-                trailing: new Icon(Icons.account_balance, size: 30,),
+                 color: Colors.black),),
+                trailing: Container(
+                  height: 45,
+                  child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/book-131976794623339327.png")),
+                ),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
                   Navigator.pop(context);
@@ -1833,8 +1921,11 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Void', style: TextStyle(fontSize: 20, color: Colors.white),),
-                trailing: new Icon(Icons.delete_outline, size: 30,),
+                title: new Text('Void', style: TextStyle(fontSize: 20, color: Colors.black),),
+                trailing: Container(
+                  height: 45,
+                  child: Image(image: NetworkImage('https://cdn3.iconfinder.com/data/icons/rest/30/void_order-512.png')),
+                ),
                 onTap: () {
                   if(productName.length==0){
                      Navigator.pop(context);
@@ -1847,8 +1938,11 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 20, color: Colors.white),),
-                trailing: new Icon(Icons.assignment, size: 30,),
+                title: new Text('Discount', style: TextStyle(fontSize: 20, color: Colors.black),),
+                trailing: Container(
+                  height: 45,
+                  child: Image(image: NetworkImage('https://icons-for-free.com/iconfiles/png/512/price+sale+tag+icon-1320137093931338641.png')),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   if(productName.length==0){
@@ -1863,8 +1957,11 @@ print("object $headers");
                 }),
                new Divider(),
                new ListTile(
-                  title: new Text('Close Shift', style: TextStyle(fontSize: 20, color: Colors.white),),
-                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),             
+                  title: new Text('Close Shift', style: TextStyle(fontSize: 20, color: Colors.black),),
+                  trailing: Container(
+                  height: 45,
+                  child: Image(image: NetworkImage('https://img.icons8.com/dusk/2x/exit-sign.png')),
+                ),          
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
                      Navigator.of(context).pop();
@@ -1965,8 +2062,11 @@ print("object $headers");
                        }      
                           ),
                           new ListTile(
-                  title: new Text('Logout', style: TextStyle(fontSize: 20, color: Colors.white),),
-                  trailing: new Icon(Icons.arrow_drop_down_circle, size: 30,),      
+                  title: new Text('Logout', style: TextStyle(fontSize: 20, color: Colors.black),),
+                  trailing: Container(
+                  height: 45,
+                  child: Image(image: NetworkImage('https://img.icons8.com/nolan/2x/export.png')),
+                ),      
                    onTap: (){
                      showDialog(
                        context: context, builder: (BuildContext context){
@@ -2384,7 +2484,7 @@ print("object $headers");
                         onTap: (){
                        _ackAlert(context,index);
                         },
-                        child: quantityDiscount[index]=="0" || quantityDiscount[index]==null || quantityDiscount[index]=="" || quantityDiscount[index]=="${quantity[index]}" ? textCustom("${quantity[index]}", 25, Colors.black, "style") : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
+                        child: textCustom("${quantity[index]}", 25, Colors.black, "style") // quantityDiscount[index]=="0" || quantityDiscount[index]==null || quantityDiscount[index]=="" || quantityDiscount[index]=="${quantity[index]}" ? : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
                       ),
                      IconButton(
                     icon:  Icon(Icons.add,color: Color(0xFFF95700),),
@@ -2498,12 +2598,11 @@ print("object $headers");
                 
                     },
                     ),
-                    
                       InkWell(
                         onTap: (){
                         _ackAlert(context,index);
                         },
-                        child: quantityDiscount[index]=="0" || quantityDiscount[index]==null? textCustom("${quantity[index]}", 25, Colors.black, "style") : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
+                        child:textCustom("${quantity[index]}", 25, Colors.black, "style"),
                       ),
                      IconButton(
                     icon:  Icon(Icons.add,color: Color(0xFFF95700)), 
