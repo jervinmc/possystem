@@ -130,10 +130,10 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.4, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.3, vertical: 2.0),
                   child: FadeAnimation(2.9,Material(
-                    elevation: 6,
-                    borderRadius: BorderRadius.circular (10),
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                    // child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
@@ -141,7 +141,7 @@ class _SignInState extends State<SignIn> {
                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
                           icon:Container(
-                            padding: EdgeInsets.only(left: 20, right: 50),
+                            padding: EdgeInsets.only(left: 20, right: 20),
                             child:  Icon(Icons.person_outline, size: 40),
                           ),
                           labelText: "Username", labelStyle: TextStyle(color: Colors.black),
@@ -153,11 +153,11 @@ class _SignInState extends State<SignIn> {
                 Text(""),
                  Container(
 
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.4, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.3, vertical: 2.0),
 
                   child: FadeAnimation (2.9,Material(
-                    elevation: 6,
-                     borderRadius: BorderRadius.circular (10),
+                    elevation: 8,
+                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   //  child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
@@ -165,7 +165,7 @@ class _SignInState extends State<SignIn> {
                          obscureText: true,
                         decoration: InputDecoration(
                           icon: Container(
-                            padding: EdgeInsets.only(left: 20, right: 50),
+                            padding: EdgeInsets.only(left: 20, right: 20),
                             child: Icon(Icons.lock_outline, size: 40),
                           ),
                           labelText: "Password", labelStyle: TextStyle(color: Colors.black),
