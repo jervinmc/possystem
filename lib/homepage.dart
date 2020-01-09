@@ -1524,7 +1524,8 @@ new OutlineButton(
                    else if(double.parse(payment.text)>=subtotal-discountLabel){
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
-                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points"
+                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","memberName":"Emil","remarks":"Transaction Completed"
+                      
                        
                      });
                      final myString = '${header.body}';
@@ -1576,6 +1577,8 @@ print("object $headers");
               pointsTotal=[];
               points=0;
                      totalAmountSave+=subtotal-discountLabel;
+                     SharedPreferences prefs = await SharedPreferences.getInstance();
+                     prefs.setDouble("totalAmountSaveprefs",totalAmountSave);
                     setState(() {
                       counterData=0;
                        replacementDiscount.clear();
@@ -1593,7 +1596,7 @@ print("object $headers");
                     discountLabel=0.0;
                     });
                      // print(a.body);
-                     SharedPreferences prefs=await SharedPreferences.getInstance();
+                    // SharedPreferences prefs=await SharedPreferences.getInstance();
                    // List tranhis1=prefs.getStringList("tranhistory");
                    if(prefs.getStringList("tranhistory")==[]){
 
@@ -1917,8 +1920,9 @@ print("object $headers");
                 ),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
+
                   Navigator.pop(context);
-                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"),totalAmountSave)));
+                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"),prefs.getDouble("totalAmountSaveprefs"))));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
@@ -1991,6 +1995,7 @@ print("object $headers");
                                   prefs.setString("userPass", "");
                                   prefs.setStringList("tranhistory", []);
                                   prefs.setString("available","");
+                                  prefs.setDouble("totalAmountSaveprefs",0.0);
                                  Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                        },
                                        controller: closingAmountText,

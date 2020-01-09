@@ -19,7 +19,10 @@ class Services {
   final double payment;
   final double memberPoints;
   final String dateTime;
-  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime);
+  final String remarks;
+  final String username;
+  
+  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username);
 
 }
 class Transaction extends StatefulWidget {
@@ -48,16 +51,22 @@ class _TransactionState extends State<Transaction> {
     if(getSearchReceipt==""){
        for(var u in reviewdata){
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"]);
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]);
        
-      
-       services.add(service);
+      if(tranhistory.contains(u["_id"])){
+            services.add(service);
+            print("may pumasok");
+      }
+      else{
+ print("walang pumasok");
+      }
     }
     }
     else{
        for(var u in reviewdata){
+
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"]);
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]);
        
       if(getSearchReceipt==reviewdata[x]['_id']){
            services.add(service);
@@ -436,7 +445,7 @@ deleteSelected() async{
          Container(padding: EdgeInsets.all(10),   
                 child:Center(child:  textCustom1("Receipt Number", 25, Colors.black, "",FontWeight.bold))),
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("Date", 25, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("Transaction Type", 25, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("Action", 25, Colors.black, "",FontWeight.bold))),
             ]
@@ -518,7 +527,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
+              textCustom("${snapshot.data[index].username}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -997,7 +1006,7 @@ deleteSelected() async{
   );
 
                 },
-                        child:  textCustom("${dates}", 25, Colors.black, "style"),
+                        child:  textCustom("${snapshot.data[index].remarks}", 25, Colors.black, "style"),
                       ),
               
 
@@ -1411,7 +1420,7 @@ deleteSelected() async{
  
     var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
-                       ,"totalAmt":"${rev["totalAmt"]}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}"
+                       ,"totalAmt":"${rev["totalAmt"]}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt"
                      });
                           print("object");
                      final myString = '${header.body}';
@@ -1432,7 +1441,35 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
-                       tranhistory.add("");
+                   
+                       var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       ,"totalAmt":"${rev["totalAmt"]}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items"
+                     });
+                          print("object");
+                     final s = '${headersId.body}';
+var headerId = s.replaceAll(RegExp('"'), ''); 
+
+                     for(int x=0;x<reviewdata.length;x++){
+                    
+            
+                   
+                            await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
+                       "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
+                       "productId":"${reviewdata[x]["productId"]}",
+                       "amount":"${reviewdata[x]["amount"]}",
+//"productName":"${productName[x]}",
+"quantity":"${int.parse("${refundTextCtrlr[x].text}")}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headerId"
+                     });
+                     }
+                    // setState(() {
+                                   tranhistory.add("$headerId");
+                                  tranhistory.add("$headers");
+                     //});
+           
   Navigator.of(context).pop();
 
   },
@@ -2005,7 +2042,7 @@ print("object $headers");
   );
 
                 },
-                        child:  textCustom("${dates}", 25, Colors.black, "style"),
+                        child:  textCustom("${snapshot.data[index].remarks}", 25, Colors.black, "style"),
                       ),
               
 
