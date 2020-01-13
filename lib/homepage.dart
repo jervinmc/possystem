@@ -171,7 +171,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           child: Column(
             children: <Widget>[
              Container(
-               padding: EdgeInsets.only(bottom: 10),
+               padding: EdgeInsets.only(bottom: 10, top: 10),
                child:  textCustom("ENTER USERNAME", 25, Colors.black, "style",),
              ),
               Container(
@@ -183,11 +183,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(15)
                 ),
                // hintText: 'Mobile Number',
@@ -199,7 +199,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               ),
                       ),
                        Container(
-               padding: EdgeInsets.only(bottom: 10,top: 20),
+               padding: EdgeInsets.only(bottom: 10,top: 10),
                child:  textCustom("ENTER PASSWORD", 25, Colors.black, "style",),
              ),
               Container(
@@ -212,11 +212,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
               decoration: new InputDecoration(
                  
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(5)
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF95700), width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(15)
                 
                 ),
@@ -224,7 +224,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20, 
                 color: Colors.black
               ),
               ),
@@ -347,7 +347,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
         title:Center( 
           child:Column(
@@ -579,14 +579,32 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  child:  Row(
                    mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
+Row(
+  children: <Widget>[
+    OutlineButton(
+   borderSide: BorderSide(
             color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
     color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.red,""),
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+    Navigator.pop(context);
+  },
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+)
+  ],
+),
+Padding(padding: EdgeInsets.all(10),),
+new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     discountLabel=0.0;
     for(int x=0;x<productName.length;x++){
@@ -875,27 +893,27 @@ Future<void> transactFailed(BuildContext context,int x) {
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1? textCustom("There is no product to transact.", 25, Color(0xFFF95700), "style",) : x==2? textCustom("There is no product found.", 25, Color(0xFFF95700), "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
+          child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.red, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
         content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
-               width: 100,
+               width: 150,
                child: Center(
                  child:  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFF95700), //Color of the border
+            color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 1, //width of the border
           ),
-    color:Color(0xFFF95700),
-  child: new textCustom("OK",20,Color(0xFFF95700),""),
+    color:Colors.red,
+  child: new textCustom("OK",20,Colors.red,""),
   onPressed: (){
       if(x==3){
 
@@ -1309,7 +1327,7 @@ Future<void> shifting(BuildContext context,int x) async{
           borderRadius:BorderRadius.circular(15)
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       backgroundColor: Colors.white,
         title:Center( 
           child:Column(
@@ -1342,7 +1360,7 @@ Future<void> shifting(BuildContext context,int x) async{
              child:Container(
                child: Center(
                  child:  Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: <Widget>[
               
 Text(""),
@@ -1513,7 +1531,7 @@ new OutlineButton(
               ),
               style: TextStyle(
                     fontSize: 30,
-                color: Colors.black
+                color: Colors.black,
               ),
               ),
                       ),
@@ -1564,26 +1582,28 @@ print("object $headers");
      });
 
                      }
-                
-                     
-                    // SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-               // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-              // SunmiAidlPrint.setFontSize(fontSize:30);
-          /* SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
+              //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+                //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               //SunmiAidlPrint.setFontSize(fontSize:30);
+              /*SunmiAidlPrint.printText(text:                                "Benevolence Enterpries");
+               SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:                                "Fairview, Quezon City");
+               SunmiAidlPrint.printText(text:"\n");
+               SunmiAidlPrint.printText(text:"\n");
+              //SunmiAidlPrint.printText(text:                         "Trudi POS");
+               SunmiAidlPrint.printText(text:"========================================");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             $points'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              SunmiAidlPrint.printText(text: "\n");              
+              SunmiAidlPrint.setFontSize(fontSize:22);
+              SunmiAidlPrint.printText(text: "                              Member:      Username \n");
+              SunmiAidlPrint.printText(text: "                              Points:  $points \n");
+               SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.printText(text: "                       ITEM| QTY| PRICE| TOTAL \n");
               for(int x=0;x<productName.length;x++){
-             SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
-              }
+               SunmiAidlPrint.printText(text:"========================================");
+             SunmiAidlPrint.printText(text: "              ${productName[x]}     ${quantity[x]}     ${price[x]}     ${quantity[x]*price[x]}\n");
+             }
+              SunmiAidlPrint.printText(text:"=========================================");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1945,7 +1965,7 @@ print("object $headers");
                  color: Colors.black),),
                 trailing: Container(
                   height: 45,
-                  child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/book-131976794623339327.png")),
+                  child: Image(image: AssetImage("assets/trans.png")),
                 ),
                 onTap: () async{
                   SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1958,7 +1978,7 @@ print("object $headers");
                 title: new Text('Void', style: TextStyle(fontSize: 20, color: Colors.black),),
                 trailing: Container(
                   height: 45,
-                  child: Image(image: NetworkImage('https://cdn3.iconfinder.com/data/icons/rest/30/void_order-512.png')),
+                  child: Image(image: AssetImage('assets/void.png')),
                 ),
                 onTap: () {
                   if(productName.length==0){
@@ -1975,7 +1995,7 @@ print("object $headers");
                 title: new Text('Discount', style: TextStyle(fontSize: 20, color: Colors.black),),
                 trailing: Container(
                   height: 45,
-                  child: Image(image: NetworkImage('https://icons-for-free.com/iconfiles/png/512/price+sale+tag+icon-1320137093931338641.png')),
+                  child: Image(image: AssetImage('assets/discount.png')),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -1994,7 +2014,7 @@ print("object $headers");
                   title: new Text('Close Shift', style: TextStyle(fontSize: 20, color: Colors.black),),
                   trailing: Container(
                   height: 45,
-                  child: Image(image: NetworkImage('https://img.icons8.com/dusk/2x/exit-sign.png')),
+                  child: Image(image: AssetImage('assets/clshift.png')),
                 ),          
                    onTap: ()async{
                      SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -2115,7 +2135,7 @@ print("object $headers");
                   title: new Text('Logout', style: TextStyle(fontSize: 20, color: Colors.black),),
                   trailing: Container(
                   height: 45,
-                  child: Image(image: NetworkImage('https://img.icons8.com/nolan/2x/export.png')),
+                  child: Image(image: AssetImage('assets/logout.png')),
                 ),      
                    onTap: (){
                      showDialog(
@@ -2123,8 +2143,8 @@ print("object $headers");
                          return AlertDialog(
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            backgroundColor: Colors.white,
-                           title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                          // title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
+                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25,), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              new OutlineButton(
                              borderSide: BorderSide(
@@ -2408,9 +2428,8 @@ print("object $headers");
             onTap: (){
               
               
-              
             },
-            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+            child: Image.asset("assets/bar1.png", fit: BoxFit.cover,),
           )
 
         ),
@@ -2580,7 +2599,7 @@ print("object $headers");
                      
                       child:   IconButton(
 
-                        icon: Icon(Icons.delete,color: Colors.black,size: 25,),
+                        icon: Icon(Icons.delete,color: Colors.red,size: 25,),
                         onPressed:(){
                           voidItem(context, index);
                               
@@ -2614,9 +2633,9 @@ print("object $headers");
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
                  buttonOkColor: Colors.green,
                  buttonOkText: Text("Ok", style: TextStyle(color: Colors.white, fontSize: 20)),
-                 title: Text("Discount",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                 title: Text("",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  ),
-                 description: Text("Transaction Details",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                 description: Text("",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                  textAlign: TextAlign.center),
                  entryAnimation: EntryAnimation.RIGHT,
                  onOkButtonPressed: (){
@@ -2696,7 +2715,7 @@ print("object $headers");
                      ),
                   
                       IconButton(
-                        icon: Icon(Icons.delete,color: Colors.black,size: 25,),
+                        icon: Icon(Icons.delete,color: Colors.red,size: 25,),
                         onPressed:(){
                           
                           voidItem(context, index);
@@ -2762,7 +2781,7 @@ print("object $headers");
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold),
-             textCustom1("Prokopyo Tunying", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("Juan TY", 15, Colors.black, "style",FontWeight.bold),
           ],
         ),*/
          Text(""),

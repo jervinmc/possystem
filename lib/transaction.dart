@@ -583,7 +583,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -737,12 +737,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -878,7 +878,7 @@ deleteSelected() async{
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -891,7 +891,7 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.normal),
                ),
              ),
            ],
@@ -1030,12 +1030,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1322,12 +1322,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1592,8 +1592,8 @@ var headerId = s.replaceAll(RegExp('"'), '');
  },
  
             child: Container(
-                       padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Refund", 20, Colors.black, ""),
+              height: 40,
+                       child: Image(image: AssetImage("assets/refund.png"),),
                      ),
                      ),
                    ),
@@ -1658,7 +1658,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
            color: Colors.deepOrange,
            child: 
               Center( 
-          child: textCustom("Refund", 30, Colors.white, "style",),),
+          child: textCustom("Transaction details", 30, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1695,7 +1695,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1722,7 +1722,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -1875,12 +1875,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1988,7 +1988,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2016,7 +2016,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2035,7 +2035,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
           child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
@@ -2166,12 +2166,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -2280,7 +2280,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2288,10 +2288,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
@@ -2308,7 +2308,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2326,9 +2326,9 @@ var headerId = s.replaceAll(RegExp('"'), '');
              ),
            ],
          ),
-           Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(2),
+          Container(padding: EdgeInsets.all(2),
+          child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(2),
           child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
@@ -2466,12 +2466,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -2566,7 +2566,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2574,10 +2574,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+          Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
@@ -2594,7 +2594,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 50,
+           height: 40,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2746,12 +2746,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.deepOrange, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
   onPressed: (){
     
   Navigator.of(context).pop();

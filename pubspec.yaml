@@ -93,6 +93,15 @@ flutter:
   - assets/heart.png
   - assets/POS1.png
   - assets/POS2.png
+  - assets/trans.png
+  - assets/void.png
+  - assets/discount.png
+  - assets/clshift.png
+  - assets/logout.png
+  - assets/barcode.png
+  - assets/bar.png
+  - assets/bar1.png
+  - assets/refund.png
 
 
 
