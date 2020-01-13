@@ -1552,34 +1552,38 @@ print("object $headers");
 "headerId":"$headers"
                      });
                      }
-                    // SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-               // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-              // SunmiAidlPrint.setFontSize(fontSize:30);
-             
-             /* SunmiAidlPrint.printText(text: "             Trudi POS");
+              //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+                //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               //SunmiAidlPrint.setFontSize(fontSize:30);
+              /*SunmiAidlPrint.printText(text:                                "Benevolence Enterpries");
+               SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:                                "Fairview, Quezon City");
+               SunmiAidlPrint.printText(text:"\n");
+               SunmiAidlPrint.printText(text:"\n");
+              //SunmiAidlPrint.printText(text:                         "Trudi POS");
+               SunmiAidlPrint.printText(text:"========================================");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             $points'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              SunmiAidlPrint.printText(text: "\n");              
+              SunmiAidlPrint.setFontSize(fontSize:22);
+              SunmiAidlPrint.printText(text: "                              Member:      Username \n");
+              SunmiAidlPrint.printText(text: "                              Points:  $points \n");
+               SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.printText(text: "                       ITEM| QTY| PRICE| TOTAL \n");
               for(int x=0;x<productName.length;x++){
-             SunmiAidlPrint.printText(text: "${productName[x]}         ${quantity[x]}          ${price[x]}         ${quantity[x]*price[x]}\n");
-              }
+               SunmiAidlPrint.printText(text:"========================================");
+             SunmiAidlPrint.printText(text: "              ${productName[x]}     ${quantity[x]}     ${price[x]}     ${quantity[x]*price[x]}\n");
+             }
+              SunmiAidlPrint.printText(text:"=========================================");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
-              */productName=[];
+              SunmiAidlPrint.printText(text: "                              Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                              Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                              Money:  ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                              Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+              */ productName=[];
               quantity=[];
               price=[];
               pointsTotal=[];
@@ -2712,7 +2716,7 @@ print("object $headers");
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold),
-             textCustom1("Prokopyo Tunying", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("Juan TY", 15, Colors.black, "style",FontWeight.bold),
           ],
         ),
          Text(""),
