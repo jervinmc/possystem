@@ -16,7 +16,7 @@ void main ()async {
   SharedPreferences prefs=await SharedPreferences.getInstance();
   if(prefs.getString("userUsed")=="used"){
      // Navigator.push(BuildC, SlideRightRoute(widget: Homepage()));
-     runApp(MyApp());
+     runApp(MyApp(""));
   }
   else{ 
   runApp(SignIn1());
@@ -56,8 +56,8 @@ class _SignInState extends State<SignIn> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1?textCustom("Invalid Username/Password", 25, Color(0xFFF95700), "style"): textCustom("Someone already logged in!", 25, Colors.red, "style",),),
-        content:Text("Kindly ask the current user to close shift.", style: TextStyle(fontSize: 25, color: Colors.red),),
+          child: x==1?textCustom("Invalid Username/Password", 25, Color(0xFFF95700), "style") : x==2?  textCustom("Someone already logged in!", 25, Colors.red, "style",) : textCustom("Please input all required fields", 25, Colors.red, "style",),),
+        //content:Text("Kindly ask the current user to close shift.", style: TextStyle(fontSize: 25, color: Colors.red),),
         actions: <Widget>[
            Center(
              child:Container(
@@ -199,30 +199,26 @@ class _SignInState extends State<SignIn> {
         signinFunction(context, 2);
       }
   }
+  else if(username.text==""){
+      signinFunction(context,3);
+  }
   else{
      for (int x = 0; x < reviewdata.length; x++) { 
        if (username.text == reviewdata[x]['firstname'] ){
               a=1;
             print("object dumaan");
-                     Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata[x]['firstname'])));
+                     Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata[x]['_id'])));
                         SharedPreferences prefs=await SharedPreferences.getInstance();
   prefs.setString("userUsed", "used");
   prefs.setString("userName", "${ reviewdata[x]['firstname']}");
   prefs.setString("userPass", "used");
-
        }
      }
     if(a==0){
         signinFunction(context, 1);
         a=1;
     }
-
   }
-
-   
-    
-
-
       //   Navigator.push(context, SlideRightRoute(widget: Homepage()));
    //Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },

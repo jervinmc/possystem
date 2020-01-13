@@ -122,11 +122,13 @@ class RadialAnimation extends StatelessWidget {
   }
 }
 class MyApp extends StatelessWidget {
+  String id;
+  MyApp(this.id);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       
-      home: Homepage(""),
+      home: Homepage(id),
       
     );
   }
@@ -291,12 +293,18 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
          print("objectsss");
        if (usernameVoid.text == usernamePrefs ){
          print("objectssssss");
-           subtotal=subtotal-(quantity[x]*price[x]);
+          
            print("$subtotal eto ang sub");
-            discountLabel=discountLabel-price[x];
+           if(discountLabel==0){
+              subtotal=subtotal-(quantity[x]*price[x]);
+           }
+           else{
+             
+           }
+           // discountLabel=discountLabel-price[x];
           TextEditingController a=new TextEditingController(text:"0");
           
-            replacementDiscount[x]="0";
+            //replacementDiscount[x]="0";
                             quantity.removeAt(x);
                               price.removeAt(x);
                                productName.removeAt(x);
@@ -822,7 +830,7 @@ Future<void> restrictAmount(BuildContext context,int x) {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",): textCustom("Insufficient Amount", 25, Colors.red, "style",),),
+          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",):  x==2? textCustom("Insufficient Amount", 25, Colors.red, "style",) :textCustom("Please Enter Amount", 25, Colors.red, "style",) ,),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -915,10 +923,16 @@ Future<void> transactFailed(BuildContext context,int x) {
       });
       int counterGate=0;
       print(searchCtrlr.text);
-      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/getbyid/${searchCtrlr.text}"),headers: {
+      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/GetByBarcode/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
     var reviewdata=json.decode(response.body);
+    if(reviewdata['quantity']==0){
+      print("ubos na");
+    }
+    else{
+      
+    
     print("${reviewdata['sellingPrice']} eto ang nakuha");
     //price.removeAt(2);
     int trap=0;
@@ -971,6 +985,7 @@ productName.add(reviewdata['productName']);
       
 
    }
+    }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
   return showDialog<void>(   
@@ -1167,6 +1182,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   TextEditingController closingAmountText=new TextEditingController();
   List<String> _locations = ['QUANTITY', 'PERCENT']; // Option 2
   String _selectedLocation; 
+  String removeFunction="";
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1247,7 +1263,11 @@ new OutlineButton(
     color:Colors.black,
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: (){
-  setState(() {
+    if(qtyCtrlr.text=="" || qtyCtrlr.text=="0"){
+
+    }
+    else{
+        setState(() {
     sd=x;
     subtotal=0;
     //function="add";
@@ -1261,6 +1281,8 @@ new OutlineButton(
     //subtotal=price[x]*quantity[x];
   });
   Navigator.of(context).pop();
+    }
+  
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1304,7 +1326,7 @@ Future<void> shifting(BuildContext context,int x) async{
   });
 
     if(openingA.text==""){
-      restrictAmount(context,1);
+      restrictAmount(context,3);
     }
               },
           controller: openingA,
@@ -1322,25 +1344,7 @@ Future<void> shifting(BuildContext context,int x) async{
                  child:  Row(
                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.red, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.red,
-  child: new textCustom("Cancel",20,Colors.red,""),
-  onPressed: (){
-    prefs.setString("userUsed", "notUsed");
-                                  prefs.setString("openingAmount", "0.0");
-                                  prefs.setString("userName", "");
-                                  prefs.setString("userPass", "");
-                                  prefs.setStringList("tranhistory", []);
-                                  prefs.setString("available","");
-                                 Navigator.push(context, SlideRightRoute(widget: SignIn1()));
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
+              
 Text(""),
 Text(""),
 Text(""),
@@ -1359,7 +1363,12 @@ new OutlineButton(
     color:Colors.black,
   child: new textCustom("Submit",20,Colors.green,""),
   onPressed: ()async{
-    SharedPreferences prefs=await SharedPreferences.getInstance();
+    if(openingA.text==""){
+      paymentRestriction(context, 3);
+    }
+    else{
+        SharedPreferences prefs=await SharedPreferences.getInstance();
+
     prefs.setString("openingAmount","${openingA.text}");
 
   setState(() {
@@ -1367,6 +1376,8 @@ new OutlineButton(
     qtyCtrlr.text="";
   });
   Navigator.of(context).pop();
+    }
+  
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1524,14 +1535,14 @@ new OutlineButton(
                    else if(double.parse(payment.text)>=subtotal-discountLabel){
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
-                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","memberName":"Emil","remarks":"Transaction Completed"
-                      
-                       
+                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed"
+                    
                      });
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
 print("object $headers");
                      for(int x=0;x<productName.length;x++){
+
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${price[x]}","categoryDesc":"safeguard",
                        "productId":"${productId[x]}",
@@ -1541,12 +1552,24 @@ print("object $headers");
 "points":"20",
 //"productId":"5d81a87ac321c71124c19dfc",
 "headerId":"$headers"
+
                      });
+              http.Response response2=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/GetByProductId/${productId[x]}"),headers: {
+        "Accept":"application/json"
+     });
+      var reviewdataBarcode=json.decode(response2.body); 
+      print(reviewdataBarcode['barcode']);
+       http.Response response1=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/Update/${reviewdataBarcode['_id']}/${reviewdataBarcode['quantity']-quantity[x]}"),headers: {
+        "Accept":"application/json"
+     });
+
                      }
+                
+                     
                     // SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                // SunmiAidlPrint.printBarcode(text:"ReceiptBarcode",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
               // SunmiAidlPrint.setFontSize(fontSize:30);
-             /* SunmiAidlPrint.openDrawer1();
+          /* SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1883,7 +1906,13 @@ print("object $headers");
  @override
   Widget build(BuildContext context) {
     startTimer();
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: ()async{
+        print("object");
+       // paymentRestriction(context, 3);
+        return false;
+      },
+      child: Scaffold(
      drawer: Theme(
         data: ThemeData.light(),
         child: new Drawer(  //drawer holds the profile and logout function which the user can easily route
@@ -2008,9 +2037,8 @@ print("object $headers");
                            ),
                            //content: 
                            actions: <Widget>[
-                               Center(
-                                 child: Container(
-                                   child: Row(
+                              Row(
+                                     mainAxisAlignment: MainAxisAlignment.start,
                                      children: <Widget>[
                                        OutlineButton(
                                          borderSide: BorderSide(
@@ -2027,8 +2055,23 @@ print("object $headers");
                                        )
                                      ],
                                    ),
-                                 ),
-                               ),
+                               Text(""),
+                               Text(""),
+                               Text(""),
+                                Text(""),
+                               Text(""),
+                               Text(""),
+                                Text(""),
+                               Text(""),
+                               Text(""),
+                                Text(""),
+                               Text(""),
+                               Text(""),
+                                Text(""),
+                               Text(""),
+                               Text(""),
+                                Text(""),
+                               Text(""),
                                Text(""),
                                Text(""),
                                Text(""),
@@ -2052,6 +2095,7 @@ print("object $headers");
                                   prefs.setString("userPass", "");
                                   prefs.setStringList("tranhistory", []);
                                   prefs.setString("available","");
+                                  prefs.setDouble("totalAmountSaveprefs",0.0);
                                  Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                  }
                                 
@@ -2351,6 +2395,9 @@ print("object $headers");
               searchCtrlr.text="";
     },
     keyboardType: TextInputType.text,
+    style: TextStyle(
+      fontSize: 30
+    ),
     decoration: InputDecoration(
      
         icon: Container(
@@ -2368,7 +2415,8 @@ print("object $headers");
 
         ),
         hintText: 'ENTER BARCODE',
-        hintStyle: TextStyle(fontSize: 18),
+      
+        hintStyle: TextStyle(fontSize: 30),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
@@ -2466,13 +2514,14 @@ print("object $headers");
                     onPressed: (){
                           
 
-                   setState(() {
+                   setState(() {  
                      
                      if(quantity[index]==1){
                           
                          
                      }
                      else{
+               
                        points=points-pointsTotal[index];
                   
                       sd=index;
@@ -2480,6 +2529,7 @@ print("object $headers");
                          quantity[index]=quantity[index]-1;
                          subtotal=0;
                      lengthOfCount=0;
+                          removeFunction="";
                      }
                      
                    });
@@ -2503,6 +2553,7 @@ print("object $headers");
                           quantity[index]=quantity[index]+1;
                           subtotal=0;
                      lengthOfCount=0;
+                       removeFunction="";
                       });
                     },
                     ),
@@ -2598,6 +2649,7 @@ print("object $headers");
                        sd=index;
                       function="remove";
                        points=points-pointsTotal[index];
+                         removeFunction="";
                         }
                              
                       });
@@ -2621,6 +2673,7 @@ print("object $headers");
                           quantity[index]=quantity[index]+1;
                           subtotal=0;
                      lengthOfCount=0;
+                       removeFunction="";
                       });
                     },
                     ),
@@ -2705,15 +2758,15 @@ print("object $headers");
         ),
         Text(""),
         Text(""),
-        Row(
+       /* Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold),
              textCustom1("Prokopyo Tunying", 15, Colors.black, "style",FontWeight.bold),
           ],
-        ),
+        ),*/
          Text(""),
-         Text(""),
+  
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -2747,6 +2800,10 @@ print("object $headers");
               future: a(),
 
               builder: (BuildContext context, AsyncSnapshot snapshot){
+             
+                   removeFunction="go";
+            
+               
                 
                 
               return snapshot.data==null?Container() : ListView.builder(
@@ -2818,9 +2875,9 @@ print("object $headers");
            // border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-                Center(
-                  child: Container(padding: EdgeInsets.all(10),
-                child: textCustom("${a[0]}", 15, Colors.black, ""),),
+            
+                 Container(padding: EdgeInsets.all(10),
+                child: textCustom("${a[0]}", 15, Colors.black, ""),
                 ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -3024,8 +3081,8 @@ print("object $headers");
                                mainAxisAlignment: MainAxisAlignment.center,
                                children: <Widget>[
                                
-                              
-                               textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.black, "style",FontWeight.bold),// with formula...
+                        
+                              removeFunction=="go"?textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.black, "style",FontWeight.bold):Text(""),// with formula...
                              ],),
                               Row(
                                mainAxisAlignment: MainAxisAlignment.center,
@@ -3310,6 +3367,7 @@ print("object $headers");
 
         ],
       )
+    ),
     );
   }
 }
