@@ -5,6 +5,7 @@ import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/main.dart';
 import 'package:possystem/void.dart';
+import 'package:sunmi_aidl_print/sunmi_aidl_print.dart' as prefix1;
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
 import 'package:flutter/material.dart';
@@ -248,6 +249,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             width: 2, //width of the border
           ),
     color:Colors.red,
+    splashColor: Color(0xFFF95700),
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: ()async{ 
     
@@ -258,12 +260,13 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 ),
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("  Void  ",25,Colors.red,""),
+    color:Colors.green,
+    splashColor: Colors.green,
+  child: new textCustom("  Void  ",25,Colors.green,""),
   onPressed: ()async{ 
      if(x==2){  
        if (usernameVoid.text == usernamePrefs ){
@@ -661,8 +664,8 @@ new OutlineButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognized.", 25, Color(0xFFF95700), "style",),),
-        content:Text(""),
+          child: textCustom("Password/Username is not recognized.", 25, Colors.red, "style",),),
+        //content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
@@ -673,12 +676,12 @@ new OutlineButton(
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFF95700), //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Color(0xFFF95700),
-  child: new textCustom("OK",25,Color(0xFFF95700),""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -738,7 +741,7 @@ Future<void> cashierInfo(BuildContext context,int x) {
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("CONTACT NO. :", 25, Color(0xFFF95700), "style",),
+                    textCustom("CONTACT # :", 25, Color(0xFFF95700), "style",),
                     textCustom("02349273542", 25, Color(0xFFF95700), "style",),
 
                   ],
@@ -758,12 +761,12 @@ Future<void> cashierInfo(BuildContext context,int x) {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFF95700), //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Color(0xFFF95700),""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -785,7 +788,7 @@ Future<void> cashierInfo(BuildContext context,int x) {
 }
 Future<void> restrictAmount(BuildContext context,int x) {
         
-  return showDialog<void>(   
+  return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return Container(
@@ -849,7 +852,7 @@ Future<void> restrictAmount(BuildContext context,int x) {
       backgroundColor: Colors.white,
         title:Center( 
           child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",):  x==2? textCustom("Insufficient Amount", 25, Colors.red, "style",) :textCustom("Please Enter Amount", 25, Colors.red, "style",) ,),
-        content:Text(""),
+        //content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
@@ -860,12 +863,12 @@ Future<void> restrictAmount(BuildContext context,int x) {
                  children: <Widget>[
                    new OutlineButton(
             borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
     color: Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -897,23 +900,23 @@ Future<void> transactFailed(BuildContext context,int x) {
       backgroundColor: Colors.white,
         title:Center( 
           child: x==1? textCustom("There is no product to transact.", 25, Colors.red, "style",) : x==2? textCustom("There is no product found.", 25, Colors.red, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
-        content:Text(""),
+        //content:Text(""),
         actions: <Widget>[
            Center(
              child:Container(
                width: 150,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                   mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 1, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",20,Colors.red,""),
+    color:Colors.green,
+  child: new textCustom("OK",20,Colors.green,""),
   onPressed: (){
       if(x==3){
 
@@ -1435,7 +1438,6 @@ new OutlineButton(
                 height: 60,
                 color: Colors.deepOrange,
                 child:  Center(
-
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
                ),
               ),
@@ -1585,35 +1587,38 @@ print("object $headers");
               //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                //SunmiAidlPrint.setFontSize(fontSize:30);
-              /*SunmiAidlPrint.printText(text:                                "Benevolence Enterpries");
-               SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:                                 "Benevolence Enterpries");
+              SunmiAidlPrint.printText(text:"\n");
               SunmiAidlPrint.printText(text:                                "Fairview, Quezon City");
-               SunmiAidlPrint.printText(text:"\n");
-               SunmiAidlPrint.printText(text:"\n");
-              //SunmiAidlPrint.printText(text:                         "Trudi POS");
-               SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");              
               SunmiAidlPrint.setFontSize(fontSize:22);
-              SunmiAidlPrint.printText(text: "                              Member:      Username \n");
-              SunmiAidlPrint.printText(text: "                              Points:  $points \n");
-               SunmiAidlPrint.printText(text:"========================================");
-              SunmiAidlPrint.printText(text: "                       ITEM| QTY| PRICE| TOTAL \n");
+              SunmiAidlPrint.printText(text: "       Member:                                           Username\n");
+              SunmiAidlPrint.printText(text: "       Points:                                           $points \n");
+              SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+              SunmiAidlPrint.printText(text: "                ITEM|           QTY|       PRICE|      TOTAL \n");
+             // SunmiAidlPrint.printText(text:"=========================================");
               for(int x=0;x<productName.length;x++){
-               SunmiAidlPrint.printText(text:"========================================");
-             SunmiAidlPrint.printText(text: "              ${productName[x]}     ${quantity[x]}     ${price[x]}     ${quantity[x]*price[x]}\n");
+             // SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.printText(text: "        ${productName[x]}              ${quantity[x]}     ${price[x]}      ${quantity[x]*price[x]}\n");
              }
-              SunmiAidlPrint.printText(text:"=========================================");
+              
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
-            */
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+              SunmiAidlPrint.printText(text: "                               \t       Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                               \t       Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                               \t       Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                               \t       Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+              
               productName=[];
               quantity=[];
               price=[];
@@ -1862,7 +1867,6 @@ print("object $headers");
                            },"Clear",120),
                        ],
                      ),
- 
                     ],
                   ),
                 ),
@@ -1982,7 +1986,7 @@ print("object $headers");
                 ),
                 onTap: () {
                   if(productName.length==0){
-                     Navigator.pop(context);
+                      Navigator.pop(context);
                   }
                  else{
                         voidItem(context, 2);
@@ -2031,8 +2035,8 @@ print("object $headers");
                                child: Column(
                                  children: <Widget>[
                                    Text("Enter Closing Amount", style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                                 
-                                   Text(""),
+                    
+                                 //  Text(""),
                                    Container(
                                      width: 300,
                                      child: TextField(
@@ -2058,7 +2062,7 @@ print("object $headers");
                            //content: 
                            actions: <Widget>[
                               Row(
-                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     mainAxisAlignment: MainAxisAlignment.center,
                                      children: <Widget>[
                                        OutlineButton(
                                          borderSide: BorderSide(
@@ -2082,8 +2086,8 @@ print("object $headers");
                                Text(""),
                                Text(""),
                                 Text(""),
-                               Text(""),
-                               Text(""),
+                              Text(""),
+                              Text(""),
                                 Text(""),
                                Text(""),
                                Text(""),
@@ -2091,10 +2095,11 @@ print("object $headers");
                                Text(""),
                                Text(""),
                                 Text(""),
+                              Text(""),
+                               /*Text(""),
                                Text(""),
-                               Text(""),
-                               Text(""),
-                               Text(""),
+                               */Text(""),
+
                               OutlineButton(
                                 borderSide: BorderSide(
                                   color: Colors.green,
@@ -2422,14 +2427,13 @@ print("object $headers");
      
         icon: Container(
           padding: EdgeInsets.only(left: 15),
-          height: 50,
-          width: 70,
+          height: 65,
+          width: 80,
           child: InkWell(
             onTap: (){
               
-              
             },
-            child: Image.asset("assets/bar1.png", fit: BoxFit.cover,),
+            child: Image.asset("assets/b2.png", fit: BoxFit.cover,),
           )
 
         ),
@@ -2529,7 +2533,7 @@ print("object $headers");
                       ),
                     ),*/
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.black),
+                    icon:  Icon(Icons.remove,color: Colors.red),
                     onPressed: (){
                           
 
@@ -2562,7 +2566,8 @@ print("object $headers");
                         child: textCustom("${quantity[index]}", 25, Colors.black, "style") // quantityDiscount[index]=="0" || quantityDiscount[index]==null || quantityDiscount[index]=="" || quantityDiscount[index]=="${quantity[index]}" ? : textCustom("${quantity[index]}(-${quantityDiscount[index].text})", 25, Colors.black, "style"),
                       ),
                      IconButton(
-                    icon:  Icon(Icons.add,color: Color(0xFFF95700),),
+                    icon:  Icon(Icons.add,color: Color(0xFFF95700)),
+                    splashColor: Color(0xFFF95700),
                     onPressed: (){
                       setState(() {
                          print("awerc");
@@ -2598,8 +2603,8 @@ print("object $headers");
                     Container(
                      
                       child:   IconButton(
-
-                        icon: Icon(Icons.delete,color: Colors.red,size: 25,),
+                        splashColor: Color(0xFFF95700),
+                        icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 30),
                         onPressed:(){
                           voidItem(context, index);
                               
@@ -2651,7 +2656,7 @@ print("object $headers");
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.black,),
+                    icon:  Icon(Icons.remove,color: Colors.red,),
                     onPressed: (){
                         
                     
@@ -2715,7 +2720,7 @@ print("object $headers");
                      ),
                   
                       IconButton(
-                        icon: Icon(Icons.delete,color: Colors.red,size: 25,),
+                        icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 25,),
                         onPressed:(){
                           
                           voidItem(context, index);
@@ -2747,7 +2752,7 @@ print("object $headers");
                   ),
                 ),
                 Card(
-                  elevation: 5,
+                  elevation: 6,
                   child: Container(
                     color: Colors.white,
                    height: MediaQuery.of(context).size.height/1.1,
@@ -2789,8 +2794,8 @@ print("object $headers");
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Points :", 15, Colors.black, "style",FontWeight.bold),
-              textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("Points :", 16, Colors.black, "style",FontWeight.bold),
+              textCustom1("${FlutterMoneyFormatter(amount:points).output.nonSymbol}", 16, Colors.black, "style",FontWeight.bold),
           ],
         ),
         Divider(height: 5,),

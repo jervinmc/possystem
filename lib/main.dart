@@ -56,7 +56,7 @@ class _SignInState extends State<SignIn> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1?textCustom("Invalid Username/Password", 25, Color(0xFFF95700), "style") : x==2?  textCustom("Someone already logged in!", 25, Colors.red, "style",) : textCustom("Please input all required fields", 25, Colors.red, "style",),),
+          child: x==1?textCustom("Invalid Username/Password!", 25, Colors.red, "style") : x==2?  textCustom("Someone already logged in!", 25, Colors.red, "style",) : textCustom("Please input all required fields", 25, Colors.red, "style",),),
         //content:Text("Kindly ask the current user to close shift.", style: TextStyle(fontSize: 25, color: Colors.red),),
         actions: <Widget>[
            Center(
@@ -64,16 +64,16 @@ class _SignInState extends State<SignIn> {
                width: 250,
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                   mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFF95700), //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Color(0xFFF95700),
-  child: new textCustom("OK",25,Color(0xFFF95700),""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -103,17 +103,17 @@ class _SignInState extends State<SignIn> {
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: true,
       body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-              padding: EdgeInsets.only(top: 0, right: 120, left: 120,bottom: 0),
-              child: FadeAnimation(1.0,Image.asset("assets/POS2.png"),
+              padding: EdgeInsets.only(top: .5, right: 150, left: 150,bottom: .5),
+              child: FadeAnimation(1.2,Image.asset("assets/POS2.png"),
              )),
                 Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10, top: .1, bottom: .1),
+                  margin: const EdgeInsets.only(left: 10, right: 10, top: .2, bottom: 0),
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.3),
-                  child: FadeAnimation(1.0,Material(
+                  child: FadeAnimation(1.2,Material(
                     elevation: 8,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                    // child: Padding(
@@ -135,9 +135,9 @@ class _SignInState extends State<SignIn> {
                 )),
                 Text(""),
                  Container(
-                   margin: const EdgeInsets.only(left: 10, right: 10, top: .1, bottom: .1),
+                   margin: const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 0),
                   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.3),
-                  child: FadeAnimation (1.0,Material(
+                  child: FadeAnimation (1.2,Material(
                     elevation: 8,
                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   //  child: Padding(
@@ -159,7 +159,7 @@ class _SignInState extends State<SignIn> {
                 )),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
-                  child: FadeAnimation(1.0,Material( 
+                  child: FadeAnimation(1.2,Material( 
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(30.0),
                     shadowColor: Colors.transparent,
@@ -207,9 +207,9 @@ class _SignInState extends State<SignIn> {
                     },
                     child: Text("SIGN IN",
                     style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 50,
                       color: Color(0xFFF95700),
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w900,
                     ),),
                   ),
                 )

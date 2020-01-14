@@ -225,7 +225,7 @@ deleteSelected() async{
             //  searchCtrlr.text="";
               
             },
-            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+            child: Image.asset("assets/b2.png", fit: BoxFit.cover,),
           )
 
         ),
@@ -376,7 +376,7 @@ deleteSelected() async{
      
       ),
       resizeToAvoidBottomPadding: true,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
@@ -407,9 +407,9 @@ deleteSelected() async{
     decoration: InputDecoration(
      
         icon: Container(
-          padding: EdgeInsets.only(left: 15),
-          height: 50,
-          width: 70,
+          padding: EdgeInsets.only(left: 15,),
+          height: 65,
+          width: 80,
           child: InkWell(
             onTap: (){
             // input the receipt no. for searching.
@@ -419,21 +419,21 @@ deleteSelected() async{
            
               
             },
-            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+            child: Image.asset("assets/b2.png", fit: BoxFit.cover,),
           )
 
         ),
         hintText: 'ENTER RECEIPT NO.', 
         hintStyle: TextStyle(fontSize: 20,),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
                 width: 0, 
                 style: BorderStyle.none,
             ),
         ),
         filled: false,
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: EdgeInsets.all(20),
         fillColor: Colors.white
     ),
 ),
@@ -694,7 +694,7 @@ deleteSelected() async{
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+    //SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -985,7 +985,7 @@ deleteSelected() async{
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+    //SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1277,7 +1277,7 @@ deleteSelected() async{
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+   // SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1593,7 +1593,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
  
             child: Container(
               height: 40,
-                       child: Image(image: AssetImage("assets/refund.png"),),
+                       child: Image(image: AssetImage("assets/refund.png")),
                      ),
                      ),
                    ),
@@ -1830,7 +1830,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-      SunmiAidlPrint.openDrawer1();
+    //  SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -2123,7 +2123,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+   // SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -2421,7 +2421,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+   // SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -2701,7 +2701,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+    //SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -2771,8 +2771,8 @@ var headerId = s.replaceAll(RegExp('"'), '');
   );
  },
             child: Container(
-                       padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Refund", 20, Colors.black, ""),
+                       height: 40,
+                       child: Image(image: AssetImage("assets/refund.png")),
                      ),
                      )
                    )
