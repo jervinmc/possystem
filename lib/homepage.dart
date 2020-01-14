@@ -284,7 +284,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                     discountLabel=0.0;
                     passwordVoid.text="";
                     usernameVoid.text="";
-                
+
                      // print(a.body);
              Navigator.of(context).pop();
        }
@@ -303,7 +303,15 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
            }
            // discountLabel=discountLabel-price[x];
           TextEditingController a=new TextEditingController(text:"0");
-          
+          setState(() {
+            if(discountLabel!=0.0){
+              discountLabel=discountLabel-double.parse(replacementDiscount[x].text);
+                 replacementDiscount.removeAt(x);
+                 subtotal=subtotal-price[x]*quantity[x];
+            }
+            
+          });
+                        
             //replacementDiscount[x]="0";
                             quantity.removeAt(x);
                               price.removeAt(x);
@@ -318,13 +326,9 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
          voidFailed(context, 1);
        }
      }
-
-
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
 
                  ],
                ),
@@ -1294,6 +1298,7 @@ new OutlineButton(
         subtotal=subtotal+(price[x]*quantity[x]);
         
     }
+    
     qtyCtrlr.text="";
     print(quantity[x]); 
     //subtotal=price[x]*quantity[x];
@@ -1556,6 +1561,7 @@ new OutlineButton(
                        ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed"
                     
                      });
+
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
 print("object $headers");

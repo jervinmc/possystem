@@ -219,12 +219,7 @@ deleteSelected() async{
           height: 50,
           width: 70,
           child: InkWell(
-            onTap: (){
-              
-            //  enterBarcode();
-            //  searchCtrlr.text="";
-              
-            },
+           
             child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
           )
 
@@ -475,8 +470,7 @@ deleteSelected() async{
             
             children:[
                 InkWell(
-                  onDoubleTap: (){
-                  },
+               
                   child:   Container(padding: EdgeInsets.all(10),
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -485,8 +479,318 @@ deleteSelected() async{
                      textCustom("${index}", 20, Colors.black, "")
                   ],
                 )),
-                onTap: ()async{
+                
+                ),
+                //date...
+                Container(padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[  
+                   /* SizedBox(
+                      height: 50,
+                      child: StepperTouch(
+                        initialValue: 1,
+                      ),
+                    ),*/
+                     InkWell(
+                      
+                        child:  textCustom("${snapshot.data[index].remarks}", 25, Colors.black, "style"),
+                      ),
+              
 
+                  ],
+                )),
+            Column( //////// replacing action dont use it
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                   InkWell(
+                     onTap: ()async{
+                       
+                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+        
+     
+    var reviewdata=json.decode(response.body);
+     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var rev=json.decode(res.body);
+
+    print(reviewdata);
+
+                 showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Container(
+          width: 700,
+          height: 700,
+          child: Column(
+          children: <Widget>[
+         Container(
+           
+           color: Colors.deepOrange,
+           child: 
+              Center( 
+          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Date/Time", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Cashier", 20, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("", 20, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Points", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+         Divider(),
+         Container(
+           color: Colors.deepOrange,
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      ),
+      Container(
+        
+        height: 150,
+        child: ListView.builder(
+          itemCount: reviewdata.length,
+            itemBuilder: (BuildContext context, int index){
+              return Container(
+               
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+             Expanded(
+               child: Container(
+                 padding: EdgeInsets.all(2),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
+               ),
+             ),
+           ],
+         ),
+           Container(padding: EdgeInsets.all(2),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(2),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      );
+
+            },
+        ),
+       
+      ),
+       Divider(),
+       Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Subtotal", 20, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
+             
+           ],
+         ),
+             Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("VAT", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Discount", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Total", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Payment", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("0", 20, Colors.black, "style",),
+             
+           ],
+         ),
+       
+          ],
+        ),
+        ),
+        content:Text(""),
+        actions: <Widget>[
+            Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.transparent, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: Icon(Icons.print,color: Colors.green,size: 50,),
+  onPressed: (){
+    SunmiAidlPrint.openDrawer1();
+              SunmiAidlPrint.printText(text: "             Trudi POS");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+            SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Member:                            PT\n");
+              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
+              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              for(int x=0;x<snapshot.data.length;x++){
+             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
+              }
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
+            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
+            
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+           Center(
+             child:Container(
+               width: 300,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.deepOrange, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.deepOrange,
+  child: new textCustom("OK",25,Colors.deepOrange,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+
+                 ],
+               ),
+               )
+             )
+           ),
+         
+        ],
+      ),
+      );
+    },
+  );
+                     },
+                     child:   Row(  /////
+                       children: <Widget>[
+                         InkWell(
+                       onTap: ()async{
+                         //baliks
+                       
                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
         "Accept":"application/json"
      });
@@ -664,14 +968,14 @@ deleteSelected() async{
            ],
          ),
          Divider(),
-           Row(
+         snapshot.data[index].remarks=="Transaction Completed"? Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Change", 20, Colors.black, "style",),
               textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
              
            ],
-         ),
+         ):Container(),
        
           ],
         ),
@@ -762,593 +1066,22 @@ deleteSelected() async{
       ));
     },
   );
-
-                },
-                ),
-                //date...
-                Container(padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[  
-                   /* SizedBox(
-                      height: 50,
-                      child: StepperTouch(
-                        initialValue: 1,
-                      ),
-                    ),*/
-                     InkWell(
-                        onTap: ()async{
-
-                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-        
-     
-    var reviewdata=json.decode(response.body);
-     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-    var rev=json.decode(res.body);
-
-    print(reviewdata);
-
-                 showDialog<void>(   
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        
-        decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
-        ),
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: Colors.white,
-        title:Container(
-          width: 700,
-          height: 700,
-          child: Column(
-          children: <Widget>[
-         Container(
-            height: 50,
-           color: Colors.deepOrange,
-           child: 
-              Center( 
-          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Date/Time", 22, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 22, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 22, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 22, Colors.black, "style",),
-              textCustom("", 22, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Points", 22, Colors.black, "style",),
-              textCustom("0", 22, Colors.black, "style",),
-             
-           ],
-         ),
-         Divider(),
-         Container(
-           color: Colors.deepOrange,
-           height: 50,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-              
-          Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
-            ]
-           
-            
-          )
-          ],
-        ),
-      ),
-      Container(
-        
-        height: 150,
-        child: ListView.builder(
-          itemCount: reviewdata.length,
-            itemBuilder: (BuildContext context, int index){
-              return Container(
-               
-           height: 40,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-             Expanded(
-               child: Container(
-                 padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.normal),
-               ),
-             ),
-           ],
-         ),
-           Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.normal))),
-           Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.normal))),
-            ]
-          
-            
-          )
-          ],
-        ),
-      );
-
-            },
-        ),
-       
-      ),
-       Divider(),
-       Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-       Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-             
-          
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Total", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Payment", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Change", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-       
-          ],
-        ),
-        ),
-        content:Text(""),
-        actions: <Widget>[
-            Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.transparent, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
-  onPressed: (){
-    SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-           Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
-  onPressed: (){
-    
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-         
-        ],
-      ),
-      );
-    },
-  );
-
-                },
-                        child:  textCustom("${snapshot.data[index].remarks}", 25, Colors.black, "style"),
-                      ),
-              
-
-                  ],
-                )),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+ },
+ 
+            child:Row(
               children: <Widget>[
-                Container(padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                   InkWell(
-                     onTap: ()async{
-                       
-                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-        
-     
-    var reviewdata=json.decode(response.body);
-     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-    var rev=json.decode(res.body);
-
-    print(reviewdata);
-
-                 showDialog<void>(   
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        
-        decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
-        ),
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: Colors.white,
-        title:Container(
-          width: 700,
-          height: 700,
-          child: Column(
-          children: <Widget>[
-         Container(
-           
-           color: Colors.deepOrange,
-           child: 
-              Center( 
-          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Points", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-         Divider(),
-         Container(
-           color: Colors.deepOrange,
-           height: 50,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-          Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
-            ]
-          
-            
-          )
-          ],
-        ),
-      ),
-      Container(
-        
-        height: 150,
-        child: ListView.builder(
-          itemCount: reviewdata.length,
-            itemBuilder: (BuildContext context, int index){
-              return Container(
                
-           height: 50,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-             Expanded(
-               child: Container(
-                 padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
-               ),
-             ),
-           ],
-         ),
-           Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
-            ]
-          
-            
-          )
-          ],
-        ),
-      );
-
-            },
-        ),
-       
-      ),
-       Divider(),
-       Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Total", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Payment", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Change", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-       
-          ],
-        ),
-        ),
-        content:Text(""),
-        actions: <Widget>[
-            Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.transparent, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
-  onPressed: (){
-    SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-           Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
-  onPressed: (){
-    
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-         
-        ],
-      ),
-      );
-    },
-  );
-                     },
-                     child:   InkWell(
+                     Container(
+              height: 40,
+                       child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/eye+file+page+paper+icon-1320165844981348633.png"),),
+                     )
+              ],
+            ),
+                     ),
+                       ],
+                     )
+                   ),
+                   InkWell(
                        onTap: ()async{
                          
                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
@@ -1519,12 +1252,14 @@ deleteSelected() async{
 var headers = myString.replaceAll(RegExp('"'), ''); 
 print("object $headers");
                      for(int x=0;x<reviewdata.length;x++){
-                       if(refundTextCtrlr[x].text==""){
-                        refundTextCtrlr[x].text="0";
+                       
+                      int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
+                       if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0" || refund==0){
+                      //  refundTextCtrlr[x].text="0";
                       }
+                      else{
                       print(refundTextCtrlr[x].text);
 
-                      int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
 
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
@@ -1536,6 +1271,7 @@ print("object $headers");
 //"productId":"5d81a87ac321c71124c19dfc",
 "headerId":"$headers"
                      });
+                     }
                      }
                 
                        var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
@@ -1591,12 +1327,16 @@ var headerId = s.replaceAll(RegExp('"'), '');
   );
  },
  
-            child: Container(
+            child:Row(
+              children: <Widget>[
+                Container(
               height: 40,
                        child: Image(image: AssetImage("assets/refund.png"),),
                      ),
+              
+              ],
+            ),
                      ),
-                   ),
                      // VerticalDivider(),
                     ],
                   ),
@@ -1615,8 +1355,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             
             children:[
                 InkWell(
-                  onDoubleTap: (){
-                  },
+                 
                   child:   Container(padding: EdgeInsets.all(10),
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1626,282 +1365,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
                     textCustom("${index}", 20, Colors.black, "")
                   ],
                 )),
-                onTap: ()async{
-
-                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-    var reviewdata=json.decode(response.body);
-     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-    var rev=json.decode(res.body);
-    print(reviewdata);
-                 showDialog<void>(   
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        
-        decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
-        ),
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: Colors.white,
-        title:Container(
-          width: 700,
-          height: 700,
-          child: Column(
-          children: <Widget>[
-         Container(
-           
-           color: Colors.deepOrange,
-           child: 
-              Center( 
-          child: textCustom("Transaction details", 30, Colors.white, "style",),),
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("${dates}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Points", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].memberPoints).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-         Divider(),
-         Container(
-           color: Colors.deepOrange,
-           height: 40,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-          Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
-            ]
             
-          )
-          ],
-        ),
-      ),
-      Container(
-        
-        height: 150,
-        child: ListView.builder(
-          itemCount: reviewdata.length,
-            itemBuilder: (BuildContext context, int index){
-              return Container(
-               
-           height: 40,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-             Expanded(
-               child: Container(
-                 padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
-               ),
-             ),
-           ],
-         ),
-           Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 15, Colors.black, "",FontWeight.bold))),
-            ]
-          
-            
-          )
-          ],
-        ),
-      );
-
-            },
-        ),
-       
-      ),
-       Divider(),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-              Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].vat).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-       Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].subtotal).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-        
-        
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Total", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Payment", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-         Divider(),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Change", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
-             
-           ],
-         ),
-       
-          ],
-        ),
-        ),
-        content:Text(""),
-        actions: <Widget>[
-            Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.transparent, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
-  onPressed: (){
-      SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-           Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
-  onPressed: (){
-    
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-         
-        ],
-      ),
-      );
-    },
-  );
-
-                },
                 ),
                 //date...
                 Container(padding: EdgeInsets.all(10),
@@ -1915,291 +1379,14 @@ var headerId = s.replaceAll(RegExp('"'), '');
                       ),
                     ),*/
                      InkWell(
-                        onTap: ()async{
-
-                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-        
-     
-    var reviewdata=json.decode(response.body);
-     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
-        "Accept":"application/json"
-     });
-    var rev=json.decode(res.body);
-
-    print(reviewdata);
-
-                 showDialog<void>(   
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        
-        decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
-        ),
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: Colors.white,
-        title:Container(
-          width: 700,
-          height: 700,
-          child: Column(
-          children: <Widget>[
-         Container(
-           
-           color: Colors.deepOrange,
-           child: 
-              Center( 
-          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
-             
-           ],
-         ),
-             Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Points", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-         Divider(),
-         Container(
-           color: Colors.deepOrange,
-           height: 40,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-          Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM           ", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
-            ]
-          
-            
-          )
-          ],
-        ),
-      ),
-      Container(
-        
-        height: 150,
-        child: ListView.builder(
-          itemCount: reviewdata.length,
-            itemBuilder: (BuildContext context, int index){
-              return Container(
-               
-           height: 40,
-       //color: Colors.green,
-        child:  Table(
-         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
-          children: [TableRow(
-            children:[
-         
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-             Expanded(
-               child: Container(
-                 padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
-               ),
-             ),
-           ],
-         ),
-           Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
-           Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
-            ]
-          
-            
-          )
-          ],
-        ),
-      );
-
-            },
-        ),
-       
-      ),
-       Divider(),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-       Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
-             
-           ],
-         ),
-            
-        
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Total", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Payment", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Change", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-       
-          ],
-        ),
-        ),
-        content:Text(""),
-        actions: <Widget>[
-            Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.transparent, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
-  onPressed: (){
-    SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
-    
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))),
-                 ],
-               ),
-               )
-             )
-           ),
-           Center(
-             child:Container(
-               width: 300,
-               child: Center(
-                 child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                 children: <Widget>[
-                   new OutlineButton(
-      borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
-          ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
-  onPressed: (){
-    
-  Navigator.of(context).pop();
-  },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-),
-
-
-                 ],
-               ),
-               )
-             )
-           ),
-         
-        ],
-      ),
-      );
-    },
-  );
-
-                },
+                       
                         child:  textCustom("${snapshot.data[index].remarks}", 25, Colors.black, "style"),
                       ),
               
 
                   ],
                 )),
-            Column(
+            Column( //////// replacing action dont use it
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
@@ -2280,7 +1467,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
          Divider(),
          Container(
            color: Colors.deepOrange,
-           height: 40,
+           height: 50,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2288,10 +1475,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
             children:[
          
           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-          Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
@@ -2308,7 +1495,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             itemBuilder: (BuildContext context, int index){
               return Container(
                
-           height: 40,
+           height: 50,
        //color: Colors.green,
         child:  Table(
          // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
@@ -2326,9 +1513,9 @@ var headerId = s.replaceAll(RegExp('"'), '');
              ),
            ],
          ),
-          Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
-          Container(padding: EdgeInsets.all(2),
+           Container(padding: EdgeInsets.all(2),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(2),
           child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
@@ -2355,14 +1542,6 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
-             
-           ],
-         ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Tax", 20, Colors.black, "style",),
               textCustom("0", 20, Colors.black, "style",),
              
            ],
@@ -2492,22 +1671,21 @@ var headerId = s.replaceAll(RegExp('"'), '');
     },
   );
                      },
-                     child:   InkWell(
+                     child:   Row(  /////
+                       children: <Widget>[
+                         InkWell(
                        onTap: ()async{
-                         
+                         //baliks
+                       
                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
         "Accept":"application/json"
      });
-        
-     
     var reviewdata=json.decode(response.body);
      http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
         "Accept":"application/json"
      });
     var rev=json.decode(res.body);
-
     print(reviewdata);
-
                  showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -2516,16 +1694,16 @@ var headerId = s.replaceAll(RegExp('"'), '');
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(0.5, AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
           width: 700,
-          height: 700,
+          height: 528,
           child: Column(
           children: <Widget>[
          Container(
-           
+            height: 40,
            color: Colors.deepOrange,
            child: 
               Center( 
@@ -2535,23 +1713,22 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
-             
+              textCustom("${dates}", 20, Colors.black, "style",),
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
+              textCustom("${snapshot.data[index].username}", 20, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style"),
+              textCustom("", 20, Colors.black, "style"),
              
            ],
          ),
@@ -2559,7 +1736,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Points", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].memberPoints).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2574,10 +1751,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
             children:[
          
           Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
-          Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
-          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
           child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
             ]
           
@@ -2588,8 +1765,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
       ),
       Container(
         
-        height: 150,
-        child: ListView.builder(
+        height: 165,
+        child: Scrollbar(
+        
+          child: ListView.builder(
           itemCount: reviewdata.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
@@ -2613,9 +1792,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1(
+                  "${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 15, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -2626,6 +1806,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
 
             },
         ),
+        )
        
       ),
        Divider(),
@@ -2633,7 +1814,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].discount).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2641,7 +1822,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].vat).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2649,17 +1830,18 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].subtotal).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
-            
+             
+      
           
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Total", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
@@ -2667,18 +1849,19 @@ var headerId = s.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Payment", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ),
-           Row(
+         Divider(),
+        snapshot.data[index].remarks=="Transaction Completed" ? Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Change", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
              
            ],
-         ),
+         ):Container(),
        
           ],
         ),
@@ -2730,8 +1913,6 @@ var headerId = s.replaceAll(RegExp('"'), '');
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
                  ],
                ),
                )
@@ -2758,6 +1939,8 @@ var headerId = s.replaceAll(RegExp('"'), '');
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+
+
                  ],
                ),
                )
@@ -2766,22 +1949,281 @@ var headerId = s.replaceAll(RegExp('"'), '');
          
         ],
       ),
+      ));
+    },
+  );
+ },
+            child:Row(
+              children: <Widget>[
+               
+                     Container(
+              height: 40,
+                       child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/eye+file+page+paper+icon-1320165844981348633.png"),),
+                     )
+              ],
+            ),
+                     ),
+                       ],
+                     )
+                   ),
+                   InkWell(
+                       onTap: ()async{
+                         
+                     http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var reviewdata=json.decode(response.body);
+     http.Response res=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranHeader/getbyid/${snapshot.data[index].id}"),headers: {
+        "Accept":"application/json"
+     });
+    var rev=json.decode(res.body);
+    print(reviewdata);
+
+                 showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+    
+      return Container(
+        
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Container(
+          width: 700,
+          height: 450,
+          child: Column(
+          children: <Widget>[
+         Container(
+           height: 50,
+           color: Colors.deepOrange,
+           child: 
+              Center( 
+          child: textCustom("Refund Item", 35, Colors.white, "style",),),
+         ),
+         Container(
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+          Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("ITEM", 27, Colors.black, "",FontWeight.bold))),
+           Container(padding: EdgeInsets.all(10),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.black, "",FontWeight.bold))),
+            ]
+          
+            
+          )
+          ],
+        ),
+      ),
+      Container(
+        
+        height: 270,
+        child: ListView.builder(
+          itemCount: reviewdata.length,
+            itemBuilder: (BuildContext context, int index){
+              print(index);
+              totalRefund1.add(0.0);
+             // totalamountRefundedItems.add(0.0);
+                var textEditingController = new TextEditingController(text: "");
+        refundTextCtrlr.add(textEditingController);
+              return Container(
+               
+           height: 50,
+       //color: Colors.green,
+        child:  Table(
+         // border: TableBorder.lerp(TableBorder.all(width: 0), TableBorder.all(width: 0), 0.5),
+          children: [TableRow(
+            children:[
+         
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+             Expanded(
+               child: Container(
+                 padding: EdgeInsets.only(top: 20,left: 15),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+               ),
+             ),
+           ],
+         ),
+           Container(padding: EdgeInsets.all(2),
+           width: 20,
+                child: TextField(
+                  controller: refundTextCtrlr[index],
+                  textAlign: TextAlign.center,
+                  onSubmitted: (val){
+                     
+                 },
+                  onChanged: (val){ 
+                     if(val=="" || val=="0"){
+                        totalRefund1[index]=0.0;
+                      }
+                      else{
+                           totalRefund1[index]=(double.parse("$val")*double.parse("${reviewdata[index]["amount"]}"));    
+                      }
+           
+                  },
+                  decoration: InputDecoration(       
+                    hintText:"${reviewdata[index]["quantity"]}"
+                  ),
+                )),
+            
+            ],
+
+            
+          ),
+          ],
+        ),
+      );
+
+            },
+        ),
+       
+      ),
+      Text(""),
+   
+           Center(
+             child:Container(
+               margin: EdgeInsets.only(top: 5),
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                    new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.green,
+  child: new textCustom("Submit",25,Colors.green,""),
+  onPressed: ()async{
+          for(int x=0;x<totalRefund1.length;x++){
+                    totalRefund=totalRefund+totalRefund1[x];
+                    print("totalrefund $totalRefund");
+                  }
+    var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt"
+                     });
+                          print("object");
+                     final myString = '${header.body}';
+var headers = myString.replaceAll(RegExp('"'), ''); 
+print("object $headers");
+                     for(int x=0;x<reviewdata.length;x++){
+                         int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
+                       if(refundTextCtrlr[x].text=="" ||  refundTextCtrlr[x].text=="0" || refund==0){
+                       
+                      }
+                      else{
+
+                      
+                      print(refundTextCtrlr[x].text);
+
+                    
+
+                            await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
+                       "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
+                       "productId":"${reviewdata[x]["productId"]}",
+                       "amount":"${reviewdata[x]["amount"]}",
+//"productName":"${productName[x]}",
+"quantity":"$refund",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headers"
+                     });
+                     }
+                     }
+                
+                       var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items"
+                     });
+                          print("object");
+                     final s = '${headersId.body}';
+var headerId = s.replaceAll(RegExp('"'), ''); 
+                     for(int x=0;x<reviewdata.length;x++){
+                            if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0"){
+
+                            }
+                            else{
+                              
+                                         await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
+                       "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
+                       "productId":"${reviewdata[x]["productId"]}",
+                       "amount":"${reviewdata[x]["amount"]}",
+//"productName":"${productName[x]}",
+"quantity":"${int.parse("${refundTextCtrlr[x].text}")}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headerId"
+                     });
+                            }
+                   
+                 
+                     }
+                    // setState(() {
+                                   tranhistory.add("$headerId");
+                                  tranhistory.add("$headers");
+                     //});
+         
+  Navigator.of(context).pop();
+
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+
+                 ],
+               ),
+               )
+             )
+           ),
+        
+        ],
+      ),
+        )
+        )
       );
     },
   );
  },
-            child: Container(
-                       padding: EdgeInsets.only(left: 50),
-                       child:  textCustom("Refund", 20, Colors.black, ""),
+ 
+            child:Row(
+              children: <Widget>[
+                Container(
+              height: 40,
+                       child: Image(image: AssetImage("assets/refund.png"),),
                      ),
-                     )
-                   )
+              
+              ],
+            ),
+                     ),
                      // VerticalDivider(),
                     ],
                   ),
                 ),
               ],
-            ),
+            )
             ]
           )],
       
