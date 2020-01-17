@@ -167,36 +167,36 @@ class _SignInState extends State<SignIn> {
                     minWidth: 250.0,
                     height: 35.0,
                     onPressed: ()async{
-                  
-                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/user/GetAll"),headers: {
-                     "Accept":"application/json"
-     });
+                  var header=  await http.post("http://192.168.1.3:424/api/User/ValidateCredentials",body:{
+                      "Username":"${username.text}",
+"Password":"${password.text}"
+                     });
+                     
      int a=0;
-     var reviewdata = json.decode(response.body);
+     var reviewdata = json.decode(header.body);
+     print(reviewdata);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if(prefs.getString("available")=="avail"){
       if(prefs.getString("userName")==username.text){
-          Navigator.push(context, SlideRightRoute(widget: Homepage(username.text)));
+          Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
       }
       else{
         signinFunction(context, 2);
       }
   }
-  else if(username.text==""){
+  else if(username.text=="" || password.text =="") {
       signinFunction(context,3);
   }
   else{
-     for (int x = 0; x < reviewdata.length; x++) { 
-       if (username.text == reviewdata[x]['firstname'] ){
+       if (reviewdata!= null){
               a=1;
             print("object dumaan");
-                     Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata[x]['_id'])));
+                     Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
                         SharedPreferences prefs=await SharedPreferences.getInstance();
   prefs.setString("userUsed", "used");
-  prefs.setString("userName", "${ reviewdata[x]['firstname']}");
+  prefs.setString("userName", "${ reviewdata['firstname']}");
   prefs.setString("userPass", "used");
        }
-     }
     if(a==0){
         signinFunction(context, 1);
         a=1;
@@ -216,8 +216,6 @@ class _SignInState extends State<SignIn> {
                 )),
             ],
           ),
-      
-      
     );
   }
 }

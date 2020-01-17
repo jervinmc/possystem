@@ -1,6 +1,6 @@
 import 'dart:math';
 
-
+//import 'package:esc_pos_printer/esc_pos_printer.dart';
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/main.dart';
@@ -249,7 +249,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
             width: 2, //width of the border
           ),
     color:Colors.red,
-    splashColor: Color(0xFFF95700),
+    splashColor: Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: ()async{ 
     
@@ -287,7 +287,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                     discountLabel=0.0;
                     passwordVoid.text="";
                     usernameVoid.text="";
-                
+
                      // print(a.body);
              Navigator.of(context).pop();
        }
@@ -306,7 +306,15 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
            }
            // discountLabel=discountLabel-price[x];
           TextEditingController a=new TextEditingController(text:"0");
-          
+          setState(() {
+            if(discountLabel!=0.0){
+              discountLabel=discountLabel-double.parse(replacementDiscount[x].text);
+                 replacementDiscount.removeAt(x);
+                 subtotal=subtotal-price[x]*quantity[x];
+            }
+            
+          });
+                        
             //replacementDiscount[x]="0";
                             quantity.removeAt(x);
                               price.removeAt(x);
@@ -321,13 +329,9 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
          voidFailed(context, 1);
        }
      }
-
-
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
 
                  ],
                ),
@@ -1059,7 +1063,7 @@ new OutlineButton(
   child: new textCustom("Check out",25,Color(0xFFF95700),""),
   onPressed: (){
   setState(() {
-    quantity[x]=int.parse(qtyCtrlr.text) ;
+    quantity[x]=int.parse(qtyCtrlr.text);
     qtyCtrlr.text="";
   });
   Navigator.of(context).pop();
@@ -1297,6 +1301,7 @@ new OutlineButton(
         subtotal=subtotal+(price[x]*quantity[x]);
         
     }
+    
     qtyCtrlr.text="";
     print(quantity[x]); 
     //subtotal=price[x]*quantity[x];
@@ -1458,6 +1463,7 @@ new OutlineButton(
                         height: 55,
                         width: 300,
                         child: TextField(
+                          keyboardType: TextInputType.number,
                           controller: customerName,
                                textAlign: TextAlign.center,
               decoration: new InputDecoration(
@@ -1471,7 +1477,7 @@ new OutlineButton(
                   borderRadius: BorderRadius.circular(10)
                 
                 ),
-            
+
                // hintText: 'Mobile Number',
               ),
               style: TextStyle(
@@ -1558,6 +1564,7 @@ new OutlineButton(
                        ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed"
                     
                      });
+
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
 print("object $headers");
@@ -1587,38 +1594,44 @@ print("object $headers");
               //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                //SunmiAidlPrint.setFontSize(fontSize:30);
-              SunmiAidlPrint.printText(text:                                 "Benevolence Enterpries");
-              SunmiAidlPrint.printText(text:"\n");
-              SunmiAidlPrint.printText(text:                                "Fairview, Quezon City");
-              SunmiAidlPrint.printText(text:"\n");
-              SunmiAidlPrint.printText(text:"\n");
-              SunmiAidlPrint.printText(text:"========================================");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");              
-              SunmiAidlPrint.setFontSize(fontSize:22);
-              SunmiAidlPrint.printText(text: "       Member:                                           Username\n");
-              SunmiAidlPrint.printText(text: "       Points:                                           $points \n");
-              SunmiAidlPrint.printText(text:"========================================");
+              SunmiAidlPrint.printText(text:                      "Benevolence Enterpries\n");
+              SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:                      "Fairview, Quezon City\n");
+              SunmiAidlPrint.printText(text:"     VAT-REG-TIN 00-000-000-00\n");
+              SunmiAidlPrint.printText(text:"     BIR PERMIT# : XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+              //SunmiAidlPrint.printText(text:"==============================================="); 
+              SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:"MIN #: XXXXXXXXXXXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"Serial #: XXXXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"Cashier: Paul Jervin O. Alipor\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-              SunmiAidlPrint.printText(text: "                ITEM|           QTY|       PRICE|      TOTAL \n");
-             // SunmiAidlPrint.printText(text:"=========================================");
+              SunmiAidlPrint.printText(text:"===============================================");
+               SunmiAidlPrint.printText(text:"Customer Name: XXXXXXXXXXXXX\n");
+               SunmiAidlPrint.printText(text:"Customer TIN: XXXXXXXXXXXXXXX\n");
+               SunmiAidlPrint.printText(text:"Points:       $points \n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");            
+              SunmiAidlPrint.setFontSize(fontSize:24);
+             SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+              //SunmiAidlPrint.printText(text: "Member:       XXXXXXXX\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text:"================================================"); // bawas tatlo
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+              SunmiAidlPrint.printText(text: "      ITEM       QTY          PRICE                TOTAL \n");
+              SunmiAidlPrint.printText(text:"================================================"); 
               for(int x=0;x<productName.length;x++){
-             // SunmiAidlPrint.printText(text:"========================================");
-              SunmiAidlPrint.printText(text: "        ${productName[x]}              ${quantity[x]}     ${price[x]}      ${quantity[x]*price[x]}\n");
+              SunmiAidlPrint.printText(text: " ${productName[x]}            ${quantity[x]}            ${price[x]}              ${quantity[x]*price[x]}\n");
              }
-              
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text:"===============================================");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
-              SunmiAidlPrint.printText(text: "                               \t       Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                               \t       Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                               \t       Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                               \t       Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
-              
+              SunmiAidlPrint.printText(text: "                             \t Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                             \t Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                             \t Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                             \t Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
               productName=[];
               quantity=[];
               price=[];
@@ -1631,6 +1644,7 @@ print("object $headers");
                       counterData=0;
                        replacementDiscount.clear();
                     checkedOut=true;
+                    
                    // print("$checkedOut 5d80a894c321c7152c783e69");
                      productId.clear();
                      productName.clear();
@@ -1659,7 +1673,7 @@ print("object $headers");
                    prefs.setStringList("tranhistory",tranhis);
                    }
                  
-                  
+                          
                           print("dumaan sa header");
                    
              Navigator.of(context).pop();
@@ -1667,8 +1681,7 @@ print("object $headers");
                    else{
                      paymentRestriction(context, 2);                
                  
-                
-
+              
             
                    }
                    }
@@ -1716,7 +1729,7 @@ print("object $headers");
                         width: 200,
                         height: 60,
                         child: TextField(
-
+                          
                           textCapitalization: TextCapitalization.sentences,
                           controller: payment,
                           textAlign: TextAlign.center,
@@ -1996,7 +2009,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                  new ListTile(
-                title: new Text('Discount', style: TextStyle(fontSize: 20, color: Colors.black),),
+                title: new Text('Discount', style: TextStyle(fontSize: 20, color: Colors.black)),
                 trailing: Container(
                   height: 45,
                   child: Image(image: AssetImage('assets/discount.png')),
@@ -2051,6 +2064,7 @@ print("object $headers");
                                   prefs.setDouble("totalAmountSaveprefs",0.0);
                                  Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                        },
+                                       keyboardType:TextInputType.number,
                                        controller: closingAmountText,
                                        textAlign: TextAlign.center,
                                      ),
