@@ -113,12 +113,12 @@ class _TransactionState extends State<Transaction> {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -374,7 +374,7 @@ deleteSelected() async{
      
       ),
       resizeToAvoidBottomPadding: true,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
@@ -405,9 +405,9 @@ deleteSelected() async{
     decoration: InputDecoration(
      
         icon: Container(
-          padding: EdgeInsets.only(left: 15),
-          height: 50,
-          width: 70,
+          padding: EdgeInsets.only(left: 15,),
+          height: 65,
+          width: 80,
           child: InkWell(
             onTap: (){
             // input the receipt no. for searching.
@@ -417,21 +417,21 @@ deleteSelected() async{
            
               
             },
-            child: Image.asset("assets/q3.png", fit: BoxFit.cover,),
+            child: Image.asset("assets/b2.png", fit: BoxFit.cover,),
           )
 
         ),
         hintText: 'ENTER RECEIPT NO.', 
         hintStyle: TextStyle(fontSize: 20,),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
                 width: 0, 
                 style: BorderStyle.none,
             ),
         ),
         filled: false,
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: EdgeInsets.all(20),
         fillColor: Colors.white
     ),
 ),
@@ -717,7 +717,7 @@ deleteSelected() async{
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+    //SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -762,12 +762,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1008,7 +1008,7 @@ deleteSelected() async{
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+    //SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1027,7 +1027,7 @@ deleteSelected() async{
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
+             // SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
             SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
@@ -1051,12 +1051,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1198,7 +1198,7 @@ deleteSelected() async{
                       else{
                            totalRefund1[index]=(double.parse("$val")*double.parse("${reviewdata[index]["amount"]}"));    
                       }
-           
+                  
                   },
                   decoration: InputDecoration(       
                     hintText:"${reviewdata[index]["quantity"]}"
@@ -1365,7 +1365,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
               height: 40,
                        child: Image(image: AssetImage("assets/refund1.png"),),
                      ),
-              
+            
               ],
             ),
                      ):Container(),
@@ -1632,7 +1632,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+    //  SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1677,12 +1677,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1923,7 +1923,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
-    SunmiAidlPrint.openDrawer1();
+   // SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1966,12 +1966,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.deepOrange, //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.deepOrange,
-  child: new textCustom("OK",25,Colors.deepOrange,""),
+    color:Colors.green,
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -2144,7 +2144,31 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    
+    //SunmiAidlPrint.openDrawer1();
+              SunmiAidlPrint.printText(text: "             Trudi POS");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+            SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.printText(text: "Member:                            PT\n");
+              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
+              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              for(int x=0;x<snapshot.data.length;x++){
+             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
+              }
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
+            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
+            
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))

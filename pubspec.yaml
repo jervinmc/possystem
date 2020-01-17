@@ -37,7 +37,11 @@ dependencies:
   http: ^0.12.0+2
   flutter_money_formatter: ^0.8.3
   flutter_multiselect: ^0.0.1
+<<<<<<< HEAD
   loading: ^1.0.2
+=======
+  esc_pos_printer: ^1.5.0
+>>>>>>> 4968875c157c21bf4b1b0c02fb6c4c7096e5e678
     
 dev_dependencies:
   flutter_test:
@@ -109,6 +113,8 @@ flutter:
   - assets/bar.png
   - assets/bar1.png
   - assets/refund.png
+  - assets/b2.png
+  - assets/view.png
 
 
 
