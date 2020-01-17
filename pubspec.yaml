@@ -37,6 +37,7 @@ dependencies:
   http: ^0.12.0+2
   flutter_money_formatter: ^0.8.3
   flutter_multiselect: ^0.0.1
+  loading: ^1.0.2
     
 dev_dependencies:
   flutter_test:
@@ -79,10 +80,16 @@ flutter:
   - assets/q3.png
   - assets/transaction.gif
   - assets/t1.gif
+  - assets/eye.png
   - assets/it.gif
   - assets/prod.gif
+  - assets/eye1.png
+  - assets/refund1.png
+  - assets/member1.png
   - assets/p1.gif
   - assets/p2.gif
+  - assets/view.png
+  - assets/member.png
   - assets/error.gif
   - assets/date.gif
   - assets/20.gif

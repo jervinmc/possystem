@@ -25,6 +25,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
 import 'utils.dart';
+import 'package:loading/indicator.dart';
+import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 class product {
   final name;
   final qty;
@@ -265,8 +267,12 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     color:Colors.red,
   child: new textCustom("  Void  ",25,Colors.red,""),
   onPressed: ()async{ 
+
      if(x==2){  
-       if (usernameVoid.text == usernamePrefs ){
+      
+
+
+       if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
 
          counterData=0;
           replacementDiscount.clear();
@@ -288,10 +294,14 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                      // print(a.body);
              Navigator.of(context).pop();
        }
+       else{
+          voidFailed(context, 1);
+       }
      }
      else{
          print("objectsss");
-       if (usernameVoid.text == usernamePrefs ){
+       
+       if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
          print("objectssssss");
           
            print("$subtotal eto ang sub");
@@ -363,7 +373,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
              child: textCustom("Discount Payment", 20, Colors.white, "style"),
            ),
          ),
-    Container(
+    /*Container(
        //color: Colors.green,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -393,22 +403,21 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
        ),
           ],
         ),
-      ),
+      ),*/
       Text(""),
       Table(
         children: [
           TableRow(
             children: [
-              Text(""),
-              Text(""),
-              
-                  Text(""),
-                  Text(""),
-                  _selectedLocation=="QUANTITY" ?Text("QTY",style: TextStyle(fontWeight: FontWeight.bold)) : Text("OFF",style: TextStyle(fontWeight: FontWeight.bold)) ,
-                  Text(""),
-                  Text(""),
-       Text("AMT",style: TextStyle(fontWeight: FontWeight.bold))  ,
-                  Text(""),
+            
+                    
+                             Text(""),
+                 Text("        QUANTITY",style: TextStyle(fontWeight: FontWeight.bold)),
+                 
+               Text("              OFF",style: TextStyle(fontWeight: FontWeight.bold)) ,
+                   
+       Text("         AMOUNT",style: TextStyle(fontWeight: FontWeight.bold))  ,
+               
             ]
           )
         ],
@@ -457,9 +466,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                            },
                          ),
                          FlatButton(
-                           child: Text("OK", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                           child: Text("  OK  ", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
                            onPressed: (){
-                          
                              Navigator.pop(context);
                            },
                          )
@@ -469,7 +477,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  );
                 },
                 ),
-                _selectedLocation=="QUANTITY"? Row(
+             Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //Text(""),  
@@ -486,7 +494,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                   // print(value);
                   setState(() {
                    // TextEditingController a=new TextEditingController(text:quantityDiscountCtrlr[index].text );
-                   if(value=="${quantity[index]}"){
+                  /* if(value=="${quantity[index]}"){
                       quantityDiscount[index]="0";
                          discountablePrice[index].text="0";
                    }
@@ -506,7 +514,10 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                          quantityDiscount[index]=sd;
                       print("$c asdf");
                         //quantityDiscount[index]=int.parse("${quantity[index]-quantityDiscountCtrlr[index].text}");
-                   }
+                   }*/
+                   int b=int.parse("${quantityDiscountCtrlr[index].text}");
+                   discountablePrice[index].text="${b*price[index]}";
+
                   });
                  } ,
                 onTap: (){
@@ -517,7 +528,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                ),
               ),
                 ],
-              ) :
+              ),
              Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                children: <Widget>[
@@ -534,7 +545,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                     
                     TextEditingController b=new TextEditingController(text: discountGlobal.toString());
                    var percent="${double.parse(b.text)*(double.parse("${amountDiscountCtrlr[index].text}")/100)}";
-                   
                   discountablePrice[index].text="${percent}";
 
                  print(percent);
@@ -542,8 +552,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                ),
               ),
                ],
-             ),
-              
+             ),              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -564,17 +573,13 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
           )
           ]
           ,
-      
         ),
           );
-
-
       },
     ),
     )
             ],
           )),
-    
         actions: <Widget>[
            Center(
              child:Container(
@@ -665,7 +670,7 @@ new OutlineButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Password/Username is not recognized.", 25, Color(0xFFF95700), "style",),),
+          child: textCustom("Username/Password is invalid.", 25, Color(0xFFF95700), "style",),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -716,34 +721,40 @@ Future<void> cashierInfo(BuildContext context,int x) {
       backgroundColor: Colors.white,
         title:Center( 
           child: Container(
+            
             child: Column(
               children: <Widget>[
+                Center(
+                  child: textCustom1("Member Information", 35, Colors.black, "style", FontWeight.bold),
+                ),
+                Divider(),
+                Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("NAME :", 25, Color(0xFFF95700), "style",),
-                    textCustom("Emil", 25, Color(0xFFF95700), "style",),
+                    textCustom("NAME :", 20, Colors.black, "style",),
+                    textCustom(" ${usernamePrefs}", 20,Colors.black, "style",),
                   ],
                 ),
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("BIRTHDATE :", 25, Color(0xFFF95700), "style",),
-                    textCustom("01/01/1999", 25, Color(0xFFF95700), "style",),
+                    textCustom("BIRTHDATE :", 20, Colors.black, "style",),
+                    textCustom("01/01/1999", 20, Colors.black, "style",),
                   ],
                 ),
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("EMAIL :", 25, Color(0xFFF95700), "style",),
-                    textCustom("Emil@trudi.tech", 25, Color(0xFFF95700), "style",),
+                    textCustom("EMAIL :", 20, Colors.black, "style",),
+                    textCustom("${usernamePrefs}@trudi.tech", 20, Colors.black, "style",),
 
                   ],
                 ),
                 Text(""),
                 Row(
                   children: <Widget>[
-                    textCustom("CONTACT NO. :", 25, Color(0xFFF95700), "style",),
-                    textCustom("02349273542", 25, Color(0xFFF95700), "style",),
+                    textCustom("CONTACT NO. :", 20, Colors.black, "style",),
+                    textCustom("02349273542", 20, Colors.black, "style",),
 
                   ],
                 ),
@@ -751,7 +762,7 @@ Future<void> cashierInfo(BuildContext context,int x) {
               ],
             ),
           )),
-        content:Text(""),
+       
         actions: <Widget>[
            Center(
              child:Container(
@@ -762,12 +773,12 @@ Future<void> cashierInfo(BuildContext context,int x) {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFF95700), //Color of the border
+            color: Colors.green, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
     color:Colors.red,
-  child: new textCustom("OK",25,Color(0xFFF95700),""),
+  child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -833,6 +844,90 @@ Future<void> restrictAmount(BuildContext context,int x) {
            )
         ],
       ),
+      );
+    },
+  );
+}
+Future<void> member(BuildContext context,int x) {
+        
+  return showDialog<void>(   
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius:BorderRadius.circular(15)
+        ),
+        child: FadeAnimation(0.5, AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: Colors.white,
+        title:Container(
+          child: Column(
+            children: <Widget>[
+              Center( 
+          child: textCustom("Enter Member User Id", 25, Colors.black, "style",),),
+          Text(""),
+          Container(
+            width: 400,
+            child: TextField(
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30
+              ),
+              controller: memberId,
+
+            
+          ),
+          )
+            ],
+          ),
+        ),
+        content:Text(""),
+        actions: <Widget>[
+         
+             Container(
+               width: 450,
+               child: Center(
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: <Widget>[
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.red, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("Cancel",25,Colors.red,""),
+  onPressed: (){
+    
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+                   new OutlineButton(
+      borderSide: BorderSide(
+            color: Colors.green, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 2, //width of the border
+          ),
+    color:Colors.red,
+  child: new textCustom("   Ok   ",25,Colors.green,""),
+  onPressed: (){
+    setState(() {
+         memberName=memberId.text;
+    });
+
+  Navigator.of(context).pop();
+  },
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+),
+                 ],
+               ),
+               )
+             )
+
+        ],
+      )),
       );
     },
   );
@@ -1205,6 +1300,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   List<String> _locations = ['QUANTITY', 'PERCENT']; // Option 2
   String _selectedLocation; 
   String removeFunction="";
+  String checkOut="checkOut";
+  TextEditingController memberId=new TextEditingController();
+  String memberName="";
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1296,9 +1394,8 @@ new OutlineButton(
     quantity[x]=int.parse(qtyCtrlr.text) ;
     for(int x=0;x<productName.length;x++){
         subtotal=subtotal+(price[x]*quantity[x]);
-        
     }
-    
+    points=(pointsTotal[x]*quantity[x]);
     qtyCtrlr.text="";
     print(quantity[x]); 
     //subtotal=price[x]*quantity[x];
@@ -1541,11 +1638,22 @@ new OutlineButton(
               ),
                       ),
                       Text(""),
-                     
                   
+                     
+
                         Container(
                  padding: EdgeInsets.only(bottom: 0.5),         
                  child:  rButtonView3(() async{
+
+                   if(checkOut=="checkedOut"){
+
+                   }
+                   else{
+
+                   setState(() {
+                     checkOut="checkedOut";
+                   });
+                   
                    if(productName.length==0){
                      Navigator.pop(context);
                       transactFailed(context, 1);
@@ -1556,6 +1664,9 @@ new OutlineButton(
                      
                    }
                    else if(double.parse(payment.text)>=subtotal-discountLabel){
+                     setState(() {
+                     load="load";
+                   });
                      var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
                        ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed"
@@ -1588,6 +1699,7 @@ print("object $headers");
      });
 
                      }
+                     load="dontload";
               //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                //SunmiAidlPrint.setFontSize(fontSize:30);
@@ -1643,6 +1755,7 @@ print("object $headers");
                      subtotal=0.0;
                     points=0.0;
                     discountLabel=0.0;
+                    memberName="";
                     });
                      // print(a.body);
                     // SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1662,7 +1775,9 @@ print("object $headers");
                  
                   
                           print("dumaan sa header");
-                   
+                   setState(() {
+                     checkOut="checkOut";
+                   });
              Navigator.of(context).pop();
                    }
                    else{
@@ -1673,7 +1788,7 @@ print("object $headers");
             
                    }
                    }
-                  
+                   }
                  
                  },"CHECKOUT",300)),
                  Text(""),
@@ -1925,6 +2040,7 @@ print("object $headers");
   int emptyTable=0;
   TextEditingController openingA=new TextEditingController();
  List<TextEditingController> discountablePrice=[];
+ String load="dontload";
  TextEditingController customerName= new TextEditingController();
   //TextEditingController customerTin= new TextEditingController();
    //TextEditingController customerAddress= new TextEditingController();
@@ -2013,6 +2129,20 @@ print("object $headers");
                       //discountablePrice.clear();
                   discountFunction(context, 1);
                   }
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
+                  new ListTile(
+                title: new Text('Member', style: TextStyle(fontSize: 20, color: Colors.black),),
+                trailing: Container(
+                  height: 45,
+                  child: Image(image: AssetImage('assets/member1.png')),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  memberId.text="";
+                      //discountablePrice.clear();
+                  member(context, 1);
+                  
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                new Divider(),
@@ -2209,13 +2339,19 @@ print("object $headers");
           children: <Widget>[
             Text("",style: TextStyle(fontSize: 50,color: Colors.white)),
             FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR", color: Colors.white),),),
-            
+           
 
 
           ],
         ),
       backgroundColor: Color(0xFFF95700),
       actions: <Widget>[
+          Container(
+            margin: EdgeInsets.only(right: 600),
+            child:   load=="load" ?    Center(
+            child: CircularProgressIndicator(strokeWidth: 7,),
+          ):Container(),
+          ),
               Container(
            padding: EdgeInsets.all(0),
            child:IconButton(
@@ -2783,13 +2919,13 @@ print("object $headers");
         ),
         Text(""),
         Text(""),
-       /* Row(
+        memberName!="" ?Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
              textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold),
-             textCustom1("Juan TY", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("${memberName}", 15, Colors.black, "style",FontWeight.bold),
           ],
-        ),*/
+        ) : Container(),
          Text(""),
   
          Row(

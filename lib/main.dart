@@ -12,6 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './transition.dart';
 import './homepage.dart';
 import 'homepage.dart';
+import 'package:loading/indicator.dart';
+import 'package:loading/loading.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
 void main ()async {
   SharedPreferences prefs=await SharedPreferences.getInstance();
   if(prefs.getString("userUsed")=="used"){
@@ -37,6 +40,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  String load="dontload";
 //variable
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
@@ -106,10 +110,18 @@ class _SignInState extends State<SignIn> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+             load=="load" ? Container(
+        color: Colors.deepOrange,
+        child: Center(
+          child: Loading(indicator: BallPulseIndicator(), size: 100.0,color: Colors.white),
+        ),
+      ):Container(),
+      
               Padding(
               padding: EdgeInsets.only(top: 0, right: 120, left: 120,bottom: 0),
               child: FadeAnimation(1.0,Image.asset("assets/POS2.png"),
              )),
+         
                 Container(
                   margin: const EdgeInsets.only(left: 10, right: 10, top: .1, bottom: .1),
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.3),
@@ -167,16 +179,23 @@ class _SignInState extends State<SignIn> {
                     minWidth: 250.0,
                     height: 35.0,
                     onPressed: ()async{
+                      setState(() {
+                        load="load";
+                      });
                   var header=  await http.post("http://192.168.1.3:424/api/User/ValidateCredentials",body:{
                       "Username":"${username.text}",
 "Password":"${password.text}"
                      });
+                      setState(() {
+       load="dontload";
+    });
                      
      int a=0;
      var reviewdata = json.decode(header.body);
      print(reviewdata);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if(prefs.getString("available")=="avail"){
+   
       if(prefs.getString("userName")==username.text){
           Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
       }
@@ -184,23 +203,28 @@ class _SignInState extends State<SignIn> {
         signinFunction(context, 2);
       }
   }
-  else if(username.text==""){
+  else if(username.text=="" || password.text==""){
       signinFunction(context,3);
   }
   else{
-       if (reviewdata!= null){
+       if (reviewdata!=null){
+         print(reviewdata);
               a=1;
             print("object dumaan");
                      Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
                         SharedPreferences prefs=await SharedPreferences.getInstance();
   prefs.setString("userUsed", "used");
-  prefs.setString("userName", "${ reviewdata['firstname']}");
-  prefs.setString("userPass", "used");
+  prefs.setString("userName", "${ reviewdata['username']}");
+  prefs.setString("userPass", "${password.text}");
+
        }
     if(a==0){
+     
         signinFunction(context, 1);
         a=1;
     }
+   
+   
   }
       //   Navigator.push(context, SlideRightRoute(widget: Homepage()));
    //Navigator.push(context, SlideRightRoute(widget: Homepage()));

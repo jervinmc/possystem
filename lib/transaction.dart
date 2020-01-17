@@ -22,8 +22,9 @@ class Services {
   final String dateTime;
   final String remarks;
   final String username;
+  final String userid;
   
-  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username);
+  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid);
 
 }
 class Transaction extends StatefulWidget {
@@ -52,7 +53,8 @@ class _TransactionState extends State<Transaction> {
     if(getSearchReceipt==""){
        for(var u in reviewdata){
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]);
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]
+      ,u["userId"]);
        
       if(tranhistory.contains(u["_id"])){
             services.add(service);
@@ -67,7 +69,8 @@ class _TransactionState extends State<Transaction> {
        for(var u in reviewdata){
 
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]);
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],
+      u["userId"]);
        
       if(getSearchReceipt==reviewdata[x]['_id']){
            services.add(service);
@@ -458,7 +461,7 @@ deleteSelected() async{
         height: MediaQuery.of(context).size.height/1.45,
         child:  ListView.builder(
         shrinkWrap: true,
-        itemCount: getSearchReceipt!="" ? snapshot.data.length : tranhistory.length,
+        itemCount: getSearchReceipt!="" ? snapshot.data.length : snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
            DateTime dateTime = DateTime.parse(snapshot.data[index].dateTime);
                     String dates = DateFormat('dd-MM-yyyy').format(dateTime);
@@ -975,7 +978,14 @@ deleteSelected() async{
               textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
              
            ],
-         ):Container(),
+         ): snapshot.data[index].remarks=="Previous Transaction" ? Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
+             
+           ],
+         ): Container(),
        
           ],
         ),
@@ -1073,7 +1083,7 @@ deleteSelected() async{
                
                      Container(
               height: 40,
-                       child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/eye+file+page+paper+icon-1320165844981348633.png"),),
+                             child: Image(image:AssetImage("assets/eye1.png"),),
                      )
               ],
             ),
@@ -1081,7 +1091,8 @@ deleteSelected() async{
                        ],
                      )
                    ),
-                   InkWell(
+                   VerticalDivider(),
+                  snapshot.data[index].remarks=="Refunded Items"  ? Container():  snapshot.data[index].remarks!="Previous Transaction"  ? InkWell(
                        onTap: ()async{
                          
                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
@@ -1176,10 +1187,9 @@ deleteSelected() async{
            Container(padding: EdgeInsets.all(2),
            width: 20,
                 child: TextField(
-                  controller: refundTextCtrlr[index],
+                  controller: refundTextCtrlr[index], 
                   textAlign: TextAlign.center,
                   onSubmitted: (val){
-                     
                  },
                   onChanged: (val){ 
                      if(val=="" || val=="0"){
@@ -1239,27 +1249,38 @@ deleteSelected() async{
     color:Colors.green,
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: ()async{
-          for(int x=0;x<totalRefund1.length;x++){
+    print("eto ang id ${snapshot.data[index].userid}");
+    for(int x=0;x<totalRefund1.length;x++){
                     totalRefund=totalRefund+totalRefund1[x];
                     print("totalrefund $totalRefund");
                   }
     var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
-                       ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt"
+                       ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt",
+                      "userid":"${snapshot.data[index].userid}"
                      });
                           print("object");
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
-print("object $headers");
+//print("object $headers");
                      for(int x=0;x<reviewdata.length;x++){
+                       if(refundTextCtrlr[x].text==""){
+                         setState(() {
+                            refundTextCtrlr[x].text="0";
+                         });
                        
-                      int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
-                       if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0" || refund==0){
-                      //  refundTextCtrlr[x].text="0";
+                       }
+                         int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
+                       if(refund==0){
+                         
+
                       }
                       else{
-                      print(refundTextCtrlr[x].text);
 
+                      
+                      print(refundTextCtrlr[x].text);
+                        
+                    
 
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
@@ -1276,12 +1297,13 @@ print("object $headers");
                 
                        var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
-                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items"
+                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}"
                      });
                           print("object");
                      final s = '${headersId.body}';
 var headerId = s.replaceAll(RegExp('"'), ''); 
                      for(int x=0;x<reviewdata.length;x++){
+                       
                             if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0"){
 
                             }
@@ -1301,13 +1323,23 @@ var headerId = s.replaceAll(RegExp('"'), '');
                    
                  
                      }
-                    // setState(() {
+                     await http.get("http://192.168.1.3:424/api/TranHeader/UpdateRemarks/${snapshot.data[index].id}/Previous Transaction");
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+  //double a =prefs.getDouble("totalAmountSaveprefs");
+  prefs.setDouble("totalAmountSaveprefs", totalamount-totalRefund);
+  
+                     setState(() {
+                       totalamount=totalamount-totalRefund;
                                    tranhistory.add("$headerId");
                                   tranhistory.add("$headers");
-                     //});
-           
+                            
+                     });
+         refundTextCtrlr.clear();
+         totalRefund1.clear();
+         totalRefund=0;
+       
   Navigator.of(context).pop();
-
+ 
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1331,12 +1363,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
               children: <Widget>[
                 Container(
               height: 40,
-                       child: Image(image: AssetImage("assets/refund.png"),),
+                       child: Image(image: AssetImage("assets/refund1.png"),),
                      ),
               
               ],
             ),
-                     ),
+                     ):Container(),
                      // VerticalDivider(),
                     ],
                   ),
@@ -1861,6 +1893,13 @@ var headerId = s.replaceAll(RegExp('"'), '');
               textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
              
            ],
+         ): snapshot.data[index].remarks=="Previous Transaction" ? Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Change", 20, Colors.black, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
+             
+           ],
          ):Container(),
        
           ],
@@ -1958,7 +1997,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
                
                      Container(
               height: 40,
-                       child: Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/eye+file+page+paper+icon-1320165844981348633.png"),),
+                       child: Image(image:AssetImage("assets/eye1.png"),),
                      )
               ],
             ),
@@ -1966,7 +2005,8 @@ var headerId = s.replaceAll(RegExp('"'), '');
                        ],
                      )
                    ),
-                   InkWell(
+                    VerticalDivider(),
+                 snapshot.data[index].remarks=="Refunded Items"  ? Container():   snapshot.data[index].remarks!="Previous Transaction" ? InkWell(
                        onTap: ()async{
                          
                      http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/TranDetails/GetByHeaderId/${snapshot.data[index].id}"),headers: {
@@ -2118,28 +2158,37 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.green,
   child: new textCustom("Submit",25,Colors.green,""),
   onPressed: ()async{
+    print("eto ang id ${snapshot.data[index].userid}");
           for(int x=0;x<totalRefund1.length;x++){
                     totalRefund=totalRefund+totalRefund1[x];
                     print("totalrefund $totalRefund");
                   }
     var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
-                       ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt"
+                       ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt",
+                      "userid":"${snapshot.data[index].userid}"
                      });
                           print("object");
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
-print("object $headers");
+//print("object $headers");
                      for(int x=0;x<reviewdata.length;x++){
+                        if(refundTextCtrlr[x].text==""){
+                          setState(() {
+                               refundTextCtrlr[x].text="0";
+                          });
+                     
+                       }
                          int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
-                       if(refundTextCtrlr[x].text=="" ||  refundTextCtrlr[x].text=="0" || refund==0){
+                       if(refund==0){
                        
+
                       }
                       else{
 
                       
                       print(refundTextCtrlr[x].text);
-
+                        
                     
 
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
@@ -2157,7 +2206,7 @@ print("object $headers");
                 
                        var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
-                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items"
+                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}"
                      });
                           print("object");
                      final s = '${headersId.body}';
@@ -2182,13 +2231,21 @@ var headerId = s.replaceAll(RegExp('"'), '');
                    
                  
                      }
-                    // setState(() {
+                      await http.get("http://192.168.1.3:424/api/TranHeader/UpdateRemarks/${snapshot.data[index].id}/Previous Transaction");
+                       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //double a =prefs.getDouble("totalAmountSaveprefs");
+  prefs.setDouble("totalAmountSaveprefs", totalamount-totalRefund);
+                    setState(() {
+                       totalamount=totalamount-totalRefund;
                                    tranhistory.add("$headerId");
                                   tranhistory.add("$headers");
-                     //});
+                                  
+                     });
          
   Navigator.of(context).pop();
-
+  totalRefund=0;
+  refundTextCtrlr.clear();
+  totalRefund1.clear();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -2212,12 +2269,12 @@ var headerId = s.replaceAll(RegExp('"'), '');
               children: <Widget>[
                 Container(
               height: 40,
-                       child: Image(image: AssetImage("assets/refund.png"),),
+                       child: Image(image: AssetImage("assets/refund1.png"),),
                      ),
               
               ],
             ),
-                     ),
+                     ):Container(),
                      // VerticalDivider(),
                     ],
                   ),
