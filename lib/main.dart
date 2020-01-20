@@ -118,12 +118,12 @@ class _SignInState extends State<SignIn> {
       ):Container(),
       
               Padding(
-              padding: EdgeInsets.only(top: .5, right: 150, left: 150,bottom: .5),
+              padding: EdgeInsets.only(top: .5, right: 180, left: 180,bottom: .3),
               child: FadeAnimation(1.2,Image.asset("assets/POS2.png"),
              )),
          
                 Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10, top: .2, bottom: 0),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: .2, bottom: 0),
                   padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height/1.3),
                   child: FadeAnimation(1.2,Material(
                     elevation: 8,
@@ -147,7 +147,7 @@ class _SignInState extends State<SignIn> {
                 )),
                 Text(""),
                  Container(
-                   margin: const EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 0),
+                   margin: const EdgeInsets.only(left: 20, right: 20, top: .5, bottom: 0),
                   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height/1.3),
                   child: FadeAnimation (1.2,Material(
                     elevation: 8,
