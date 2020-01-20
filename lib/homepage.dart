@@ -520,6 +520,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                    }*/
                    int b=int.parse("${quantityDiscountCtrlr[index].text}");
                    discountablePrice[index].text="${b*price[index]}";
+                   discountGlobal=discountablePrice[index].text;
 
                   });
                  } ,
@@ -545,9 +546,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                       discountablePrice[index].text=discountGlobal;
                     }
                     var a=discountablePrice[index].text;
-                    
+                      
                     TextEditingController b=new TextEditingController(text: discountGlobal.toString());
-                   var percent="${double.parse(b.text)*(double.parse("${amountDiscountCtrlr[index].text}")/100)}";
+                print(b.text);
+                   var percent="${double.parse(discountGlobal)*(double.parse("${amountDiscountCtrlr[index].text}")/100)}";
+                  
                   discountablePrice[index].text="${percent}";
 
                  print(percent);
@@ -1285,6 +1288,7 @@ void startTimer()async{
 }
   initState(){
     SunmiAidlPrint.bindPrinter();
+    //SunmiAidlPrint.selfCheckingPrinter();
 super.initState();
 controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
 
@@ -1706,7 +1710,8 @@ print("object $headers");
               //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
                 //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                //SunmiAidlPrint.setFontSize(fontSize:30);
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+            
+            /* SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
               SunmiAidlPrint.printText(text:                      "Benevolence Enterpries\n");
               SunmiAidlPrint.printText(text:"\n");
               SunmiAidlPrint.printText(text:                      "Fairview, Quezon City\n");
@@ -1714,7 +1719,7 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"     BIR PERMIT# : XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
               //SunmiAidlPrint.printText(text:"==============================================="); 
-              SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:"\n"); 
               SunmiAidlPrint.printText(text:"MIN #: XXXXXXXXXXXXXXXXX\n");
               SunmiAidlPrint.printText(text:"Serial #: XXXXXXXXXX\n");
               SunmiAidlPrint.printText(text:"Cashier: Paul Jervin O. Alipor\n");
@@ -1724,7 +1729,7 @@ print("object $headers");
                SunmiAidlPrint.printText(text:"Customer TIN: XXXXXXXXXXXXXXX\n");
                SunmiAidlPrint.printText(text:"Points:       $points \n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");            
+              SunmiAidlPrint.printText(text: "\n");             
               SunmiAidlPrint.setFontSize(fontSize:24);
              SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
               //SunmiAidlPrint.printText(text: "Member:       XXXXXXXX\n");
@@ -1740,10 +1745,14 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"===============================================");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
+               SunmiAidlPrint.cutPager();
+               SunmiAidlPrint.cutPaper();
               SunmiAidlPrint.printText(text: "                             \t Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                             \t Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                             \t Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                             \t Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+              SunmiAidlPrint.selfCheckingPrinter();
+              */
               productName=[];
               quantity=[];
               price=[];
@@ -1751,7 +1760,7 @@ print("object $headers");
               points=0;
                      totalAmountSave+=subtotal-discountLabel;
                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                     prefs.setDouble("totalAmountSaveprefs",totalAmountSave);
+                     prefs.setDouble("totalAmountSaveprefs",prefs.getDouble("totalAmountSaveprefs")+totalAmountSave);
                     setState(() {
                       counterData=0;
                        replacementDiscount.clear();
@@ -1769,6 +1778,7 @@ print("object $headers");
                     points=0.0;
                     discountLabel=0.0;
                     memberName="";
+                    
                     });
                      // print(a.body);
                     // SharedPreferences prefs=await SharedPreferences.getInstance();

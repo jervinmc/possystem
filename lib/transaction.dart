@@ -1326,10 +1326,11 @@ var headerId = s.replaceAll(RegExp('"'), '');
                      await http.get("http://192.168.1.3:424/api/TranHeader/UpdateRemarks/${snapshot.data[index].id}/Previous Transaction");
                             SharedPreferences prefs = await SharedPreferences.getInstance();
   //double a =prefs.getDouble("totalAmountSaveprefs");
-  prefs.setDouble("totalAmountSaveprefs", totalamount-totalRefund);
+  
   
                      setState(() {
                        totalamount=totalamount-totalRefund;
+                       prefs.setDouble("totalAmountSaveprefs", totalamount);
                                    tranhistory.add("$headerId");
                                   tranhistory.add("$headers");
                             
@@ -2258,9 +2259,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
                       await http.get("http://192.168.1.3:424/api/TranHeader/UpdateRemarks/${snapshot.data[index].id}/Previous Transaction");
                        SharedPreferences prefs = await SharedPreferences.getInstance();
   //double a =prefs.getDouble("totalAmountSaveprefs");
-  prefs.setDouble("totalAmountSaveprefs", totalamount-totalRefund);
+  
                     setState(() {
                        totalamount=totalamount-totalRefund;
+                       prefs.setDouble("totalAmountSaveprefs", totalamount);
                                    tranhistory.add("$headerId");
                                   tranhistory.add("$headers");
                                   
