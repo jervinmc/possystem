@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunmi_aidl_print/sunmi_aidl_print.dart' as prefix0;
 import 'transach.dart';
 import 'utils.dart';
 import 'package:http/http.dart' as http;
@@ -1009,14 +1010,17 @@ deleteSelected() async{
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
     //SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
+              SunmiAidlPrint.printText(text: "                Benevolence Enterprise\n");
+              SunmiAidlPrint.printText(text: "                Fairview, Quezon City\n");
+              SunmiAidlPrint.setAlignment(align: prefix0.TEXTALIGN.CENTER);
+              SunmiAidlPrint.printText(text: "========================================\n");
+              SunmiAidlPrint.printText(text: "Cashier: Paul Jervin OB. Alipor\n");
+              SunmiAidlPrint.printText(text: "Date/Time: MM/DD/YY\n");
+              SunmiAidlPrint.setAlignment(align: prefix0.TEXTALIGN.LEFT);
+              SunmiAidlPrint.printText(text: "========================================\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
+              SunmiAidlPrint.setFontSize(fontSize:24);
               SunmiAidlPrint.printText(text: "Member:                            PT\n");
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
               SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
@@ -1030,9 +1034,10 @@ deleteSelected() async{
              // SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
+
+                          
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))

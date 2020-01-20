@@ -539,6 +539,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                   Container(
                 width: 120,
                 child:  TextField(
+                  keyboardType: TextInputType.number,
                   controller: amountDiscountCtrlr[index],
                   onChanged: (value){ 
                     if(value==null || value==""){
@@ -562,7 +563,8 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  // Text(""),
                   Container(
                 width: 120,
-                child:  TextField( 
+                child:  TextField(
+                  keyboardType: TextInputType.number, 
                   controller: discountablePrice[index],
                     onChanged: (value){
                         print("object");
@@ -867,7 +869,7 @@ Future<void> member(BuildContext context,int x) {
           child: Column(
             children: <Widget>[
               Center( 
-          child: textCustom("Enter Member User Id", 25, Colors.black, "style",),),
+          child: textCustom("Enter Member User ID", 25, Colors.black, "style",),),
           Text(""),
           Container(
             width: 400,
@@ -1695,7 +1697,7 @@ print("object $headers");
               http.Response response2=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/GetByProductId/${productId[x]}"),headers: {
         "Accept":"application/json"
      });
-      var reviewdataBarcode=json.decode(response2.body); 
+      var reviewdataBarcode=json.decode(response2.body);
       print(reviewdataBarcode['barcode']);
        http.Response response1=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/Update/${reviewdataBarcode['_id']}/${reviewdataBarcode['quantity']-quantity[x]}"),headers: {
         "Accept":"application/json"
@@ -1703,47 +1705,53 @@ print("object $headers");
 
                      }
                      load="dontload";
-              //SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+             // SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
                 //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                //SunmiAidlPrint.setFontSize(fontSize:30);
+          SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+              SunmiAidlPrint.printText(text:                   "Benevolence Enterpries\n");
+              SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
+              SunmiAidlPrint.printText(text:"  BIR PERMIT# : XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
+              SunmiAidlPrint.printText(text:"  VAT-REG-TIN 00-000-000-00\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-              SunmiAidlPrint.printText(text:                      "Benevolence Enterpries\n");
-              SunmiAidlPrint.printText(text:"\n");
-              SunmiAidlPrint.printText(text:                      "Fairview, Quezon City\n");
-              SunmiAidlPrint.printText(text:"     VAT-REG-TIN 00-000-000-00\n");
-              SunmiAidlPrint.printText(text:"     BIR PERMIT# : XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-              //SunmiAidlPrint.printText(text:"==============================================="); 
-              SunmiAidlPrint.printText(text:"\n");
+              //SunmiAidlPrint.printText(text:"===============================================");
+              //SunmiAidlPrint.printText(text:"\n");
               SunmiAidlPrint.printText(text:"MIN #: XXXXXXXXXXXXXXXXX\n");
               SunmiAidlPrint.printText(text:"Serial #: XXXXXXXXXX\n");
-              SunmiAidlPrint.printText(text:"Cashier: Paul Jervin O. Alipor\n");
+              SunmiAidlPrint.printText(text:"Cashier: Paul Jervin OB. Alipor\n");
+              SunmiAidlPrint.printText(text:"Date: MM/DD/YY\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-              SunmiAidlPrint.printText(text:"===============================================");
-               SunmiAidlPrint.printText(text:"Customer Name: XXXXXXXXXXXXX\n");
-               SunmiAidlPrint.printText(text:"Customer TIN: XXXXXXXXXXXXXXX\n");
-               SunmiAidlPrint.printText(text:"Points:       $points \n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");            
+              SunmiAidlPrint.printText(text:"================================================");
+              SunmiAidlPrint.printText(text:"Customer Name: XXXXXXXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"Customer TIN: XXXXXXXXXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"Points:       $points \n");
+             // SunmiAidlPrint.printText(text: "\n");
+            //SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setFontSize(fontSize:24);
-             SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-              //SunmiAidlPrint.printText(text: "Member:       XXXXXXXX\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text:"================================================"); // bawas tatlo
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
-              SunmiAidlPrint.printText(text: "      ITEM       QTY          PRICE                TOTAL \n");
-              SunmiAidlPrint.printText(text:"================================================"); 
+            //SunmiAidlPrint.printText(text: "Member:       XXXXXXXX\n");
+            //SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text:"================================================");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+              SunmiAidlPrint.printText(text: "  ITEM        QTY          PRICE         TOTAL \n");
+              //SunmiAidlPrint.printText(text:"================================================");
               for(int x=0;x<productName.length;x++){
-              SunmiAidlPrint.printText(text: " ${productName[x]}            ${quantity[x]}            ${price[x]}              ${quantity[x]*price[x]}\n");
+              SunmiAidlPrint.printText(text: " ${productName[x]}          ${quantity[x]}          ${price[x]}        ${quantity[x]*price[x]}\n");
              }
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text:"===============================================");
+              SunmiAidlPrint.printText(text:"================================================");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.RIGHT);
-              SunmiAidlPrint.printText(text: "                             \t Vat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                             \t Subtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                             \t Money: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                             \t Change: ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                        \tVat: ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                        \tSubtotal: ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                        \tMoney: ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                        \tChange: ${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"================================================");
+              SunmiAidlPrint.printText(text:"\n");
+              SunmiAidlPrint.printText(text:"THIS INVOICE SHALL BE VALID FOR FIVE (5) YEARS\n");
+              SunmiAidlPrint.printText(text:"FROM THE DATE OF THE PERMIT TO USE\n");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
+
               productName=[];
               quantity=[];
               price=[];
@@ -1765,7 +1773,7 @@ print("object $headers");
                     quantityDiscount=[];
                     quantityDiscountCtrlr.clear();
                     amountDiscountCtrlr.clear();
-                     subtotal=0.0;
+                    subtotal=0.0;
                     points=0.0;
                     discountLabel=0.0;
                     memberName="";
@@ -2177,7 +2185,7 @@ print("object $headers");
                              child: Center(
                                child: Column(
                                  children: <Widget>[
-                                   Text("Enter Closing Amount", style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
+                                   Text("Enter Closing Amount", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                     
                                  //  Text(""),
                                    Container(
@@ -2293,7 +2301,7 @@ print("object $headers");
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            backgroundColor: Colors.white,
                           // title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25,), textAlign: TextAlign.center,),
+                           content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                            actions: <Widget>[
                              new OutlineButton(
                              borderSide: BorderSide(
@@ -2783,7 +2791,7 @@ print("object $headers");
                 onTap: (){
                    showDialog(
                context: context, builder: (_) =>  AssetGiffyDialog(
-                 image:Image(image: NetworkImage("https://images-na.ssl-images-amazon.com/images/I/81yMUvgpSLL._SL1500_.jpg"),),
+                 image:Image(image: NetworkImage("https://images-na.ssl-images-amazon.com/images/I/81Rm7lhb5wL._SL1500_.jpg"),),
                  buttonCancelColor: Colors.red,
                  buttonCancelText: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 20)),
                  buttonOkColor: Colors.green,
