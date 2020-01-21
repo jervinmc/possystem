@@ -173,7 +173,7 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
                   child: FadeAnimation(1.2,Material( 
                     color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(30.0), 
                     shadowColor: Colors.transparent,
                   child: MaterialButton(
                     minWidth: 250.0,

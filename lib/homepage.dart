@@ -487,6 +487,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                    Container(
                 width: 100,
                 child:  TextField(
+                  keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
                 decoration: InputDecoration(
                 
@@ -540,6 +541,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                 width: 120,
                 child:  TextField(
                   keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
                   controller: amountDiscountCtrlr[index],
                   onChanged: (value){ 
                     if(value==null || value==""){
@@ -564,6 +566,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                   Container(
                 width: 120,
                 child:  TextField(
+                  textAlign: TextAlign.center,
                   keyboardType: TextInputType.number, 
                   controller: discountablePrice[index],
                     onChanged: (value){
@@ -1751,7 +1754,7 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"THIS INVOICE SHALL BE VALID FOR FIVE (5) YEARS\n");
               SunmiAidlPrint.printText(text:"FROM THE DATE OF THE PERMIT TO USE\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-
+              
               productName=[];
               quantity=[];
               price=[];

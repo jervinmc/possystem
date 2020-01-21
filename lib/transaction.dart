@@ -1179,7 +1179,7 @@ deleteSelected() async{
             children:[
          
          Row(
-           mainAxisAlignment: MainAxisAlignment.start,
+           mainAxisAlignment: MainAxisAlignment.center,
            children: <Widget>[
              Expanded(
                child: Container(
@@ -1192,6 +1192,7 @@ deleteSelected() async{
            Container(padding: EdgeInsets.all(2),
            width: 20,
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: refundTextCtrlr[index], 
                   textAlign: TextAlign.center,
                   onSubmitted: (val){
@@ -2100,6 +2101,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
            Container(padding: EdgeInsets.all(2),
            width: 20,
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: refundTextCtrlr[index],
                   textAlign: TextAlign.center,
                   onSubmitted: (val){
