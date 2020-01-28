@@ -24,8 +24,9 @@ class Services {
   final String remarks;
   final String username;
   final String userid;
+  final String memberName;
   
-  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid);
+  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName);
 
 }
 class Transaction extends StatefulWidget {
@@ -55,7 +56,7 @@ class _TransactionState extends State<Transaction> {
        for(var u in reviewdata){
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]
-      ,u["userId"]);
+      ,u["userId"],u["memberName"]);
        
       if(tranhistory.contains(u["_id"])){
             services.add(service);
@@ -71,7 +72,7 @@ class _TransactionState extends State<Transaction> {
 
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],
-      u["userId"]);
+      u["userId"],u["memberName"]);
        
       if(getSearchReceipt==reviewdata[x]['_id']){
            services.add(service);
@@ -554,31 +555,31 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
+              textCustom("Cashier", 25, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
              
            ],
          ),
-          Row(
+        snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
              
            ],
-         ),
+         ):Container(),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Points", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
@@ -827,13 +828,14 @@ deleteSelected() async{
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
-         Row(
+         snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("${dates}", 20, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
+             
            ],
-         ),
+         ):Container(),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -846,7 +848,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Member", 20, Colors.black, "style"),
-              textCustom("", 20, Colors.black, "style"),
+              textCustom("${snapshot.data[index].memberName}", 20, Colors.black, "style"),
              
            ],
          ),
@@ -1470,14 +1472,14 @@ var headerId = s.replaceAll(RegExp('"'), '');
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
-         Row(
+         snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
              
            ],
-         ),
+         ):Container(),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1762,14 +1764,14 @@ var headerId = s.replaceAll(RegExp('"'), '');
              
            ],
          ),
-          Row(
+        snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style"),
-              textCustom("", 20, Colors.black, "style"),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
              
            ],
-         ),
+         ):Container(),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[

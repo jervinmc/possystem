@@ -164,6 +164,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     context: context,
     builder: (BuildContext context) {
       return Container(
+       
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
@@ -179,7 +180,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
              ),
               Container(
                         height: 40,
-                        width: 250,
+                        width: 400,
                         child: TextField(
                           controller: usernameVoid,
                                textAlign: TextAlign.center,
@@ -207,7 +208,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
              ),
               Container(
                         height: 40,
-                        width: 250,
+                        width: 400,
                         child: TextField(
                           obscureText: true,
                           controller: passwordVoid,
@@ -919,11 +920,16 @@ Future<void> member(BuildContext context,int x) {
             width: 2, //width of the border
           ),
     color:Colors.red,
-  child: new textCustom("   Ok   ",25,Colors.green,""),
-  onPressed: (){
-    setState(() {
-         memberName=memberId.text;
-    });
+  child: new textCustom("     Ok    ",25,Colors.green,""),
+  onPressed: ()async{
+   
+      var get=await http.get("http://192.168.1.3:424/api/memberuser/getbyid/${memberId.text}");
+      var data=json.decode(get.body);
+      setState(() {
+          memberName="${data['firstname']} ${data['lastname']}";
+      });
+       
+     memberidHolder="${memberId.text}";
 
   Navigator.of(context).pop();
   },
@@ -1045,6 +1051,7 @@ Future<void> transactFailed(BuildContext context,int x) {
     void enterBarcode()async{
       setState(() {
          counterData=1;
+            
       });
       int counterGate=0;
       print(searchCtrlr.text);
@@ -1076,6 +1083,7 @@ Future<void> transactFailed(BuildContext context,int x) {
         }
       }
       if(trap==0 && reviewdata['sellingPrice']!=null ){ 
+        print("123123123123123");
         replacementDiscount.add("0");
         quantityDiscount.add("0");
         print("$quantityDiscount eto ang quantity discount");
@@ -1110,6 +1118,10 @@ productName.add(reviewdata['productName']);
       
 
    }
+   setState(() {
+   pending="variable";
+   });
+      searchCtrlr.text="";
     }
        Future<void> customerAddress(BuildContext context,int x) {
          address.text="";
@@ -1292,11 +1304,13 @@ void startTimer()async{
     SunmiAidlPrint.bindPrinter();
     //SunmiAidlPrint.selfCheckingPrinter();
 super.initState();
+myFocusNode = FocusNode();
 controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this);
 
   }
 
     void dispose() {
+          myFocusNode.dispose();
       _timer.cancel();
     SunmiAidlPrint.bindPrinter();
     //textYouWantToPrint.clear();
@@ -1312,6 +1326,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   String checkOut="checkOut";
   TextEditingController memberId=new TextEditingController();
   String memberName="";
+   FocusNode myFocusNode;
+   String memberidHolder="";
+   String pending="variable";
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1676,17 +1693,18 @@ new OutlineButton(
                      setState(() {
                      load="load";
                    });
-                     var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
+               
+            
+                  
+                       var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
                        "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
-                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed"
-                    
-                     });
-
+                       ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed","memberId":"${memberidHolder}"
+            
+                     }); 
                      final myString = '${header.body}';
 var headers = myString.replaceAll(RegExp('"'), ''); 
 print("object $headers");
                      for(int x=0;x<productName.length;x++){
-
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${price[x]}","categoryDesc":"safeguard",
                        "productId":"${productId[x]}",
@@ -1720,9 +1738,10 @@ print("object $headers");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
               //SunmiAidlPrint.printText(text:"===============================================");
               //SunmiAidlPrint.printText(text:"\n");
+            //  SunmiAidlPrint.cutPaper();
               SunmiAidlPrint.printText(text:"MIN #: XXXXXXXXXXXXXXXXX\n");
               SunmiAidlPrint.printText(text:"Serial #: XXXXXXXXXX\n");
-              SunmiAidlPrint.printText(text:"Cashier: Paul Jervin OB. Alipor\n");
+              SunmiAidlPrint.printText(text:"Cashier: Paul Jervin OBs. Alipor\n");
               SunmiAidlPrint.printText(text:"Date: MM/DD/YY\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
               SunmiAidlPrint.printText(text:"================================================");
@@ -1740,8 +1759,10 @@ print("object $headers");
               SunmiAidlPrint.printText(text: "  ITEM        QTY          PRICE         TOTAL \n");
               //SunmiAidlPrint.printText(text:"================================================");
               for(int x=0;x<productName.length;x++){
+               //  SunmiAidlPrint.underlineOff();
               SunmiAidlPrint.printText(text: " ${productName[x]}          ${quantity[x]}          ${price[x]}        ${quantity[x]*price[x]}\n");
              }
+            // SunmiAidlPrint.cutPaper();
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text:"================================================");
               SunmiAidlPrint.printText(text: "\n");
@@ -1753,10 +1774,19 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"================================================");
               SunmiAidlPrint.printText(text:"\n");
               SunmiAidlPrint.printText(text:"THIS INVOICE SHALL BE VALID FOR FIVE (5) YEARS\n");
-              SunmiAidlPrint.printText(text:"FROM THE DATE OF THE PERMIT TO USE\n");
+              SunmiAidlPrint.printText(text:"FROM THE DATE OF THE PERMIT TO USEs12345\n");
               SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-            SunmiAidlPrint.selfCheckingPrinter();
+              SunmiAidlPrint.openDrawer1234();
+              SunmiAidlPrint.cutpaper12();
+            
+         // SunmiAidlPrint.openDrawer1();
+      
+        //  SunmiAidlPrint.openDrawer123();
 
+          // SunmiAidlPrint.cutPaper();
+          // SunmiAidlPrint.openDrawer(text:"awerc" );
+          
+           // SunmiAidlPrint.getPrinterInfo();
               productName=[];
               quantity=[];
               price=[];
@@ -2004,6 +2034,7 @@ print("object $headers");
                               tin.text="";
                               address.text="";
                               moneyHoldertext=0;
+                              customerName.text="";
 
                             });
                            },"Clear",120),
@@ -2164,7 +2195,9 @@ print("object $headers");
                 ),
                 onTap: () {
                   Navigator.pop(context);
+                 
                   memberId.text="";
+
                       //discountablePrice.clear();
                   member(context, 1);
                   
@@ -2572,16 +2605,48 @@ print("object $headers");
     borderRadius: BorderRadius.circular(5.0),),
       child: TextField(
     textAlign: TextAlign.start,
-      
+     focusNode:myFocusNode ,
     controller: searchCtrlr,
+    
     onChanged: (value){
+          Timer a;
+      int start=1;
+      const oneSec = const Duration(seconds: 1);
+       _timer = new Timer.periodic(
+    oneSec,
+    (Timer timer) => setState(
+      
+      () {
+          timer.cancel();
+        if (_start == 200) {
+           
+        } 
+        else {
+          start = start - 1;
+            print(pending);
+            print("${start}++");
+            if(pending=="variable"){
+             
+              pending="";
+             
+              start=1;
+                 enterBarcode();
+                 
+            }
+           
+        }
+      },
+    ),
+  );
         setState(() {
-         
+       
         });
+        
+          //  searchCtrlr.text="";
     },
     onSubmitted: (value){
-        enterBarcode();
-              searchCtrlr.text="";
+    
+      
     },
     keyboardType: TextInputType.text,
     style: TextStyle(
@@ -2733,6 +2798,7 @@ print("object $headers");
                     icon:  Icon(Icons.add,color: Color(0xFFF95700)),
                     splashColor: Color(0xFFF95700),
                     onPressed: (){
+                      
                       setState(() {
                          print("awerc");
                          function="add";
@@ -2770,7 +2836,7 @@ print("object $headers");
                         splashColor: Color(0xFFF95700),
                         icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 30),
                         onPressed:(){
-                          voidItem(context, index);
+                          voidItem(context, 1);
                               
                           //voidItem(context, 1);
                         } ,
@@ -2887,7 +2953,7 @@ print("object $headers");
                         icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 25,),
                         onPressed:(){
                           
-                          voidItem(context, index);
+                            voidItem(context, 1);
                         } ,
                       )
                     ],
@@ -3033,21 +3099,21 @@ print("object $headers");
                 child: textCustom("${a[0]}", 15, Colors.black, ""),),
               
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[1]}", 15, Colors.black, ""),),
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(padding: EdgeInsets.all(10),
                 child: textCustom("${fmf2.output.nonSymbol}", 15, Colors.black, ""),),
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
                 child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 15, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 10, Colors.black, ""),),
@@ -3068,31 +3134,31 @@ print("object $headers");
                 child: textCustom("${a[0]}", 15, Colors.black, ""),
                 ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-               Center(
-                 child:  Container(padding: EdgeInsets.all(10),
+            
+                Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[1]}", 15, Colors.black, ""),),
-               )
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                 Center(
-                   child: Container(padding: EdgeInsets.all(10),
-                 child: textCustom("${fmf2.output.nonSymbol}", 15, Colors.black, ""),),
-                 ),
                
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                 Center(
-                   child: Container(padding: EdgeInsets.all(10),
+              
+                 Container(padding: EdgeInsets.all(10),
+                 child: textCustom("${fmf2.output.nonSymbol}", 15, Colors.black, ""),),
+            
+               
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                
+                   Container(padding: EdgeInsets.all(10),
                  child: replacementDiscount[index]=="0"  || replacementDiscount[index]==null ||replacementDiscount[index]=="" || replacementDiscount[index]==0  ? textCustom("${total.output.nonSymbol}", 15, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 10, Colors.black, ""),),
-                 ),
+                 
               ],
             ),        
                 
@@ -3282,12 +3348,14 @@ print("object $headers");
                                ],
                              ),
                            ),
+                           
                                rButtonView((){
+                          
                                  setState(() {
                                    payment.text="";
                                    tin.text="";
                                    address.text="";
-                                  
+                                           
                                  });
                                  _checkOut(context, 1); 
                                 // shifting(context, 1);
@@ -3555,7 +3623,9 @@ print("object $headers");
 
         ],
       )
+      
     ),
+    
     );
   }
 }
