@@ -626,15 +626,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 30, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 30, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 30, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -719,7 +719,7 @@ deleteSelected() async{
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
     //SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
+             // SunmiAidlPrint.printText(text: "             Trudi POS");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
             SunmiAidlPrint.printText(text: "\n");
@@ -904,16 +904,16 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
                 child: Center(child:  textCustom1(
-                  "${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+                  "${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 20, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -1064,7 +1064,7 @@ deleteSelected() async{
   child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
     
-  Navigator.of(context).pop();
+  Navigator.of(context).pop(); 
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1332,10 +1332,11 @@ var headerId = s.replaceAll(RegExp('"'), '');
                      await http.get("http://192.168.1.3:424/api/TranHeader/UpdateRemarks/${snapshot.data[index].id}/Previous Transaction");
                             SharedPreferences prefs = await SharedPreferences.getInstance();
   //double a =prefs.getDouble("totalAmountSaveprefs");
-  prefs.setDouble("totalAmountSaveprefs", totalamount-totalRefund);
+  
   
                      setState(() {
                        totalamount=totalamount-totalRefund;
+                       prefs.setDouble("totalAmountSaveprefs", totalamount);
                                    tranhistory.add("$headerId");
                                   tranhistory.add("$headers");
                             
@@ -2265,9 +2266,10 @@ var headerId = s.replaceAll(RegExp('"'), '');
                       await http.get("http://192.168.1.3:424/api/TranHeader/UpdateRemarks/${snapshot.data[index].id}/Previous Transaction");
                        SharedPreferences prefs = await SharedPreferences.getInstance();
   //double a =prefs.getDouble("totalAmountSaveprefs");
-  prefs.setDouble("totalAmountSaveprefs", totalamount-totalRefund);
+  
                     setState(() {
                        totalamount=totalamount-totalRefund;
+                       prefs.setDouble("totalAmountSaveprefs", totalamount);
                                    tranhistory.add("$headerId");
                                   tranhistory.add("$headers");
                                   

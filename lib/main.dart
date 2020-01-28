@@ -72,12 +72,12 @@ class _SignInState extends State<SignIn> {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.red,
+  child: new textCustom("OK",25,Colors.red,""),
   onPressed: (){
     
   Navigator.of(context).pop();
