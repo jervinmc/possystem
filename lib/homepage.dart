@@ -3015,10 +3015,16 @@ print("object $headers");
         memberName!="" ?Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold), 
              textCustom1("${memberName}", 15, Colors.black, "style",FontWeight.bold),
           ],
-        ) : Container(),
+        ) : Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+             textCustom1("", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("", 15, Colors.black, "style",FontWeight.bold),
+          ],
+        ),
          Text(""),
   
          Row(
