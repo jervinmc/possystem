@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:possystem/homepage.dart';
 import 'package:possystem/utils.dart';
 import 'fadeAnimation.dart';
+import 'package:nice_button/nice_button.dart';
 import 'transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
@@ -111,7 +112,7 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
              load=="load" ? Container(
-        color: Colors.deepOrange,
+        color: Colors.blue[500],
         child: Center(
           child: Loading(indicator: BallPulseIndicator(), size: 100.0,color: Colors.white),
         ),
@@ -119,7 +120,7 @@ class _SignInState extends State<SignIn> {
       
               Padding(
               padding: EdgeInsets.only(top: .5, right: 180, left: 180,bottom: .3),
-              child: FadeAnimation(1.2,Image.asset("assets/POS2.png"),
+              child: FadeAnimation(1.2,Image.asset("assets/POS6.png"),
              )),
          
                 Container(
@@ -131,6 +132,7 @@ class _SignInState extends State<SignIn> {
                    // child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                        style: TextStyle(fontSize: 20),
                         scrollPadding: EdgeInsets.only(bottom: mediaQuery.viewInsets.bottom),
                         controller: username,
                         textCapitalization: TextCapitalization.sentences,
@@ -155,6 +157,7 @@ class _SignInState extends State<SignIn> {
                   //  child: Padding(
                      // padding: EdgeInsets.only(right: 32.0, left: 20.0),
                       child: TextField(
+                        style: TextStyle(fontSize: 20),
                         scrollPadding: EdgeInsets.only(bottom: mediaQuery.viewInsets.bottom),
                         controller: password,
                          obscureText: true,
@@ -170,14 +173,16 @@ class _SignInState extends State<SignIn> {
                   ),
                 )),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
-                  child: FadeAnimation(1.2,Material( 
+                  padding: EdgeInsets.only(left: 650.0, right: 650.0, top: 30.0),
+                  child: FadeAnimation(1.0,Material( 
                     color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(30.0), 
-                    shadowColor: Colors.transparent,
-                  child: MaterialButton(
-                    minWidth: 250.0,
-                    height: 35.0,
+                    borderRadius: BorderRadius.circular(1.0),
+                    shadowColor: Colors.white,
+                  child: NiceButton(
+                    width: 300.0,
+                    radius: 60,
+                    elevation: 8.0,
+                    background: Colors.blue[500],
                     onPressed: ()async{
                       setState(() {
                         load="load";
@@ -229,12 +234,8 @@ class _SignInState extends State<SignIn> {
       //   Navigator.push(context, SlideRightRoute(widget: Homepage()));
    //Navigator.push(context, SlideRightRoute(widget: Homepage()));
                     },
-                    child: Text("SIGN IN",
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: Color(0xFFF95700),
-                      fontWeight: FontWeight.w900,
-                    ),),
+                    text: "SIGN IN",fontSize: 40,
+                    
                   ),
                 )
                 )),

@@ -24,8 +24,9 @@ class Services {
   final String remarks;
   final String username;
   final String userid;
+  final String memberName;
   
-  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid);
+  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName);
 
 }
 class Transaction extends StatefulWidget {
@@ -55,7 +56,7 @@ class _TransactionState extends State<Transaction> {
        for(var u in reviewdata){
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]
-      ,u["userId"]);
+      ,u["userId"],u["memberName"]);
        
       if(tranhistory.contains(u["_id"])){
             services.add(service);
@@ -71,7 +72,7 @@ class _TransactionState extends State<Transaction> {
 
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],
-      u["userId"]);
+      u["userId"],u["memberName"]);
        
       if(getSearchReceipt==reviewdata[x]['_id']){
            services.add(service);
@@ -98,7 +99,7 @@ class _TransactionState extends State<Transaction> {
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(1.0,AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
@@ -135,7 +136,7 @@ class _TransactionState extends State<Transaction> {
            )
         ],
       ),
-      );
+      ));
     },
   );
 }
@@ -295,7 +296,7 @@ deleteSelected() async{
              showDialog(
              context: context,
              builder: (BuildContext context) {
-               return AlertDialog(
+               return FadeAnimation(1.0,AlertDialog(
                  title: Text("Transaction Details", style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
                   content: Text("", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
                  shape: RoundedRectangleBorder(
@@ -314,7 +315,7 @@ deleteSelected() async{
                            },
                          )
                        ],
-               );
+               ));
              }
              );
            },
@@ -364,7 +365,7 @@ deleteSelected() async{
     return Scaffold(
       appBar: AppBar(
         title: Text("Transaction History", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Color(0xFFF95700),
+        backgroundColor: Colors.blue[650],
         iconTheme: IconThemeData(color: Colors.white, size: 30),
         elevation: 2,
         actions: <Widget>[
@@ -535,7 +536,7 @@ deleteSelected() async{
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(1.0,AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -554,31 +555,31 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 20, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 20, Colors.black, "style",),
+              textCustom("Cashier", 25, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
              
            ],
          ),
-          Row(
+        snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
              
            ],
-         ),
+         ):Container(),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Points", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
@@ -626,15 +627,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 30, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 30, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 30, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -720,13 +721,12 @@ deleteSelected() async{
   onPressed: (){
     //SunmiAidlPrint.openDrawer1();
              // SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
+           /*   SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
             SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
               SunmiAidlPrint.printText(text: "Member:                            PT\n");
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
               SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
@@ -742,7 +742,8 @@ deleteSelected() async{
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
             SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
+            SunmiAidlPrint.cutpaper12();
+            */
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -785,7 +786,7 @@ deleteSelected() async{
          
         ],
       ),
-      );
+      ));
     },
   );
                      },
@@ -812,7 +813,7 @@ deleteSelected() async{
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: FadeAnimation(0.5, AlertDialog(
+        child: FadeAnimation(1.0, AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -827,13 +828,14 @@ deleteSelected() async{
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
-         Row(
+         snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("${dates}", 20, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
+             
            ],
-         ),
+         ):Container(),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -846,7 +848,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Member", 20, Colors.black, "style"),
-              textCustom("", 20, Colors.black, "style"),
+              textCustom("${snapshot.data[index].memberName}", 20, Colors.black, "style"),
              
            ],
          ),
@@ -1021,7 +1023,7 @@ deleteSelected() async{
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setFontSize(fontSize:24);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
+              SunmiAidlPrint.printText(text: "Member:                           \n");
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
               SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
               for(int x=0;x<snapshot.data.length;x++){
@@ -1037,7 +1039,7 @@ deleteSelected() async{
               SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
 
-                          
+               SunmiAidlPrint.cutpaper12();           
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -1122,7 +1124,7 @@ deleteSelected() async{
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(1.0,AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -1230,7 +1232,7 @@ deleteSelected() async{
                margin: EdgeInsets.only(top: 5),
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                     new OutlineButton(
       borderSide: BorderSide(
@@ -1246,6 +1248,7 @@ deleteSelected() async{
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+Text("  "),
                    new OutlineButton(
       borderSide: BorderSide(
             color: Colors.green, //Color of the border
@@ -1361,7 +1364,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
       ),
         )
         )
-      );
+      ));
     },
   );
  },
@@ -1456,7 +1459,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(1.0,AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -1471,14 +1474,14 @@ var headerId = s.replaceAll(RegExp('"'), '');
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
-         Row(
+         snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 20, Colors.black, "style",),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
              
            ],
-         ),
+         ):Container(),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1547,15 +1550,15 @@ var headerId = s.replaceAll(RegExp('"'), '');
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -1640,8 +1643,8 @@ var headerId = s.replaceAll(RegExp('"'), '');
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
     //  SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "             Benevolence Enterprise\n");
+              SunmiAidlPrint.printText(text: "               Fairview, Quezon City\n");
               SunmiAidlPrint.printText(text: "\n");
             SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -1650,20 +1653,20 @@ var headerId = s.replaceAll(RegExp('"'), '');
               SunmiAidlPrint.setFontSize(fontSize:20);
               SunmiAidlPrint.printText(text: "Member:                            PT\n");
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              SunmiAidlPrint.printText(text:"ITEM       QTY         PRICE         TOTAL \n");
               for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
+             SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
               }
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "==================================================\n");
               SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
+              SunmiAidlPrint.cutpaper12();
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -1706,7 +1709,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
          
         ],
       ),
-      );
+      ));
     },
   );
                      },
@@ -1733,7 +1736,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: FadeAnimation(0.5, AlertDialog(
+        child: FadeAnimation(1.0, AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -1763,14 +1766,14 @@ var headerId = s.replaceAll(RegExp('"'), '');
              
            ],
          ),
-          Row(
+        snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style"),
-              textCustom("", 20, Colors.black, "style"),
+              textCustom("Member", 25, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
              
            ],
-         ),
+         ):Container(),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1825,16 +1828,16 @@ var headerId = s.replaceAll(RegExp('"'), '');
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 15, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
                 child: Center(child:  textCustom1(
-                  "${reviewdata[index]["quantity"]}", 15, Colors.black, "",FontWeight.bold))),
+                  "${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 15, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:reviewdata[index]["amount"]).output.nonSymbol}", 20, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -1931,30 +1934,31 @@ var headerId = s.replaceAll(RegExp('"'), '');
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
    // SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
+              SunmiAidlPrint.printText(text: "             Benevolence Enterprise\n");
+              SunmiAidlPrint.printText(text: "               Fairview, Quezon City\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setFontSize(fontSize:20);
               SunmiAidlPrint.printText(text: "Member:                            PT\n");
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
+              SunmiAidlPrint.printText(text: "ITEM        QTY        PRICE     TOTAL \n");
               for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
+             SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}           ${reviewdata[index]["amount"]}        ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
               }
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "==================================================\n");
               SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
+            SunmiAidlPrint.cutpaper12();
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -2035,7 +2039,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: AlertDialog(
+        child: FadeAnimation(1.0,AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Container(
@@ -2089,7 +2093,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
             children:[
          
          Row(
-           mainAxisAlignment: MainAxisAlignment.start,
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
              Expanded(
                child: Container(
@@ -2141,7 +2145,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
                margin: EdgeInsets.only(top: 5),
                child: Center(
                  child:  Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
                     new OutlineButton(
       borderSide: BorderSide(
@@ -2152,35 +2156,11 @@ var headerId = s.replaceAll(RegExp('"'), '');
     color:Colors.red,
   child: new textCustom("Cancel",25,Colors.red,""),
   onPressed: (){
-    //SunmiAidlPrint.openDrawer1();
-              SunmiAidlPrint.printText(text: "             Trudi POS");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM     QTY     PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
+Text("  "),
                    new OutlineButton(
       borderSide: BorderSide(
             color: Colors.green, //Color of the border
@@ -2293,7 +2273,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
       ),
         )
         )
-      );
+      ));
     },
   );
  },

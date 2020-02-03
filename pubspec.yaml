@@ -26,19 +26,22 @@ dependencies:
   cupertino_icons: ^0.1.2
   awesome_dialog: ^0.0.2
   flutter_screenutil: ^0.5.3
-  sunmi_aidl_print: ^0.0.1
+  
   vector_math: ^2.0.8
   font_awesome_flutter: ^8.4.0
   stepper_touch: ^0.0.1
   page_transition: ^1.1.4
+  sunmi_aidl_print: ^0.0.1
   passcode_screen: ^1.0.2
   flutter_lock_screen: ^1.0.3
   giffy_dialog: ^1.6.1
   http: ^0.12.0+2
   flutter_money_formatter: ^0.8.3
   flutter_multiselect: ^0.0.1
-  esc_pos_printer: ^1.5.0
+  nice_button: ^0.1.7
+  flutter_custom_dialog: ^1.0.15
   loading: ^1.0.2
+  rflutter_alert: ^1.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -99,6 +102,8 @@ flutter:
   - assets/heart.png
   - assets/POS1.png
   - assets/POS2.png
+  - assets/POS5.jpg
+  - assets/POS6.png
   - assets/trans.png
   - assets/void.png
   - assets/discount.png
@@ -135,6 +140,17 @@ flutter:
   - assets/d7.png
   - assets/d8.png
   - assets/lg5.png
+  - assets/tr1.png
+  - assets/ct1.png
+  - assets/dis2.png
+  - assets/dis3.png
+  - assets/m2.png
+  - assets/cls1.png
+  - assets/log1.png
+  - assets/log2.png
+  - assets/log3.png
+  - assets/ct2.png
+  - assets/person1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
