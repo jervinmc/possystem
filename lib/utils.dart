@@ -144,7 +144,7 @@ class rButtonView extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Container(
-      child: new MaterialButton(color:Color(0xFFF95700),textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 40),),
+      child: new MaterialButton(color:Colors.blue[600],textColor: Colors.white,child: new Text(text,style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
                                /*()=>{
                                 Navigator.of(context).push(new MaterialPageRoute(
                                     builder:(BuildContext context)=>new MyApp1()))*/minWidth: width,
@@ -327,7 +327,7 @@ class textCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(text,style: TextStyle(fontSize: size,color: color,fontFamily:style),),
+      child: Text(text,style: TextStyle(fontSize: size,color: color,fontFamily:style, fontWeight: FontWeight.bold),),
     );
   }
 }
