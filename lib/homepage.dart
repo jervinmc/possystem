@@ -149,13 +149,15 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   String passwordPrefs;
   TextEditingController username = new TextEditingController();
   TextEditingController password = new TextEditingController();
-  var _controller = TextEditingController();
+  
+  List sku=[];
   List productName=[];
   List quantity=[];
   List price=[];
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
+  var _controller = TextEditingController();
     @override
     Future<void> voidItem(BuildContext context,int x) {
       usernameVoid.text="";
@@ -507,7 +509,7 @@ Text("      "),
                          discountablePrice[index].text="0";
                    }
                   else if(int.parse("$value")>int.parse("${quantity[index]}")){
-                      quantityDiscount[index]="0";
+                      quantityDiscount[index]="0";E
                       discountablePrice[index].text="0";
                   } 
                    else{
@@ -932,15 +934,23 @@ Text("   "),
   child: new textCustom("  OK  ",25,Colors.blue,""),
   onPressed: ()async{
    
-      var get=await http.get("http://192.168.1.3:424/api/memberuser/getbyid/${memberId.text}");
+      var get=await http.get("http://192.168.1.3:424/api/memberuser/getbymemUserId/${memberId.text}");
       var data=json.decode(get.body);
       setState(() {
-          memberName="${data['firstname']} ${data['lastname']}";
+        if(data==null){
+           Navigator.of(context).pop();
+           voidFailed(context, 5);
+        }
+        else{
+            memberName="${data['firstname']} ${data['lastname']}";
+            Navigator.of(context).pop();
+        }
+        
       });
        
      memberidHolder="${memberId.text}";
 
-  Navigator.of(context).pop();
+
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1105,6 +1115,7 @@ quantity.add(1);
 productName.add(reviewdata['productName']);
     points=points+reviewdata['points'];
     pointsTotal.add(reviewdata['points']);
+    sku.add(reviewdata['sku']);
   trap=1;
   counterGate=1;
       }
@@ -1474,26 +1485,35 @@ Future<void> shifting(BuildContext context,int x) async{
           child:Column(
           children: <Widget>[
             textCustom("Enter Opening Amount", 25, Colors.black, "style"),
-            TextFormField(
+            TextField(
+                onTap: (){
+                setState(() {
+                moneyHoldertext=moneyHoldertext;
+                openingA.text="${moneyHoldertext.toString()}.00";
+                });
+               },
               style: TextStyle(fontSize: 25),
-              onFieldSubmitted: (value) async{
- SharedPreferences prefs=await SharedPreferences.getInstance();
+              onChanged: (value)async{
+                SharedPreferences prefs=await SharedPreferences.getInstance();
     prefs.setString("openingAmount","${openingA.text}");
+      
 
   setState(() {
+  
     //quantity[x]=int.parse(qtyCtrlr.text) ;
-    qtyCtrlr.text="";
+     qtyCtrlr.text="";
   });
 
     if(openingA.text==""){
       restrictAmount(context,3);
+       
     }
               },
           controller: openingA,
-          maxLength: 5,
+          maxLength: 6,
           textAlign: TextAlign.center,
           keyboardType:TextInputType.number,
-        autofocus: true,
+          autofocus: true,
         ),
           ],
         ),),
@@ -1524,8 +1544,11 @@ new OutlineButton(
     color:Colors.black,
   child: new textCustom("Submit",20,Colors.blue,""),
   onPressed: ()async{
+    
     if(openingA.text==""){
+    
       paymentRestriction(context, 3);
+      
     }
     else{
         SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1533,6 +1556,7 @@ new OutlineButton(
     prefs.setString("openingAmount","${openingA.text}");
 
   setState(() {
+    
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
   });
@@ -1576,7 +1600,7 @@ new OutlineButton(
              children: <Widget>[
               Container(
                 height: 60,
-                color: Colors.deepOrange,
+                color: Colors.blue,
                 child:  Center(
                  child: textCustom("Enter Payment Amount", 30, Colors.white, "style"),
                ),
@@ -1714,7 +1738,7 @@ new OutlineButton(
             
                   
                        var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
+                       "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"$memberName","subtotal":"${subtotal-(subtotal*0.12)}"
                        ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed","memberId":"${memberidHolder}"
             
                      }); 
@@ -1744,62 +1768,92 @@ print("object $headers");
 
                      }
                      load="dontload";
-             // SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-                //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
-               //SunmiAidlPrint.setFontSize(fontSize:30);
-            //  SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-            //SunmiAidlPrint.setFontSize(fontSize: 24);
-              SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
-              SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
-              SunmiAidlPrint.printText(text:"  VAT-REG-TIN 00-000-000-00\n");
-              SunmiAidlPrint.printText(text:"  BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
-              //SunmiAidlPrint.printText(text:"===============================================");
-              //SunmiAidlPrint.printText(text:"\n");
-            //  SunmiAidlPrint.cutPaper();
-              SunmiAidlPrint.printText(text:"MIN : XXXXXXXXXXXXXXXXX\n");
-              SunmiAidlPrint.printText(text:"Serial : XXXXXXXXXX\n");
-              SunmiAidlPrint.printText(text:"================================================");
-            //  SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
-            //  SunmiAidlPrint.setFontSize(fontSize:24);
-              SunmiAidlPrint.printText(text:"Date: MM/DD/YY\n");
-              SunmiAidlPrint.printText(text:"Cashier: James Howlett\n");
-              SunmiAidlPrint.printText(text:"Customer Name: XXXXXXXXXXXXX\n");
-            //SunmiAidlPrint.printText(text:"Customer TIN: XXXXXXXXXXXXXXX\n");
-              SunmiAidlPrint.printText(text:"Points: $points \n");
-             // SunmiAidlPrint.printText(text: "\n");
-            //SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT); 
-              SunmiAidlPrint.printText(text:"================================================");
-              SunmiAidlPrint.printText(text:" ITEM         QTY          PRICE         TOTAL \n");
-              //SunmiAidlPrint.printText(text:"================================================");
-              for(int x=0;x<productName.length;x++){
-               //  SunmiAidlPrint.underlineOff();
-              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
-              SunmiAidlPrint.printText(text:"${productName[x]}          ${quantity[x]}           ${price[x]}       ${quantity[x]*price[x]}\n");
-             }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text:"================================================");
-              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.LEFT);
-              SunmiAidlPrint.printText();
-              SunmiAidlPrint.printText(text:"                              \tVat:${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text:"                              \tSubtotal:${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text:"                              \tMoney:${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text:"                              \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
-             //SunmiAidlPrint.printText(text:"================================================");
-              SunmiAidlPrint.printText(text:"\n");
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-            //SunmiAidlPrint.setFontSize(fontSize: 24);
-              SunmiAidlPrint.printText(text:"THIS INVOICE SHALL BE VALID FOR FIVE (5) YEARS\n"); 
-              SunmiAidlPrint.printText(text:"FROM THE DATE OF THE PERMIT TO USE\n");
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"  VAT-REG-TIN XX-XXX-XXX-XX\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"  BIR PERMIT: XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"  Sales Invoice: XXXXXXXX\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25); 
+              SunmiAidlPrint.printText(text:"============================================");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Serial: XXXXXXXXXX\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"MIN: XXXXXXXXXXXXXXXXX\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Date: MM/DD/YY\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Cashier: James Howlett\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Customer Name: XXXXXXXXXXXXX\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Points: $points \n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.setLineWrap();
+              SunmiAidlPrint.printText(text:"============================================");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"ITEM                  QTY     PRICE   TOTAL\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              for(int x=0;x<productName.length;x++){
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"${productName[x]}/${sku[x]}       ${quantity[x]}      ${price[x]}   ${quantity[x]*price[x]}\n");
+             }
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"============================================");
+              SunmiAidlPrint.setLineWrap();
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"                            \tVat:${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");  
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"                            \tSubtotal:${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n"); 
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"                            \tCash:${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
+              
+              SunmiAidlPrint.commitPrint1();
+              SunmiAidlPrint.commitPrinterBuffer();
+              SunmiAidlPrint.enterPrintBuffer1();
+              SunmiAidlPrint.exitPrinterBuffer1();
+
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
-            
-         // SunmiAidlPrint.openDrawer1();
-        //  SunmiAidlPrint.openDrawer123();
+              
+            //  SunmiAidlPrint.openDrawer1();
+            //  SunmiAidlPrint.openDrawer123();
           // SunmiAidlPrint.cutPaper();
-          // SunmiAidlPrint.openDrawer(text:"awerc");   
+          // SunmiAidlPrint.openDrawer(text:"awerc");
            // SunmiAidlPrint.getPrinterInfo();
-           
+              
+              sku=[];
               productName=[];
               quantity=[];
               price=[];
@@ -1810,11 +1864,12 @@ print("object $headers");
                      prefs.setDouble("totalAmountSaveprefs",prefs.getDouble("totalAmountSaveprefs")+totalAmountSave);
                     setState(() {
                       counterData=0;
-                       replacementDiscount.clear();
+                      replacementDiscount.clear();
                     checkedOut=true;
                     
                    // print("$checkedOut 5d80a894c321c7152c783e69");
                      productId.clear();
+                     sku.clear();
                      productName.clear();
                      quantity.clear();
                      price.clear();
@@ -1832,7 +1887,7 @@ print("object $headers");
                    // List tranhis1=prefs.getStringList("tranhistory");
                    if(prefs.getStringList("tranhistory")==[]){
 
-                   }
+                   }  
                    else if(tranhis.length==0){
                     print("${prefs.getStringList("tranhistory")} wearcerwerawr");
                       tranhis=prefs.getStringList("tranhistory");
@@ -1901,6 +1956,7 @@ print("object $headers");
                         width: 200,
                         height: 60,
                         child: TextField(
+                          
                           
                           keyboardType: TextInputType.number,
                           controller: payment,
@@ -2243,6 +2299,12 @@ print("object $headers");
                                    Container(
                                      width: 350,
                                      child: TextField(
+                                       onTap: (){
+                                         setState(() {
+                                             moneyHoldertext=moneyHoldertext;
+                              closingAmountText.text="${moneyHoldertext.toString()}.00";
+                                         });
+                                       },
                                        style: TextStyle(fontSize: 25),
                                        onSubmitted: (value)async{
                                             SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -2255,7 +2317,7 @@ print("object $headers");
                                   prefs.setDouble("totalAmountSaveprefs",0.0);
                                  Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                        },
-                                       keyboardType:TextInputType.number,
+                                       keyboardType:TextInputType.numberWithOptions(decimal: true),
                                        controller: closingAmountText,
                                        textAlign: TextAlign.center,
                                      ),
@@ -2631,10 +2693,10 @@ print("object $headers");
     ),
   );
         setState(() {
-       
+          
         });
         
-          //  searchCtrlr.text="";
+         // searchCtrlr.text=""; 
     },
     onSubmitted: (value){
       
@@ -2644,6 +2706,7 @@ print("object $headers");
       fontSize: 30
     ),
     decoration: InputDecoration(
+      
         icon: Container(
           padding: EdgeInsets.only(left: 15),
           height: 65,
@@ -2653,8 +2716,7 @@ print("object $headers");
               
             },
             child: Image.asset("assets/b2.png", fit: BoxFit.cover,),
-          )
-
+          ),
         ),
         hintText: 'ENTER BARCODE',
         hintStyle: TextStyle(fontSize: 30),
@@ -2668,6 +2730,7 @@ print("object $headers");
         filled: false,
         contentPadding: EdgeInsets.all(16),
         fillColor: Colors.white
+        
     ),
 ),
     ),
@@ -3328,15 +3391,15 @@ print("object $headers");
                                children: <Widget>[
                                  
                                
-                        
-                              removeFunction=="go"?textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.black, "style",FontWeight.bold):Text(""),// with formula...
+                                 
+                              removeFunction=="go"?textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 22, Colors.black, "style",FontWeight.bold):Text(""),// with formula...
                              ],),
                               Row(
                                mainAxisAlignment: MainAxisAlignment.center,
                                children: <Widget>[
                                
                               
-                              textCustom1("(TOTAL AMOUNT)", 15, Colors.black, "style",FontWeight.bold),// with formula...
+                              textCustom1("(TOTAL AMOUNT)", 25, Colors.black, "style",FontWeight.bold),// with formula...
                              ],),
                                ],
                              ),
@@ -3622,6 +3685,7 @@ print("object $headers");
     );
   }
 }
+
 class MyClipper extends CustomClipper<Path>{
   @override
   Path getClip(Size size){
@@ -3666,6 +3730,16 @@ class _tableresState extends State<tableres> {
 ///
 ///
 
+FlutterMoneyFormatter fmf = new FlutterMoneyFormatter(
+  settings: MoneyFormatterSettings(
+    symbol: 'IDR',
+    thousandSeparator: ".",
+    decimalSeparator: ",",
+    symbolAndNumberSeparator: " ",
+    fractionDigits: 3,
+    compactFormatType: CompactFormatType.short
+  )
+);
 
 class MemberInfo extends StatefulWidget {
   List productName;
@@ -3704,6 +3778,7 @@ List productName;
           ],
         ),
       );
+      
       
   @override
   Widget build(BuildContext context) {

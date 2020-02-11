@@ -139,7 +139,7 @@ class _SignInState extends State<SignIn> {
                         decoration: InputDecoration(
                           icon: Container(
                             padding: EdgeInsets.only(left: 10, right: 10),
-                            child:  Icon(Icons.person_outline, size: 30),
+                            child:  Icon(Icons.person_outline, size: 30,color: Colors.blue),
                           ),
                           labelText: "Username",labelStyle: TextStyle(color: Colors.black),
                         ),
@@ -164,7 +164,7 @@ class _SignInState extends State<SignIn> {
                         decoration: InputDecoration(
                           icon: Container(
                             padding: EdgeInsets.only(left: 10, right: 10),
-                            child: Icon(Icons.lock_outline, size: 30),
+                            child: Icon(Icons.lock_outline, size: 30, color: Colors.blue,),
                           ),
                           labelText: "Password", labelStyle: TextStyle(color: Colors.black),
                         ),
@@ -237,9 +237,35 @@ class _SignInState extends State<SignIn> {
                     text: "SIGN IN",fontSize: 40,
                     
                   ),
-                )
+                ),
                 )),
-            ],
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                Text(""),
+                
+                Container(
+                  child: FadeAnimation(1.2,Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                        textCustom1("Trudi IT Solutions", 25, Colors.black, "style", FontWeight.bold),
+                    ],
+                  ),
+                ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FadeAnimation(1.3,textCustom1("© 2020 v1.0. All rights reserved", 25, Colors.black, "style", FontWeight.bold),
+                    )],
+                ),
+                ],
           ),
     );
   }

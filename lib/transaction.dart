@@ -823,7 +823,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
             height: 40,
-           color: Colors.deepOrange,
+           color: Colors.blue[500],
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -862,7 +862,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.deepOrange,
+           color: Colors.blue[500],
            height: 40,
        //color: Colors.green,
         child:  Table(
