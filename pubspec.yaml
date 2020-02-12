@@ -40,6 +40,7 @@ dependencies:
   flutter_multiselect: ^0.0.1
   nice_button: ^0.1.7
   flutter_custom_dialog: ^1.0.15
+  path_provider: ^0.4.1
   loading: ^1.0.2
   rflutter_alert: ^1.0.2
   intl: ^0.15.8

@@ -1,16 +1,20 @@
 import 'dart:math';
 //import 'package:esc_pos_printer/esc_pos_printer.dart';
+import 'package:awesome_dialog/anims/anims.dart';
 import 'package:possystem/fadeAnimation.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:possystem/main.dart';
 import 'package:possystem/void.dart';
+import 'dart:io';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart' as prefix1;
 import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
 import 'package:flutter/material.dart';
+import './report.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import './utils.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,8 +28,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:sunmi/sunmi.dart';
 import 'package:flutter/services.dart';
 import 'transition.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'utils.dart';
 import 'package:loading/indicator.dart';
+
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 class product {
   final name;
@@ -159,13 +165,17 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController searchCtrlr=new TextEditingController();
   var _controller = TextEditingController();
     @override
-    Future<void> voidItem(BuildContext context,int x) {
+    Future<void> voidItem(BuildContext context,int x,int index) {
+    if(x==2){
+        Navigator.of(context).pop();
+    }
       usernameVoid.text="";
       passwordVoid.text="";
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
-      return Container(
+      return FadeAnimation(
+        1, Container(
        
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
@@ -173,113 +183,162 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
         child: AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
-        title:Center( 
-          child: Column(
+        title:Stack(
+          children: <Widget>[
+           
+           Column(
+             children: <Widget>[
+               
+            Center( 
+          child:    Column(
             children: <Widget>[
-             Container(
-               padding: EdgeInsets.only(bottom: 10, top: 10),
-               child:  textCustom("ENTER USERNAME", 25, Colors.black, "style",),
-             ),
+              Container(
+                  height: 140,
+                  color: Colors.transparent,
+              ),
+              Text(""),
+       
+              Container(
+                        height: 40,
+                        width: 400,
+                        child:  TextField(
+                        style: TextStyle(fontSize: 20),
+                        
+                        controller: usernameVoid,
+                        textCapitalization: TextCapitalization.sentences,
+                        decoration: InputDecoration(
+                          icon: Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child:  Icon(Icons.person_outline, size: 30,color: Colors.blue,),
+                          ),
+                          hintText: "Username",labelStyle: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      ),
+                      Text(""),
+                         Text(""),
+                           
+             
               Container(
                         height: 40,
                         width: 400,
                         child: TextField(
-                          controller: usernameVoid,
-                          textCapitalization: TextCapitalization.sentences,
-                               textAlign: TextAlign.center,
-              decoration: new InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
-                  borderRadius: BorderRadius.circular(15)
-                ),
-               // hintText: 'Mobile Number',
-              ),
-              style: TextStyle(
-                    fontSize: 20,
-                color: Colors.black
-              ),
-              ),
+                        style: TextStyle(fontSize: 20),
+                      
+                        controller: passwordVoid,
+                         obscureText: true,
+                        decoration: InputDecoration(
+                          icon: Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child: Icon(Icons.lock_outline, size: 30,color: Colors.blue,),
+                          ),
+                          hintText: "Password", labelStyle: TextStyle(color: Colors.black),
+                     
+                        ),
+                      //),
+                    ),
                       ),
-                       Container(
-               padding: EdgeInsets.only(bottom: 10,top: 10),
-               child:  textCustom("ENTER PASSWORD", 25, Colors.black, "style",),
-             ),
-              Container(
-                        height: 40,
-                        width: 400,
-                        child: TextField(
-                          obscureText: true,
-                          controller: passwordVoid,
-                               textAlign: TextAlign.center,
-              decoration: new InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
-                  borderRadius: BorderRadius.circular(5)
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
-                  borderRadius: BorderRadius.circular(15)
-                
-                ),
-            
-               // hintText: 'Mobile Number',
-              ),
-              style: TextStyle(
-                    fontSize: 20, 
-                color: Colors.black
-              ),
-              ),
-                      ),
+                      
             ],
-          ),),
+          ),
+          ),
+              Text(""),
+               
+             ],
+           ),
+          Positioned(
+            top: 0,
+  left: 16,
+  right: 16,
+  child:/* CircleAvatar(
+      
+    backgroundImage: NetworkImage("https://icons-for-free.com/iconfiles/png/512/information+interface+user+icon-1320196241269144595.png",),
+    radius: 66,
+  ),*/
+ Container(
+   height: 150,
+   
+   child:  Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/information+interface+user+icon-1320196241269144595.png")),
+ )
+),
+
+          ],
+        ),
 
         //content:Text(""),
         actions: <Widget>[
+         
            Center(
              child:Container(
-               width: 300,
+               width: 420,
                child: Center(
                  child:  Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   mainAxisAlignment: MainAxisAlignment.end,
                  children: <Widget>[
-                   new OutlineButton(
+                   
+                  Container(
+                    child: 
+                     new OutlineButton(
       borderSide: BorderSide(
-            color: Color(0xFFFF5733), //Color of the border
+            color:Colors.black, //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
+            width: 1, //width of the border
           ),
-    color:Color(0xFFFF5733),
-    splashColor: Color(0xFFFF5733),
-  child: new textCustom("Cancel",25,Color(0xFFFF5733),""),
+    color:Colors.black,
+    splashColor:Colors.black,
+  child: new textCustom("Cancel",20,Colors.black,""),
   onPressed: ()async{ 
-    
     Navigator.of(context).pop();
-
   },
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-  
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))  
 ),
-Text("      "),
+                  ),
+                  Text("  "),
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.blue, //Color of the border
+            color: Colors.red, //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
+            width: 1, //width of the border
           ),
-    color:Colors.blue,
-    splashColor: Colors.blue,   
-  child: new textCustom(" Void ",25,Colors.blue,""),
+    color:Colors.red,
+    splashColor: Colors.red,   
+  child: new textCustom("  Void  ",20,Colors.red,""),
   onPressed: ()async{ 
+   
 
      if(x==2){  
       
-
+       
 
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
+
+         for(int y=0;y<productName.length;y++){
+            String texts;
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    texts = await file.readAsString();
+    _write("$texts\n${productName[y]} | ${quantity[y]} | ${price[y]}");
+                var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
+                    "userId":"$user","remarks":"Void"
+            
+                     }); 
+                        final myString = '${header.body}';
+var headers = myString.replaceAll(RegExp('"'), ''); 
+           await http.post("http://192.168.1.3:424/api/VoidTdetails/add",body:{
+                       "sellingPrice":"${price[y]}","categoryDesc":"safeguard",
+                       "productId":"${productId[y]}",
+                       "sellingPrice":"${price[y]}",
+                       "amount":"${price[y]*quantity[y]}",
+//"productName":"${productName[x]}",
+"quantity":"${quantity[y]}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headers"
+                     });
+                     setState(() {
+                          voidTran.add(headers);
+                     });
+         }
 
          counterData=0;
           replacementDiscount.clear();
@@ -301,47 +360,84 @@ Text("      "),
                      // print(a.body);
              Navigator.of(context).pop();
        }
+           else if(usernameVoid.text=="" || passwordVoid.text==""){
+      paymentRestriction(context, 3);
+
+    }
        else{
           voidFailed(context, 1);
        }
      }
      else{
+        String texts;
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    texts = await file.readAsString();
+    _write("$texts\n${productName[index]} | ${quantity[index]} | ${price[index]}");
          print("objectsss");
        
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
+              var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
+                    "userId":"$user","remarks":"Void"
+            
+                     }); 
+                        final myString = '${header.body}';
+var headers = myString.replaceAll(RegExp('"'), ''); 
+           await http.post("http://192.168.1.3:424/api/VoidTdetails/add",body:{
+                       "sellingPrice":"${price[index]}","categoryDesc":"safeguard",
+                       "productId":"${productId[index]}",
+                       "sellingPrice":"${price[index]}",
+                       "amount":"${price[index]*quantity[index]}",
+//"productName":"${productName[x]}",
+"quantity":"${quantity[index]}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headers"
+                     });
+                     setState(() {
+                          voidTran.add(headers);
+                     });
+     
+
+         //balik dito
          print("objectssssss");
           
            print("$subtotal eto ang sub");
            if(discountLabel==0){
-              subtotal=subtotal-(quantity[x]*price[x]);
+              subtotal=subtotal-(quantity[index]*price[index]);
            }
-           else{
-             
-           }
+        
            // discountLabel=discountLabel-price[x];
           TextEditingController a=new TextEditingController(text:"0");
           setState(() {
             if(discountLabel!=0.0){
-              discountLabel=discountLabel-double.parse(replacementDiscount[x].text);
-                 replacementDiscount.removeAt(x);
-                 subtotal=subtotal-price[x]*quantity[x];
+              discountLabel=discountLabel-double.parse(replacementDiscount[index].text);
+                 replacementDiscount.removeAt(index);
+                 subtotal=subtotal-price[index]*quantity[index];
             }
             
           });
                         
             //replacementDiscount[x]="0";
-                            quantity.removeAt(x);
-                              price.removeAt(x);
-                               productName.removeAt(x);
-                            points=0.0;
+             print("eto ang points${pointsTotal[index]*quantity[index]}");
+             points=points-(pointsTotal[index]*quantity[index]);
+                            quantity.removeAt(index);
+                              price.removeAt(index);
+                               productName.removeAt(index);
+                              productId.removeAt(index);
+                           // points=points-(pointsTotal[index]*quantity[index]);
                             checkedOut=true;
                            
                             //discountablePrice
                 Navigator.of(context).pop();
        }
-       else{
-         voidFailed(context, 1);
-       }
+         else if(usernameVoid.text=="" || passwordVoid.text==""){
+      paymentRestriction(context, 3);
+
+    }
+    else{
+      voidFailed(context, 1);
+    }
      }
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -354,7 +450,7 @@ Text("      "),
            )
         ],
       ),
-      );
+      ));
     },
   );
 }
@@ -380,6 +476,7 @@ Text("      "),
              child: textCustom("Discount Payment", 30, Colors.white, "style"),
            ),
          ),
+
     /*Container(
        //color: Colors.green,
         child: Row(
@@ -412,6 +509,47 @@ Text("      "),
         ),
       ),*/
       Text(""),
+      Row(
+        children: <Widget>[
+        textCustom("DISCOUNT NAME :", 25, Colors.black,"style"),
+         Container(
+           width: 480,
+           child: 
+            TextField(
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  controller: discountname,
+                  onChanged: (value){ 
+                    
+                  },
+               ),
+         )
+         ,
+   
+        ], 
+      ),
+      Row(
+        children: <Widget>[
+        textCustom("DISCOUNT ID :", 25, Colors.black,"style"),
+         Container(
+           width:525 ,
+           child: 
+            TextField(
+               controller: discountid,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+           
+                  onChanged: (value){ 
+                  
+                  },
+               ),
+         )
+         ,
+   
+        ],
+      ),
+            Text(""),
+              
       Table(
         children: [
           TableRow(
@@ -419,9 +557,9 @@ Text("      "),
             
                     
                              Text(""),
-                 Text("        QUANTITY",style: TextStyle(fontWeight: FontWeight.bold)),
+                 Text("        DISCOUNT",style: TextStyle(fontWeight: FontWeight.bold)),
                  
-               Text("              OFF",style: TextStyle(fontWeight: FontWeight.bold)) ,
+               Text("           VALUE",style: TextStyle(fontWeight: FontWeight.bold)) ,
                    
        Text("         AMOUNT",style: TextStyle(fontWeight: FontWeight.bold))  ,
                
@@ -436,6 +574,9 @@ Text("      "),
       child: ListView.builder(
       itemCount: productName.length,
       itemBuilder: (BuildContext context,int index){
+     _selectedLocation.add("AMOUNT");
+        print("awercawera ${_selectedLocation[0]}");
+         
       //  TextEditingController s=new TextEditingController(text: quantity[index].toString());
         //quantityDiscountCtrlr[index]=s;
         var textEditingController = new TextEditingController(text: "");
@@ -486,13 +627,33 @@ Text("      "),
                  );
                 },
                 ),
-             Row(
+             Container(
+               padding: EdgeInsets.only(top:3),
+child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  //Text(""),  
-                   Container(
-                width: 100,
-                child:  TextField(
+                  
+                   DropdownButton(
+            hint: Text('Type of Discount'), // Not necessary for Option 1
+            value: _selectedLocation[index],
+            onChanged: (newValue) {
+            Navigator.of(context).pop();
+              setState(() {
+                _selectedLocation[index] = newValue;
+              });
+              discountFunction(context, 1);
+            },
+            items: _locations.map((location) {
+              return DropdownMenuItem(
+                child: new textCustom1(location, 20, Colors.black87,"style", FontWeight.normal),
+                value: location,
+              );
+            }).toList(),
+          ),
+           //Text(""),  
+                  // Container(
+               // width: 100,
+               /* child:  TextField(
                   keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -536,38 +697,53 @@ Text("      "),
                       indexDiscount=index;
                   });
                 },
-               ),
-              ),
+               ),*/
+             // ),
                 ],
               ),
+             ),
              Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                children: <Widget>[
                //  Text(""),
                   Container(
-                width: 120,
+                width:_selectedLocation[index]=="AMOUNT" ? 120 : 105,
                 child:  TextField(
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   controller: amountDiscountCtrlr[index],
                   onChanged: (value){ 
-                    if(value==null || value==""){
+                       TextEditingController b=new TextEditingController(text:  amountDiscountCtrlr[index].text.toString());
+                       setState(() {
+                         print("object ${price[index]/double.parse(b.text)}");
+                              if(_selectedLocation[index]=="PERCENT OFF"){
+                              if(double.parse( amountDiscountCtrlr[index].text)<=100){
+                                print("awerc");
+                                discountablePrice[index].text="${((price[index]*quantity[index])/100)*double.parse(b.text)}";
+                                    discountablePrice[index].text="${FlutterMoneyFormatter(amount: double.parse(discountablePrice[index].text)).output.nonSymbol}";
+                              }
+                              }
+                              else{
+                                  discountablePrice[index].text="${(price[index]*quantity[index])-double.parse(b.text)}";
+                                  discountablePrice[index].text="${FlutterMoneyFormatter(amount: double.parse(discountablePrice[index].text)).output.nonSymbol}";
+                              }
+                       });
+                  print("dddddd");
+                 /*  if(value==null || value==""){
                       discountablePrice[index].text=discountGlobal;
                     }
                     var a=discountablePrice[index].text;
-                      
                     TextEditingController b=new TextEditingController(text: discountGlobal.toString());
                 print(b.text);
                    var percent="${double.parse(discountGlobal)*(double.parse("${amountDiscountCtrlr[index].text}")/100)}";
-                  
                   discountablePrice[index].text="${percent}";
-
-                 print(percent);
+                 print(percent);*/
                   },
                ),
               ),
+             _selectedLocation[index]=="PERCENT OFF" ? Text("%") : Container()
                ],
-             ),              
+             ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -581,7 +757,6 @@ Text("      "),
                     onChanged: (value){
                         print("object");
                     },
-                 
                ),
               ),
                 ],
@@ -630,11 +805,23 @@ new OutlineButton(
             width: 2, //width of the border
           ),
     color:Colors.blue,
-  child: new textCustom("OK",25,Colors.blue,""),
+  child: new textCustom("Discount",20,Colors.blue,""),
   onPressed: (){
+    bool restrictedAmount=false;
+    for(int x=0;x<productName.length;x++){
+      if(double.parse(discountablePrice[x].text)<0){
+          print("error");
+          restrictedAmount=true;
+      }
+    }
+    if(restrictedAmount){
+      print("error123");
+      restrictedAmount=false;
+    }
+    else{
+      
     discountLabel=0.0;
     for(int x=0;x<productName.length;x++){
-
       if(discountablePrice[x].text=="" || discountablePrice[x].text=="0"){
         replacementDiscount[x]="0";
       }
@@ -642,8 +829,6 @@ new OutlineButton(
           replacementDiscount[x]=discountablePrice[x];
           discountLabel=discountLabel+double.parse("${discountablePrice[x].text}");
       } 
-      
-      
       print(replacementDiscount[x]);
     }
       setState(() {
@@ -654,11 +839,15 @@ new OutlineButton(
             //  initialDiscount=int.parse(quantity[0])*int.parse(quantityDiscount[0]);
             //  print(initialDiscount);
                               // quantityDiscount[indexDiscount]=quantityDiscountCtrlr[indexDiscount];
-                               print("${ quantityDiscount[indexDiscount]} eto na yunnnnn");
+                            
                              });
         //quantityDiscount[index]=
       });
   Navigator.of(context).pop();
+
+    }
+
+
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -679,6 +868,7 @@ new OutlineButton(
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
+      
       return Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
@@ -778,8 +968,7 @@ Future<void> cashierInfo(BuildContext context,int x) {
 
               ],
             ),
-          )),
-       
+          )),     
         actions: <Widget>[
            Center(
              child:Container(
@@ -802,8 +991,6 @@ Future<void> cashierInfo(BuildContext context,int x) {
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
                  ],
                ),
                )
@@ -853,8 +1040,6 @@ Future<void> restrictAmount(BuildContext context,int x) {
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
-
                  ],
                ),
                )
@@ -866,8 +1051,7 @@ Future<void> restrictAmount(BuildContext context,int x) {
     },
   );
 }
-Future<void> member(BuildContext context,int x) {
-        
+Future<void> member(BuildContext context,int x) {      
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -875,31 +1059,37 @@ Future<void> member(BuildContext context,int x) {
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
-        child: FadeAnimation(0.5, AlertDialog(
+        child: FadeAnimation(0.5, Container(
+       
+       child:   AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       backgroundColor: Colors.white,
         title:Container(
-          child: Column(
-            children: <Widget>[
-              Center( 
-          child: textCustom("Enter Member User ID", 25, Colors.black, "style"),),
-          Text(""),
-          Container(
-            width: 400,
-            child: TextField(
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-              ),
-              controller: memberId,
-
-            
-          ),
-          )
-            ],
-          ),
+          child:
+             Column(
+               children: <Widget>[
+                 Text(""),
+                  Container(
+                        height: 40,
+                        width: 400,
+                        child:  TextField(
+                        style: TextStyle(fontSize: 20),
+                        
+                        controller: memberId,
+                        textCapitalization: TextCapitalization.sentences,
+                        decoration: InputDecoration(
+                          icon: Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child:  Icon(Icons.person_outline, size: 30,color: Colors.blue,),
+                          ),
+                          hintText: "Enter Member ID",labelStyle: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      ),
+               ],
+             )
         ),
-        content:Text(""),
+
         actions: <Widget>[
          
              Container(
@@ -931,26 +1121,30 @@ Text("   "),
             width: 2, //width of the border
           ),
     color:Colors.blue,
-  child: new textCustom("  OK  ",25,Colors.blue,""),
+  child: new textCustom("Submit",25,Colors.blue,""),
   onPressed: ()async{
    
       var get=await http.get("http://192.168.1.3:424/api/memberuser/getbymemUserId/${memberId.text}");
       var data=json.decode(get.body);
       setState(() {
         if(data==null){
-           Navigator.of(context).pop();
-           voidFailed(context, 5);
+            Navigator.of(context).pop();
+             voidFailed(context, 5);
+          
+       
+          print("objectawercdf");
+        memberName="";
         }
         else{
-            memberName="${data['firstname']} ${data['lastname']}";
-            Navigator.of(context).pop();
+               memberName="${data['firstname']} ${data['lastname']}";
+                     Navigator.of(context).pop();
         }
-        
+     
       });
        
      memberidHolder="${memberId.text}";
 
-
+ // Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -960,15 +1154,61 @@ Text("   "),
              )
 
         ],
-      )),
+      )
+        )
+      ),
       );
     },
   );
 }
+    _write(String text) async {
+      new Directory('data').create(recursive: true)
+    // The created directory is returned as a Future.
+    .then((Directory directory) {
+      print(directory.path);
+  });
+  final Directory directory = await getApplicationDocumentsDirectory();
+  final File file = File('${directory.path}/my_file.txt');
+  await file.writeAsString(text);
+}
+Future<String> _read() async {
+      new Directory('data').create(recursive: true)
+    // The created directory is returned as a Future.
+    .then((Directory directory) {
+      print(directory.path); 
+  });
+  String text;
+  try {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    print("$text eto na yon ${directory.path}");
+    text = await file.readAsString();
+  } catch (e) {
+    print("Couldn't read file");
+  }
+  print("$text");
+  return text;
+}
+void getWrite()async{
+     String texts;
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    texts = await file.readAsString(); 
+      _write("$texts\n Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM         QTY          PRICE         TOTAL \n");
+              // _write(  "================================================");  
+             /*  _write(   "\n");
+               _write(  "================================================");
+               _write(  "                              \tVat:${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+               _write(  "                              \tSubtotal:${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+               _write(  "                              \tMoney:${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+               _write(  "                              \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
+               _write(  "\n");
+               _write(  "THIS INVOICE SHALL BE VALID FOR FIVE (5) YEARS\n"); 
+               _write(  "FROM THE DATE OF THE PERMIT TO USE\n");*/
+}
     //function..
-
     Future<void> paymentRestriction(BuildContext context,int x) {
-        
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
@@ -980,7 +1220,8 @@ Text("   "),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",):  x==2? textCustom("Insufficient Amount", 25, Colors.red, "style",) :textCustom("Please Enter Amount", 25, Colors.red, "style",) ,),
+          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",):  x==2? textCustom("Insufficient Amount", 25, Colors.red, "style",): x==3?
+           textCustom("Username/Password required", 25, Colors.red, "style",): x==4? textCustom("Invalid Username/Password", 25, Colors.red, "style",) :textCustom("Please Enter Amount", 25, Colors.red, "style",) ,),
         //content:Text(""),
         actions: <Widget>[
            Center(
@@ -999,7 +1240,6 @@ Text("   "),
     color: Colors.blue,
   child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
-    
   Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
@@ -1290,7 +1530,7 @@ int _start = 10;
 void startTimer()async{
   SharedPreferences prefs=await SharedPreferences.getInstance();
   setState(() {
-    
+    user=prefs.getString("userid");
     usernamePrefs=prefs.getString("userName");
   passwordPrefs=prefs.getString("userPass");
   });
@@ -1304,6 +1544,7 @@ void startTimer()async{
         if (_start < 9) {
           if(openDialog){
            if(prefs.getString("openingAmount")!="0.0"){
+
               print("pumasok na dito");
             }
             else{
@@ -1340,15 +1581,19 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   int counterData=1;
   double totalAmountSave=0;
   TextEditingController closingAmountText=new TextEditingController();
-  List<String> _locations = ['QUANTITY', 'PERCENT']; // Option 2
-  String _selectedLocation; 
+  List<String> _locations = ['PERCENT OFF', 'AMOUNT']; // Option 2
+  List _selectedLocation=[];
   String removeFunction="";
   String checkOut="checkOut";
   TextEditingController memberId=new TextEditingController();
   String memberName="";
    FocusNode myFocusNode;
    String memberidHolder="";
+   List typediscount=[];
+   TextEditingController discountname=new TextEditingController();
+   TextEditingController discountid=new TextEditingController();
    String pending="variable";
+   List voidTran=[];
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1440,17 +1685,18 @@ new OutlineButton(
     subtotal=0;
     //function="add";
     quantity[x]=int.parse(qtyCtrlr.text) ;
-    for(int x=0;x<productName.length;x++){
-        subtotal=subtotal+(price[x]*quantity[x]);
+    points=0;
+    for(int i=0;i<productName.length;i++){
+        subtotal=subtotal+(price[i]*quantity[i]);
+        points=points+(pointsTotal[i]*quantity[i]);
     }
-    points=(pointsTotal[x]*quantity[x]);
+   
     qtyCtrlr.text="";
     print(quantity[x]); 
     //subtotal=price[x]*quantity[x];
   });
   Navigator.of(context).pop();
     }
-  
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1546,9 +1792,7 @@ new OutlineButton(
   onPressed: ()async{
     
     if(openingA.text==""){
-    
-      paymentRestriction(context, 3);
-      
+      paymentRestriction(context, 5);
     }
     else{
         SharedPreferences prefs=await SharedPreferences.getInstance();
@@ -1713,7 +1957,7 @@ new OutlineButton(
                  child:  rButtonView3(() async{
 
                    if(checkOut=="checkedOut"){
-
+                      print("user id null");
                    }
                    else{
 
@@ -1735,10 +1979,15 @@ new OutlineButton(
                      load="load";
                    });
                
-            
-                  
+                  if(user=="" || user=="null" || user==null){
+
+                  }
+                  else{ 
+                  var s=  await http.get("http://192.168.1.3:424/api/tranheader/GetAll");
+                  var e=json.decode(s.body);
+                  print("${e} awercaewr");
                        var header=  await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"$discountLabel","receiptNo":"001","vat":"${subtotal*0.12}","memberName":"$memberName","subtotal":"${subtotal-(subtotal*0.12)}"
+                       "discount":"$discountLabel","receiptNo":"${e.length}","vat":"${subtotal*0.12}","memberName":"Prokopyo tunying","subtotal":"${subtotal-(subtotal*0.12)}"
                        ,"totalAmt":"${subtotal-discountLabel}","payment":"${double.parse("${payment.text}")}","memberPoints":"$points","userId":"$user","remarks":"Transaction Completed","memberId":"${memberidHolder}"
             
                      }); 
@@ -1755,7 +2004,6 @@ print("object $headers");
 "points":"20",
 //"productId":"5d81a87ac321c71124c19dfc",
 "headerId":"$headers"
-
                      });
               http.Response response2=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/GetByProductId/${productId[x]}"),headers: {
         "Accept":"application/json"
@@ -1766,14 +2014,15 @@ print("object $headers");
         "Accept":"application/json"
      });
 
+                     
                      }
                      load="dontload";
-              
-              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-              SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
-              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-              SunmiAidlPrint.setFontSize(fontSize: 25);
+             // SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+                //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
+               //SunmiAidlPrint.setFontSize(fontSize:30);
+            //  SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+            //SunmiAidlPrint.setFontSize(fontSize: 24);
+           /*   SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
               SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -1846,14 +2095,13 @@ print("object $headers");
 
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
-              
-            //  SunmiAidlPrint.openDrawer1();
-            //  SunmiAidlPrint.openDrawer123();
+              */
+         // SunmiAidlPrint.openDrawer1();
+        //  SunmiAidlPrint.openDrawer123();
           // SunmiAidlPrint.cutPaper();
           // SunmiAidlPrint.openDrawer(text:"awerc");
            // SunmiAidlPrint.getPrinterInfo();
-              
-              sku=[];
+            getWrite();
               productName=[];
               quantity=[];
               price=[];
@@ -1866,6 +2114,7 @@ print("object $headers");
                       counterData=0;
                       replacementDiscount.clear();
                     checkedOut=true;
+                   
                     
                    // print("$checkedOut 5d80a894c321c7152c783e69");
                      productId.clear();
@@ -1904,6 +2153,7 @@ print("object $headers");
                      checkOut="checkOut";
                    });
              Navigator.of(context).pop();
+                   }
                    }
                    else{
                      paymentRestriction(context, 2);                
@@ -2232,7 +2482,7 @@ print("object $headers");
                       Navigator.pop(context);
                   }
                  else{
-                        voidItem(context, 2);
+                        voidItem(context, 2,1);
                  }
               //    Navigator.push(context, SlideRightRoute(widget: Void()));
          
@@ -2265,6 +2515,42 @@ print("object $headers");
                 onTap: () {
                   Navigator.pop(context);
                  
+                  memberId.text="";
+
+                      //discountablePrice.clear();
+                  member(context, 1);
+                  
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
+                    new ListTile(
+                title: new Text('Report', style: TextStyle(fontSize: 20, color: Colors.black),),
+                trailing: Container(
+                  height: 50,
+                  child: Image(image: AssetImage('assets/person1.png')),
+                ),
+                onTap: ()async {
+                  SharedPreferences prefs= await SharedPreferences.getInstance();
+
+                  Navigator.pop(context);
+                   Navigator.push(context, SlideRightRoute(widget: Reporting(prefs.getString("openingAmount"),/*prefs.getStringList("tranhistory")*/voidTran,prefs.getDouble("totalAmountSaveprefs"))));
+            
+                  
+                 // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
+                }),
+                new ListTile(
+                title: new Text('Pay Maya', style: TextStyle(fontSize: 20, color: Colors.black),),
+                trailing: Container(
+                  height: 50,
+                  child: Image(image: AssetImage('assets/person1.png')),
+                ),
+                onTap: ()async {
+                  Navigator.pop(context);
+                   if(await canLaunch("https://www.facebook.com/")){
+     await launch('https://www.facebook.com/');
+       }
+       else {
+    throw 'Could not launch ';
+  }
                   memberId.text="";
 
                       //discountablePrice.clear();
@@ -2453,7 +2739,12 @@ print("object $headers");
         child: FadeAnimation(1.3, AppBar(title: Row(
           children: <Widget>[
             Text("",style: TextStyle(fontSize: 50,color: Colors.black)),
-            FadeAnimation1(2,  Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR", fontWeight: FontWeight.bold, color: Colors.white),),),
+            FadeAnimation1(2,  InkWell(
+              child: Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR", fontWeight: FontWeight.bold, color: Colors.white),),
+           onTap: (){
+             _read();
+           },
+            ),),
            
 
 
@@ -2719,7 +3010,7 @@ print("object $headers");
           ),
         ),
         hintText: 'ENTER BARCODE',
-        hintStyle: TextStyle(fontSize: 30),
+        hintStyle: TextStyle(fontSize: 30), 
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
@@ -2889,7 +3180,7 @@ print("object $headers");
                         splashColor: Color(0xFFF95700),
                         icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 30),
                         onPressed:(){
-                          voidItem(context, 1);
+                          voidItem(context, 1,index);
                               
                           //voidItem(context, 1);
                         } ,
@@ -3008,7 +3299,7 @@ print("object $headers");
                         icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 25,),
                         onPressed:(){
                           
-                            voidItem(context, 1);
+                            voidItem(context, 1,index);
                         } ,
                       )
                     ],
@@ -3070,10 +3361,16 @@ print("object $headers");
         memberName!="" ?Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-             textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("Member :", 15, Colors.black, "style",FontWeight.bold), 
              textCustom1("${memberName}", 15, Colors.black, "style",FontWeight.bold),
           ],
-        ) : Container(),
+        ) : Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+             textCustom1("", 15, Colors.black, "style",FontWeight.bold),
+             textCustom1("", 15, Colors.black, "style",FontWeight.bold),
+          ],
+        ),
          Text(""),
   
          Row(
@@ -3171,12 +3468,11 @@ print("object $headers");
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[ 
                 Container(padding: EdgeInsets.all(10),
-                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 15, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 10, Colors.black, ""),),
+                child: replacementDiscount[index]=="0" || replacementDiscount[index]==null ||replacementDiscount[index]==""  ? textCustom("${total.output.nonSymbol}", 15, Colors.black, "") : textCustom("${total.output.nonSymbol}(-${replacementDiscount[index].text})", 15, Colors.black, ""),),
               ],
             ),     
             ]
           )],
-      
         ),
           ): Container(
             color: Colors.white,
@@ -3184,7 +3480,6 @@ print("object $headers");
            // border: TableBorder.all(width: 1,color: Colors.black87),
           children: [TableRow(
             children:[
-            
                  Container(padding: EdgeInsets.all(10),
                 child: textCustom("${a[0]}", 15, Colors.black, ""),
                 ),
@@ -3358,18 +3653,34 @@ print("object $headers");
                              child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                children: <Widget>[
-                                discountLabel!=0.0?    Row(
+                           
+                             Text(""),
+                                 discountname.text!="" ?    Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom1("Discount Name : ", 15, Colors.black, "style",FontWeight.bold),
+                               textCustom1("${discountname.text}", 15, Colors.black, "style",FontWeight.bold),
+                             ],):Container(height: 0,),
+                                Text(""),
+                                discountid.text!=""?    Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                               
+                               textCustom1("Discount Id: ", 15, Colors.black, "style",FontWeight.bold),
+                               textCustom1("${discountid.text}", 15, Colors.black, "style",FontWeight.bold),
+                             ],):Container(),
+                                  discountLabel!=0.0?    Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
                                
                                textCustom1("Discount : ", 15, Colors.black, "style",FontWeight.bold),
-                               textCustom1("Php -${discountLabel}", 15, Colors.red, "style",FontWeight.bold),
+                               textCustom1("Php ${FlutterMoneyFormatter(amount:discountLabel).output.nonSymbol}", 15, Colors.black, "style",FontWeight.bold),
                              ],):Container(),
                                   Text(""),
                                  Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
-                               
                                textCustom1("SUBTOTAL : ", 15, Colors.black, "style",FontWeight.bold),
                                textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}", 15, Colors.black, "style",FontWeight.bold),
                              ],),
@@ -3377,7 +3688,6 @@ print("object $headers");
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: <Widget>[
-                               
                                textCustom1("VAT : ", 15, Colors.black, "style",FontWeight.bold),
                                textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}", 15, Colors.black, "style",FontWeight.bold),
                              ],),
@@ -3391,8 +3701,15 @@ print("object $headers");
                                children: <Widget>[
                                  
                                
-                                 
-                              removeFunction=="go"?textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 22, Colors.black, "style",FontWeight.bold):Text(""),// with formula...
+                        
+                              removeFunction=="go"?textCustom1("Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}", 30, Colors.black, "style",FontWeight.bold):Column(
+                                children: <Widget>[
+                                  Text(""),
+                                  Divider(height: 3,),
+                                   Text(""),
+                                    
+                                ],
+                              ),// with formula...
                              ],),
                               Row(
                                mainAxisAlignment: MainAxisAlignment.center,
