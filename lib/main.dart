@@ -219,6 +219,7 @@ class _SignInState extends State<SignIn> {
                      Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
                         SharedPreferences prefs=await SharedPreferences.getInstance();
   prefs.setString("userUsed", "used");
+  prefs.setString("userid", reviewdata['_id']);
   prefs.setString("userName", "${ reviewdata['username']}");
   prefs.setString("userPass", "${password.text}");
 

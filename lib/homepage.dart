@@ -2022,7 +2022,7 @@ print("object $headers");
                //SunmiAidlPrint.setFontSize(fontSize:30);
             //  SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
             //SunmiAidlPrint.setFontSize(fontSize: 24);
-           /*   SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
+              SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
               SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2087,15 +2087,24 @@ print("object $headers");
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
-              
-              SunmiAidlPrint.commitPrint1();
-              SunmiAidlPrint.commitPrinterBuffer();
-              SunmiAidlPrint.enterPrintBuffer1();
-              SunmiAidlPrint.exitPrinterBuffer1();
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"============================================");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Trudi IT Solutions\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"© 2020 v1.0. All rights reserved\n");
 
+            //  SunmiAidlPrint.commitPrint1();
+              SunmiAidlPrint.commitPrinterBuffer1();
+            //  SunmiAidlPrint.enterPrintBuffer1(); 
+            //  SunmiAidlPrint.exitPrinterBuffer1();
+              
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
-              */
+              
          // SunmiAidlPrint.openDrawer1();
         //  SunmiAidlPrint.openDrawer123();
           // SunmiAidlPrint.cutPaper();
@@ -2525,8 +2534,8 @@ print("object $headers");
                     new ListTile(
                 title: new Text('Report', style: TextStyle(fontSize: 20, color: Colors.black),),
                 trailing: Container(
-                  height: 50,
-                  child: Image(image: AssetImage('assets/person1.png')),
+                  height: 55,
+                  child: Image(image: AssetImage('assets/r1.png')),
                 ),
                 onTap: ()async {
                   SharedPreferences prefs= await SharedPreferences.getInstance();
@@ -2538,23 +2547,23 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                 new ListTile(
-                title: new Text('Pay Maya', style: TextStyle(fontSize: 20, color: Colors.black),),
+                title: new Text('Pay Maya',style: TextStyle(fontSize: 20, color: Colors.black),),
                 trailing: Container(
-                  height: 50,
-                  child: Image(image: AssetImage('assets/person1.png')),
+                  height: 60,
+                  child: Image(image: AssetImage('assets/pay1.png')),
                 ),
                 onTap: ()async {
                   Navigator.pop(context);
                    if(await canLaunch("https://www.facebook.com/")){
      await launch('https://www.facebook.com/');
        }
-       else {
+       else { 
     throw 'Could not launch ';
   }
-                  memberId.text="";
+                //  memberId.text="";
 
                       //discountablePrice.clear();
-                  member(context, 1);
+                 // member(context, 1);
                   
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
