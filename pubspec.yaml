@@ -43,6 +43,9 @@ dependencies:
   path_provider: ^0.4.1
   loading: ^1.0.2
   rflutter_alert: ^1.0.2
+  url_launcher: ^3.0.3
+
+
   intl: ^0.15.8
 dev_dependencies:
   flutter_test:
