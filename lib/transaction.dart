@@ -481,11 +481,11 @@ deleteSelected() async{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     //idclick
-                     textCustom("XXX-XXXX-${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-4] }${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-3]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-2]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-1]}", 20, Colors.black, "")
+                     textCustom("XXX-XXXX-${snapshot.data[index].receiptNo[index] }0", 20, Colors.black, "")
                   ],
                 )),
                 
-                ),
+                ), 
                 //date...
                 Container(padding: EdgeInsets.all(10),
                 child: Row(
