@@ -25,8 +25,8 @@ class Services {
   final String username;
   final String userid;
   final String memberName;
-  
-  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName);
+  final String receiptNo;
+  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName,this.receiptNo);
 
 }
 class Transaction extends StatefulWidget {
@@ -56,7 +56,7 @@ class _TransactionState extends State<Transaction> {
        for(var u in reviewdata){
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]
-      ,u["userId"],u["memberName"]);
+      ,u["userId"],u["memberName"],u['receiptNo']);
        
       if(tranhistory.contains(u["_id"])){
             services.add(service);
@@ -72,7 +72,7 @@ class _TransactionState extends State<Transaction> {
 
       
       Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],
-      u["userId"],u["memberName"]);
+      u["userId"],u["memberName"],u['receiptNo']);
        
       if(getSearchReceipt==reviewdata[x]['_id']){
            services.add(service);
@@ -481,7 +481,7 @@ deleteSelected() async{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     //idclick
-                     textCustom("${index}", 20, Colors.black, "")
+                     textCustom("XXX-XXXX-${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-4] }${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-3]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-2]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-1]}", 20, Colors.black, "")
                   ],
                 )),
                 
@@ -549,37 +549,37 @@ deleteSelected() async{
            color: Colors.deepOrange,
            child: 
               Center( 
-          child: textCustom("Transaction Details", 30, Colors.white, "style",),),
+          child: textCustom("Transaction Details", 35, Colors.white, "style",),),
          ),
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Date/Time", 20, Colors.black, "style",),
-              textCustom("15/10/2019 2:52:31 AM", 25, Colors.black, "style",),
+              textCustom("Date/Time", 30, Colors.black, "style",),
+              textCustom("15/10/2019 2:52:31 AM", 30, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Cashier", 25, Colors.black, "style",),
-              textCustom("Prokopyo Tunying", 25, Colors.black, "style",),
+              textCustom("Cashier", 30, Colors.black, "style",),
+              textCustom("Prokopyo Tunying", 30, Colors.black, "style",),
              
            ],
          ),
         snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
+              textCustom("Member", 30, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 30, Colors.black, "style",),
              
            ],
          ):Container(),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Points", 25, Colors.black, "style",),
-              textCustom("0", 25, Colors.black, "style",),
+              textCustom("Points", 30, Colors.black, "style",),
+              textCustom("0", 30, Colors.black, "style",),
              
            ],
          ),
@@ -594,11 +594,11 @@ deleteSelected() async{
             children:[
          
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("ITEM", 22, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("ITEM", 27, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("QUANTITY", 22, Colors.white, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("QUANTITY", 27, Colors.white, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(10),
-          child: Center(child:  textCustom1("AMOUNT", 22, Colors.white, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("AMOUNT", 27, Colors.white, "",FontWeight.bold))),
             ]
           
             
@@ -627,15 +627,15 @@ deleteSelected() async{
              Expanded(
                child: Container(
                  padding: EdgeInsets.all(2),
-                 child: textCustom1("${reviewdata[index]["productName"]}", 20, Colors.black, "",FontWeight.bold),
+                 child: textCustom1("${reviewdata[index]["productName"]}", 25, Colors.black, "",FontWeight.bold),
                ),
              ),
            ],
          ),
            Container(padding: EdgeInsets.all(2),
-                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 20, Colors.black, "",FontWeight.bold))),
+                child: Center(child:  textCustom1("${reviewdata[index]["quantity"]}", 25, Colors.black, "",FontWeight.bold))),
            Container(padding: EdgeInsets.all(2),
-          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 20, Colors.black, "",FontWeight.bold))),
+          child: Center(child:  textCustom1("${reviewdata[index]["sellingPrice"]}", 25, Colors.black, "",FontWeight.bold))),
             ]
           
             
@@ -652,48 +652,48 @@ deleteSelected() async{
        Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Subtotal", 20, Colors.black, "style",),
-              textCustom("${rev["subtotal"]}", 20, Colors.black, "style",),
+              textCustom("Subtotal", 25, Colors.black, "style",),
+              textCustom("${rev["subtotal"]}", 25, Colors.black, "style",),
              
            ],
          ),
              Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("VAT", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("VAT", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Discount", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Discount", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Total", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Total", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Payment", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Payment", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
            Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Change", 20, Colors.black, "style",),
-              textCustom("0", 20, Colors.black, "style",),
+              textCustom("Change", 25, Colors.black, "style",),
+              textCustom("0", 25, Colors.black, "style",),
              
            ],
          ),
@@ -828,11 +828,18 @@ deleteSelected() async{
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
          ),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: <Widget>[
+              textCustom("Date/Times", 20, Colors.black, "style",),
+              textCustom("${dates}", 20, Colors.black, "style",),
+           ],
+         ),
          snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 20, Colors.black, "style",),
              
            ],
          ):Container(),
@@ -844,14 +851,7 @@ deleteSelected() async{
              
            ],
          ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style"),
-              textCustom("${snapshot.data[index].memberName}", 20, Colors.black, "style"),
-             
-           ],
-         ),
+         
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1263,8 +1263,10 @@ Text("  "),
                     totalRefund=totalRefund+totalRefund1[x];
                     print("totalrefund $totalRefund");
                   }
+                  var d=await http.get("http://192.168.1.3:424/api/TranHeader/getall");
+                  var e=json.decode(d.body);
     var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       "discount":"${rev["discount"]}","receiptNo":"${e.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
                        ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt",
                       "userid":"${snapshot.data[index].userid}"
                      });
@@ -1303,9 +1305,10 @@ var headers = myString.replaceAll(RegExp('"'), '');
                      });
                      }
                      }
-                
+                var c=await http.get("http://192.168.1.3:424/api/TranHeader/getall");
+                  var y=json.decode(c.body);
                        var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       "discount":"${rev["discount"]}","receiptNo":"${y.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
                        ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}"
                      });
                           print("object");
@@ -1404,7 +1407,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
                   children: <Widget>[
                     //idclick
                     // textCustom("${snapshot.data[index].id}", 20, Colors.black, "")
-                    textCustom("${index}", 20, Colors.black, "")
+                    textCustom("XXX-XXXX-${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-4] }${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-3]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-2]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-1]}", 20, Colors.black, "")
                   ],
                 )),
             
@@ -1490,14 +1493,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
              
            ],
          ),
-          Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: <Widget>[
-              textCustom("Member", 20, Colors.black, "style",),
-              textCustom("", 20, Colors.black, "style",),
-             
-           ],
-         ),
+         
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
@@ -1769,8 +1765,8 @@ var headerId = s.replaceAll(RegExp('"'), '');
         snapshot.data[index].memberName!=null?  Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
-              textCustom("Member", 25, Colors.black, "style",),
-              textCustom("${snapshot.data[index].memberName}", 25, Colors.black, "style",),
+              textCustom("Member", 20, Colors.black, "style",),
+              textCustom("${snapshot.data[index].memberName}", 20, Colors.black, "style",),
              
            ],
          ):Container(),
@@ -2175,8 +2171,11 @@ Text("  "),
                     totalRefund=totalRefund+totalRefund1[x];
                     print("totalrefund $totalRefund");
                   }
+                  var d=await http.get("http://192.168.1.3:424/api/TranHeader/getall");
+                  var e=json.decode(d.body);
+
     var header=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       "discount":"${rev["discount"]}","receiptNo":"${e.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
                        ,"totalAmt":"${rev["totalAmt"]-totalRefund}","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Transaction Refunded Receipt",
                       "userid":"${snapshot.data[index].userid}"
                      });
@@ -2215,9 +2214,10 @@ var headers = myString.replaceAll(RegExp('"'), '');
                      });
                      }
                      }
-                
+                  var a=await http.get("http://192.168.1.3:424/api/TranHeader/getall");
+                  var x=json.decode(a.body);
                        var headersId=await http.post("http://192.168.1.3:424/api/TranHeader/Add",body:{
-                       "discount":"${rev["discount"]}","receiptNo":"001","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       "discount":"${rev["discount"]}","receiptNo":"${x.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
                        ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}"
                      });
                           print("object");
