@@ -312,17 +312,11 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
 
-         for(int y=0;y<productName.length;y++){
-            String texts;
-    final Directory directory = await getApplicationDocumentsDirectory();
-directory.rename("storage/emulated/0");
-    
-    print("${directory.path} Changed");
-        final File file = File('${directory.path}/my_file.txt');
-    texts = await file.readAsString();
-    _write("$texts\n${productName[y]} | ${quantity[y]} | ${price[y]}");
+         for(int y=0;y<productName.length;y++){ 
+          
+    _write("\n${productName[y]} | ${quantity[y]} | ${price[y]}");
                 var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
-                    "userId":"$user","remarks":"Void"
+                    "userId":"$user","remarks":"Void","storeName":"Makati Store"
             
                      }); 
                         final myString = '${header.body}';
@@ -331,7 +325,7 @@ var headers = myString.replaceAll(RegExp('"'), '');
                        "sellingPrice":"${price[y]}","categoryDesc":"safeguard",
                        "productId":"${productId[y]}",
                        "sellingPrice":"${price[y]}",
-                       "amount":"${price[y]*quantity[y]}",
+                       "amount":"${price[y]*quantity[y]}", 
 //"productName":"${productName[x]}",
 "quantity":"${quantity[y]}",
 "points":"20",
@@ -1179,7 +1173,7 @@ Text("   "),
       print(directory.path);
   });
   final Directory directory = await getApplicationDocumentsDirectory();
-  final File file = File('${directory.path}/my_file.txt');
+  final File file = File('my_file.txt');
   await file.writeAsString(text);
 }
 Future<String> _read() async {
@@ -1198,14 +1192,11 @@ Future<String> _read() async {
     print("Couldn't read file");
   }
   print("$text");
-  return text;
+  return text; 
 }
 void getWrite()async{
-     String texts;
-    final Directory directory = await getApplicationDocumentsDirectory();
-    final File file = File('${directory.path}/my_file.txt');
-    texts = await file.readAsString(); 
-      _write("$texts\n Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
+     
+      _write("\n Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM         QTY          PRICE         TOTAL \n");
               // _write(  "================================================");  
              /*  _write(   "\n");
