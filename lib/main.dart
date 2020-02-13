@@ -183,6 +183,7 @@ class _SignInState extends State<SignIn> {
                     radius: 60,
                     elevation: 8.0,
                     background: Colors.blue[500],
+                    gradientColors: [Colors.blue, Colors.black],
                     onPressed: ()async{
                       setState(() {
                         load="load";

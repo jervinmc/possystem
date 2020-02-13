@@ -308,14 +308,17 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 
      if(x==2){  
       
-       
+        
 
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
 
          for(int y=0;y<productName.length;y++){
             String texts;
     final Directory directory = await getApplicationDocumentsDirectory();
-    final File file = File('${directory.path}/my_file.txt');
+directory.rename("storage/emulated/0");
+    
+    print("${directory.path} Changed");
+        final File file = File('${directory.path}/my_file.txt');
     texts = await file.readAsString();
     _write("$texts\n${productName[y]} | ${quantity[y]} | ${price[y]}");
                 var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
@@ -463,6 +466,7 @@ var headers = myString.replaceAll(RegExp('"'), '');
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
+        
         child: AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
@@ -723,9 +727,9 @@ child: Row(
                                     discountablePrice[index].text="${FlutterMoneyFormatter(amount: double.parse(discountablePrice[index].text)).output.nonSymbol}";
                               }
                               }
-                              else{
-                                  discountablePrice[index].text="${(price[index]*quantity[index])-double.parse(b.text)}";
-                                  discountablePrice[index].text="${FlutterMoneyFormatter(amount: double.parse(discountablePrice[index].text)).output.nonSymbol}";
+                              else{ 
+                                
+                                  discountablePrice[index].text="${FlutterMoneyFormatter(amount: double.parse(value)).output.nonSymbol}";
                               }
                        });
                   print("dddddd");
@@ -819,7 +823,6 @@ new OutlineButton(
       restrictedAmount=false;
     }
     else{
-      
     discountLabel=0.0;
     for(int x=0;x<productName.length;x++){
       if(discountablePrice[x].text=="" || discountablePrice[x].text=="0"){
@@ -871,13 +874,13 @@ new OutlineButton(
       
       return Container(
         decoration: BoxDecoration(
-          borderRadius:BorderRadius.circular(15)
+          borderRadius:BorderRadius.circular(20),
         ),
         child: AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Username/Password is invalid", 25, Color(0xFFF95700), "style",),),
+          child: textCustom("Username/Password is invalid", 25, Color(0xFFF95700), "style")),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -1068,7 +1071,15 @@ Future<void> member(BuildContext context,int x) {
           child:
              Column(
                children: <Widget>[
+                
+ Container(
+   height: 150,
+   
+   child:  Image.asset("assets/info1.png"),
+ ),
+
                  Text(""),
+               
                   Container(
                         height: 40,
                         width: 400,
@@ -1080,7 +1091,7 @@ Future<void> member(BuildContext context,int x) {
                         decoration: InputDecoration(
                           icon: Container(
                             padding: EdgeInsets.only(left: 10, right: 10),
-                            child:  Icon(Icons.person_outline, size: 30,color: Colors.blue,),
+                            child:  Icon(Icons.person_outline, size: 40,color: Colors.blue,),
                           ),
                           hintText: "Enter Member ID",labelStyle: TextStyle(color: Colors.black),
                         ),
@@ -1103,7 +1114,7 @@ Future<void> member(BuildContext context,int x) {
       borderSide: BorderSide(
             color: Color(0xFFFF5733), //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
+            width: 1, //width of the border
           ),
     color:Color(0xFFFF5733),
   child: new textCustom("Cancel",25,Color(0xFFFF5733),""),
@@ -1118,10 +1129,10 @@ Text("   "),
       borderSide: BorderSide(
             color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 2, //width of the border
+            width: 1, //width of the border
           ),
-    color:Colors.blue,
-  child: new textCustom("Submit",25,Colors.blue,""),
+    color:Colors.blue, 
+  child: new textCustom("Member",23,Colors.blue,""),
   onPressed: ()async{
    
       var get=await http.get("http://192.168.1.3:424/api/memberuser/getbymemUserId/${memberId.text}");
@@ -1624,11 +1635,12 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
 
     TextEditingController tin=new TextEditingController();
      TextEditingController address=new TextEditingController();
+     
   Future<void> _ackAlert(BuildContext context,int x) {  
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
-      return Container(
+      return FadeAnimation(1.0,Container(
         decoration: BoxDecoration(
           borderRadius:BorderRadius.circular(15)
         ),
@@ -1636,7 +1648,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: textCustom("Enter Quantity", 25, Colors.black87, "style",),),
+          child: textCustom("Enter Quantity",25, Colors.black87, "style",),),
         content:TextFormField(
           controller: qtyCtrlr,
           maxLength: 5,
@@ -1707,7 +1719,7 @@ new OutlineButton(
            )
         ],
       ),
-      );
+      ));
     },
   );
 }
@@ -2012,17 +2024,20 @@ print("object $headers");
       print(reviewdataBarcode['barcode']);
        http.Response response1=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/Update/${reviewdataBarcode['_id']}/${reviewdataBarcode['quantity']-quantity[x]}"),headers: {
         "Accept":"application/json"
-     });
+     }); 
 
-                     
-                     }
+                     } 
                      load="dontload";
              // SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
                 //SunmiAidlPrint.printBarcode(text:"Receipt",symbology: SYMBOLOGY.CODE_128   ,height: 20,width: 10,textPosition: TEXTPOS.ABOVE_BARCODE);
                //SunmiAidlPrint.setFontSize(fontSize:30);
             //  SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
             //SunmiAidlPrint.setFontSize(fontSize: 24);
+            SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2033,15 +2048,15 @@ print("object $headers");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  Sales Invoice: XXXXXXXX\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"  Serial: XXXXXXXXXX\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"  MIN: XXXXXXXXXXXXXXXXX\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25); 
               SunmiAidlPrint.printText(text:"============================================");
-              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
-              SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"Serial: XXXXXXXXXX\n");
-              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
-              SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"MIN: XXXXXXXXXXXXXXXXX\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Date: MM/DD/YY\n");
@@ -2090,12 +2105,7 @@ print("object $headers");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"============================================");
-              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-              SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"Trudi IT Solutions\n");
-              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-              SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"© 2020 v1.0. All rights reserved\n");
+          
 
             //  SunmiAidlPrint.commitPrint1();
               SunmiAidlPrint.commitPrinterBuffer1();
@@ -2108,9 +2118,9 @@ print("object $headers");
          // SunmiAidlPrint.openDrawer1();
         //  SunmiAidlPrint.openDrawer123();
           // SunmiAidlPrint.cutPaper();
-          // SunmiAidlPrint.openDrawer(text:"awerc");
-           // SunmiAidlPrint.getPrinterInfo();
-            getWrite();
+          // SunmiAidlPrint.openDrawer(text:"awerc");   
+           // SunmiAidlPrint.getPrinterInfo(); 
+          //  getWrite();
               productName=[];
               quantity=[];
               price=[];
@@ -2135,7 +2145,7 @@ print("object $headers");
                     quantityDiscountCtrlr.clear();
                     amountDiscountCtrlr.clear();
                     subtotal=0.0;
-                    points=0.0;
+                    points=0.0; 
                     discountLabel=0.0;
                     memberName="";
                     
@@ -3989,7 +3999,7 @@ print("object $headers");
                         }, "Check out", MediaQuery.of(context).size.width/3.14),
                             ],
                           ),
-                        )
+                        ) 
                       )
                           ],
                         )

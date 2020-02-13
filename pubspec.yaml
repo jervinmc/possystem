@@ -40,7 +40,7 @@ dependencies:
   flutter_money_formatter: ^0.8.3
   flutter_multiselect: ^0.0.1
   nice_button: ^0.1.7
-  
+
   flutter_custom_dialog: ^1.0.15
   path_provider: ^0.4.1
   loading: ^1.0.2
@@ -161,7 +161,8 @@ flutter:
   - assets/paym.png
   - assets/report.png
   - assets/r1.png
-  
+  - assets/info.png
+  - assets/info1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
