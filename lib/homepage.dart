@@ -168,6 +168,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   var _controller = TextEditingController();
     @override
     Future<void> voidItem(BuildContext context,int x,int index) {
+      getWrite();
     if(x==2){
         Navigator.of(context).pop();
     }
@@ -316,7 +317,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
 
          for(int y=0;y<productName.length;y++){ 
           
-    _write("\n${productName[y]} | ${quantity[y]} | ${price[y]}");
+    //_write("\n${productName[y]} | ${quantity[y]} | ${price[y]}");
               var transactionGenerator=await http.get("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund");
                 var trans=json.decode(transactionGenerator.body);
                 var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
@@ -371,10 +372,10 @@ var headers = myString.replaceAll(RegExp('"'), '');
      }
      else{
         String texts;
-    final Directory directory = await getApplicationDocumentsDirectory();
-    final File file = File('${directory.path}/my_file.txt');
-    texts = await file.readAsString();
-    _write("$texts\n${productName[index]} | ${quantity[index]} | ${price[index]}");
+  //  final Directory directory = await getApplicationDocumentsDirectory();
+   // final File file = File('${directory.path}/my_file.txt');
+    //texts = await file.readAsString();
+    //_write("$texts\n${productName[index]} | ${quantity[index]} | ${price[index]}");
          print("objectsss");
        
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
@@ -1177,8 +1178,8 @@ Text("   "),
       print(directory.path);
   });
   final Directory directory = await getApplicationDocumentsDirectory();
-  final File file = File('my_file.txt');
-  await file.writeAsString(text);
+  //final File file = File('my_file.txt');
+  //await file.writeAsString(text);
 }
 Future<String> _read() async {
       new Directory('data').create(recursive: true)
@@ -1324,8 +1325,22 @@ Future<void> transactFailed(BuildContext context,int x) {
       http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/Inventories/GetByBarcode/${searchCtrlr.text}"),headers: {
         "Accept":"application/json"
      });
-    var reviewdata=json.decode(response.body);
+
+    var reviewdata=json.decode(response.body); 
+    if(reviewdata==null){
+      setState(() {
+             pending="variable"; 
+             searchCtrlr.text="";
+      });
+   
+
+      print("ubosawerawer");
+    }
+    else{
     if(reviewdata['quantity']==0){
+      searchCtrlr.text="";
+      pending="variable";
+      
       print("ubos na");
     }
     else{
@@ -1380,11 +1395,10 @@ productName.add(reviewdata['productName']);
         function="add";
        }
        if(counterGate==0){
-         transactFailed(context, 2);
+       //  transactFailed(context, 2);
        }
-      
-
    }
+    }
    setState(() {
    pending="variable";
    });
@@ -2099,9 +2113,15 @@ print("object $headers");
           
               SunmiAidlPrint.commitPrint();
             //  SunmiAidlPrint.commitPrint1();
+<<<<<<< HEAD
               SunmiAidlPrint.enterPrintBuffer1();
               SunmiAidlPrint.exitPrinterBuffer1();
               SunmiAidlPrint.commitPrinterBuffer1();
+=======
+            //  SunmiAidlPrint.enterPrintBuffer1(); 
+            //  SunmiAidlPrint.exitPrinterBuffer1();
+            //  SunmiAidlPrint.commitPrinterBuffer1();
+>>>>>>> 7dc5a4fd9a1818913e944d5fcc30c6346fd90b82
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
               
@@ -2492,6 +2512,7 @@ print("object $headers");
                   }
                  else{
                         voidItem(context, 2,1);
+
                  }
               //    Navigator.push(context, SlideRightRoute(widget: Void()));
          
