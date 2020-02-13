@@ -1057,7 +1057,7 @@ deleteSelected() async{
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
 
-              SunmiAidlPrint.commitPrinterBuffer1();
+            //  SunmiAidlPrint.commitPrinterBuffer1();
               SunmiAidlPrint.cutpaper12();
 
   Navigator.of(context).pop();
