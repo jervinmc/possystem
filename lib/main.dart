@@ -202,7 +202,7 @@ class _SignInState extends State<SignIn> {
   if(prefs.getString("available")=="avail"){
    
       if(prefs.getString("userName")==username.text){
-          Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
+          Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'],reviewdata['storeId'])));
       }
       else{
         signinFunction(context, 2);
@@ -216,16 +216,14 @@ class _SignInState extends State<SignIn> {
          print(reviewdata);
               a=1;
             print("object dumaan");
-                     Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'])));
+                     Navigator.push(context, SlideRightRoute(widget: Homepage(reviewdata['_id'],reviewdata['storeId'])));
                         SharedPreferences prefs=await SharedPreferences.getInstance();
   prefs.setString("userUsed", "used");
   prefs.setString("userid", reviewdata['_id']);
-  prefs.setString("userName", "${ reviewdata['username']}");
+  prefs.setString("userName", "${reviewdata['username']}");
   prefs.setString("userPass", "${password.text}");
-
        }
     if(a==0){
-     
         signinFunction(context, 1);
         a=1;
     }
