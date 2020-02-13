@@ -18,8 +18,11 @@ class Services {
   final double sellingPrice;
   final int quantity;
   final double amount;
-  
-  Services(this.headerId,this.productName,this.sellingPrice,this.quantity,this.amount);
+  final String type;
+  final String storeName;
+   final String cashier;
+    final String datetime;
+  Services(this.headerId,this.productName,this.sellingPrice,this.quantity,this.amount,this.type,this.storeName,this.cashier,this.datetime);
 
 }
 class Reporting extends StatefulWidget {
@@ -38,35 +41,35 @@ class _ReportingState extends State<Reporting> {
   _ReportingState(this.openingAmt,this.tranhistory,this.totalamount);
   Future<List<Services>> _getServices() async {
 
- http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/voidTdetails/GetAll"),headers: {
+ http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund"),headers: {
         "Accept":"application/json"
      });
     List reviewdata=json.decode(response.body);
 
-  int x=0;
-    List<Services> services = [];
+  int x=0; 
+    List<Services> services = []; 
     if(getSearchReceipt==""){
        for(var u in reviewdata){
-             print("may pumasok ${u["headerId"]}");
-             print("may pumasoks $tranhistory");
-      Services service = Services(u["headerId"],u["productName"],u["sellingPrice"],u["quantity"],u["amount"]);
+             print("may pumasok ${u["headerId"]}"); 
+             print("may pumasoks $reviewdata");
+      Services service = Services("aawer",u["item"],u["price"],u["quantity"],24,u["item"],u["storeName"],u["cashier"],u["datetime"]);
          print("may pumasok");
-      if(tranhistory.contains(u["headerId"])){
+     // if(tranhistory.contains(u["transactionNo"])){
             services.add(service);
           
-      }
-      else{
- print("walang pumasok");
-      }
+     // }
+    //  else{
+ //print("walang pumasok");
+   //   }
     }
     }
     else{
        for(var u in reviewdata){
 
       
-      Services service = Services(u["headerId"],u["productName"],u["sellingPrice"],u["quantity"],u["amount"]);
+      Services service = Services(u["transactionNo"],u["item"],u["price"],u["quantity"],u["amount"],u["type"],u["storeName"],u["cashier"],u["datetime"]);
        
-      if(getSearchReceipt==reviewdata[x]['_id']){
+      if(getSearchReceipt==reviewdata[x]['transactionNo']){
            services.add(service);
            print("may pumasok");
       }
