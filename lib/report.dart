@@ -62,6 +62,7 @@ class _ReportingState extends State<Reporting> {
  //print("walang pumasok");
    //   }
     }
+    
     }
     else{
        for(var u in reviewdata){
@@ -484,7 +485,7 @@ deleteSelected() async{
           Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("8-8-19", 25, Colors.black, "",FontWeight.normal))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("MAKATI STORE", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("${snapshot.data[index].storeName}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("PROKOPYO", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
@@ -512,7 +513,7 @@ deleteSelected() async{
           Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("8-8-19", 25, Colors.black, "",FontWeight.normal))),
            Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("MAKATI STORE", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("${snapshot.data[index].storeName}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("PROKOPYO", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),

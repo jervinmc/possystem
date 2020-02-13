@@ -136,21 +136,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       
-      home: Homepage(id),
+      home: Homepage(id,""),
       
     );
   }
 }
 class Homepage extends StatefulWidget {
   String username;
-  Homepage(this.username);
+  String storeId;
+  Homepage(this.username,this.storeId);
   @override
-  _HomepageState createState() => _HomepageState(username);
+  _HomepageState createState() => _HomepageState(username,storeId);
 }
 class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin {
   String user;
+  String storeId;
   bool checkedOut=false;
-  _HomepageState(this.user);
+  _HomepageState(this.user,this.storeId);
   String usernamePrefs;
   String passwordPrefs;
   TextEditingController username = new TextEditingController();
@@ -315,11 +317,13 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
          for(int y=0;y<productName.length;y++){ 
           
     _write("\n${productName[y]} | ${quantity[y]} | ${price[y]}");
+              var transactionGenerator=await http.get("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund");
+                var trans=json.decode(transactionGenerator.body);
                 var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
-                    "userId":"$user","remarks":"Void","storeName":"Makati Store"
+                    "userId":"$user","remarks":"Void","receiptNo":"${trans.length}","storeId":"$storeId"
             
                      }); 
-                        final myString = '${header.body}';
+                        final myString = '${header.body}'; 
 var headers = myString.replaceAll(RegExp('"'), ''); 
            await http.post("http://192.168.1.3:424/api/VoidTdetails/add",body:{
                        "sellingPrice":"${price[y]}","categoryDesc":"safeguard",
