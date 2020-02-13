@@ -2028,7 +2028,7 @@ print("object $headers");
                //SunmiAidlPrint.setFontSize(fontSize:30);
             //  SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
             //SunmiAidlPrint.setFontSize(fontSize: 24);
-            SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
@@ -2066,7 +2066,6 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"Points:$points \n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.setLineWrap();
               SunmiAidlPrint.printText(text:"============================================");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2098,10 +2097,10 @@ print("object $headers");
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
           
-
+              SunmiAidlPrint.commitPrint();
             //  SunmiAidlPrint.commitPrint1();
-            //  SunmiAidlPrint.enterPrintBuffer1(); 
-            //  SunmiAidlPrint.exitPrinterBuffer1();
+              SunmiAidlPrint.enterPrintBuffer1();
+              SunmiAidlPrint.exitPrinterBuffer1();
               SunmiAidlPrint.commitPrinterBuffer1();
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
@@ -3003,19 +3002,19 @@ print("object $headers");
       
     },
     keyboardType: TextInputType.text,
+    
     style: TextStyle(
       fontSize: 30
     ),
     decoration: InputDecoration(
-      
+        
         icon: Container(
+          
           padding: EdgeInsets.only(left: 15),
           height: 65,
           width: 80,
           child: InkWell(
-            onTap: (){
-              
-            },
+            
             child: Image.asset("assets/b2.png", fit: BoxFit.cover,),
           ),
         ),
