@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 //import 'package:esc_pos_printer/esc_pos_printer.dart';
 import 'package:awesome_dialog/anims/anims.dart';
 import 'package:possystem/fadeAnimation.dart';
@@ -165,7 +166,6 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   static const MethodChannel _channel = const MethodChannel('sunmi_aidl_print');
   AnimationController controller;
   TextEditingController searchCtrlr=new TextEditingController();
-  var _controller = TextEditingController();
     @override
     Future<void> voidItem(BuildContext context,int x,int index) {
       getWrite();
@@ -261,7 +261,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
  Container(
    height: 150,
    
-   child:  Image(image: NetworkImage("https://icons-for-free.com/iconfiles/png/512/information+interface+user+icon-1320196241269144595.png")),
+   child:  Image(image: AssetImage("assets/us2.png")),
  )
 ),
 
@@ -283,13 +283,13 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                     child: 
                      new OutlineButton(
       borderSide: BorderSide(
-            color:Colors.black, //Color of the border
+            color:Color(0xFFFF5733), //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 1, //width of the border
+            width: 3, //width of the border
           ),
-    color:Colors.black,
-    splashColor:Colors.black,
-  child: new textCustom("Cancel",20,Colors.black,""),
+    color:Colors.white,
+    splashColor:Color(0xFFFF5733),
+  child: new textCustom("Cancel",25,Color(0xFFFF5733),""),
   onPressed: ()async{ 
     Navigator.of(context).pop();
   },
@@ -299,13 +299,13 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                   Text("  "),
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
-            width: 1, //width of the border
+            width: 3, //width of the border
           ),
-    color:Colors.red,
-    splashColor: Colors.red,   
-  child: new textCustom("  Void  ",20,Colors.red,""),
+    color:Colors.blue,
+    splashColor: Colors.blue,   
+  child: new textCustom("  Void  ", 25,Colors.blue,""),
   onPressed: ()async{ 
    
 
@@ -517,9 +517,9 @@ var headers = myString.replaceAll(RegExp('"'), '');
         textCustom("DISCOUNT NAME :", 25, Colors.black,"style"),
          Container(
            width: 480,
-           child: 
+           child:
             TextField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   textAlign: TextAlign.center,
                   controller: discountname,
                   onChanged: (value){ 
@@ -1018,7 +1018,7 @@ Future<void> restrictAmount(BuildContext context,int x) {
       backgroundColor: Colors.white,
         title:Center( 
           widthFactor: 200,
-          child: textCustom("Please enter opening amount", 28, Colors.red, "style",),),
+          child: textCustom("Please enter opening amount", 25, Color(0xFFFF5733), "style"),),
         content:Text(""),
         actions: <Widget>[
            Center(
@@ -1030,12 +1030,12 @@ Future<void> restrictAmount(BuildContext context,int x) {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFFF5733), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("OK",25,Colors.red,""),
+    color:Color(0xFFFF5733),
+  child: new textCustom("OK",25,Color(0xFFFF5733),""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1074,7 +1074,7 @@ Future<void> member(BuildContext context,int x) {
  Container(
    height: 150,
    
-   child:  Image.asset("assets/info1.png"),
+   child:  Image.asset("assets/mem1.png"),
  ),
 
                  Text(""),
@@ -1090,7 +1090,7 @@ Future<void> member(BuildContext context,int x) {
                         decoration: InputDecoration(
                           icon: Container(
                             padding: EdgeInsets.only(left: 10, right: 10),
-                            child:  Icon(Icons.person_outline, size: 40,color: Colors.blue,),
+                            child:  Icon(Icons.person_outline, size: 50,color: Colors.blue,),
                           ),
                           hintText: "Enter Member ID",labelStyle: TextStyle(color: Colors.black),
                         ),
@@ -1227,8 +1227,8 @@ void getWrite()async{
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       backgroundColor: Colors.white,
         title:Center( 
-          child:x==1? textCustom("Please enter the payment", 25, Colors.red, "style",):  x==2? textCustom("Insufficient Amount", 25, Colors.red, "style",): x==3?
-           textCustom("Username/Password required", 25, Colors.red, "style",): x==4? textCustom("Invalid Username/Password", 25, Colors.red, "style",) :textCustom("Please Enter Amount", 25, Colors.red, "style",) ,),
+          child:x==1? textCustom("Please enter the payment", 25, Color(0xFFFF5733), "style",):  x==2? textCustom("Insufficient Amount", 25, Color(0xFFFF5733), "style",): x==3?
+           textCustom("Username/Password required", 25, Color(0xFFFF5733), "style",): x==4? textCustom("Invalid Username/Password", 25, Color(0xFFFF5733), "style",) :textCustom("Please Enter Amount", 25, Color(0xFFFF5733), "style",) ,),
         //content:Text(""),
         actions: <Widget>[
            Center(
@@ -1275,7 +1275,7 @@ Future<void> transactFailed(BuildContext context,int x) {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       backgroundColor: Colors.white,
         title:Center( 
-          child: x==1? textCustom("Theres no product", 25, Colors.red, "style",) : x==2? textCustom("No product", 25, Colors.red, "style",) : textCustom("Please Enter Closing Amount", 25, Colors.red, "style",) ,),
+          child: x==1? textCustom("Theres no product", 25, Color(0xFFFF5733), "style",) : x==2? textCustom("No product", 25, Color(0xFFFF5733), "style",) : textCustom("Please Enter Closing Amount", 25, Color(0xFFFF5733), "style",) ,),
         //content:Text(""),
         actions: <Widget>[
            Center(
@@ -1435,12 +1435,12 @@ productName.add(reviewdata['productName']);
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFFF5733), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("Cancel",25,Colors.red,""),
+    color:Color(0xFFFF5733),
+  child: new textCustom("Cancel",25,Color(0xFFFF5733),""),
   onPressed: (){
   Navigator.of(context).pop();
   },
@@ -1506,12 +1506,12 @@ new OutlineButton(
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFFF5733), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-  child: new textCustom("Cancel",25,Colors.red,""),
+    color:Color(0xFFFF5733),
+  child: new textCustom("Cancel",25,Color(0xFFFF5733),""),
   onPressed: (){
   Navigator.of(context).pop();
   },
@@ -1601,6 +1601,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
   int counterData=1;
   double totalAmountSave=0;
   TextEditingController closingAmountText=new TextEditingController();
+  var _closingAmountText = new MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: ",");
   List<String> _locations = ['PERCENT OFF', 'AMOUNT']; // Option 2
   List _selectedLocation=[];
   String removeFunction="";
@@ -1614,6 +1615,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
    TextEditingController discountid=new TextEditingController();
    String pending="variable";
    List voidTran=[];
+   double openingAmount;
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1640,7 +1642,8 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
     int itemCounter=5;
   TextEditingController qtyCtrlr=new TextEditingController();
    TextEditingController payment=new TextEditingController();
-     TextEditingController tinNumber=new TextEditingController();
+// var _payment = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+   TextEditingController tinNumber=new TextEditingController();
 
     TextEditingController tin=new TextEditingController();
      TextEditingController address=new TextEditingController();
@@ -1675,13 +1678,13 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.red, //Color of the border
+            color: Color(0xFFFF5733), //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.red,
-    splashColor: Colors.red,
-  child: new textCustom("Cancel",25,Colors.red,""),
+    color:Color(0xFFFF5733),
+    splashColor: Color(0xFFFF5733),
+  child: new textCustom("Cancel",25,Color(0xFFFF5733),""),
   onPressed: (){
   Navigator.of(context).pop();
   },
@@ -1776,10 +1779,9 @@ Future<void> shifting(BuildContext context,int x) async{
        
     }
               },
-          controller: openingA,
-          maxLength: 6,
+          controller: _openingA,
           textAlign: TextAlign.center,
-          keyboardType:TextInputType.number,
+          keyboardType:TextInputType.numberWithOptions(signed:true, decimal:true),
           autofocus: true,
         ),
           ],
@@ -2113,18 +2115,14 @@ print("object $headers");
           
               SunmiAidlPrint.commitPrint();
             //  SunmiAidlPrint.commitPrint1();
-<<<<<<< HEAD
               SunmiAidlPrint.enterPrintBuffer1();
               SunmiAidlPrint.exitPrinterBuffer1();
               SunmiAidlPrint.commitPrinterBuffer1();
-=======
             //  SunmiAidlPrint.enterPrintBuffer1(); 
             //  SunmiAidlPrint.exitPrinterBuffer1();
             //  SunmiAidlPrint.commitPrinterBuffer1();
->>>>>>> 7dc5a4fd9a1818913e944d5fcc30c6346fd90b82
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
-              
          // SunmiAidlPrint.openDrawer1();
         //  SunmiAidlPrint.openDrawer123();
           // SunmiAidlPrint.cutPaper();
@@ -2237,13 +2235,11 @@ print("object $headers");
                         child: TextField(
                           
                           
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
                           controller: payment,
                           textAlign: TextAlign.center,
                 decoration: new InputDecoration(
 
-             
-                
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.0),
                   borderRadius: BorderRadius.circular(20)
@@ -2443,6 +2439,7 @@ print("object $headers");
   List<String> tranhis=[];
   int emptyTable=0;
   TextEditingController openingA=new TextEditingController();
+  var _openingA= new MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: ",", precision: 2);
  List<TextEditingController> discountablePrice=[];
  String load="dontload";
  TextEditingController customerName= new TextEditingController();
@@ -2540,7 +2537,7 @@ print("object $headers");
                 title: new Text('Member', style: TextStyle(fontSize: 20, color: Colors.black),),
                 trailing: Container(
                   height: 50,
-                  child: Image(image: AssetImage('assets/person1.png')),
+                  child: Image(image: AssetImage('assets/us1.png')),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -2553,7 +2550,7 @@ print("object $headers");
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
                 }),
                     new ListTile(
-                title: new Text('Report', style: TextStyle(fontSize: 20, color: Colors.black),),
+                title: new Text('Report', style: TextStyle(fontSize: 20, color: Colors.black)),
                 trailing: Container(
                   height: 55,
                   child: Image(image: AssetImage('assets/r1.png')),
@@ -2618,7 +2615,7 @@ print("object $headers");
                                        onTap: (){
                                          setState(() {
                                              moneyHoldertext=moneyHoldertext;
-                              closingAmountText.text="${moneyHoldertext.toString()}.00";
+                                  closingAmountText.text="${moneyHoldertext.toString()}.00";
                                          });
                                        },
                                        style: TextStyle(fontSize: 25),
@@ -2633,8 +2630,8 @@ print("object $headers");
                                   prefs.setDouble("totalAmountSaveprefs",0.0);
                                  Navigator.push(context, SlideRightRoute(widget: SignIn1()));
                                        },
-                                       keyboardType:TextInputType.numberWithOptions(decimal: true),
-                                       controller: closingAmountText,
+                                       keyboardType:TextInputType.numberWithOptions(decimal: true, signed: false),
+                                       controller: _closingAmountText,
                                        textAlign: TextAlign.center,
                                      ),
                                    )
@@ -2682,7 +2679,7 @@ print("object $headers");
                                   prefs.setString("openingAmount", "0.0");
                                   prefs.setString("userName", "");
                                   prefs.setString("userPass", "");
-                                  prefs.setStringList("tranhistory", []);
+                                  prefs.setStringList("tranhistory",[]);
                                   prefs.setString("available","");
                                   prefs.setDouble("totalAmountSaveprefs",0.0);
                                  Navigator.push(context, SlideRightRoute(widget: SignIn1()));
@@ -2883,7 +2880,7 @@ print("object $headers");
                   ),
                 ),
                    Positioned(
-                  top: 2,
+                  top: 2, 
                   right: 2,
                   child: Container(
                     height: 30,
@@ -3135,8 +3132,8 @@ print("object $headers");
                       ),
                     ),*/
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red),
-                    splashColor: Colors.red,
+                    icon:  Icon(Icons.remove,color: Color(0xFFFF5733)),
+                    splashColor: Color(0xFFFF5733),
                     onPressed: (){
                           
 
@@ -3208,7 +3205,7 @@ print("object $headers");
                      
                       child:   IconButton(
                         splashColor: Color(0xFFF95700),
-                        icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 30),
+                        icon: Icon(Icons.remove_shopping_cart,color:Color(0xFFFF5733),size: 30),
                         onPressed:(){
                           voidItem(context, 1,index);
                               
@@ -3260,8 +3257,8 @@ print("object $headers");
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                    icon:  Icon(Icons.remove,color: Colors.red,),
-                    splashColor: Colors.red,
+                    icon:  Icon(Icons.remove,color: Color(0xFFFF5733),),
+                    splashColor: Color(0xFFFF5733),
                     onPressed: (){
                         
                     
@@ -3326,7 +3323,7 @@ print("object $headers");
                      ),
                   
                       IconButton(
-                        icon: Icon(Icons.remove_shopping_cart,color: Colors.red,size: 25,),
+                        icon: Icon(Icons.remove_shopping_cart,color: Color(0xFFFF5733),size: 25,),
                         onPressed:(){
                           
                             voidItem(context, 1,index);

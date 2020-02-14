@@ -556,9 +556,8 @@ deleteSelected() async{
           Column(
            mainAxisAlignment: MainAxisAlignment.end,
            children: <Widget>[
-              textCustom("Trudi IT Solutions", 25, Colors.black, "style"),
-             
-              textCustom1(" © 2020 v1.0  All rights reserved", 25, Colors.black, "style",FontWeight.bold)
+              textCustom("Trudi IT Solutions", 15, Colors.black, "style"),
+              textCustom1(" © 2020 v1.0  All rights reserved", 15, Colors.black, "style",FontWeight.bold)
            ],
          ),
            ],

@@ -254,7 +254,7 @@ class _SignInState extends State<SignIn> {
                   child: FadeAnimation(1.2,Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        textCustom1("Trudi IT Solutions", 25, Colors.black, "style", FontWeight.bold),
+                        textCustom1("Trudi IT Solutions", 15, Colors.black, "style", FontWeight.bold),
                     ],
                   ),
                 ),
@@ -262,7 +262,7 @@ class _SignInState extends State<SignIn> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    FadeAnimation(1.3,textCustom1("© 2020 v1.0. All rights reserved", 25, Colors.black, "style", FontWeight.bold),
+                    FadeAnimation(1.3,textCustom1("© 2020 v1.0. All rights reserved", 15, Colors.black, "style", FontWeight.bold),
                     )],
                 ),
                 ],
