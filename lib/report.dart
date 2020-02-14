@@ -27,18 +27,20 @@ class Services {
 }
 class Reporting extends StatefulWidget {
   String openingAmt;
+  String storeId;
   List tranhistory;
   double totalamount;
-  Reporting(this.openingAmt,this.tranhistory,this.totalamount);
+  Reporting(this.openingAmt,this.tranhistory,this.totalamount,this.storeId);
   @override
-  _ReportingState createState() => _ReportingState(openingAmt,tranhistory,totalamount);
+  _ReportingState createState() => _ReportingState(openingAmt,tranhistory,totalamount,storeId);
 }
  
 class _ReportingState extends State<Reporting> {
   String openingAmt;
+  String storeId;
    List tranhistory;
    double totalamount;
-  _ReportingState(this.openingAmt,this.tranhistory,this.totalamount);
+  _ReportingState(this.openingAmt,this.tranhistory,this.totalamount,this.storeId);
   Future<List<Services>> _getServices() async {
 
  http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund"),headers: {
@@ -52,7 +54,7 @@ class _ReportingState extends State<Reporting> {
        for(var u in reviewdata){
              print("may pumasok ${u["headerId"]}"); 
              print("may pumasoks $reviewdata");
-      Services service = Services("aawer",u["item"],u["price"],u["quantity"],24,u["item"],u["storeName"],u["cashier"],u["datetime"]);
+      Services service = Services(u["transactionNo"],u["item"],u["price"],u["quantity"],u['price'],u["type"],u["storeName"],u["cashier"],u["datetime"]);
          print("may pumasok");
      // if(tranhistory.contains(u["transactionNo"])){
             services.add(service);
@@ -471,23 +473,23 @@ deleteSelected() async{
         shrinkWrap: true,
         itemCount: getSearchReceipt!="" ? snapshot.data.length : snapshot.data.length,
         itemBuilder: (BuildContext context, int index){
-         //  DateTime dateTime = DateTime.parse(snapshot.data[index].dateTime);
-                    //String dates = DateFormat('dd-MM-yyyy').format(dateTime);
+          DateTime dateTime = DateTime.parse(snapshot.data[index].datetime);
+                    String dates = DateFormat('dd-MM-yyyy').format(dateTime);
           return  index%2==0? Container( 
             color: Colors.grey.withAlpha(40),
             child: Table(
            // border: TableBorder.all(width: 0.5,color: Colors.black87),
           children: [TableRow(
-            
+
             children:[
                 Container(padding: EdgeInsets.all(10),   
-                child:Center(child:  textCustom1("XXX-XXXX-0923", 25, Colors.black, "",FontWeight.normal))),
+                child:Center(child:  textCustom1("${snapshot.data[index].headerId}", 25, Colors.black, "",FontWeight.normal))),
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("8-8-19", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("$dates", 25, Colors.black, "",FontWeight.normal))),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("${snapshot.data[index].storeName}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("PROKOPYO", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("${snapshot.data[index].cashier}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("${snapshot.data[index].productName}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
@@ -495,7 +497,7 @@ deleteSelected() async{
                  Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:snapshot.data[index].amount).output.nonSymbol}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("Void", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("${snapshot.data[index].type}", 25, Colors.black, "",FontWeight.normal))),
                
             ]
           )],
@@ -504,18 +506,18 @@ deleteSelected() async{
           ):Container( 
             color: Colors.white,
             child: Table(
-           // border: TableBorder.all(width: 0.5,color: Colors.black87),
+           // border: TableBorder.all(width: 0.5,color: Colors.black87), 
           children: [TableRow(
             
             children:[
                 Container(padding: EdgeInsets.all(10),   
-                child:Center(child:  textCustom1("XXX-XXXX-0923", 25, Colors.black, "",FontWeight.normal))),
+                child:Center(child:  textCustom1("${snapshot.data[index].headerId}", 25, Colors.black, "",FontWeight.normal))),
           Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("8-8-19", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("$dates", 25, Colors.black, "",FontWeight.normal))),
            Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("${snapshot.data[index].storeName}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("PROKOPYO", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("${snapshot.data[index].cashier}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("${snapshot.data[index].productName}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
@@ -523,7 +525,7 @@ deleteSelected() async{
                  Container(padding: EdgeInsets.all(10),
                 child: Center(child:  textCustom1("${FlutterMoneyFormatter(amount:snapshot.data[index].amount).output.nonSymbol}", 25, Colors.black, "",FontWeight.normal))),
                  Container(padding: EdgeInsets.all(10),
-                child: Center(child:  textCustom1("Void", 25, Colors.black, "",FontWeight.normal))),
+                child: Center(child:  textCustom1("${snapshot.data[index].type}", 25, Colors.black, "",FontWeight.normal))),
                
             ]
           )],
