@@ -30,19 +30,21 @@ class Services {
 
 }
 class Transaction extends StatefulWidget {
+  String storeId;
   String openingAmt;
   List tranhistory;
   double totalamount;
-  Transaction(this.openingAmt,this.tranhistory,this.totalamount);
+  Transaction(this.openingAmt,this.tranhistory,this.totalamount,this.storeId);
   @override
-  _TransactionState createState() => _TransactionState(openingAmt,tranhistory,totalamount);
+  _TransactionState createState() => _TransactionState(openingAmt,tranhistory,totalamount,storeId);
 }
  
 class _TransactionState extends State<Transaction> {
   String openingAmt;
    List tranhistory;
+   String storeId;
    double totalamount;
-  _TransactionState(this.openingAmt,this.tranhistory,this.totalamount);
+  _TransactionState(this.openingAmt,this.tranhistory,this.totalamount,this.storeId);
   Future<List<Services>> _getServices() async {
 
  http.Response response=await http.get(Uri.encodeFull("http://192.168.1.3:424/api/tranheader/GetAll"),headers: {
@@ -481,7 +483,7 @@ deleteSelected() async{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     //idclick
-                     textCustom("XXX-XXXX-${snapshot.data[index].receiptNo[index] }0", 20, Colors.black, "")
+                     textCustom("XXX-XXXX-${snapshot.data[index].receiptNo}", 20, Colors.black, "")
                   ],
                 )),
                 
@@ -1278,6 +1280,7 @@ Text("  "),
     color:Colors.blue,
   child: new textCustom("Submit",25,Colors.blue,""),
   onPressed: ()async{
+
     print("eto ang id ${snapshot.data[index].userid}");
     for(int x=0;x<totalRefund1.length;x++){
                     totalRefund=totalRefund+totalRefund1[x];
@@ -1299,20 +1302,12 @@ var headers = myString.replaceAll(RegExp('"'), '');
                          setState(() {
                             refundTextCtrlr[x].text="0";
                          });
-                       
                        }
                          int refund=reviewdata[x]["quantity"]-int.parse("${refundTextCtrlr[x].text}");
                        if(refund==0){
-                         
-
                       }
                       else{
-
-                      
                       print(refundTextCtrlr[x].text);
-                        
-                    
-
                             await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
                        "productId":"${reviewdata[x]["productId"]}",
@@ -1350,6 +1345,38 @@ var headerId = s.replaceAll(RegExp('"'), '');
 "points":"20",
 //"productId":"5d81a87ac321c71124c19dfc",
 "headerId":"$headerId"
+                     });
+                            }
+                   
+                 
+                     }
+                     //refund theader
+                     var cs=await http.get("http://192.168.1.3:424/api/RefundTHeader/getall");
+                  var ys=json.decode(cs.body);
+                       var headersIds=await http.post("http://192.168.1.3:424/api/RefundTHeader/Add",body:{
+                       "discount":"${rev["discount"]}","receiptNo":"${ys.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}",
+                       "storeId":"$storeId"
+                     });
+                          print("object");
+                     final s1 = '${headersIds.body}';
+var headerIds = s1.replaceAll(RegExp('"'), ''); 
+                     for(int x=0;x<reviewdata.length;x++){
+                       
+                            if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0"){
+
+                            }
+                            else{
+                              
+                                         await http.post("http://192.168.1.3:424/api/RefundTDetails/add",body:{
+                       "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
+                       "productId":"${reviewdata[x]["productId"]}",
+                       "amount":"${reviewdata[x]["amount"]}",
+//"productName":"${productName[x]}",
+"quantity":"${int.parse("${refundTextCtrlr[x].text}")}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headerIds"
                      });
                             }
                    
@@ -1427,7 +1454,7 @@ var headerId = s.replaceAll(RegExp('"'), '');
                   children: <Widget>[
                     //idclick
                     // textCustom("${snapshot.data[index].id}", 20, Colors.black, "")
-                    textCustom("XXX-XXXX-${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-4] }${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-3]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-2]}${snapshot.data[index].receiptNo[snapshot.data[index].receiptNo.length-1]}", 20, Colors.black, "")
+                    textCustom("XXX-XXXX-${snapshot.data[index].receiptNo}", 20, Colors.black, "")
                   ],
                 )),
             
@@ -2294,6 +2321,38 @@ var headerId = s.replaceAll(RegExp('"'), '');
 "points":"20",
 //"productId":"5d81a87ac321c71124c19dfc",
 "headerId":"$headerId"
+                     });
+                            }
+              
+                 
+                     }
+                     var cs=await http.get("http://192.168.1.3:424/api/RefundTHeader/getall");
+                  var ys=json.decode(cs.body);
+                       var headersIds=await http.post("http://192.168.1.3:424/api/RefundTHeader/Add",body:{
+                       "discount":"${rev["discount"]}","receiptNo":"${ys.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
+                       ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}",
+                       "storeId":"$storeId"
+                   
+                     });
+                          print("object");
+                     final s1 = '${headersIds.body}';
+var headerIds = s1.replaceAll(RegExp('"'), ''); 
+                     for(int x=0;x<reviewdata.length;x++){
+                       
+                            if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0"){
+
+                            }
+                            else{
+                              
+                                         await http.post("http://192.168.1.3:424/api/RefundTDetails/add",body:{
+                       "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
+                       "productId":"${reviewdata[x]["productId"]}",
+                       "amount":"${reviewdata[x]["amount"]}",
+//"productName":"${productName[x]}",
+"quantity":"${int.parse("${refundTextCtrlr[x].text}")}",
+"points":"20",
+//"productId":"5d81a87ac321c71124c19dfc",
+"headerId":"$headerIds"
                      });
                             }
                    

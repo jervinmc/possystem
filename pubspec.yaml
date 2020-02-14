@@ -32,7 +32,7 @@ dependencies:
   stepper_touch: ^0.0.1
   page_transition: ^1.1.4
   sunmi_aidl_print: ^0.0.1
- 
+  flutter_masked_text: ^0.8.0
   passcode_screen: ^1.0.2
   flutter_lock_screen: ^1.0.3
   giffy_dialog: ^1.6.1
@@ -40,7 +40,7 @@ dependencies:
   flutter_money_formatter: ^0.8.3
   flutter_multiselect: ^0.0.1
   nice_button: ^0.1.7
-  flutter_masked_text: ^0.8.0
+  
   flutter_custom_dialog: ^1.0.15
   path_provider: ^0.4.1
   loading: ^1.0.2

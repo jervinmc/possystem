@@ -12,6 +12,7 @@ import 'package:vector_math/vector_math.dart' as prefix0;
 import 'transaction.dart';
 import 'package:flutter/material.dart';
 import './report.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import './utils.dart';
@@ -320,12 +321,15 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
     //_write("\n${productName[y]} | ${quantity[y]} | ${price[y]}");
               var transactionGenerator=await http.get("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund");
                 var trans=json.decode(transactionGenerator.body);
+                 var theader=await http.get("http://192.168.1.3:424/api/tranheader/GetAll");
+                var theader1=json.decode(theader.body);
                 var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
-                    "userId":"$user","remarks":"Void","receiptNo":"${trans.length}","storeId":"$storeId"
+                    "userId":"$user","remarks":"Void","receiptNo":"${(trans.length+theader1)+1}","storeId":"$storeId"
             
                      }); 
                         final myString = '${header.body}'; 
 var headers = myString.replaceAll(RegExp('"'), ''); 
+for(int x=0;x<productName.length;x++){
            await http.post("http://192.168.1.3:424/api/VoidTdetails/add",body:{
                        "sellingPrice":"${price[y]}","categoryDesc":"safeguard",
                        "productId":"${productId[y]}",
@@ -340,6 +344,7 @@ var headers = myString.replaceAll(RegExp('"'), '');
                      setState(() {
                           voidTran.add(headers);
                      });
+         }
          }
 
          counterData=0;
@@ -379,8 +384,12 @@ var headers = myString.replaceAll(RegExp('"'), '');
          print("objectsss");
        
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
+          var transactionGenerator=await http.get("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund");
+                var trans=json.decode(transactionGenerator.body);
+                  var theader=await http.get("http://192.168.1.3:424/api/tranheader/GetAll");
+                var theader1=json.decode(theader.body);
               var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
-                    "userId":"$user","remarks":"Void"
+                    "userId":"$user","remarks":"Void","receiptNo":"${(trans.length+theader1.length)+1}","storeId":"$storeId"
             
                      }); 
                         final myString = '${header.body}';
@@ -1170,26 +1179,20 @@ Text("   "),
       );
     },
   );
-}
+} 
     _write(String text) async {
-      new Directory('data').create(recursive: true)
-    // The created directory is returned as a Future.
-    .then((Directory directory) {
-      print(directory.path);
-  });
-  final Directory directory = await getApplicationDocumentsDirectory();
-  //final File file = File('my_file.txt');
-  //await file.writeAsString(text);
+   
+  final Directory directory = await getExternalStorageDirectory();
+  final File file = File('${directory.path}/my_file.txt');
+  
+  print("eto ang directory ${directory.path}" );
+  await file.writeAsString(text);
 }
 Future<String> _read() async {
-      new Directory('data').create(recursive: true)
-    // The created directory is returned as a Future.
-    .then((Directory directory) {
-      print(directory.path); 
-  });
+    
   String text;
   try {
-    final Directory directory = await getApplicationDocumentsDirectory();
+    final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
     print("$text eto na yon ${directory.path}");
     text = await file.readAsString();
@@ -1200,8 +1203,11 @@ Future<String> _read() async {
   return text; 
 }
 void getWrite()async{
-     
-      _write("\n Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
+       String text;
+       final Directory directory = await getExternalStorageDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    text = await file.readAsString();
+      _write("$text \n Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM         QTY          PRICE         TOTAL \n");
               // _write(  "================================================");  
              /*  _write(   "\n");
@@ -1332,8 +1338,6 @@ Future<void> transactFailed(BuildContext context,int x) {
              pending="variable"; 
              searchCtrlr.text="";
       });
-   
-
       print("ubosawerawer");
     }
     else{
@@ -1614,8 +1618,9 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
    TextEditingController discountname=new TextEditingController();
    TextEditingController discountid=new TextEditingController();
    String pending="variable";
-   List voidTran=[];
    double openingAmount;
+   List voidTran=[];
+   //double openingAmount;
   ///////////////variable/////
   List quantityDiscount=[];
   int initialDiscount=0;
@@ -1774,12 +1779,12 @@ Future<void> shifting(BuildContext context,int x) async{
      qtyCtrlr.text="";
   });
 
-    if(openingA.text==""){
+    if(openingA.text=="" || double.parse(openingA.text)<=0.00){
       restrictAmount(context,3);
-       
     }
               },
-          controller: _openingA,
+          controller: openingA,
+          maxLength: 100,
           textAlign: TextAlign.center,
           keyboardType:TextInputType.numberWithOptions(signed:true, decimal:true),
           autofocus: true,
@@ -1812,28 +1817,29 @@ new OutlineButton(
           ),
     color:Colors.black,
   child: new textCustom("Submit",20,Colors.blue,""),
-  onPressed: ()async{
-    
-    if(openingA.text==""){
+  onPressed: ()async{ 
+    String openingAmountConverted=(openingA.text).replaceAll(",","");
+    if(openingA.text=="" || double.parse(openingAmountConverted)<=0.00){
       paymentRestriction(context, 5);
     }
     else{
+
         SharedPreferences prefs=await SharedPreferences.getInstance();
-
-    prefs.setString("openingAmount","${openingA.text}");
-
+      setState(() {
+       // var _openingA= new MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: ",", precision: 2);
+    //  openingA.text=_openingA.text;
+      });
+  
+    prefs.setString("openingAmount","${openingAmountConverted}");
   setState(() {
-    
     //quantity[x]=int.parse(qtyCtrlr.text) ;
     qtyCtrlr.text="";
   });
   Navigator.of(context).pop();
     }
-  
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
-
                  ],
                ),
                )
@@ -2058,7 +2064,7 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"  BIR PERMIT:XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"  Sales Invoice:XXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"  Sales Invoice:XXXXXXXX\n"); 
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  Serial:XXXXXXXXXX\n");
@@ -2076,7 +2082,7 @@ print("object $headers");
               SunmiAidlPrint.printText(text:"Cashier:James Howlett\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"Customer Name:XXXXXXXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"Customer Name:XXXXXXXXXXXXX\n"); 
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Points:$points \n");
@@ -2113,16 +2119,14 @@ print("object $headers");
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
           
-              SunmiAidlPrint.commitPrint();
+             // SunmiAidlPrint.commitPrint();
             //  SunmiAidlPrint.commitPrint1();
-              SunmiAidlPrint.enterPrintBuffer1();
-              SunmiAidlPrint.exitPrinterBuffer1();
-              SunmiAidlPrint.commitPrinterBuffer1();
             //  SunmiAidlPrint.enterPrintBuffer1(); 
             //  SunmiAidlPrint.exitPrinterBuffer1();
             //  SunmiAidlPrint.commitPrinterBuffer1();
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
+            //  */
          // SunmiAidlPrint.openDrawer1();
         //  SunmiAidlPrint.openDrawer123();
           // SunmiAidlPrint.cutPaper();
@@ -2438,8 +2442,7 @@ print("object $headers");
   }
   List<String> tranhis=[];
   int emptyTable=0;
-  TextEditingController openingA=new TextEditingController();
-  var _openingA= new MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: ",", precision: 2);
+  TextEditingController openingA= new MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: ",", precision: 2);
  List<TextEditingController> discountablePrice=[];
  String load="dontload";
  TextEditingController customerName= new TextEditingController();
@@ -2494,7 +2497,7 @@ print("object $headers");
                   SharedPreferences prefs=await SharedPreferences.getInstance();
 
                   Navigator.pop(context);
-                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"),prefs.getDouble("totalAmountSaveprefs"))));
+                  Navigator.push(context, SlideRightRoute(widget: Transaction(prefs.getString("openingAmount"),prefs.getStringList("tranhistory"),prefs.getDouble("totalAmountSaveprefs"),storeId)));
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext c ontext)=>new profile(image,name,email)));
                 }),
                  new ListTile(
@@ -2559,7 +2562,7 @@ print("object $headers");
                   SharedPreferences prefs= await SharedPreferences.getInstance();
 
                   Navigator.pop(context);
-                   Navigator.push(context, SlideRightRoute(widget: Reporting(prefs.getString("openingAmount"),/*prefs.getStringList("tranhistory")*/voidTran,prefs.getDouble("totalAmountSaveprefs"))));
+                   Navigator.push(context, SlideRightRoute(widget: Reporting(prefs.getString("openingAmount"),/*prefs.getStringList("tranhistory")*/voidTran,prefs.getDouble("totalAmountSaveprefs"),storeId)));
             
                   
                  // Navigator.of(context).push(new MaterialPageRoute( builder:(BuildContext context)=>new profile(image,name,email)));
@@ -2670,7 +2673,7 @@ print("object $headers");
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                                child: Text("Confirm", style: TextStyle(fontSize: 25,color: Colors.blue)),
                                onPressed: () async{
-                                 if(closingAmountText.text==""){
+                                 if(closingAmountText.text=="" || double.parse(closingAmountText.text)<=0){
                                    transactFailed(context, 3);
                                  }
                                  else{
@@ -3205,7 +3208,7 @@ print("object $headers");
                      
                       child:   IconButton(
                         splashColor: Color(0xFFF95700),
-                        icon: Icon(Icons.remove_shopping_cart,color:Color(0xFFFF5733),size: 30),
+                        icon: Icon(Icons.delete,color: Colors.red,size: 30),
                         onPressed:(){
                           voidItem(context, 1,index);
                               
@@ -3323,9 +3326,8 @@ print("object $headers");
                      ),
                   
                       IconButton(
-                        icon: Icon(Icons.remove_shopping_cart,color: Color(0xFFFF5733),size: 25,),
-                        onPressed:(){
-                          
+                        icon: Icon(Icons.delete,color: Colors.red,size: 30,),
+                        onPressed:(){                          
                             voidItem(context, 1,index);
                         } ,
                       )
