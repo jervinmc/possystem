@@ -2673,7 +2673,7 @@ print("object $headers");
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                                child: Text("Confirm", style: TextStyle(fontSize: 25,color: Colors.blue)),
                                onPressed: () async{
-                                 if(closingAmountText.text=="" || double.parse(closingAmountText.text)<=0){
+                                 if(closingAmountText.text=="" || double.parse((_closingAmountText.text).replaceAll(",", ""))<=0){
                                    transactFailed(context, 3);
                                  }
                                  else{
