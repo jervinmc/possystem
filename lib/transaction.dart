@@ -12,7 +12,7 @@ import 'fadeAnimation.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
 class Services {
  
-  
+  final double productname;
   final String id;
   final double discount;
   final double vat;
@@ -26,7 +26,7 @@ class Services {
   final String userid;
   final String memberName;
   final String receiptNo;
-  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName,this.receiptNo);
+  Services(this.id,this.discount,this.vat,this.subtotal,this.productname,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName,this.receiptNo);
 
 }
 class Transaction extends StatefulWidget {
@@ -57,7 +57,7 @@ class _TransactionState extends State<Transaction> {
     if(getSearchReceipt==""){
        for(var u in reviewdata){
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],u["productname"]
       ,u["userId"],u["memberName"],u['receiptNo']);
        
       if(tranhistory.contains(u["_id"])){
@@ -73,7 +73,7 @@ class _TransactionState extends State<Transaction> {
        for(var u in reviewdata){
 
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],u["productname"],
       u["userId"],u["memberName"],u['receiptNo']);
        
       if(getSearchReceipt==reviewdata[x]['_id']){
@@ -1686,31 +1686,48 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
     //  SunmiAidlPrint.openDrawer1();
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text: "             Benevolence Enterprise\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text: "               Fairview, Quezon City\n");
-              SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text: "=========================================\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text: "Member:PT\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text:"ITEM       QTY         PRICE         TOTAL \n");
               for(int x=0;x<snapshot.data.length;x++){
-             SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
               }
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "==================================================\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text:"=========================================\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text:"                            Vat:${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text:"                            Subtotal:${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text:"                            Money:${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize:25);
+              SunmiAidlPrint.printText(text:"                            Change:${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
+
               SunmiAidlPrint.cutpaper12();
-  Navigator.of(context).pop();
+              
+  //Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -1730,12 +1747,12 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1977,32 +1994,51 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
   child: Icon(Icons.print,color: Colors.green,size: 50,),
   onPressed: (){
    // SunmiAidlPrint.openDrawer1();
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "             Benevolence Enterprise\n");
+              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "               Fairview, Quezon City\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setAlignment(align:TEXTALIGN.CENTER);
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.setFontSize(fontSize:20);
-              SunmiAidlPrint.printText(text: "Member:                            PT\n");
-              SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
-              SunmiAidlPrint.printText(text: "ITEM        QTY        PRICE     TOTAL \n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"============================================\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Member:                            PT\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"Points:                             ${snapshot.data[index].memberPoints}'\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"ITEM        QTY        PRICE     TOTAL \n");
               for(int x=0;x<snapshot.data.length;x++){
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
              SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}           ${reviewdata[index]["amount"]}        ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
               }
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "==================================================\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"============================================\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
-            SunmiAidlPrint.cutpaper12();
-  Navigator.of(context).pop();
+
+              SunmiAidlPrint.cutpaper12();
+
+              Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
@@ -2025,7 +2061,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
             width: 2, //width of the border
           ),
     color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+  child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
     
   Navigator.of(context).pop();
