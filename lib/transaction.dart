@@ -71,8 +71,6 @@ class _TransactionState extends State<Transaction> {
     }
     }
     else{
-  
-   
     }
   
     if(services==null){
