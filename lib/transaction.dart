@@ -1038,11 +1038,11 @@ deleteSelected() async{
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text: "ITEM           QTY     PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
+              for(int x=0;x<reviewdata.length;x++){
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text: "${snapshot.data[x]["productName"]}             ${snapshot.data[x]["quantity"]}     ${reviewdata[index]["amount"]}       ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
+              SunmiAidlPrint.printText(text:"${reviewdata['productName'][x]}       ${reviewdata['quantity'][x]}      ${reviewdata['amount'][x]}   ${reviewdata['quantity'][x][x]*reviewdata['amount'][x]}\n");
+             }
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"========================================\n");
@@ -1087,8 +1087,8 @@ deleteSelected() async{
     color:Colors.green,
   child: new textCustom("OK",25,Colors.green,""),
   onPressed: (){
-    
-  Navigator.of(context).pop(); 
+  
+  Navigator.of(context).pop();
   },
   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
 ),
