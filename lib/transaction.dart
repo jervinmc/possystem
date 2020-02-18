@@ -12,7 +12,6 @@ import 'fadeAnimation.dart';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
 class Services {
  
-  final double productname;
   final String id;
   final double discount;
   final double vat;
@@ -26,7 +25,7 @@ class Services {
   final String userid;
   final String memberName;
   final String receiptNo;
-  Services(this.id,this.discount,this.vat,this.subtotal,this.productname,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName,this.receiptNo);
+  Services(this.id,this.discount,this.vat,this.subtotal,this.totalAmt,this.payment,this.memberPoints,this.dateTime,this.remarks,this.username,this.userid,this.memberName,this.receiptNo);
 
 }
 class Transaction extends StatefulWidget {
@@ -51,15 +50,17 @@ class _TransactionState extends State<Transaction> {
         "Accept":"application/json"
      });
     List reviewdata=json.decode(response.body);
-
+  
   int x=0;
     List<Services> services = [];
+  
     if(getSearchReceipt==""){
+    
        for(var u in reviewdata){
       
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],u["productname"]
+      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"]
       ,u["userId"],u["memberName"],u['receiptNo']);
-       
+      print("$reviewdata");
       if(tranhistory.contains(u["_id"])){
             services.add(service);
             print("may pumasok");
@@ -70,18 +71,7 @@ class _TransactionState extends State<Transaction> {
     }
     }
     else{
-       for(var u in reviewdata){
-
-      
-      Services service = Services(u["_id"],u["discount"],u["vat"],u["subtotal"],u["totalAmt"],u["payment"],u["memberPoints"],u["datetime"],u["remarks"],u["username"],u["productname"],
-      u["userId"],u["memberName"],u['receiptNo']);
-       
-      if(getSearchReceipt==reviewdata[x]['_id']){
-           services.add(service);
-           print("may pumasok");
-      }
-      x++;
-    }
+  
    
     }
   
@@ -93,7 +83,6 @@ class _TransactionState extends State<Transaction> {
     return services;
   }
   Future<void> viewdetails(BuildContext context,int x) {
-        
   return showDialog<void>(   
     context: context,
     builder: (BuildContext context) {
