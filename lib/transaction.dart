@@ -106,12 +106,12 @@ class _TransactionState extends State<Transaction> {
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -537,7 +537,7 @@ deleteSelected() async{
           children: <Widget>[
          Container(
            
-           color: Colors.deepOrange,
+           color: Colors.blue,
            child: 
               Center( 
           child: textCustom("Transaction Details", 35, Colors.white, "style",),),
@@ -576,7 +576,7 @@ deleteSelected() async{
          ),
          Divider(),
          Container(
-           color: Colors.deepOrange,
+           color: Colors.blue,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -707,14 +707,14 @@ deleteSelected() async{
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
+    color:Colors.blue,
+  child: Icon(Icons.print,color: Colors.blue,size: 50,),
   onPressed: (){
     //SunmiAidlPrint.openDrawer1();
-             // SunmiAidlPrint.printText(text: "             Trudi POS");
-           /*   SunmiAidlPrint.printText(text: "\n");
+            //SunmiAidlPrint.printText(text: "             Trudi POS");
+           /* SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-            SunmiAidlPrint.printText(text: "\n");
+              SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
@@ -729,10 +729,10 @@ deleteSelected() async{
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
-              SunmiAidlPrint.printText(text: "                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
-            SunmiAidlPrint.printText(text: "                                     Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
-              SunmiAidlPrint.printText(text: "                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                                     Vat: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt*0.12).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                                     Subtotal: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-(snapshot.data[index].totalAmt*0.12)).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                                       Money: ${FlutterMoneyFormatter(amount:snapshot.data[index].payment).output.nonSymbol}\n");
+              SunmiAidlPrint.printText(text:"                                     Change: ${FlutterMoneyFormatter(amount:snapshot.data[index].totalAmt-snapshot.data[index].payment).output.nonSymbol}\n");
             SunmiAidlPrint.cutpaper12();
             */
   Navigator.of(context).pop();
@@ -755,12 +755,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -969,14 +969,14 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Change", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ): snapshot.data[index].remarks=="Previous Transaction" ? Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Change", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ): Container(),
@@ -999,8 +999,8 @@ deleteSelected() async{
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
+    color:Colors.blue,
+  child: Icon(Icons.print,color: Colors.blue,size: 50,),
   onPressed: (){
     
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
@@ -1069,12 +1069,12 @@ deleteSelected() async{
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: new textCustom("OK",25,Colors.green,""),
+    color:Colors.blue,
+  child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
   
   Navigator.of(context).pop();
@@ -1508,7 +1508,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
           children: <Widget>[
          Container(
            
-           color: Colors.deepOrange,
+           color: Colors.blue,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -1540,7 +1540,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
          ),
          Divider(),
          Container(
-           color: Colors.deepOrange,
+           color: Colors.blue,
            height: 50,
        //color: Colors.green,
         child:  Table(
@@ -1671,8 +1671,8 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
+    color:Colors.blue,
+  child: Icon(Icons.print,color: Colors.blue,size: 50,),
   onPressed: (){
     //  SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.CENTER);
@@ -1685,19 +1685,22 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
               SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text: "=========================================\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text: "Cashier: James Howlett\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize:25);
-              SunmiAidlPrint.printText(text: "Member:PT\n");
+              //SunmiAidlPrint.printText(text: "Member:\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text: "Points:                             ${snapshot.data[index].memberPoints}'\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text:"ITEM       QTY         PRICE         TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
+               for(int x=0;x<reviewdata.length;x++){
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
-              SunmiAidlPrint.setFontSize(fontSize:25);
-              SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}          ${reviewdata[index]["amount"]}         ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+              SunmiAidlPrint.printText(text:"${reviewdata['productName'][x]}       ${reviewdata['quantity'][x]}      ${reviewdata['amount'][x]}   ${reviewdata['quantity'][x][x]*reviewdata['amount'][x]}\n");
+             }
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.printText(text:"=========================================\n");
@@ -1742,6 +1745,8 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
           ),
     color:Colors.blue,
   child: new textCustom("OK",25,Colors.blue,""),
+
+
   onPressed: (){
     
   Navigator.of(context).pop();
@@ -1795,7 +1800,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
           children: <Widget>[
          Container(
             height: 40,
-           color: Colors.deepOrange,
+           color: Colors.blue,
            child: 
               Center( 
           child: textCustom("Transaction Details", 30, Colors.white, "style",),),
@@ -1833,7 +1838,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
          ),
          Divider(),
          Container(
-           color: Colors.deepOrange,
+           color: Colors.blue,
            height: 40,
        //color: Colors.green,
         child:  Table(
@@ -1949,14 +1954,14 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Change", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ): snapshot.data[index].remarks=="Previous Transaction" ? Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Change", 20, Colors.black, "style",),
-              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.green, "style",),
+              textCustom("${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}", 20, Colors.black, "style",),
              
            ],
          ):Container(),
@@ -1979,8 +1984,8 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
-  child: Icon(Icons.print,color: Colors.green,size: 50,),
+    color:Colors.blue,
+  child: Icon(Icons.print,color: Colors.blue,size: 50,),
   onPressed: (){
    // SunmiAidlPrint.openDrawer1();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
@@ -1995,18 +2000,21 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
               SunmiAidlPrint.printText(text:"============================================\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"Member:                            PT\n");
+              SunmiAidlPrint.printText(text: "Cashier: James Howlett\n");
+              SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+              SunmiAidlPrint.setFontSize(fontSize: 25);
+             // SunmiAidlPrint.printText(text:"Member:                            PT\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Points:                             ${snapshot.data[index].memberPoints}'\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"ITEM        QTY        PRICE     TOTAL \n");
-              for(int x=0;x<snapshot.data.length;x++){
+               for(int x=0;x<reviewdata.length;x++){
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-             SunmiAidlPrint.printText(text:"${snapshot.data[x]["productName"]}         ${snapshot.data[x]["quantity"]}           ${reviewdata[index]["amount"]}        ${snapshot.data[x]["quantity"]*reviewdata[index]["amount"]}\n");
-              }
+              SunmiAidlPrint.printText(text:"${reviewdata['productName'][x]}       ${reviewdata['quantity'][x]}      ${reviewdata['amount'][x]}   ${reviewdata['quantity'][x][x]*reviewdata['amount'][x]}\n");
+             }
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.printText(text: "\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
@@ -2045,11 +2053,11 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
                  children: <Widget>[
                    new OutlineButton(
       borderSide: BorderSide(
-            color: Colors.green, //Color of the border
+            color: Colors.blue, //Color of the border
             style: BorderStyle.solid, //Style of the border
             width: 2, //width of the border
           ),
-    color:Colors.green,
+    color:Colors.blue,
   child: new textCustom("OK",25,Colors.blue,""),
   onPressed: (){
     
@@ -2117,7 +2125,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
           children: <Widget>[
          Container(
            height: 50,
-           color: Colors.deepOrange,
+           color: Colors.blue,
            child: 
               Center( 
           child: textCustom("Refund Item", 35, Colors.white, "style",),),
