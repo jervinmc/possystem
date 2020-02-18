@@ -169,7 +169,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
   TextEditingController searchCtrlr=new TextEditingController();
     @override
     Future<void> voidItem(BuildContext context,int x,int index) {
-      getWrite();
+     
     if(x==2){
         Navigator.of(context).pop();
     }
@@ -315,7 +315,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
         
 
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
-
+          getWrite("voidV1",0);
          for(int y=0;y<productName.length;y++){ 
           
     //_write("\n${productName[y]} | ${quantity[y]} | ${price[y]}");
@@ -324,7 +324,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
                  var theader=await http.get("http://192.168.1.3:424/api/tranheader/GetAll");
                 var theader1=json.decode(theader.body);
                 var header=  await http.post("http://192.168.1.3:424/api/VoidTheader/Add",body:{
-                    "userId":"$user","remarks":"Void","receiptNo":"${(trans.length+theader1)+1}","storeId":"$storeId"
+                    "userId":"$user","remarks":"Void","receiptNo":"${(trans.length+theader1.length)+1}","storeId":"$storeId"
             
                      }); 
                         final myString = '${header.body}'; 
@@ -384,6 +384,7 @@ for(int x=0;x<productName.length;x++){
          print("objectsss");
        
        if (usernameVoid.text == usernamePrefs  && passwordVoid.text == passwordPrefs){
+           getWrite("voidV1",index);
           var transactionGenerator=await http.get("http://192.168.1.3:424/api/POSCombinedTxns/GetAllVoidRefund");
                 var trans=json.decode(transactionGenerator.body);
                   var theader=await http.get("http://192.168.1.3:424/api/tranheader/GetAll");
@@ -1198,27 +1199,57 @@ Future<String> _read() async {
     text = await file.readAsString();
   } catch (e) {
     print("Couldn't read file");
-  }
+  } 
   print("$text");
   return text; 
 }
-void getWrite()async{
+void getWrite(String voidV1, int x)async{
        String text;
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
     text = await file.readAsString();
-      _write("$text \n Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
+      _write("$text \n "
+      "Benevolence Enterprise\nFairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\nMIN : XXXXXXXXXXXXXXXXX\nSerial : XXXXXXXXXX\nDate: MM/DD/YY\n================================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM         QTY          PRICE         TOTAL \n");
-              // _write(  "================================================");  
-             /*  _write(   "\n");
-               _write(  "================================================");
-               _write(  "                              \tVat:${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-               _write(  "                              \tSubtotal:${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n");
-               _write(  "                              \tMoney:${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-               _write(  "                              \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
-               _write(  "\n");
-               _write(  "THIS INVOICE SHALL BE VALID FOR FIVE (5) YEARS\n"); 
-               _write(  "FROM THE DATE OF THE PERMIT TO USE\n");*/
+          if(voidV1=="voidV1"){ 
+            String voidV1Counter;
+       final Directory directory = await getExternalStorageDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    voidV1Counter = await file.readAsString();
+    String voidV1CounterString;
+    double totalCounter=0;
+              for(int x=0;x<productName.length;x++){
+                voidV1CounterString="$voidV1CounterString\n ${productName[x]} ${quantity[x]} ${price[x]} ${price[x]*quantity[x]}\n";
+                totalCounter = totalCounter+(price[x]*quantity[x]);
+              }
+
+              _write("\n===============Void================= \n $voidV1Counter $voidV1CounterString \n $totalCounter");
+          } 
+          else if(voidV1=="voidV2"){
+            String voidV2Counter;
+       final Directory directory = await getExternalStorageDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    voidV2Counter = await file.readAsString();
+          _write("\n ===============Void================= \n$voidV2Counter \n ${productName[x]} ${quantity[x]} ${price[x]} \n "
+          "Subtotal ${FlutterMoneyFormatter(amount: quantity[x]*price[x]).output.nonSymbol}");
+          }
+          else if(voidV1=="transactionCompleted"){ 
+            String voidV1Counter;
+       final Directory directory = await getExternalStorageDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    voidV1Counter = await file.readAsString();
+    String voidV1CounterString;
+    double totalCounter=0;
+              for(int x=0;x<productName.length;x++){
+                voidV1CounterString="$voidV1CounterString\n ${productName[x]} ${quantity[x]} ${price[x]} ${price[x]*quantity[x]}\n";
+                totalCounter = totalCounter+(price[x]*quantity[x]);
+              }
+
+              _write("\n ===============Transaction Completed================= \n $voidV1Counter $voidV1CounterString \n $totalCounter \n");
+          } 
+          
+
+
 }
     //function..
     Future<void> paymentRestriction(BuildContext context,int x) {
@@ -2012,6 +2043,7 @@ new OutlineButton(
 
                   }
                   else{ 
+                    getWrite("transactionCompleted", 0);
                   var s=  await http.get("http://192.168.1.3:424/api/tranheader/GetAll");
                   var e=json.decode(s.body);
                   print("${e} awercaewr");
