@@ -2050,7 +2050,7 @@ print("object $headers");
                //SunmiAidlPrint.setFontSize(fontSize:30);
             //  SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
             //SunmiAidlPrint.setFontSize(fontSize: 24);
-              SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
+             /* SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
@@ -2118,7 +2118,7 @@ print("object $headers");
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
-          
+      
              // SunmiAidlPrint.commitPrint();
             //  SunmiAidlPrint.commitPrint1();
             //  SunmiAidlPrint.enterPrintBuffer1(); 
