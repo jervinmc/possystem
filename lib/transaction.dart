@@ -1285,9 +1285,9 @@ Text("  "),
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
     text = await file.readAsString();
-      String a= "\n---------------------------------------------------------------------------------------\n "
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: 5 \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
+      String a= "\n--------------------------------------------\n"
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: 5\n============================================\nITEM\t\tQTY\tPRICE\tTOTAL\n--------------------------------------------n";
    String voidV1CounterString="";
    double totalAll=0;
   for(int x=0;x<reviewdata.length;x++){
@@ -1300,8 +1300,8 @@ Text("  "),
                 }
               }
              _write("\n $a $voidV1CounterString \n\n\n\n\n \t\t\tSubtotal: Php ${FlutterMoneyFormatter(amount:totalAll-(totalAll*0.12)).output.nonSymbol} \n\t\t\t12% VAT: Php ${FlutterMoneyFormatter(amount:totalAll*0.12).output.nonSymbol}\n\t\t\tTOTAL: Php ${FlutterMoneyFormatter(amount:totalAll).output.nonSymbol} \n\n\n "
-               "\t\t\tCASH\tP${snapshot.data[index].totalAmt}\n\t\t\tCHANGE\tP${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}\n-----------------------------------------------\nVATSales\t\t\tPhp ${FlutterMoneyFormatter(amount:totalAll-(totalAll*0.12)).output.nonSymbol}\nVATAmount\t\t\t${FlutterMoneyFormatter(amount:totalAll*0.12).output.nonSymbol}\nVATExempSales\t\t\tP0.00\n-----------------------------------------------\n"
-              "\n ================================================\n\t\tThis serves as your \n\t\t Refund copy.$text");
+               "\t\t\tCASH\tP${snapshot.data[index].totalAmt}\n\t\t\tCHANGE\tP${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}\n--------------------------------------------\nVATSales\t\t\tPhp ${FlutterMoneyFormatter(amount:totalAll-(totalAll*0.12)).output.nonSymbol}\nVATAmount\t\t\t${FlutterMoneyFormatter(amount:totalAll*0.12).output.nonSymbol}\nVATExempSales\t\t\tP0.00\n--------------------------------------------\n"
+              "\n============================================\n\t\tThis serves as your \n\t\t Refund copy.$text");
     
     
     
