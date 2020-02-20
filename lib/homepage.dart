@@ -1232,13 +1232,13 @@ void getWrite(String voidV1, int x)async{
                 totalCounter = totalCounter+(price[x]*quantity[x]);
               }
               }
-              _write("\n $a $voidV1CounterString\nTOTAL: $totalCounter"" \n---------------------------------------------------\n \t\t\t\t This serves as your \n \t\t\t\t VOID copy.$voidV1Counter");
+              _write("\n $a $voidV1CounterString\nTOTAL: $totalCounter"" \n--------------------------------------------\n \t\t\t\t This serves as your \n \t\t\t\t VOID copy.$voidV1Counter");
           } 
           else if(voidV1=="voidV2"){ 
            //  _write("$text \n "
-   String a= "\n---------------------------------------------------------------------------------------\n "
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
+   String a= "\n--------------------------------------------\n "
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
             String voidV2Counter="";
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
@@ -1246,13 +1246,13 @@ void getWrite(String voidV1, int x)async{
     
           _write("$a \n ${productName[x]}\t\t${quantity[x]}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol} \n "
           "\t\t\t\t\tTOTAL: ${FlutterMoneyFormatter(amount: quantity[x]*price[x]).output.nonSymbol}"
-          " \n-----------------------------------------------\n \t\t\t\t This serves as your \n \t\t\t\t Void copy.$voidV2Counter");
+          " \n--------------------------------------------\n \t\t\t\t This serves as your \n \t\t\t\t Void copy.$voidV2Counter");
           }
           else if(voidV1=="transactionCompleted"){ 
            //  _write("$text \n "
-     String a= "\n---------------------------------------------------------------------------------------\n "
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
+     String a= "\n--------------------------------------------\n "
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
             String voidV1Counter;
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
@@ -1273,8 +1273,8 @@ void getWrite(String voidV1, int x)async{
               }
             if(discountLabel==0.0){
                _write("\n $a $voidV1CounterString \n\n\n\n\n \t\t\tSubtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n\t\t\t12% VAT: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n\t\t\tDiscount: $discountLabel\n\t\t\tTOTAL: Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n\n\n "
-               "\t\t\tCASH\tP${payment.text}\n\t\t\tCHANGE\tP${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n-----------------------------------------------\nVATSales\t\t\tPhp ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\nVATAmount\t\t\tPhp ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\nVATExempSales\t\t\tP0.00\n-----------------------------------------------\n\nSold to:____________________________________\nSC/PWD ID:__________________________________\nAddress:______________________________________\nTIN:_________________________________\nBusiness Styles:_______________________________\n"
-              "\n ================================================\n\t\tThis serves as your \n\t\t official receipt. \n \t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t(5) YEARS FROM THE DATE OF THE \n \t\t PERMIT TO USE.$voidV1Counter");
+               "\t\t\tCASH\tP${payment.text}\n\t\t\tCHANGE\tP${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n--------------------------------------------\nVATSales\t\t\tPhp ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\nVATAmount\t\t\tPhp ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\nVATExempSales\t\t\tP0.00\n--------------------------------------------\n\nSold to:____________________________________\nSC/PWD ID:__________________________________\nAddress:______________________________________\nTIN:_________________________________\nBusiness Styles:_______________________________\n"
+              "\n============================================\n\t\tThis serves as your \n\t\t official receipt. \n \t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t(5) YEARS FROM THE DATE OF THE \n \t\t PERMIT TO USE.$voidV1Counter");
             }
             else{
               _write("\n $a $voidV1CounterString \n Discount: $discountLabel \n Subtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n Vat: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n TOTAL: Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n "
