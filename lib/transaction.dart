@@ -9,7 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'fadeAnimation.dart';
+import 'dart:io';
 import 'package:sunmi_aidl_print/sunmi_aidl_print.dart';
+import 'package:path_provider/path_provider.dart';
 class Services {
  
   final String id;
@@ -128,6 +130,14 @@ class _TransactionState extends State<Transaction> {
       ));
     },
   );
+}
+ _write(String text) async {
+   
+  final Directory directory = await getExternalStorageDirectory();
+  final File file = File('${directory.path}/my_file.txt');
+  
+  print("eto ang directory ${directory.path}" );
+  await file.writeAsString(text);
 }
 
   //function..
@@ -1107,6 +1117,7 @@ deleteSelected() async{
                        ],
                      )
                    ),
+                   
                    VerticalDivider(),
                   snapshot.data[index].remarks=="Refunded Items"  ? Container():  snapshot.data[index].remarks!="Previous Transaction"  ? InkWell(
                        onTap: ()async{
@@ -1267,8 +1278,36 @@ Text("  "),
     color:Colors.blue,
   child: new textCustom("Submit",25,Colors.blue,""),
   onPressed: ()async{
+   
+  print("tearcer");
+    
+         String text;
+       final Directory directory = await getExternalStorageDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    text = await file.readAsString();
+      String a= "\n---------------------------------------------------------------------------------------\n "
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: 5 \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
+   String voidV1CounterString="";
+   double totalAll=0;
+  for(int x=0;x<reviewdata.length;x++){
+                if(refundTextCtrlr[x].text==""){
 
-    print("eto ang id ${snapshot.data[index].userid}");
+                }
+                else{
+                voidV1CounterString="$voidV1CounterString\n${reviewdata[x]["productName"]}\t\t${refundTextCtrlr[x].text}\t${reviewdata[x]["amount"]}\t${reviewdata[x]["amount"]*double.parse(refundTextCtrlr[x].text)}\n";
+                totalAll=totalAll+(reviewdata[x]["amount"]*double.parse(refundTextCtrlr[x].text));
+                }
+              }
+             _write("\n $a $voidV1CounterString \n\n\n\n\n \t\t\tSubtotal: Php ${FlutterMoneyFormatter(amount:totalAll-(totalAll*0.12)).output.nonSymbol} \n\t\t\t12% VAT: Php ${FlutterMoneyFormatter(amount:totalAll*0.12).output.nonSymbol}\n\t\t\tTOTAL: Php ${FlutterMoneyFormatter(amount:totalAll).output.nonSymbol} \n\n\n "
+               "\t\t\tCASH\tP${snapshot.data[index].totalAmt}\n\t\t\tCHANGE\tP${FlutterMoneyFormatter(amount:snapshot.data[index].payment-snapshot.data[index].totalAmt).output.nonSymbol}\n-----------------------------------------------\nVATSales\t\t\tPhp ${FlutterMoneyFormatter(amount:totalAll-(totalAll*0.12)).output.nonSymbol}\nVATAmount\t\t\t${FlutterMoneyFormatter(amount:totalAll*0.12).output.nonSymbol}\nVATExempSales\t\t\tP0.00\n-----------------------------------------------\n"
+              "\n ================================================\n\t\tThis serves as your \n\t\t Refund copy.$text");
+    
+    
+    
+            
+
+              
     for(int x=0;x<totalRefund1.length;x++){
                     totalRefund=totalRefund+totalRefund1[x];
                     print("totalrefund $totalRefund");
@@ -1313,16 +1352,14 @@ var headers = myString.replaceAll(RegExp('"'), '');
                        "discount":"${rev["discount"]}","receiptNo":"${y.length}","vat":"${rev["totalAmt"]*0.12}","memberName":"Prokopyo tunying","subtotal":"${rev["subtotal"]}"
                        ,"totalAmt":"$totalRefund","payment":"${rev["payment"]}","memberPoints":"${rev["points"]}","remarks":"Refunded Items","userId":"${snapshot.data[index].userid}"
                      });
-                          print("object");
+                  
                      final s = '${headersId.body}';
 var headerId = s.replaceAll(RegExp('"'), ''); 
                      for(int x=0;x<reviewdata.length;x++){
                        
                             if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0"){
-
                             }
                             else{
-                              
                                          await http.post("http://192.168.1.3:424/api/TranDetails/add",body:{
                        "sellingPrice":"${reviewdata[x]["sellingPrice"]}","categoryDesc":"safeguard",
                        "productId":"${reviewdata[x]["productId"]}",
