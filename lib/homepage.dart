@@ -2077,7 +2077,7 @@ print("object $headers");
 
                      } 
                      load="dontload";
-             
+             /*
               SunmiAidlPrint.enterPrintBuffer();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2105,7 +2105,7 @@ print("object $headers");
               SunmiAidlPrint.enterPrintBuffer();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"   MIN:XXXXXXXXXXXXXXXXX\n");
+              SunmiAidlPrint.printText(text:"  MIN:XXXXXXXXXXXXXXXXX\n");
               SunmiAidlPrint.enterPrintBuffer();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25); 
@@ -2117,7 +2117,7 @@ print("object $headers");
               SunmiAidlPrint.enterPrintBuffer();
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"Cashier:James Howlett\n");
+              SunmiAidlPrint.printText(text:"Cashier:$username \n");
               SunmiAidlPrint.enterPrintBuffer();
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2166,11 +2166,14 @@ print("object $headers");
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
-              
-              SunmiAidlPrint.exitPrinterBuffer1();
+
+             //SunmiAidlPrint.enterPrinterBuffer1();
+            //  SunmiAidlPrint.exitPrinterBuffer1();
+              SunmiAidlPrint.exitPrinterBuffer();
               SunmiAidlPrint.commitPrinterBuffer1();
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
+              */
             //*/
          // SunmiAidlPrint.openDrawer1();
         //  SunmiAidlPrint.openDrawer123();
