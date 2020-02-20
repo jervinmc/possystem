@@ -1211,6 +1211,7 @@ void getWrite(String voidV1, int x)async{
     text = await file.readAsString();
           if(voidV1=="voidV1"){ 
           //   _write("$text \n "
+          //sss
     String a= "\n---------------------------------------------------------------------------------------\n "
       "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
