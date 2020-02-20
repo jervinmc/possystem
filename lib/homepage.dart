@@ -1236,7 +1236,7 @@ void getWrite(String voidV1, int x)async{
           } 
           else if(voidV1=="voidV2"){ 
            //  _write("$text \n "
-   String a= "\n--------------------------------------------\n "
+   String a= "\n--------------------------------------------\n"
       "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
             String voidV2Counter="";
@@ -1250,7 +1250,7 @@ void getWrite(String voidV1, int x)async{
           }
           else if(voidV1=="transactionCompleted"){ 
            //  _write("$text \n "
-     String a= "\n--------------------------------------------\n "
+     String a= "\n--------------------------------------------\n"
       "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
             String voidV1Counter;
