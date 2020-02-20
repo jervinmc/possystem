@@ -1209,14 +1209,9 @@ void getWrite(String voidV1, int x)async{
     final File file = File('${directory.path}/my_file.txt');
     text = await file.readAsString();
       _write("$text \n"
-      "Benevolence Enterprise\n Fairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\n MIN : XXXXXXXXXXXXXXXXX\n Serial : XXXXXXXXXX\n Date: MM/DD/YY\n================================================\n"
-    "Cashier: $username\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points\n================================================\nITEM         QTY          PRICE         TOTAL \n");
+      "Benevolence Enterprise\n Fairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\n MIN : XXXXXXXXXXXXXXXXX\n Serial : XXXXXXXXXX\n Date: MM/DD/YY\n============================================\n"
+    "Cashier: $username\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points\n============================================\nITEM         QTY          PRICE         TOTAL \n");
           if(voidV1=="voidV1"){ 
-          //   _write("$text \n "
-          //sss
-    String a= "\n---------------------------------------------------------------------------------------\n "
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
             String voidV1Counter;
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
@@ -1228,7 +1223,7 @@ void getWrite(String voidV1, int x)async{
                 totalCounter = totalCounter+(price[x]*quantity[x]);
               }
 
-              _write("\n===============Void================= \n $voidV1Counter $voidV1CounterString \n $totalCounter");
+              _write("\n===============Void=================\n $voidV1Counter $voidV1CounterString \n $totalCounter");
           } 
           else if(voidV1=="voidV2"){
             String voidV2Counter;
