@@ -1234,7 +1234,7 @@ void getWrite(String voidV1, int x)async{
                             totalCounter = totalCounter+(price[x]*quantity[x]);
                           }
                           }
-                          _write("\n $a $voidV1CounterString\n\n\n\n\n\t\t   Total:${FlutterMoneyFormatter(amount:totalCounter).output.nonSymbol.padLeft(20)}"" \n---------------------------------------------\n \t This serves as your \n \t Void copy.$voidV1Counter");
+                          _write("\n $a $voidV1CounterString\n\n\n\n\n\t\t   Total${FlutterMoneyFormatter(amount:totalCounter).output.nonSymbol.padLeft(20)}"" \n---------------------------------------------\n \t\t This serves as your \n \t\t Void copy.$voidV1Counter");
                       } 
                       else if(voidV1=="voidV2"){ 
                        //  _write("$text \n "
@@ -1248,13 +1248,13 @@ void getWrite(String voidV1, int x)async{
                 voidV2Counter = await file.readAsString();
                       if(productName[x].length>14){
                           _write("$a${productName[x].toString().substring(0,14)}${quantity[x].toString().padLeft((18+(productName[x].toString().length-14))-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n${productName[x].toString().substring(14,productName[x].toString().length)}\n"
-                      "\n\n\n\n\n\t\tTOTAL: ${totals.padLeft(20)}"
-                      " \n\n\n\n\n============================================\n \t This serves as your \n \t Void copy.$voidV2Counter");
+                      "\n\n\n\n\n\t\tTOTAL ${totals.padLeft(20)}"
+                      " \n\n\n\n\n============================================\n \t\t This serves as your \n \t\t Void copy.$voidV2Counter");
                       }
                       else{
                            _write("$a${productName[x]}${quantity[x].toString().padLeft(18-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n"
-                      "\n\n\n\n\n\t\tTOTAL: ${totals.padLeft(20)}"
-                      " \n\n\n\n\n============================================\n \t This serves as your \n \t Void copy.$voidV2Counter");
+                      "\n\n\n\n\n\t\tTOTAL ${totals.padLeft(20)}"
+                      " \n\n\n\n\n============================================\n \t\t\t This serves as your \n \t\t Void copy.$voidV2Counter");
                       }
                      
                       }
@@ -1291,11 +1291,11 @@ void getWrite(String voidV1, int x)async{
                           String vatexamples="Php 0.00";
                            _write("\n $a $voidV1CounterString \n\n\n\n\n\t\tSubtotal${subtotals.padLeft(20)}\n\t\t 12% VAT${vats.padLeft(20)}\n\t\tDiscount${discounts.padLeft(20)}\n\t\t   Total${totals.padLeft(20)} \n\n\n "
                            "\t\t    CASH${cash.padLeft(20)}\n\t\t  CHANGE${change.padLeft(20)}\n--------------------------------------------\nVATSales  ${vatsales.padLeft(34)}\nVATAmount ${vatamount.padLeft(34)}\nVATExempSales${vatexamples.padLeft(31)}\n--------------------------------------------\n\nSold to:____________________________________\nSC/PWD ID:__________________________________\nAddress:____________________________________\nTIN:________________________________________\nBusiness Styles:____________________________\n"
-                          "\n============================================\n\tThis serves as your \n\t official receipt. \n \t THIS RECEIPT SHALL BE VALID FOR \n \t(5) YEARS FROM THE DATE OF THE \n \t PERMIT TO USE.$voidV1Counter");
+                          "\n============================================\n\t\tThis serves as your \n\t\t official receipt. \n \t THIS RECEIPT SHALL BE VALID FOR \n \t(5) YEARS FROM THE DATE OF THE \n \t PERMIT TO USE.$voidV1Counter");
                         }
                         else{
-                          _write("\n $a $voidV1CounterString \n Discount: $discountLabel \n Subtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n Vat: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n TOTAL: Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n "
-                          "\n \t\t\t\t  This serves as your \n \t\t\t\t official receipt. \n \t\t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t\t\t (5) YEARS FROM THE DATE OF THE \n \t\t\t\t PERMIT TO USE. \n ===================transacted=================== $voidV1Counter");
+                          _write("\n $a $voidV1CounterString \n Discount: $discountLabel \n Subtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n Vat: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n TOTAL Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n "
+                          "\n\t\tThis serves as your \n\t\t\t\t official receipt. \n\t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t\t\t (5) YEARS FROM THE DATE OF THE \n \t\t\t\t PERMIT TO USE. \n ===================transacted=================== $voidV1Counter");
                           }
                         } 
                       }
