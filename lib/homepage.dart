@@ -1209,6 +1209,7 @@ void getWrite(String voidV1, int x)async{
     final File file = File('${directory.path}/my_file.txt');
     text = await file.readAsString();
       _write("$text \n"
+      
       "Benevolence Enterprise\n Fairview, Quezon City\n VAT-REG-TIN 00-000-000-00\n BIR PERMIT : XXXXXXXX-XXX-XXXXXXX-XXXXX\n MIN : XXXXXXXXXXXXXXXXX\n Serial : XXXXXXXXXX\n Date: MM/DD/YY\n============================================\n"
     "Cashier: $username\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points\n============================================\nITEM         QTY          PRICE         TOTAL \n");
           if(voidV1=="voidV1"){ 
@@ -1225,8 +1226,12 @@ void getWrite(String voidV1, int x)async{
 
               _write("\n===============Void=================\n $voidV1Counter $voidV1CounterString \n $totalCounter");
           } 
-          else if(voidV1=="voidV2"){
-            String voidV2Counter;
+          else if(voidV1=="voidV2"){ 
+           //  _write("$text \n "
+   String a= "\n--------------------------------------------\n"
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\n \n============================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
+            String voidV2Counter="";
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
     voidV2Counter = await file.readAsString();
@@ -1234,6 +1239,10 @@ void getWrite(String voidV1, int x)async{
           "Subtotal ${FlutterMoneyFormatter(amount: quantity[x]*price[x]).output.nonSymbol}");
           }
           else if(voidV1=="transactionCompleted"){ 
+           //  _write("$text \n "
+     String a= "\n--------------------------------------------\n"
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\n  \n============================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
             String voidV1Counter;
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
@@ -2077,64 +2086,64 @@ print("object $headers");
 
                      } 
                      load="dontload";
-             /*
-              SunmiAidlPrint.enterPrintBuffer();
+              /*
+              SunmiAidlPrint.enterPrinterBuffer1();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:                   "Benevolence Enterprise\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:                   "Fairview, Quezon City\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  VAT-REG-TIN XX-XXX-XXX-XX\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  BIR PERMIT:XXXXXXXX-XXX-XXXXXXX-XXXXX\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  Sales Invoice:XXXXXXXX\n"); 
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  Serial:XXXXXXXXXX\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"  MIN:XXXXXXXXXXXXXXXXX\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-              SunmiAidlPrint.setFontSize(fontSize: 25); 
+              SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"============================================");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Date:MM/DD/YY\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Cashier:$username \n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Customer Name:XXXXXXXXXXXXX\n"); 
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"Points:$points \n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"============================================");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"ITEM                   QTY   PRICE   TOTAL\n");
-              SunmiAidlPrint.enterPrintBuffer();
+    
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               for(int x=0;x<productName.length;x++){
@@ -2142,35 +2151,33 @@ print("object $headers");
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"${productName[x]}/${sku[x]}    ${quantity[x]}     ${price[x]}   ${quantity[x]*price[x]}\n");
              }
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"============================================");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tVat:${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
-              SunmiAidlPrint.enterPrintBuffer();  
+              
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tSubtotal:${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n"); 
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tCash:${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
-              SunmiAidlPrint.enterPrintBuffer();
+              
               SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
-
-             //SunmiAidlPrint.enterPrinterBuffer1();
-            //  SunmiAidlPrint.exitPrinterBuffer1();
-              SunmiAidlPrint.exitPrinterBuffer();
+              
               SunmiAidlPrint.commitPrinterBuffer1();
+              SunmiAidlPrint.exitPrinterBuffer();
               SunmiAidlPrint.openDrawer1234();
               SunmiAidlPrint.cutpaper12();
               */
@@ -4172,7 +4179,6 @@ List productName;
           ],
         ),
       );
-      
       
   @override
   Widget build(BuildContext context) {

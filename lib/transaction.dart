@@ -562,7 +562,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Cashier", 30, Colors.black, "style",),
-              textCustom("${snapshot.data[index].username}", 30, Colors.black, "style",),
+              textCustom("${reviewdata[index].username}", 30, Colors.black, "style",),
              
            ],
          ),
@@ -578,7 +578,7 @@ deleteSelected() async{
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
               textCustom("Points", 30, Colors.black, "style",),
-              textCustom("0", 30, Colors.black, "style",),
+              textCustom("${reviewdata[index].points}", 30, Colors.black, "style",),
              
            ],
          ),
@@ -1280,19 +1280,19 @@ Text("  "),
   onPressed: ()async{
    
   print("tearcer");
-    
          String text;
        final Directory directory = await getExternalStorageDirectory();
     final File file = File('${directory.path}/my_file.txt');
     text = await file.readAsString();
+      String inToString (int i ,{int pad }) => i.toString().padLeft(pad, '0');
       String a= "\n--------------------------------------------\n"
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: 5\n============================================\nITEM\t\tQTY\tPRICE\tTOTAL\n--------------------------------------------n";
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: 5\n============================================\nITEM\t\tQTY\tPRICE\tTOTAL\n--------------------------------------------\n";
    String voidV1CounterString="";
    double totalAll=0;
   for(int x=0;x<reviewdata.length;x++){
                 if(refundTextCtrlr[x].text==""){
-
+              
                 }
                 else{
                 voidV1CounterString="$voidV1CounterString\n${reviewdata[x]["productName"]}\t\t${refundTextCtrlr[x].text}\t${reviewdata[x]["amount"]}\t${reviewdata[x]["amount"]*double.parse(refundTextCtrlr[x].text)}\n";
@@ -1730,7 +1730,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.enterPrintBuffer();
-              SunmiAidlPrint.printText(text: "Points:${snapshot.data[index].memberPoints}'\n");
+              SunmiAidlPrint.printText(text:"Points:${snapshot.data[index].memberPoints}'\n");
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize:25);
               SunmiAidlPrint.enterPrintBuffer();
@@ -1806,7 +1806,6 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
                )
              )
            ),
-         
         ],
       ),
       ));
@@ -2035,6 +2034,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
   onPressed: (){
    // SunmiAidlPrint.openDrawer1();
               /*
+              SunmiAidlPrint.enterPrintBuffer();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
               SunmiAidlPrint.printText(text:"             Benevolence Enterprise\n");
@@ -2056,7 +2056,7 @@ var headerIds = s1.replaceAll(RegExp('"'), '');
                for(int x=0;x<reviewdata.length;x++){
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);
-              SunmiAidlPrint.printText(text:"${snapshot.data["productName"]}    ${reviewdata['quantity'][x]}     ${reviewdata['amount'][x]}\n");
+              SunmiAidlPrint.printText(text:"$${reviewdata['productname'][x]}    ${reviewdata['quantity'][x]}     ${reviewdata['amount'][x]}\n");
              }
               SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
               SunmiAidlPrint.setFontSize(fontSize: 25);

@@ -40,7 +40,6 @@ dependencies:
   flutter_money_formatter: ^0.8.3
   flutter_multiselect: ^0.0.1
   nice_button: ^0.1.7
-  
   flutter_custom_dialog: ^1.0.15
   path_provider: ^0.4.1
   loading: ^1.0.2
