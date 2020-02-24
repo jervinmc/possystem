@@ -1185,7 +1185,7 @@ Text("   "),
     _write(String text) async {
    
   final Directory directory = await getExternalStorageDirectory();
-  final File file = File('${directory.path}/my_file.txt');
+  final File file = File('${directory.path}/e-journal.txt');
   
   print("eto ang directory ${directory.path}" );
   await file.writeAsString(text);
@@ -1195,7 +1195,7 @@ Future<String> _read() async {
   String text;
   try {
     final Directory directory = await getExternalStorageDirectory();
-    final File file = File('${directory.path}/my_file.txt');
+    final File file = File('${directory.path}/e-journal.txt');
     print("$text eto na yon ${directory.path}");
     text = await file.readAsString();
   } catch (e) {
@@ -1207,78 +1207,93 @@ Future<String> _read() async {
 void getWrite(String voidV1, int x)async{
        String text;
        final Directory directory = await getExternalStorageDirectory();
-    final File file = File('${directory.path}/my_file.txt');
+    final File file = File('${directory.path}/e-journal.txt');
     text = await file.readAsString();
           if(voidV1=="voidV1"){ 
           //   _write("$text \n "
           //sss
     String a= "\n---------------------------------------------------------------------------------------\n "
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n================================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n================================================\nITEM\t\tQTY\tPRICE\tTOTAL \n------------------------------------------------\n";
+      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\t       TOTAL \n--------------------------------------------\n";
             String voidV1Counter;
        final Directory directory = await getExternalStorageDirectory();
-    final File file = File('${directory.path}/my_file.txt');
+    final File file = File('${directory.path}/e-journal.txt');
     voidV1Counter = await file.readAsString();
     String voidV1CounterString="";
     double totalCounter=0;
               for(int x=0;x<productName.length;x++){
-                if(productName[x].length>6){
-                 
-                voidV1CounterString="$voidV1CounterString\n${productName[x].toString().substring(0,6)}\t\t${quantity[x]}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol}\n${productName[x].toString().substring(6,productName[x].toString().length)}\n";
+               if(productName[x].length>14){
+                voidV1CounterString="$voidV1CounterString\n${productName[x].toString().substring(0,14)}${quantity[x].toString().padLeft((18+(productName[x].toString().length-14))-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n${productName[x].toString().substring(14,productName[x].toString().length)}\n";
                 totalCounter = totalCounter+(price[x]*quantity[x]);
-              } 
+              }
               else{
-               voidV1CounterString="$voidV1CounterString\n${productName[x]}\t\t${quantity[x]}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol}\n";
+               voidV1CounterString="$voidV1CounterString\n${productName[x]}${quantity[x].toString().padLeft(18-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n";
                 totalCounter = totalCounter+(price[x]*quantity[x]);
               }
               }
-              _write("\n $a $voidV1CounterString\nTOTAL: $totalCounter"" \n--------------------------------------------\n \t\t\t\t This serves as your \n \t\t\t\t VOID copy.$voidV1Counter");
+              _write("\n $a $voidV1CounterString\n\n\n\n\n\t\t   Total:${FlutterMoneyFormatter(amount:totalCounter).output.nonSymbol.padLeft(20)}"" \n---------------------------------------------\n \t This serves as your \n \t Void copy.$voidV1Counter");
           } 
           else if(voidV1=="voidV2"){ 
            //  _write("$text \n "
-   String a= "\n--------------------------------------------\n"
+   String a= "\n------------------------------------------------------------------------------------------------------\n"
       "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\t       TOTAL \n--------------------------------------------\n";
             String voidV2Counter="";
        final Directory directory = await getExternalStorageDirectory();
-    final File file = File('${directory.path}/my_file.txt');
+    final File file = File('${directory.path}/e-journal.txt');
+     String totals="Php ${FlutterMoneyFormatter(amount: quantity[x]*price[x]).output.nonSymbol}";
     voidV2Counter = await file.readAsString();
-    
-          _write("$a \n ${productName[x]}\t\t${quantity[x]}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol} \n "
-          "\t\t\t\t\tTOTAL: ${FlutterMoneyFormatter(amount: quantity[x]*price[x]).output.nonSymbol}"
-          " \n--------------------------------------------\n \t\t\t\t This serves as your \n \t\t\t\t Void copy.$voidV2Counter");
+          if(productName[x].length>14){
+              _write("$a${productName[x].toString().substring(0,14)}${quantity[x].toString().padLeft((18+(productName[x].toString().length-14))-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n${productName[x].toString().substring(14,productName[x].toString().length)}\n"
+          "\n\n\n\n\n\t\tTOTAL: ${totals.padLeft(20)}"
+          " \n\n\n\n\n============================================\n \t This serves as your \n \t Void copy.$voidV2Counter");
+          }
+          else{
+               _write("$a${productName[x]}${quantity[x].toString().padLeft(18-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n"
+          "\n\n\n\n\n\t\tTOTAL: ${totals.padLeft(20)}"
+          " \n\n\n\n\n============================================\n \t This serves as your \n \t Void copy.$voidV2Counter");
+          }
+         
           }
           else if(voidV1=="transactionCompleted"){ 
            //  _write("$text \n "
-     String a= "\n--------------------------------------------\n"
+     String a= "\n------------------------------------------------------------------------------------------------------\n"
       "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
-    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\tTOTAL \n--------------------------------------------\n";
+    "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: $points \n============================================\nITEM\t\tQTY\tPRICE\t       TOTAL \n--------------------------------------------\n";
             String voidV1Counter;
        final Directory directory = await getExternalStorageDirectory();
-    final File file = File('${directory.path}/my_file.txt');
+    final File file = File('${directory.path}/e-journal.txt');
     voidV1Counter = await file.readAsString();
     String voidV1CounterString="";
     double totalCounter=0;
     
               for(int x=0;x<productName.length;x++){
-                if(productName[x].length>6){
-                 
-                voidV1CounterString="$voidV1CounterString\n${productName[x].toString().substring(0,6)}\t\t${quantity[x]}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol}\n${productName[x].toString().substring(6,productName[x].toString().length)}\n";
+                if(productName[x].length>14){
+                voidV1CounterString="$voidV1CounterString\n${productName[x].toString().substring(0,14)}${quantity[x].toString().padLeft((18+(productName[x].toString().length-14))-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n${productName[x].toString().substring(14,productName[x].toString().length)}\n";
                 totalCounter = totalCounter+(price[x]*quantity[x]);
-              } 
+              }
               else{
-               voidV1CounterString="$voidV1CounterString\n${productName[x]}\t\t${quantity[x]}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol}\n";
+               voidV1CounterString="$voidV1CounterString\n${productName[x]}${quantity[x].toString().padLeft(18-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n";
                 totalCounter = totalCounter+(price[x]*quantity[x]);
               }
               }
             if(discountLabel==0.0){
-               _write("\n $a $voidV1CounterString \n\n\n\n\n \t\t\tSubtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n\t\t\t12% VAT: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n\t\t\tDiscount: $discountLabel\n\t\t\tTOTAL: Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n\n\n "
-               "\t\t\tCASH\tP${payment.text}\n\t\t\tCHANGE\tP${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n--------------------------------------------\nVATSales\t\t\tPhp ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\nVATAmount\t\t\tPhp ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\nVATExempSales\t\t\tP0.00\n--------------------------------------------\n\nSold to:____________________________________\nSC/PWD ID:__________________________________\nAddress:______________________________________\nTIN:_________________________________\nBusiness Styles:_______________________________\n"
-              "\n============================================\n\t\tThis serves as your \n\t\t official receipt. \n \t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t(5) YEARS FROM THE DATE OF THE \n \t\t PERMIT TO USE.$voidV1Counter");
+              String subtotals="Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}";
+              String vats="Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}";
+              String discounts="Php ${FlutterMoneyFormatter(amount:discountLabel).output.nonSymbol}";
+              String totals="Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol}";
+              String cash="Php ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}";
+              String change="Php ${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}";
+              String vatsales="Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*  0.12)).output.nonSymbol}";
+              String vatamount="Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}";
+              String vatexamples="Php 0.00";
+               _write("\n $a $voidV1CounterString \n\n\n\n\n\t\tSubtotal${subtotals.padLeft(20)}\n\t\t 12% VAT${vats.padLeft(20)}\n\t\tDiscount${discounts.padLeft(20)}\n\t\t   Total${totals.padLeft(20)} \n\n\n "
+               "\t\t    CASH${cash.padLeft(20)}\n\t\t  CHANGE${change.padLeft(20)}\n--------------------------------------------\nVATSales  ${vatsales.padLeft(34)}\nVATAmount ${vatamount.padLeft(34)}\nVATExempSales${vatexamples.padLeft(31)}\n--------------------------------------------\n\nSold to:____________________________________\nSC/PWD ID:__________________________________\nAddress:____________________________________\nTIN:________________________________________\nBusiness Styles:____________________________\n"
+              "\n============================================\n\tThis serves as your \n\t official receipt. \n \t THIS RECEIPT SHALL BE VALID FOR \n \t(5) YEARS FROM THE DATE OF THE \n \t PERMIT TO USE.$voidV1Counter");
             }
             else{
               _write("\n $a $voidV1CounterString \n Discount: $discountLabel \n Subtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n Vat: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n TOTAL: Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n "
-              "\n \t\t\t\t This serves as your \n \t\t\t\t official receipt. \n \t\t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t\t\t(5) YEARS FROM THE DATE OF THE \n \t\t\t\t PERMIT TO USE. \n ===================transacted=================== $voidV1Counter");
+              "\n \t\t\t\t  This serves as your \n \t\t\t\t official receipt. \n \t\t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t\t\t (5) YEARS FROM THE DATE OF THE \n \t\t\t\t PERMIT TO USE. \n ===================transacted=================== $voidV1Counter");
               }
             } 
           }
@@ -1683,6 +1698,7 @@ controller=AnimationController(duration: Duration(milliseconds: 900),vsync: this
    String pending="variable";
    double openingAmount;
    List voidTran=[];
+   
    //double openingAmount;
   ///////////////variable/////
   List quantityDiscount=[];
@@ -2836,7 +2852,10 @@ print("object $headers");
             FadeAnimation1(2,  InkWell(
               child: Text("POS",style: TextStyle(fontSize: 50,fontFamily: "PSR", fontWeight: FontWeight.bold, color: Colors.white),),
            onTap: (){
-             _read();
+            String a="a s";
+            String b=" sawercw";
+            print(a.padLeft(10,'^'));
+            print(b.padLeft(10,'^'));
            },
             ),),
            
