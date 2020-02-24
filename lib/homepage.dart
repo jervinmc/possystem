@@ -2087,6 +2087,7 @@ print("object $headers");
                      } 
                      load="dontload";
               /*
+
               SunmiAidlPrint.enterPrinterBuffer1();
               SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
               SunmiAidlPrint.setFontSize(fontSize: 25);
