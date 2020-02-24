@@ -1286,7 +1286,7 @@ Text("  "),
     text = await file.readAsString();
       String inToString (int i ,{int pad }) => i.toString().padLeft(pad, '0');
       String a= "\n--------------------------------------------\n"
-      "\t\tBenevolence Enterprise\n\tFairview, Quezon City\n\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
+      "\t\tBenevolence Enterprise\n\t\t\tFairview, Quezon City\n\t\t\tVAT-REG-TIN 00-000-000-00\n\t\tBIR PERMIT : FP072016-122\n\t\t-0889091-00001\n\nReceipt #: 010000000030\nSI #: 010000000195\nMIN #:12341231234123\nSerial #: 3258535521647\nDate: ${DateFormat('dd-MM-yyyy– kk:mm').format(DateTime.now())}\n============================================\n"
     "Cashier: James Howlett\nCustomer Name: XXXXXXXXXXXXX\nPoints: 5\n============================================\nITEM\t\tQTY\tPRICE\tTOTAL\n--------------------------------------------\n";
    String voidV1CounterString="";
    double totalAll=0;
