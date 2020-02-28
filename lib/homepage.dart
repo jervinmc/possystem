@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter/widgets.dart';
 //import 'package:esc_pos_printer/esc_pos_printer.dart';
 import 'package:awesome_dialog/anims/anims.dart';
 import 'package:possystem/fadeAnimation.dart';
@@ -33,7 +34,6 @@ import 'transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'utils.dart';
 import 'package:loading/indicator.dart';
-
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 class product {
   final name;
@@ -251,7 +251,7 @@ class _HomepageState extends State<Homepage>with SingleTickerProviderStateMixin 
              ],
            ),
           Positioned(
-            top: 0,
+  top: 0,
   left: 16,
   right: 16,
   child:/* CircleAvatar(
@@ -1234,7 +1234,7 @@ void getWrite(String voidV1, int x)async{
                             totalCounter = totalCounter+(price[x]*quantity[x]);
                           }
                           }
-                          _write("\n $a $voidV1CounterString\n\n\n\n\n\t\t   Total${FlutterMoneyFormatter(amount:totalCounter).output.nonSymbol.padLeft(20)}"" \n---------------------------------------------\n \t\t This serves as your \n \t\t Void copy.$voidV1Counter");
+                          _write("\n $a $voidV1CounterString\n\n\n\n\n\t\t   Total${FlutterMoneyFormatter(amount:totalCounter).output.nonSymbol.padLeft(20)}"" \n---------------------------------------------\n \t\t\t This serves as your \n \t\t\t Void copy.$voidV1Counter");
                       } 
                       else if(voidV1=="voidV2"){ 
                        //  _write("$text \n "
@@ -1249,7 +1249,7 @@ void getWrite(String voidV1, int x)async{
                       if(productName[x].length>14){
                           _write("$a${productName[x].toString().substring(0,14)}${quantity[x].toString().padLeft((18+(productName[x].toString().length-14))-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n${productName[x].toString().substring(14,productName[x].toString().length)}\n"
                       "\n\n\n\n\n\t\tTOTAL ${totals.padLeft(20)}"
-                      " \n\n\n\n\n============================================\n \t\t This serves as your \n \t\t Void copy.$voidV2Counter");
+                      " \n\n\n\n\n============================================\n \t\t\t This serves as your \n \t\t\t Void copy.$voidV2Counter");
                       }
                       else{
                            _write("$a${productName[x]}${quantity[x].toString().padLeft(18-productName[x].toString().length)}\t${FlutterMoneyFormatter(amount:price[x]).output.nonSymbol}\t${FlutterMoneyFormatter(amount:price[x]*quantity[x]).output.nonSymbol.padLeft(12)}\n"
@@ -1291,11 +1291,11 @@ void getWrite(String voidV1, int x)async{
                           String vatexamples="Php 0.00";
                            _write("\n $a $voidV1CounterString \n\n\n\n\n\t\tSubtotal${subtotals.padLeft(20)}\n\t\t 12% VAT${vats.padLeft(20)}\n\t\tDiscount${discounts.padLeft(20)}\n\t\t   Total${totals.padLeft(20)} \n\n\n "
                            "\t\t    CASH${cash.padLeft(20)}\n\t\t  CHANGE${change.padLeft(20)}\n--------------------------------------------\nVATSales  ${vatsales.padLeft(34)}\nVATAmount ${vatamount.padLeft(34)}\nVATExempSales${vatexamples.padLeft(31)}\n--------------------------------------------\n\nSold to:____________________________________\nSC/PWD ID:__________________________________\nAddress:____________________________________\nTIN:________________________________________\nBusiness Styles:____________________________\n"
-                          "\n============================================\n\t\tThis serves as your \n\t\t official receipt. \n \t THIS RECEIPT SHALL BE VALID FOR \n \t(5) YEARS FROM THE DATE OF THE \n \t PERMIT TO USE.$voidV1Counter");
+                          "\n============================================\n\t\t\tThis serves as your \n\t\t\t official receipt. \n \t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t(5) YEARS FROM THE DATE OF THE \n \t\t\t PERMIT TO USE.$voidV1Counter");
                         }
                         else{
                           _write("\n $a $voidV1CounterString \n Discount: $discountLabel \n Subtotal: Php ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol} \n Vat: Php ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n TOTAL Php ${FlutterMoneyFormatter(amount:subtotal-discountLabel).output.nonSymbol} \n "
-                          "\n\t\tThis serves as your \n\t\t\t\t official receipt. \n\t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t\t\t (5) YEARS FROM THE DATE OF THE \n \t\t\t\t PERMIT TO USE. \n ===================transacted=================== $voidV1Counter");
+                          "\n\t\t\tThis serves as your \n\t\t\t\t official receipt. \n\t\t\t THIS RECEIPT SHALL BE VALID FOR \n \t\t\t\t\t (5) YEARS FROM THE DATE OF THE \n \t\t\t\t\t PERMIT TO USE. \n ===================transacted=================== $voidV1Counter");
                           }
                         } 
                       }
@@ -2127,8 +2127,8 @@ void getWrite(String voidV1, int x)async{
             
                                  } 
                                  load="dontload";
-                          /*
-            
+                          
+             
                           SunmiAidlPrint.enterPrinterBuffer1();
                           SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2148,10 +2148,6 @@ void getWrite(String voidV1, int x)async{
                           
                           SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
-                          SunmiAidlPrint.printText(text:"  Sales Invoice:XXXXXXXX\n"); 
-                          
-                          SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
-                          SunmiAidlPrint.setFontSize(fontSize: 25);
                           SunmiAidlPrint.printText(text:"  Serial:XXXXXXXXXX\n");
                           
                           SunmiAidlPrint.setAlignment(align: TEXTALIGN.CENTER);
@@ -2165,6 +2161,10 @@ void getWrite(String voidV1, int x)async{
                           SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
                           SunmiAidlPrint.printText(text:"Date:MM/DD/YY\n");
+
+                          SunmiAidlPrint.setAlignment(align: TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"  SI:XXXXXXXX\n");
                           
                           SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
@@ -2204,26 +2204,60 @@ void getWrite(String voidV1, int x)async{
                           
                           SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
-                          SunmiAidlPrint.printText(text:"                            \tVat:${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+                          SunmiAidlPrint.printText(text:"                            \tVat ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
                           
                           SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
-                          SunmiAidlPrint.printText(text:"                            \tSubtotal:${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n"); 
+                          SunmiAidlPrint.printText(text:"                            \tSubtotal ${FlutterMoneyFormatter(amount:subtotal-(subtotal*0.12)).output.nonSymbol}\n"); 
                           
                           SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
-                          SunmiAidlPrint.printText(text:"                            \tCash:${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
+                          SunmiAidlPrint.printText(text:"                            \tCash ${FlutterMoneyFormatter(amount:double.parse(payment.text)).output.nonSymbol}\n");
                           
                           SunmiAidlPrint.setAlignment2(align: TEXTALIGN.RIGHT);
                           SunmiAidlPrint.setFontSize(fontSize: 25);
-                          SunmiAidlPrint.printText(text:"                            \tChange:${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
+                          SunmiAidlPrint.printText(text:"                            \tChange ${FlutterMoneyFormatter(amount:double.parse(payment.text)-(subtotal-discountLabel)).output.nonSymbol}\n");
                           
-                          SunmiAidlPrint.commitPrinterBuffer1();
-                          SunmiAidlPrint.exitPrinterBuffer();
+                          SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"============================================");
+
+                          SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"\tVATSales                                 ${FlutterMoneyFormatter(amount: subtotal-(subtotal*0.12)).output.nonSymbol}\n");
+
+                          SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"\tVATAmount                                 ${FlutterMoneyFormatter(amount:subtotal*0.12).output.nonSymbol}\n");
+                          SunmiAidlPrint.setAlignment(align:TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"============================================");
+                          SunmiAidlPrint.printText();
+
+                          SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"Sold to:_____________________\n");
+                          SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"SC/PWD ID:_____________________\n");
+                          SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"Address:_____________________\n");
+                          SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"TIN:_____________________\n");
+                          SunmiAidlPrint.setAlignment0(align: TEXTALIGN.LEFT);
+                          SunmiAidlPrint.setFontSize(fontSize: 25);
+                          SunmiAidlPrint.printText(text:"Business Style:_____________________\n");
+
+
+
+                          //SunmiAidlPrint.commitPrinterBuffer1();
+                          //SunmiAidlPrint.exitPrinterBuffer();
                           SunmiAidlPrint.openDrawer1234();
                           SunmiAidlPrint.cutpaper12();
-                          */
-                        //*/
+                          
+                    
                      // SunmiAidlPrint.openDrawer1();
                     //  SunmiAidlPrint.openDrawer123();
                     // SunmiAidlPrint.cutPaper();
@@ -2672,8 +2706,8 @@ void getWrite(String voidV1, int x)async{
                             ),
                             onTap: ()async {
                               Navigator.pop(context);
-                               if(await canLaunch("https://www.facebook.com/")){
-                 await launch('https://www.facebook.com/');
+                               if(await canLaunch("https://enterprise.paymaya.com/")){
+                 await launch('https://enterprise.paymaya.com/');
                    }
                    else { 
                 throw 'Could not launch ';
@@ -2695,32 +2729,25 @@ void getWrite(String voidV1, int x)async{
                                onTap: ()async{
                                  SharedPreferences prefs=await SharedPreferences.getInstance();
                                  Navigator.of(context).pop();
-                                 showDialog(
-                                  
-                                   context: context, builder: (BuildContext context){
-                                  
-                                     return FadeAnimation(1,AlertDialog(
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                       backgroundColor: Colors.white,
-                                       title: Container(
-                                         child: Center(
-                                           child: Column(
-                                             children: <Widget>[
-                                               Text("Enter Closing Amount", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                
-                                             //  Text(""),
-                                               Container(
-                                                 width: 350,
-                                                 child: TextField(
-                                                   onTap: (){
-                                                     setState(() {
-                                                         moneyHoldertext=moneyHoldertext;
-                                              closingAmountText.text="${moneyHoldertext.toString()}.00";
-                                                     });
-                                                   },
-                                                   style: TextStyle(fontSize: 25),
-                                                   onSubmitted: (value)async{
-                                                        SharedPreferences prefs=await SharedPreferences.getInstance();
+                                 AwesomeDialog(
+                                   context: context,
+                                   dialogType: DialogType.WARNING,
+                                   animType: AnimType.SCALE,
+                                   body: Center(
+                                     child: Column(
+                                       children: <Widget>[
+                                         Text("Enter Closing Amount", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                                         Container(
+                                           child: TextField(
+                                             onTap: (){
+                                               setState(() {
+                                                 moneyHoldertext= moneyHoldertext;
+                                                 closingAmountText.text="${moneyHoldertext.toString()}.00";
+                                               });
+                                             },
+                                             style: TextStyle(fontSize: 25),
+                                             onSubmitted: (value)async{
+                                              SharedPreferences prefs=await SharedPreferences.getInstance();
                                               prefs.setString("userUsed", "notUsed");
                                               prefs.setString("openingAmount", "0.0");
                                               prefs.setString("userName", "");
@@ -2729,52 +2756,25 @@ void getWrite(String voidV1, int x)async{
                                               prefs.setString("available","");
                                               prefs.setDouble("totalAmountSaveprefs",0.0);
                                              Navigator.push(context, SlideRightRoute(widget: SignIn1()));
-                                                   },
-                                                   keyboardType:TextInputType.numberWithOptions(decimal: true, signed: false),
-                                                   controller: _closingAmountText,
-                                                   textAlign: TextAlign.center,
-                                                 ),
-                                               )
-                                             ],
+                                             },
+                                             keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
                                            ),
                                          ),
-                                       ),
-                                       //content: 
-                                       actions: <Widget>[
-                                          Row(
-                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                 children: <Widget>[
-                                                   OutlineButton(
-                                                     borderSide: BorderSide(
-                                                       color: Color(0xFFFF5733),
-                                                       style: BorderStyle.solid,
-                                                       width: 2,
-                                                     ),
-                                                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
-                                                     color: Color(0xFFFF5733),
-                                                     child: new textCustom("Cancel", 25, Color(0xFFFF5733), ""),
-                                                     onPressed: (){
-                                                       Navigator.pop(context);
-                                                     },
-                                                   )
-                                                 ],
-                                               ),
-                                          Text("   "),
-            
-                                          OutlineButton(
-                                            borderSide: BorderSide(
-                                              color: Colors.blue,
-                                              style: BorderStyle.solid,
-                                              width: 3,
-                                            ),
-                                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                                           child: Text("Confirm", style: TextStyle(fontSize: 25,color: Colors.blue)),
-                                           onPressed: () async{
-                                             if(closingAmountText.text=="" || double.parse((_closingAmountText.text).replaceAll(",", ""))<=0){
-                                               transactFailed(context, 3);
-                                             }
-                                             else{
-                                                 SharedPreferences prefs=await SharedPreferences.getInstance();
+                                         
+                                       ],
+                                     ) 
+                                   ),
+                                   btnCancelColor: Color(0xFFFF5733),
+                                   btnCancelOnPress: (){
+                                     Navigator.pop(context);
+                                   },
+                                   btnOkText: "Confirm",
+                                   btnOkColor: Colors.blue,
+                                   btnOkOnPress: () async{
+                                     if(closingAmountText.text=="" || double.parse((_closingAmountText.text).replaceAll(",", ""))<=0){
+                                    transactFailed(context, 3);
+                                   } else{
+                                     SharedPreferences prefs=await SharedPreferences.getInstance();
                                               prefs.setString("userUsed", "notUsed");
                                               prefs.setString("openingAmount", "0.0");
                                               prefs.setString("userName", "");
@@ -2783,15 +2783,9 @@ void getWrite(String voidV1, int x)async{
                                               prefs.setString("available","");
                                               prefs.setDouble("totalAmountSaveprefs",0.0);
                                              Navigator.push(context, SlideRightRoute(widget: SignIn1()));
-                                             }
-                                            
-                                           },
-                                          ),
-                                      
-                                       ],
-                                     ));
-                                 }
-                                 );
+                                   }
+                                   },
+                                 ).show();
                                 // SharedPreferences prefs=await SharedPreferences.getInstance();
                                               //       prefs.setString("loginFB", "0");
                                   //runApp(MyApp1());
@@ -2804,49 +2798,30 @@ void getWrite(String voidV1, int x)async{
                               child: Image(image: AssetImage('assets/log3.png')),
                             ),      
                                onTap: (){
-                                 showDialog(
-                                   context: context, builder: (BuildContext context){
-                                     return FadeAnimation(1,AlertDialog(
-                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                       backgroundColor: Colors.white,
-                                      // title: Text("",style: TextStyle(fontWeight: FontWeight.bold)),
-                                       content: Text("Are you sure you want to logout?", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                       actions: <Widget>[
-                                         new OutlineButton(
-                                         borderSide: BorderSide(
-                                         color: Color(0xFFFF5733), //Color of the border
-                                         style: BorderStyle.solid, //Style of the border
-                                         width: 2, //width of the border
-                                       ),
-                                         color:Color(0xFFFF5733),
-                                       child: new textCustom("No",25,Color(0xFFFF5733),""),
-                                       onPressed: (){
-                
-                                       Navigator.of(context).pop();
-                                      },
-                                       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0))
-                                      ),
-                                         Text(" "),
-                                         
-                                         OutlineButton(
-                                         borderSide: BorderSide(
-                                           color: Colors.blue,
-                                           style: BorderStyle.solid,
-                                           width: 2,
-                                         ),
-                                          child: Text("Yes", style: TextStyle(fontSize: 25, color: Colors.blue)),
-                                           onPressed: () async{
-                                              SharedPreferences prefs=await SharedPreferences.getInstance();
+                                AwesomeDialog(
+                                  context: context,
+                                  animType: AnimType.SCALE,
+                                  dialogType: DialogType.WARNING,
+                                  body: Center(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text("Are you sure you want to logout?",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                      ],
+                                    ),
+                                  ),
+                                  btnCancelColor:Color(0xFFFF5733),
+                                  btnCancelText: "No",
+                                  btnCancelOnPress: (){
+                                    Navigator.pop(context);
+                                  },
+                                  btnOkColor: Colors.blue,
+                                  btnOkText: "Yes",
+                                  btnOkOnPress: ()async{
+                                    SharedPreferences prefs=await SharedPreferences.getInstance();
                                               prefs.setString("available", "avail");
                                              Navigator.push(context, SlideRightRoute(widget: SignIn1()));
-                                           },
-                                           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
-                                       ),
-                                        
-                                       ],
-                                     ));
-                                 }
-                                 );
+                                  },
+                                ).show();
                                 // SharedPreferences prefs=await SharedPreferences.getInstance();
                                               //       prefs.setString("loginFB", "0");
                                   //runApp(MyApp1());
@@ -3308,7 +3283,7 @@ void getWrite(String voidV1, int x)async{
                                  
                                   child:   IconButton(
                                     splashColor: Color(0xFFF95700),
-                                    icon: Icon(Icons.delete,color: Colors.red,size: 30),
+                                    icon: Icon(Icons.delete,color: Color(0xFFFF5733),size: 30),
                                     onPressed:(){
                                       voidItem(context, 1,index);
                                           
@@ -3426,7 +3401,7 @@ void getWrite(String voidV1, int x)async{
                                  ),
                               
                                   IconButton(
-                                    icon: Icon(Icons.delete,color: Colors.red,size: 30,),
+                                    icon: Icon(Icons.delete,color: Color(0xFFFF5733),size: 30,),
                                     onPressed:(){                          
                                         voidItem(context, 1,index);
                                     } ,

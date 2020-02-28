@@ -427,7 +427,7 @@ deleteSelected() async{
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-                width: 0, 
+                width: 0,
                 style: BorderStyle.none,
             ),
         ),
@@ -484,12 +484,12 @@ deleteSelected() async{
                   ],
                 )),
                 
-                ), 
+                ),
                 //date...
                 Container(padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[  
+                  children: <Widget>[
                    /* SizedBox(
                       height: 50,
                       child: StepperTouch(
@@ -527,7 +527,7 @@ deleteSelected() async{
 
     print(reviewdata);
 
-                 showDialog<void>(   
+                 showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return Container(
@@ -1354,7 +1354,7 @@ var headers = myString.replaceAll(RegExp('"'), '');
                      });
                   
                      final s = '${headersId.body}';
-var headerId = s.replaceAll(RegExp('"'), ''); 
+var headerId = s.replaceAll(RegExp('"'), '');
                      for(int x=0;x<reviewdata.length;x++){
                        
                             if(refundTextCtrlr[x].text=="" || refundTextCtrlr[x].text=="0"){
